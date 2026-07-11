@@ -1,0 +1,279 @@
+<Window x:Class="Tsundosika.LimbusAssistant.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Limbus Assistant"
+        Width="1180"
+        Height="720"
+        Background="{StaticResource BackgroundBrush}"
+        Foreground="{StaticResource TextBrush}">
+    <Grid Margin="10">
+        <TabControl>
+            <TabItem Header="Assistant">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="18" MaxWidth="680" HorizontalAlignment="Left">
+                        <Border Style="{StaticResource Card}" Margin="0,0,0,16">
+                            <StackPanel>
+                                <TextBlock x:Name="StatusHeadline"
+                                           FontSize="21"
+                                           FontWeight="Bold"
+                                           Foreground="{StaticResource AccentBrush}"
+                                           Text="Looking for the game"/>
+                                <TextBlock x:Name="StatusDetail"
+                                           FontSize="13"
+                                           Foreground="{StaticResource MutedBrush}"
+                                           Margin="0,6,0,0"
+                                           TextWrapping="Wrap"
+                                           Text="Start Limbus Company, or pick its window below."/>
+                            </StackPanel>
+                        </Border>
+
+                        <TextBlock Text="Which window is the game?" Style="{StaticResource SectionHeader}"/>
+                        <Grid Margin="0,0,0,16">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <ComboBox x:Name="WindowCombo"
+                                      Grid.Column="0"
+                                      FontSize="13"
+                                      VerticalContentAlignment="Center"
+                                      SelectionChanged="OnWindowSelectionChanged"/>
+                            <Button Grid.Column="1"
+                                    Content="Refresh list"
+                                    Margin="8,0,0,0"
+                                    Click="OnRefreshWindowsClick"/>
+                        </Grid>
+
+                        <Button x:Name="OverlayButton"
+                                Style="{StaticResource AccentButton}"
+                                Content="Show overlay in game  (Ctrl+F8)"
+                                HorizontalAlignment="Left"
+                                Margin="0,0,0,18"
+                                Click="OnOverlayButtonClick"/>
+
+                        <Border Style="{StaticResource Card}">
+                            <StackPanel>
+                                <TextBlock Text="How to use" Style="{StaticResource SectionHeader}"/>
+                                <TextBlock Foreground="{StaticResource TextBrush}"
+                                           FontSize="13"
+                                           TextWrapping="Wrap"
+                                           Text="1.  Start the game. The assistant finds it by itself.&#10;2.  Press Ctrl+F8 in battle to show the advisor over the game.&#10;3.  When you hover a clash, it shows your real chance to win and the damage to expect.&#10;&#10;Green means favored, yellow means even, red means risky. The overlay never clicks or plays for you. It only advises."/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <TabItem Header="Clash Calculator">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="18" MaxWidth="760" HorizontalAlignment="Left">
+                        <TextBlock Foreground="{StaticResource MutedBrush}"
+                                   FontSize="13"
+                                   TextWrapping="Wrap"
+                                   Margin="0,0,0,12"
+                                   Text="Enter both skills and get the full coin by coin result: who wins the clash, how often, and what lands afterwards."/>
+                        <Grid Margin="0,0,0,14">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="12"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Border Grid.Column="0" Style="{StaticResource Card}">
+                                <StackPanel>
+                                    <TextBlock Text="Your skill" Style="{StaticResource SectionHeader}"/>
+                                    <UniformGrid Columns="2" Rows="4">
+                                        <StackPanel Margin="0,0,6,8">
+                                            <TextBlock Text="Base power" Style="{StaticResource FieldLabel}"/>
+                                            <TextBox x:Name="AllyBaseBox" Text="4"/>
+                                        </StackPanel>
+                                        <StackPanel Margin="0,0,0,8">
+                                            <TextBlock Text="Coin power" Style="{StaticResource FieldLabel}"/>
+                                            <TextBox x:Name="AllyCoinBox" Text="7"/>
+                                        </StackPanel>
+                                        <StackPanel Margin="0,0,6,8">
+                                            <TextBlock Text="Coins" Style="{StaticResource FieldLabel}"/>
+                                            <TextBox x:Name="AllyCountBox" Text="1"/>
+                                        </StackPanel>
+                                        <StackPanel Margin="0,0,0,8">
+                                            <TextBlock Text="Sanity (-45 to 45)" Style="{StaticResource FieldLabel}"/>
+                                            <TextBox x:Name="AllySanityBox" Text="0"/>
+                                        </StackPanel>
+                                    </UniformGrid>
+                                </StackPanel>
+                            </Border>
+                            <Border Grid.Column="2" Style="{StaticResource Card}">
+                                <StackPanel>
+                                    <TextBlock Text="Enemy skill" Style="{StaticResource SectionHeader}"/>
+                                    <UniformGrid Columns="2" Rows="4">
+                                        <StackPanel Margin="0,0,6,8">
+                                            <TextBlock Text="Base power" Style="{StaticResource FieldLabel}"/>
+                                            <TextBox x:Name="EnemyBaseBox" Text="5"/>
+                                        </StackPanel>
+                                        <StackPanel Margin="0,0,0,8">
+                                            <TextBlock Text="Coin power" Style="{StaticResource FieldLabel}"/>
+                                            <TextBox x:Name="EnemyCoinBox" Text="4"/>
+                                        </StackPanel>
+                                        <StackPanel Margin="0,0,6,8">
+                                            <TextBlock Text="Coins" Style="{StaticResource FieldLabel}"/>
+                                            <TextBox x:Name="EnemyCountBox" Text="2"/>
+                                        </StackPanel>
+                                        <StackPanel Margin="0,0,0,8">
+                                            <TextBlock Text="Sanity (-45 to 45)" Style="{StaticResource FieldLabel}"/>
+                                            <TextBox x:Name="EnemySanityBox" Text="0"/>
+                                        </StackPanel>
+                                    </UniformGrid>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                        <Button Content="Calculate clash"
+                                Style="{StaticResource AccentButton}"
+                                HorizontalAlignment="Left"
+                                Margin="0,0,0,14"
+                                Click="OnCalculateClashClick"/>
+                        <Border Style="{StaticResource Card}">
+                            <StackPanel>
+                                <TextBlock x:Name="ClashResultHeadline"
+                                           FontSize="26"
+                                           FontWeight="Bold"
+                                           Text="Enter skills and press Calculate"/>
+                                <TextBlock x:Name="ClashResultDetail"
+                                           FontSize="13"
+                                           Foreground="{StaticResource MutedBrush}"
+                                           Margin="0,6,0,0"
+                                           FontFamily="Consolas"
+                                           TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <TabItem Header="Turn Advisor">
+                <Grid Margin="18">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="12"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="Your team" Style="{StaticResource SectionHeader}"/>
+                        <Grid Margin="0,0,0,6">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="60"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <ComboBox x:Name="IdentityCombo"
+                                      Grid.Column="0"
+                                      DisplayMemberPath="Name"
+                                      TextSearch.TextPath="Name"
+                                      IsEditable="True"
+                                      IsTextSearchEnabled="True"
+                                      FontSize="13"
+                                      Margin="0,0,6,0"/>
+                            <TextBox x:Name="TeamSanityBox" Grid.Column="1" Text="0" Margin="0,0,6,0" ToolTip="Sanity"/>
+                            <Button Grid.Column="2" Content="Add" Click="OnAddTeamMemberClick"/>
+                        </Grid>
+                        <ListBox x:Name="TeamList" Height="130" Margin="0,0,0,6"/>
+                        <Button Content="Remove selected"
+                                HorizontalAlignment="Left"
+                                Margin="0,0,0,16"
+                                Click="OnRemoveTeamMemberClick"/>
+
+                        <TextBlock Text="Enemy" Style="{StaticResource SectionHeader}"/>
+                        <TextBox x:Name="EnemySearchBox"
+                                 Margin="0,0,0,6"
+                                 TextChanged="OnEnemySearchChanged"
+                                 ToolTip="Type to search all enemies"/>
+                        <ListBox x:Name="EnemyList"
+                                 Height="220"
+                                 DisplayMemberPath="Name"
+                                 VirtualizingPanel.IsVirtualizing="True"
+                                 VirtualizingPanel.VirtualizationMode="Recycling"
+                                 VirtualizingPanel.ScrollUnit="Pixel"
+                                 ScrollViewer.CanContentScroll="True"/>
+                        <Button Content="Plan the turn"
+                                Style="{StaticResource AccentButton}"
+                                HorizontalAlignment="Left"
+                                Margin="0,12,0,0"
+                                Click="OnPlanTurnClick"/>
+                    </StackPanel>
+                    <Grid Grid.Column="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Border Grid.Row="0" Style="{StaticResource Card}" Margin="0,0,0,10">
+                            <StackPanel>
+                                <TextBlock x:Name="PlanHeadline"
+                                           FontSize="17"
+                                           FontWeight="Bold"
+                                           Text="Build a team, pick an enemy, press Plan the turn"/>
+                                <TextBlock x:Name="PlanSummary"
+                                           FontSize="12"
+                                           Foreground="{StaticResource MutedBrush}"
+                                           Margin="0,4,0,0"
+                                           TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </Border>
+                        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                            <ItemsControl x:Name="PlanList">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Background="{StaticResource CardBrush}"
+                                                CornerRadius="8"
+                                                Padding="12,8"
+                                                Margin="0,0,0,6">
+                                            <TextBlock Text="{Binding}"
+                                                       Foreground="{StaticResource TextBrush}"
+                                                       FontFamily="Consolas"
+                                                       FontSize="13"
+                                                       TextWrapping="Wrap"/>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </Grid>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Vision">
+                <Grid Margin="12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="0" Background="#FF0A0A10" CornerRadius="6" Padding="6">
+                        <Viewbox Stretch="Uniform">
+                            <Grid>
+                                <Image x:Name="FrameImage" SnapsToDevicePixels="True"/>
+                                <Canvas x:Name="RegionCanvas" IsHitTestVisible="False"/>
+                            </Grid>
+                        </Viewbox>
+                    </Border>
+                    <Grid Grid.Column="1" Margin="10,0,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock x:Name="ConfidenceText"
+                                   Grid.Row="0"
+                                   Foreground="{StaticResource MutedBrush}"
+                                   FontSize="12"
+                                   Margin="0,0,0,8"
+                                   Text="This view shows exactly what the assistant reads from the screen."
+                                   TextWrapping="Wrap"/>
+                        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                            <TextBlock x:Name="ReadingsText"
+                                       Foreground="{StaticResource TextBrush}"
+                                       FontFamily="Consolas"
+                                       FontSize="12"
+                                       TextWrapping="Wrap"/>
+                        </ScrollViewer>
+                    </Grid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

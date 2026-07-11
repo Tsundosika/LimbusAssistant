@@ -1,6 +1,7 @@
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
+using System.Windows.Media;
 
 namespace Tsundosika.LimbusAssistant;
 
@@ -57,16 +58,28 @@ public partial class OverlayWindow : Window
         };
         if (snapshot.LiveClash is { } clash)
         {
-            WinRateText.Text = $"{clash.WinProbability:P0} win";
-            DamageText.Text = $"~{clash.ExpectedAttackPowerOnWin:F1} attack power on win";
+            WinRateText.Text = $"{clash.WinProbability:P0} win chance";
+            var (verdict, color) = clash.WinProbability switch
+            {
+                >= 0.65 => ("FAVORED: take this clash", Color.FromRgb(0x7C, 0xE0, 0x7C)),
+                >= 0.45 => ("EVEN: could go either way", Color.FromRgb(0xF2, 0xC9, 0x4C)),
+                _ => ("RISKY: consider another skill", Color.FromRgb(0xF2, 0x6D, 0x6D)),
+            };
+            var brush = new SolidColorBrush(color);
+            WinRateText.Foreground = brush;
+            VerdictText.Foreground = brush;
+            VerdictText.Text = verdict;
+            DamageText.Text = $"expected damage if you win: ~{clash.ExpectedAttackPowerOnWin:F0}";
             SourceText.Text = clash.FromDataset
-                ? "matched skill data (full coin math)"
-                : "screen numbers only — coin power unknown";
+                ? "using full skill data"
+                : "estimate from screen numbers";
         }
         else
         {
-            WinRateText.Text = "—";
-            DamageText.Text = "no clash detected";
+            WinRateText.Text = "…";
+            WinRateText.Foreground = Brushes.White;
+            VerdictText.Text = "";
+            DamageText.Text = "hover a clash to see your odds";
             SourceText.Text = "";
         }
     }

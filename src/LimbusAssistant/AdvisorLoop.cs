@@ -14,6 +14,7 @@ public sealed class AdvisorLoop : IDisposable
     readonly CancellationTokenSource _cancellation = new();
     IFrameSource? _source;
     GameWindow? _window;
+    volatile string? _targetTitle;
     long _lastFrameHash;
     VisionReading _lastReading = VisionReading.Empty;
     LiveClashEstimate? _lastLiveClash;
@@ -25,6 +26,7 @@ public sealed class AdvisorLoop : IDisposable
     {
         _settings = settings;
         _pipeline = pipeline;
+        _targetTitle = string.IsNullOrWhiteSpace(settings.WindowTitle) ? null : settings.WindowTitle;
         _skillsById = data.Identities.SelectMany(identity => identity.Skills)
             .Concat(data.Enemies.SelectMany(enemy => enemy.Skills))
             .GroupBy(skill => skill.Id)
@@ -32,6 +34,9 @@ public sealed class AdvisorLoop : IDisposable
     }
 
     public void Start() => Task.Run(() => RunAsync(_cancellation.Token));
+
+    public void SetTargetWindow(string? title) =>
+        _targetTitle = string.IsNullOrWhiteSpace(title) ? null : title;
 
     async Task RunAsync(CancellationToken token)
     {
@@ -57,7 +62,8 @@ public sealed class AdvisorLoop : IDisposable
 
     async Task TickAsync()
     {
-        var window = GameWindowLocator.Find(_settings.WindowTitle);
+        var target = _targetTitle;
+        var window = target is null ? GameWindowLocator.FindAuto() : GameWindowLocator.FindByTitle(target);
         if (window is null)
         {
             ReleaseSource();

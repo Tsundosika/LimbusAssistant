@@ -11,7 +11,7 @@ public partial class App : Application
     AdvisorLoop? _loop;
     HotkeyManager? _hotkeys;
     OverlayWindow? _overlay;
-    DebugWindow? _debug;
+    MainWindow? _main;
     TemplateLibrary? _templates;
 
     protected override void OnStartup(StartupEventArgs e)
@@ -25,26 +25,35 @@ public partial class App : Application
         var pipeline = new VisionPipeline(new WindowsNumberReader(), _templates, calibration);
 
         _overlay = new OverlayWindow();
-        _debug = new DebugWindow(data, calibration);
-        MainWindow = _debug;
-        _debug.Show();
+        _main = new MainWindow(data, calibration);
+        _main.OverlayToggleRequested += ToggleOverlay;
+        _main.GameWindowSelected += OnGameWindowSelected;
+        MainWindow = _main;
+        _main.Show();
 
         _loop = new AdvisorLoop(_settings, data, pipeline);
         _loop.SnapshotPublished += snapshot => Dispatcher.BeginInvoke(() =>
         {
             _overlay?.UpdateSnapshot(snapshot);
-            _debug?.UpdateSnapshot(snapshot);
+            _main?.UpdateSnapshot(snapshot);
         });
         _loop.Start();
 
         RegisterHotkeys();
     }
 
+    void OnGameWindowSelected(string? title)
+    {
+        _loop?.SetTargetWindow(title);
+        _settings = (_settings ?? new AppSettings()) with { WindowTitle = title ?? "" };
+        _settings.Save();
+    }
+
     void RegisterHotkeys()
     {
         _hotkeys = new HotkeyManager();
         RegisterToggle(_settings!.ToggleOverlayHotkey, ToggleOverlay);
-        RegisterToggle(_settings.ToggleDebugHotkey, ToggleDebug);
+        RegisterToggle(_settings.ToggleDebugHotkey, ToggleMain);
     }
 
     void RegisterToggle(string hotkeyText, Action action)
@@ -70,21 +79,22 @@ public partial class App : Application
         {
             _overlay.Show();
         }
+        _main?.SetOverlayVisible(_overlay.IsVisible);
     }
 
-    void ToggleDebug()
+    void ToggleMain()
     {
-        if (_debug is null)
+        if (_main is null)
         {
             return;
         }
-        if (_debug.IsVisible)
+        if (_main.IsVisible)
         {
-            _debug.Hide();
+            _main.Hide();
         }
         else
         {
-            _debug.Show();
+            _main.Show();
         }
     }
 

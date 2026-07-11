@@ -32,7 +32,11 @@
                            Foreground="White"
                            FontSize="28"
                            FontWeight="Bold"
-                           Text="—"/>
+                           Text="…"/>
+                <TextBlock x:Name="VerdictText"
+                           Foreground="#FFB8C0D8"
+                           FontSize="14"
+                           FontWeight="Bold"/>
                 <TextBlock x:Name="DamageText"
                            Foreground="#FFB8C0D8"
                            FontSize="13"/>

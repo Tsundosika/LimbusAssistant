@@ -5,36 +5,119 @@
     "sinner": "Yi Sang",
     "defenseLevel": 58,
     "skills": [
-      {
-        "id": "lcb-yi-sang-s1",
-        "name": "Deflect",
-        "basePower": 4,
-        "coinPower": 7,
-        "coinCount": 1,
-        "sin": "Gloom",
-        "damageType": "Slash",
-        "offenseLevel": 58
-      },
-      {
-        "id": "lcb-yi-sang-s2",
-        "name": "End-stop Stab",
-        "basePower": 4,
-        "coinPower": 4,
-        "coinCount": 2,
-        "sin": "Envy",
-        "damageType": "Pierce",
-        "offenseLevel": 58
-      },
-      {
-        "id": "lcb-yi-sang-s3",
-        "name": "Enjamb",
-        "basePower": 6,
-        "coinPower": 2,
-        "coinCount": 3,
-        "sin": "Sloth",
-        "damageType": "Slash",
-        "offenseLevel": 58
-      }
+      { "id": "lcb-yi-sang-s1", "name": "Deflect", "basePower": 4, "coinPower": 7, "coinCount": 1, "sin": "Gloom", "damageType": "Slash", "offenseLevel": 58 },
+      { "id": "lcb-yi-sang-s2", "name": "End-stop Stab", "basePower": 4, "coinPower": 4, "coinCount": 2, "sin": "Envy", "damageType": "Pierce", "offenseLevel": 58 },
+      { "id": "lcb-yi-sang-s3", "name": "Enjamb", "basePower": 6, "coinPower": 2, "coinCount": 3, "sin": "Sloth", "damageType": "Slash", "offenseLevel": 58 }
+    ]
+  },
+  {
+    "id": "lcb-faust",
+    "name": "LCB Sinner Faust",
+    "sinner": "Faust",
+    "defenseLevel": 61,
+    "skills": [
+      { "id": "lcb-faust-s1", "name": "Downward Slash", "basePower": 4, "coinPower": 7, "coinCount": 1, "sin": "Pride", "damageType": "Blunt", "offenseLevel": 61 },
+      { "id": "lcb-faust-s2", "name": "Upward Slash", "basePower": 5, "coinPower": 4, "coinCount": 2, "sin": "Sloth", "damageType": "Blunt", "offenseLevel": 61 },
+      { "id": "lcb-faust-s3", "name": "Drilling Stab", "basePower": 7, "coinPower": 2, "coinCount": 2, "sin": "Gluttony", "damageType": "Pierce", "offenseLevel": 61 }
+    ]
+  },
+  {
+    "id": "lcb-don-quixote",
+    "name": "LCB Sinner Don Quixote",
+    "sinner": "Don Quixote",
+    "defenseLevel": 58,
+    "skills": [
+      { "id": "lcb-don-quixote-s1", "name": "Joust", "basePower": 4, "coinPower": 7, "coinCount": 1, "sin": "Lust", "damageType": "Pierce", "offenseLevel": 58 },
+      { "id": "lcb-don-quixote-s2", "name": "Galloping Tilt", "basePower": 4, "coinPower": 12, "coinCount": 1, "sin": "Envy", "damageType": "Pierce", "offenseLevel": 58 },
+      { "id": "lcb-don-quixote-s3", "name": "For Justice!", "basePower": 3, "coinPower": 3, "coinCount": 3, "sin": "Gluttony", "damageType": "Pierce", "offenseLevel": 58 }
+    ]
+  },
+  {
+    "id": "lcb-ryoshu",
+    "name": "LCB Sinner Ryōshū",
+    "sinner": "Ryōshū",
+    "defenseLevel": 56,
+    "skills": [
+      { "id": "lcb-ryoshu-s1", "name": "Paint", "basePower": 4, "coinPower": 7, "coinCount": 1, "sin": "Gluttony", "damageType": "Slash", "offenseLevel": 56 },
+      { "id": "lcb-ryoshu-s2", "name": "Splatter", "basePower": 4, "coinPower": 5, "coinCount": 2, "sin": "Lust", "damageType": "Slash", "offenseLevel": 56 },
+      { "id": "lcb-ryoshu-s3", "name": "Brushstroke", "basePower": 5, "coinPower": 3, "coinCount": 3, "sin": "Pride", "damageType": "Slash", "offenseLevel": 56 }
+    ]
+  },
+  {
+    "id": "lcb-meursault",
+    "name": "LCB Sinner Meursault",
+    "sinner": "Meursault",
+    "defenseLevel": 63,
+    "skills": [
+      { "id": "lcb-meursault-s1", "name": "Un, Deux", "basePower": 3, "coinPower": 4, "coinCount": 2, "sin": "Sloth", "damageType": "Blunt", "offenseLevel": 63 },
+      { "id": "lcb-meursault-s2", "name": "Nailing Fist", "basePower": 6, "coinPower": 9, "coinCount": 1, "sin": "Pride", "damageType": "Blunt", "offenseLevel": 63 },
+      { "id": "lcb-meursault-s3", "name": "Des Coups", "basePower": 4, "coinPower": 2, "coinCount": 4, "sin": "Gloom", "damageType": "Blunt", "offenseLevel": 63 }
+    ]
+  },
+  {
+    "id": "lcb-hong-lu",
+    "name": "LCB Sinner Hong Lu",
+    "sinner": "Hong Lu",
+    "defenseLevel": 58,
+    "skills": [
+      { "id": "lcb-hong-lu-s1", "name": "Downward Cleave", "basePower": 4, "coinPower": 7, "coinCount": 1, "sin": "Pride", "damageType": "Blunt", "offenseLevel": 58 },
+      { "id": "lcb-hong-lu-s2", "name": "Dual Strike", "basePower": 4, "coinPower": 4, "coinCount": 2, "sin": "Sloth", "damageType": "Slash", "offenseLevel": 58 },
+      { "id": "lcb-hong-lu-s3", "name": "Whirlwind", "basePower": 6, "coinPower": 4, "coinCount": 2, "sin": "Lust", "damageType": "Blunt", "offenseLevel": 58 }
+    ]
+  },
+  {
+    "id": "lcb-heathcliff",
+    "name": "LCB Sinner Heathcliff",
+    "sinner": "Heathcliff",
+    "defenseLevel": 60,
+    "skills": [
+      { "id": "lcb-heathcliff-s1", "name": "Bat Bash", "basePower": 4, "coinPower": 7, "coinCount": 1, "sin": "Envy", "damageType": "Blunt", "offenseLevel": 60 },
+      { "id": "lcb-heathcliff-s2", "name": "Smackdown", "basePower": 4, "coinPower": 4, "coinCount": 2, "sin": "Wrath", "damageType": "Blunt", "offenseLevel": 60 },
+      { "id": "lcb-heathcliff-s3", "name": "Upheaval", "basePower": 4, "coinPower": 8, "coinCount": 2, "sin": "Lust", "damageType": "Blunt", "offenseLevel": 60 }
+    ]
+  },
+  {
+    "id": "lcb-ishmael",
+    "name": "LCB Sinner Ishmael",
+    "sinner": "Ishmael",
+    "defenseLevel": 60,
+    "skills": [
+      { "id": "lcb-ishmael-s1", "name": "Loggerhead", "basePower": 4, "coinPower": 7, "coinCount": 1, "sin": "Wrath", "damageType": "Blunt", "offenseLevel": 60 },
+      { "id": "lcb-ishmael-s2", "name": "Slide", "basePower": 6, "coinPower": 9, "coinCount": 1, "sin": "Gluttony", "damageType": "Blunt", "offenseLevel": 60 },
+      { "id": "lcb-ishmael-s3", "name": "Shield Bash", "basePower": 8, "coinPower": 12, "coinCount": 1, "sin": "Gloom", "damageType": "Blunt", "offenseLevel": 60 }
+    ]
+  },
+  {
+    "id": "lcb-rodion",
+    "name": "LCB Sinner Rodion",
+    "sinner": "Rodion",
+    "defenseLevel": 60,
+    "skills": [
+      { "id": "lcb-rodion-s1", "name": "Strike Down", "basePower": 4, "coinPower": 7, "coinCount": 1, "sin": "Gluttony", "damageType": "Slash", "offenseLevel": 60 },
+      { "id": "lcb-rodion-s2", "name": "Axe Combo", "basePower": 4, "coinPower": 4, "coinCount": 2, "sin": "Pride", "damageType": "Slash", "offenseLevel": 60 },
+      { "id": "lcb-rodion-s3", "name": "Slay", "basePower": 4, "coinPower": 2, "coinCount": 4, "sin": "Wrath", "damageType": "Slash", "offenseLevel": 60 }
+    ]
+  },
+  {
+    "id": "lcb-sinclair",
+    "name": "LCB Sinner Sinclair",
+    "sinner": "Sinclair",
+    "defenseLevel": 56,
+    "skills": [
+      { "id": "lcb-sinclair-s1", "name": "Downward Swing", "basePower": 4, "coinPower": 7, "coinCount": 1, "sin": "Pride", "damageType": "Slash", "offenseLevel": 56 },
+      { "id": "lcb-sinclair-s2", "name": "Halberd Combo", "basePower": 4, "coinPower": 2, "coinCount": 3, "sin": "Wrath", "damageType": "Slash", "offenseLevel": 56 },
+      { "id": "lcb-sinclair-s3", "name": "Ravaging Cut", "basePower": 5, "coinPower": 3, "coinCount": 3, "sin": "Envy", "damageType": "Slash", "offenseLevel": 56 }
+    ]
+  },
+  {
+    "id": "lcb-outis",
+    "name": "LCB Sinner Outis",
+    "sinner": "Outis",
+    "defenseLevel": 56,
+    "skills": [
+      { "id": "lcb-outis-s1", "name": "Pulled Blade", "basePower": 3, "coinPower": 2, "coinCount": 3, "sin": "Sloth", "damageType": "Pierce", "offenseLevel": 56 },
+      { "id": "lcb-outis-s2", "name": "Backslash", "basePower": 5, "coinPower": 4, "coinCount": 2, "sin": "Pride", "damageType": "Slash", "offenseLevel": 56 },
+      { "id": "lcb-outis-s3", "name": "Piercing Thrust", "basePower": 7, "coinPower": 14, "coinCount": 1, "sin": "Gloom", "damageType": "Pierce", "offenseLevel": 56 }
     ]
   },
   {
@@ -43,36 +126,9 @@
     "sinner": "Gregor",
     "defenseLevel": 60,
     "skills": [
-      {
-        "id": "lcb-gregor-s1",
-        "name": "Swipe",
-        "basePower": 4,
-        "coinPower": 7,
-        "coinCount": 1,
-        "sin": "Gloom",
-        "damageType": "Slash",
-        "offenseLevel": 60
-      },
-      {
-        "id": "lcb-gregor-s2",
-        "name": "Jag",
-        "basePower": 5,
-        "coinPower": 10,
-        "coinCount": 1,
-        "sin": "Gluttony",
-        "damageType": "Pierce",
-        "offenseLevel": 60
-      },
-      {
-        "id": "lcb-gregor-s3",
-        "name": "Chop Up",
-        "basePower": 6,
-        "coinPower": 4,
-        "coinCount": 2,
-        "sin": "Sloth",
-        "damageType": "Pierce",
-        "offenseLevel": 60
-      }
+      { "id": "lcb-gregor-s1", "name": "Swipe", "basePower": 4, "coinPower": 7, "coinCount": 1, "sin": "Gloom", "damageType": "Slash", "offenseLevel": 60 },
+      { "id": "lcb-gregor-s2", "name": "Jag", "basePower": 5, "coinPower": 10, "coinCount": 1, "sin": "Gluttony", "damageType": "Pierce", "offenseLevel": 60 },
+      { "id": "lcb-gregor-s3", "name": "Chop Up", "basePower": 6, "coinPower": 4, "coinCount": 2, "sin": "Sloth", "damageType": "Pierce", "offenseLevel": 60 }
     ]
   }
 ]

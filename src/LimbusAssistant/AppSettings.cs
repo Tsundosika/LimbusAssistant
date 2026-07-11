@@ -11,7 +11,7 @@ public sealed record AppSettings
         WriteIndented = true,
     };
 
-    public string WindowTitle { get; init; } = "LimbusCompany";
+    public string WindowTitle { get; init; } = "";
 
     public string ToggleOverlayHotkey { get; init; } = "Ctrl+F8";
 
