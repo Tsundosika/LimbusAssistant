@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows10.0.22621.0</TargetFramework>
+    <TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion>
+    <RootNamespace>Tsundosika.LimbusAssistant</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LimbusAssistant.Engine\LimbusAssistant.Engine.csproj" />
+    <ProjectReference Include="..\LimbusAssistant.Vision\LimbusAssistant.Vision.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Data\**\*.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\Templates\**\*.png" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>

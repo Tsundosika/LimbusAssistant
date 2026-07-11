@@ -1,0 +1,76 @@
+[
+  {
+    "id": "fairy-long-legs",
+    "name": "Fairy-Long-Legs",
+    "defenseLevel": 51,
+    "staggerThreshold": 0,
+    "resistances": {
+      "physical": {
+        "Slash": 1.5,
+        "Pierce": 1.0,
+        "Blunt": 1.0
+      },
+      "sin": {
+        "Wrath": 1.5,
+        "Lust": 1.0,
+        "Sloth": 0.75,
+        "Gluttony": 1.5,
+        "Gloom": 1.0,
+        "Pride": 1.0,
+        "Envy": 1.5
+      }
+    },
+    "skills": [
+      {
+        "id": "fairy-long-legs-skim-wounds",
+        "name": "Skim Wounds",
+        "basePower": 6,
+        "coinPower": 7,
+        "coinCount": 1,
+        "sin": "Lust",
+        "damageType": "Blunt",
+        "offenseLevel": 64
+      },
+      {
+        "id": "fairy-long-legs-entangled-injury",
+        "name": "Entangled Injury",
+        "basePower": 5,
+        "coinPower": 8,
+        "coinCount": 1,
+        "sin": "Lust",
+        "damageType": "Pierce",
+        "offenseLevel": 64
+      },
+      {
+        "id": "fairy-long-legs-smeared-flesh",
+        "name": "Smeared Flesh",
+        "basePower": 5,
+        "coinPower": 6,
+        "coinCount": 2,
+        "sin": "Gluttony",
+        "damageType": "Blunt",
+        "offenseLevel": 64
+      },
+      {
+        "id": "fairy-long-legs-casting-shade",
+        "name": "Casting Shade",
+        "basePower": 17,
+        "coinPower": 8,
+        "coinCount": 1,
+        "sin": "Gluttony",
+        "damageType": "Blunt",
+        "offenseLevel": 64
+      },
+      {
+        "id": "fairy-long-legs-churning",
+        "name": "Churning",
+        "basePower": 5,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Pride",
+        "damageType": "Blunt",
+        "offenseLevel": 64
+      }
+    ]
+  }
+]

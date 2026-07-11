@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9F7A7580-E4F3-436D-9EE1-7CB17DC122F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LimbusAssistant.Engine", "src\LimbusAssistant.Engine\LimbusAssistant.Engine.csproj", "{042DAC05-9CA8-4D1D-A162-BA6A3532F779}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LimbusAssistant.Vision", "src\LimbusAssistant.Vision\LimbusAssistant.Vision.csproj", "{D5D31EEA-B431-4063-AA08-B7FF263773EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LimbusAssistant", "src\LimbusAssistant\LimbusAssistant.csproj", "{4CCFE659-93B3-4E66-B734-FA3EAFC1CDD2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{928169FE-2094-4FC7-BA8B-8436ED6EEF82}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LimbusAssistant.Engine.Tests", "tests\LimbusAssistant.Engine.Tests\LimbusAssistant.Engine.Tests.csproj", "{B94DF98D-5943-4E22-A1BE-5E400C9A7BCE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{042DAC05-9CA8-4D1D-A162-BA6A3532F779}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{042DAC05-9CA8-4D1D-A162-BA6A3532F779}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{042DAC05-9CA8-4D1D-A162-BA6A3532F779}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{042DAC05-9CA8-4D1D-A162-BA6A3532F779}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5D31EEA-B431-4063-AA08-B7FF263773EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5D31EEA-B431-4063-AA08-B7FF263773EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5D31EEA-B431-4063-AA08-B7FF263773EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5D31EEA-B431-4063-AA08-B7FF263773EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CCFE659-93B3-4E66-B734-FA3EAFC1CDD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CCFE659-93B3-4E66-B734-FA3EAFC1CDD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CCFE659-93B3-4E66-B734-FA3EAFC1CDD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CCFE659-93B3-4E66-B734-FA3EAFC1CDD2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B94DF98D-5943-4E22-A1BE-5E400C9A7BCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B94DF98D-5943-4E22-A1BE-5E400C9A7BCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B94DF98D-5943-4E22-A1BE-5E400C9A7BCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B94DF98D-5943-4E22-A1BE-5E400C9A7BCE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{042DAC05-9CA8-4D1D-A162-BA6A3532F779} = {9F7A7580-E4F3-436D-9EE1-7CB17DC122F5}
+		{D5D31EEA-B431-4063-AA08-B7FF263773EE} = {9F7A7580-E4F3-436D-9EE1-7CB17DC122F5}
+		{4CCFE659-93B3-4E66-B734-FA3EAFC1CDD2} = {9F7A7580-E4F3-436D-9EE1-7CB17DC122F5}
+		{B94DF98D-5943-4E22-A1BE-5E400C9A7BCE} = {928169FE-2094-4FC7-BA8B-8436ED6EEF82}
+	EndGlobalSection
+EndGlobal

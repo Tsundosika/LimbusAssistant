@@ -1,0 +1,78 @@
+[
+  {
+    "id": "lcb-yi-sang",
+    "name": "LCB Sinner Yi Sang",
+    "sinner": "Yi Sang",
+    "defenseLevel": 58,
+    "skills": [
+      {
+        "id": "lcb-yi-sang-s1",
+        "name": "Deflect",
+        "basePower": 4,
+        "coinPower": 7,
+        "coinCount": 1,
+        "sin": "Gloom",
+        "damageType": "Slash",
+        "offenseLevel": 58
+      },
+      {
+        "id": "lcb-yi-sang-s2",
+        "name": "End-stop Stab",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Envy",
+        "damageType": "Pierce",
+        "offenseLevel": 58
+      },
+      {
+        "id": "lcb-yi-sang-s3",
+        "name": "Enjamb",
+        "basePower": 6,
+        "coinPower": 2,
+        "coinCount": 3,
+        "sin": "Sloth",
+        "damageType": "Slash",
+        "offenseLevel": 58
+      }
+    ]
+  },
+  {
+    "id": "lcb-gregor",
+    "name": "LCB Sinner Gregor",
+    "sinner": "Gregor",
+    "defenseLevel": 60,
+    "skills": [
+      {
+        "id": "lcb-gregor-s1",
+        "name": "Swipe",
+        "basePower": 4,
+        "coinPower": 7,
+        "coinCount": 1,
+        "sin": "Gloom",
+        "damageType": "Slash",
+        "offenseLevel": 60
+      },
+      {
+        "id": "lcb-gregor-s2",
+        "name": "Jag",
+        "basePower": 5,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Gluttony",
+        "damageType": "Pierce",
+        "offenseLevel": 60
+      },
+      {
+        "id": "lcb-gregor-s3",
+        "name": "Chop Up",
+        "basePower": 6,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Sloth",
+        "damageType": "Pierce",
+        "offenseLevel": 60
+      }
+    ]
+  }
+]

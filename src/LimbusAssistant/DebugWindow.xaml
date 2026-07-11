@@ -1,0 +1,81 @@
+<Window x:Class="Tsundosika.LimbusAssistant.DebugWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Limbus Assistant — Debug"
+        Width="1100"
+        Height="640"
+        Background="#FF14141C">
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Border Grid.Column="0" Background="#FF0A0A10" CornerRadius="6" Padding="6">
+            <Viewbox Stretch="Uniform">
+                <Grid>
+                    <Image x:Name="FrameImage" SnapsToDevicePixels="True"/>
+                    <Canvas x:Name="RegionCanvas" IsHitTestVisible="False"/>
+                </Grid>
+            </Viewbox>
+        </Border>
+        <Grid Grid.Column="1" Margin="10,0,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock x:Name="StatusText"
+                       Grid.Row="0"
+                       Foreground="#FFD9A441"
+                       FontSize="14"
+                       FontWeight="Bold"
+                       Text="starting…"/>
+            <TextBlock x:Name="ConfidenceText"
+                       Grid.Row="1"
+                       Foreground="#FF9AA0B4"
+                       FontSize="12"
+                       Margin="0,2,0,8"/>
+            <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+                <TextBlock x:Name="ReadingsText"
+                           Foreground="#FFB8C0D8"
+                           FontFamily="Consolas"
+                           FontSize="12"
+                           TextWrapping="Wrap"/>
+            </ScrollViewer>
+            <GroupBox Grid.Row="3"
+                      Header="What-if planner"
+                      Foreground="#FFD9A441"
+                      Margin="0,8,0,4">
+                <StackPanel Margin="4">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <ComboBox x:Name="IdentityCombo" Grid.Column="0" Margin="0,0,4,0" DisplayMemberPath="Name"/>
+                        <ComboBox x:Name="EnemyCombo" Grid.Column="1" Margin="0,0,4,0" DisplayMemberPath="Name"/>
+                        <TextBox x:Name="SanityBox" Grid.Column="2" Margin="0,0,4,0" Text="0" VerticalContentAlignment="Center"/>
+                        <Button Grid.Column="3" Content="Evaluate" Padding="10,2" Click="OnEvaluateClick"/>
+                    </Grid>
+                </StackPanel>
+            </GroupBox>
+            <ScrollViewer Grid.Row="4" VerticalScrollBarVisibility="Auto">
+                <ItemsControl x:Name="SuggestionsList">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding}"
+                                       Foreground="#FFE4E8F4"
+                                       FontFamily="Consolas"
+                                       FontSize="12"
+                                       Margin="0,1"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</Window>
