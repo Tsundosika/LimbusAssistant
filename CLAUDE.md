@@ -39,6 +39,12 @@ dotnet run --project src/LimbusAssistant
 The game must be running for capture to work. The overlay defaults to hidden;
 toggle it with the configured hotkey.
 
+## Writing style
+
+- **No em dashes or en dashes.** Never use the characters — or – in UI strings,
+  README text, commit messages, comments, or any other prose in this repo. Use
+  a comma, a period, a colon, or parentheses instead.
+
 ## Code conventions
 
 - **No comments.** Write code that reads clearly on its own - good names, small
