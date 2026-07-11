@@ -6,10 +6,42 @@ public static class GameWindowLocator
 {
     public const string DefaultWindowTitle = "LimbusCompany";
 
+    public static readonly IReadOnlyList<string> KnownTitles =
+    [
+        "LimbusCompany",
+        "Limbus Company",
+        "GeForce NOW",
+    ];
+
     public static GameWindow? Find(string windowTitle = DefaultWindowTitle)
     {
         var handle = FindWindowW(null, windowTitle);
         return handle == IntPtr.Zero ? null : FromHandle(handle);
+    }
+
+    public static GameWindow? FindByTitle(string title)
+    {
+        var exact = Find(title);
+        if (exact is not null)
+        {
+            return exact;
+        }
+        var candidate = WindowEnumerator.ListCaptureCandidates()
+            .FirstOrDefault(window => window.Title.Contains(title, StringComparison.OrdinalIgnoreCase));
+        return candidate is null ? null : FromHandle(candidate.Handle);
+    }
+
+    public static GameWindow? FindAuto()
+    {
+        foreach (var title in KnownTitles)
+        {
+            var window = FindByTitle(title);
+            if (window is not null)
+            {
+                return window;
+            }
+        }
+        return null;
     }
 
     public static GameWindow? FromHandle(IntPtr handle)

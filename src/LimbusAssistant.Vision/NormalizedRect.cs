@@ -10,4 +10,10 @@ public sealed record NormalizedRect(double X, double Y, double Width, double Hei
         var height = Math.Clamp((int)Math.Round(Height * frameHeight), 1, frameHeight - y);
         return new PixelRect(x, y, width, height);
     }
+
+    public PixelRect ToPixelsWithin(PixelRect content)
+    {
+        var inner = ToPixels(content.Width, content.Height);
+        return new PixelRect(content.X + inner.X, content.Y + inner.Y, inner.Width, inner.Height);
+    }
 }

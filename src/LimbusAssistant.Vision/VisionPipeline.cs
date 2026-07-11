@@ -6,12 +6,13 @@ public sealed class VisionPipeline(INumberReader numberReader, TemplateLibrary t
 
     public async Task<VisionReading> ReadAsync(CaptureFrame frame)
     {
+        var content = LetterboxDetector.DetectContent(frame);
         var numbers = new Dictionary<string, NumberReading>();
         var icons = new Dictionary<string, IconReading>();
         using var mat = FrameMat.ToMat(frame);
         foreach (var region in Profile.Regions)
         {
-            var rect = region.Rect.ToPixels(frame.Width, frame.Height);
+            var rect = region.Rect.ToPixelsWithin(content);
             if (region.Kind == RegionKind.Number)
             {
                 numbers[region.Name] = await numberReader.ReadAsync(frame, rect);
@@ -22,6 +23,6 @@ public sealed class VisionPipeline(INumberReader numberReader, TemplateLibrary t
                 icons[region.Name] = templates.IsEmpty ? IconReading.Unknown : templates.BestMatch(gray);
             }
         }
-        return new VisionReading(numbers, icons, frame.Width, frame.Height, DateTimeOffset.Now);
+        return new VisionReading(numbers, icons, frame.Width, frame.Height, content, DateTimeOffset.Now);
     }
 }

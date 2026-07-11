@@ -5,6 +5,7 @@ public sealed record VisionReading(
     IReadOnlyDictionary<string, IconReading> Icons,
     int FrameWidth,
     int FrameHeight,
+    PixelRect ContentRect,
     DateTimeOffset Timestamp)
 {
     public static VisionReading Empty { get; } = new(
@@ -12,6 +13,7 @@ public sealed record VisionReading(
         new Dictionary<string, IconReading>(),
         0,
         0,
+        new PixelRect(0, 0, 0, 0),
         DateTimeOffset.MinValue);
 
     public NumberReading Number(string regionName) => Numbers.GetValueOrDefault(regionName, NumberReading.Unknown);
