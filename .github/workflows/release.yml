@@ -1,0 +1,67 @@
+name: Build and Release
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Read version
+        id: version
+        shell: pwsh
+        run: |
+          $xml = [xml](Get-Content Directory.Build.props)
+          $version = ($xml.Project.PropertyGroup | Where-Object { $_.Version } | Select-Object -First 1).Version
+          "version=$version" >> $env:GITHUB_OUTPUT
+
+      - name: Build
+        run: dotnet build LimbusAssistant.sln -c Release
+
+      - name: Test
+        run: dotnet test tests/LimbusAssistant.Engine.Tests -c Release --no-build
+
+      - name: Publish
+        run: dotnet publish src/LimbusAssistant -c Release -r win-x64 --self-contained true -o publish
+
+      - name: Package
+        shell: pwsh
+        run: Compress-Archive -Path publish/* -DestinationPath "LimbusAssistant-v${{ steps.version.outputs.version }}-win-x64.zip"
+
+      - name: Check for existing release
+        id: existing
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view "v${{ steps.version.outputs.version }}" --repo "$env:GITHUB_REPOSITORY" *> $null
+          if ($LASTEXITCODE -eq 0) {
+            "exists=true" >> $env:GITHUB_OUTPUT
+          } else {
+            "exists=false" >> $env:GITHUB_OUTPUT
+          }
+
+      - name: Create release
+        if: steps.existing.outputs.exists == 'false'
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: >
+          gh release create "v${{ steps.version.outputs.version }}"
+          "LimbusAssistant-v${{ steps.version.outputs.version }}-win-x64.zip"
+          --repo "$env:GITHUB_REPOSITORY"
+          --title "Limbus Assistant v${{ steps.version.outputs.version }}"
+          --generate-notes
