@@ -66,26 +66,93 @@ public sealed class WindowsNumberReader : INumberReader
             return TextReading.Empty;
         }
         using var roi = frameBgra[new Rect(clamped.X, clamped.Y, clamped.Width, clamped.Height)];
-        using var scaledGray = BuildScaledGray(roi);
-        var plain = await RecognizeTextAsync(scaledGray);
-        if (plain.Confidence >= 0.6)
-        {
-            return plain;
-        }
-        using var whiteText = new Mat();
-        Cv2.Threshold(scaledGray, whiteText, 170, 255, ThresholdTypes.Binary);
-        Cv2.BitwiseNot(whiteText, whiteText);
-        var border = Math.Max(8, whiteText.Width / 20);
-        Cv2.CopyMakeBorder(whiteText, whiteText, border, border, border, border, BorderTypes.Constant, new Scalar(255));
-        var isolated = await RecognizeTextAsync(whiteText);
-        var best = isolated.Confidence > plain.Confidence ? isolated : plain;
-        if (best.Confidence >= 0.4 && best.Text.Length > 0)
+
+        using var whiteIsolated = BuildWhiteTextOnAnyBackground(roi);
+        var best = await RecognizeTextAsync(whiteIsolated);
+        if (IsGoodText(best))
         {
             return best;
         }
+
+        using var scaledGray = BuildScaledGray(roi);
+        var plain = await RecognizeTextAsync(scaledGray);
+        best = Better(best, plain);
+        if (IsGoodText(best))
+        {
+            return best;
+        }
+
+        using var grayThreshold = new Mat();
+        Cv2.Threshold(scaledGray, grayThreshold, 170, 255, ThresholdTypes.Binary);
+        Cv2.BitwiseNot(grayThreshold, grayThreshold);
+        PadWhite(grayThreshold);
+        best = Better(best, await RecognizeTextAsync(grayThreshold));
+        if (IsGoodText(best))
+        {
+            return best;
+        }
+
+        using var deskewed = Rotate(whiteIsolated, 4);
+        best = Better(best, await RecognizeTextAsync(deskewed));
+        if (IsGoodText(best))
+        {
+            return best;
+        }
+
         using var enhanced = BuildEnhancedGrayscale(scaledGray);
-        var clahe = await RecognizeTextAsync(enhanced);
-        return clahe.Confidence > best.Confidence ? clahe : best;
+        return Better(best, await RecognizeTextAsync(enhanced));
+    }
+
+    static bool IsGoodText(TextReading reading) =>
+        reading.Confidence >= 0.6 && reading.Text.Count(char.IsLetter) >= 3;
+
+    static TextReading Better(TextReading current, TextReading candidate)
+    {
+        var currentScore = current.Text.Count(char.IsLetter) * Math.Max(0.1, current.Confidence);
+        var candidateScore = candidate.Text.Count(char.IsLetter) * Math.Max(0.1, candidate.Confidence);
+        return candidateScore > currentScore ? candidate : current;
+    }
+
+    static Mat BuildWhiteTextOnAnyBackground(Mat roi)
+    {
+        using var bgr = ToBgr(roi);
+        using var hsv = new Mat();
+        Cv2.CvtColor(bgr, hsv, ColorConversionCodes.BGR2HSV);
+        using var mask = new Mat();
+        Cv2.InRange(hsv, new Scalar(0, 0, 175), new Scalar(180, 95, 255), mask);
+        using var scaled = new Mat();
+        Cv2.Resize(
+            mask,
+            scaled,
+            new Size(mask.Width * UpscaleFactor, mask.Height * UpscaleFactor),
+            interpolation: InterpolationFlags.Cubic);
+        var binary = new Mat();
+        Cv2.Threshold(scaled, binary, 127, 255, ThresholdTypes.Binary);
+        Cv2.BitwiseNot(binary, binary);
+        PadWhite(binary);
+        return binary;
+    }
+
+    static void PadWhite(Mat image)
+    {
+        var border = Math.Max(8, image.Width / 20);
+        Cv2.CopyMakeBorder(image, image, border, border, border, border, BorderTypes.Constant, new Scalar(255));
+    }
+
+    static Mat Rotate(Mat image, double degrees)
+    {
+        var center = new Point2f(image.Width / 2f, image.Height / 2f);
+        using var rotation = Cv2.GetRotationMatrix2D(center, degrees, 1.0);
+        var rotated = new Mat();
+        Cv2.WarpAffine(
+            image,
+            rotated,
+            rotation,
+            new Size(image.Width, image.Height),
+            InterpolationFlags.Cubic,
+            BorderTypes.Constant,
+            new Scalar(255));
+        return rotated;
     }
 
     async Task<TextReading> RecognizeTextAsync(Mat gray)
