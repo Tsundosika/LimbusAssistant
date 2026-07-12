@@ -4,7 +4,7 @@ public static class ClashGate
 {
     public const double DefaultThreshold = 0.0015;
 
-    public static readonly NormalizedRect SampleBand = new(0.05, 0.02, 0.90, 0.58);
+    public static readonly NormalizedRect SampleBand = new(0.05, 0.02, 0.90, 0.86);
 
     public static double MeasureSignal(CaptureFrame frame, PixelRect content)
     {
