@@ -160,13 +160,7 @@ public sealed class VisionPipeline(INumberReader numberReader, TemplateLibrary t
         }
     }
 
-    static bool IsTooltipHeader(string text)
-    {
-        var normalized = new string(text.ToLowerInvariant().Where(char.IsAsciiLetter).ToArray());
-        return normalized is "keywords" or "keyword"
-            || normalized.StartsWith("skilleffect", StringComparison.Ordinal)
-            || normalized.EndsWith("rds", StringComparison.Ordinal) && normalized.Length <= 5;
-    }
+    static bool IsTooltipHeader(string text) => BannerWords.IsNonSkillBanner(text);
 
     static ((PixelRect Rect, TextReading Text, double Score) Left, (PixelRect Rect, TextReading Text, double Score) Right)?
         FindRibbonPair(List<(PixelRect Rect, TextReading Text, double Score)> readings)

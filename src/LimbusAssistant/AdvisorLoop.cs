@@ -274,7 +274,7 @@ public sealed class AdvisorLoop : IDisposable
     {
         UpdateAutoEnemy(reading);
         var name = reading.Text(RegionNames.DragSkillName);
-        if (name.Confidence < 0.45 || name.Text.Length < 3)
+        if (name.Confidence < 0.45 || name.Text.Length < 3 || BannerWords.IsNonSkillBanner(name.Text))
         {
             return null;
         }

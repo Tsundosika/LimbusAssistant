@@ -87,6 +87,15 @@ public sealed class WindowsNumberReader : INumberReader
             return best;
         }
 
+        using var darkText = new Mat();
+        Cv2.Threshold(scaledGray, darkText, 130, 255, ThresholdTypes.Binary);
+        PadWhite(darkText);
+        best = Better(best, await RecognizeTextAsync(darkText));
+        if (IsGoodText(best))
+        {
+            return best;
+        }
+
         using var deskewed = Rotate(whiteIsolated, 4);
         best = Better(best, await RecognizeTextAsync(deskewed));
         if (IsGoodText(best))
