@@ -9,87 +9,136 @@ namespace Tsundosika.LimbusAssistant.Vision;
 public sealed class WindowsNumberReader : INumberReader
 {
     const int UpscaleFactor = 4;
+    const double EarlyExitConfidence = 0.8;
 
     readonly OcrEngine? _engine = OcrEngine.TryCreateFromUserProfileLanguages();
+    int _ocrCalls;
 
-    public async Task<NumberReading> ReadAsync(CaptureFrame frame, PixelRect region)
+    public int ConsumeOcrCallCount() => Interlocked.Exchange(ref _ocrCalls, 0);
+
+    public async Task<NumberReading> ReadAsync(Mat frameBgra, PixelRect region)
     {
         if (_engine is null)
         {
             return NumberReading.Unknown;
         }
-        using var mat = FrameMat.ToMat(frame);
-        var clamped = ClampRegion(region, frame.Width, frame.Height);
+        var clamped = ClampRegion(region, frameBgra.Width, frameBgra.Height);
         if (clamped.Width < 2 || clamped.Height < 2)
         {
             return NumberReading.Unknown;
         }
-        using var bgrRoi = mat[new Rect(clamped.X, clamped.Y, clamped.Width, clamped.Height)];
+        using var roi = frameBgra[new Rect(clamped.X, clamped.Y, clamped.Width, clamped.Height)];
+        using var bgr = ToBgr(roi);
 
-        var best = NumberReading.Unknown;
-
-        using var colorBinary = ColorNumberReader.BuildHighContrastBinary(bgrRoi, UpscaleFactor);
-        var colorReading = await RecognizeAsync(colorBinary);
-        if (colorReading.Confidence > best.Confidence)
-        {
-            best = colorReading;
-        }
-
-        if (best.Value is not null && best.Confidence >= 0.85)
+        using var colorBinary = ColorNumberReader.BuildHighContrastBinary(bgr, UpscaleFactor);
+        var best = await RecognizeAsync(colorBinary);
+        if (best.Value is not null && best.Confidence >= EarlyExitConfidence)
         {
             return best;
         }
 
-        using var gray = new Mat();
-        Cv2.CvtColor(bgrRoi, gray, ColorConversionCodes.BGR2GRAY);
-        using var scaled = new Mat();
-        Cv2.Resize(gray, scaled,
-            new OpenCvSharp.Size(gray.Width * UpscaleFactor, gray.Height * UpscaleFactor),
-            interpolation: InterpolationFlags.Cubic);
-
-        using var otsu = BuildOtsuBinary(scaled);
+        using var scaledGray = BuildScaledGray(roi);
+        using var otsu = BuildOtsuBinary(scaledGray);
         var otsuReading = await RecognizeAsync(otsu);
         if (otsuReading.Confidence > best.Confidence)
         {
             best = otsuReading;
         }
-
-        if (best.Value is not null && best.Confidence >= 0.8)
+        if (best.Value is not null && best.Confidence >= EarlyExitConfidence)
         {
             return best;
         }
 
-        using var enhanced = BuildEnhancedGrayscale(scaled);
+        using var enhanced = BuildEnhancedGrayscale(scaledGray);
         var enhancedReading = await RecognizeAsync(enhanced);
-        if (enhancedReading.Confidence > best.Confidence)
-        {
-            best = enhancedReading;
-        }
+        return enhancedReading.Confidence > best.Confidence ? enhancedReading : best;
+    }
 
-        using var adaptive = BuildAdaptiveBinary(scaled);
-        var adaptiveReading = await RecognizeAsync(adaptive);
-        if (adaptiveReading.Confidence > best.Confidence)
+    public async Task<TextReading> ReadTextAsync(Mat frameBgra, PixelRect region)
+    {
+        if (_engine is null)
         {
-            best = adaptiveReading;
+            return TextReading.Empty;
         }
+        var clamped = ClampRegion(region, frameBgra.Width, frameBgra.Height);
+        if (clamped.Width < 2 || clamped.Height < 2)
+        {
+            return TextReading.Empty;
+        }
+        using var roi = frameBgra[new Rect(clamped.X, clamped.Y, clamped.Width, clamped.Height)];
+        using var scaledGray = BuildScaledGray(roi);
+        Interlocked.Increment(ref _ocrCalls);
+        using var bgra = new Mat();
+        Cv2.CvtColor(scaledGray, bgra, ColorConversionCodes.GRAY2BGRA);
+        var pixels = new byte[bgra.Width * bgra.Height * 4];
+        Marshal.Copy(bgra.Data, pixels, 0, pixels.Length);
+        using var bitmap = SoftwareBitmap.CreateCopyFromBuffer(
+            pixels.AsBuffer(),
+            BitmapPixelFormat.Bgra8,
+            bgra.Width,
+            bgra.Height,
+            BitmapAlphaMode.Ignore);
+        var result = await _engine.RecognizeAsync(bitmap);
+        var text = result.Text.Trim();
+        var letters = text.Count(char.IsLetter);
+        var confidence = text.Length == 0 ? 0 : Math.Min(0.95, 0.4 + 0.55 * letters / Math.Max(1, text.Length));
+        return new TextReading(text, confidence);
+    }
+
+    public async Task<IReadOnlyList<OcrStrategyResult>> ReadAllStrategiesAsync(
+        Mat frameBgra,
+        PixelRect region,
+        Action<string, Mat>? onStage = null)
+    {
+        if (_engine is null)
+        {
+            return [];
+        }
+        var clamped = ClampRegion(region, frameBgra.Width, frameBgra.Height);
+        if (clamped.Width < 2 || clamped.Height < 2)
+        {
+            return [];
+        }
+        using var roi = frameBgra[new Rect(clamped.X, clamped.Y, clamped.Width, clamped.Height)];
+        using var bgr = ToBgr(roi);
+        var results = new List<OcrStrategyResult>();
+
+        using var colorBinary = ColorNumberReader.BuildHighContrastBinary(bgr, UpscaleFactor);
+        onStage?.Invoke("color", colorBinary);
+        results.Add(new OcrStrategyResult("color", await RecognizeAsync(colorBinary)));
+
+        using var scaledGray = BuildScaledGray(roi);
+        using var otsu = BuildOtsuBinary(scaledGray);
+        onStage?.Invoke("otsu", otsu);
+        results.Add(new OcrStrategyResult("otsu", await RecognizeAsync(otsu)));
+
+        using var enhanced = BuildEnhancedGrayscale(scaledGray);
+        onStage?.Invoke("clahe", enhanced);
+        results.Add(new OcrStrategyResult("clahe", await RecognizeAsync(enhanced)));
+
+        using var adaptive = BuildAdaptiveBinary(scaledGray);
+        onStage?.Invoke("adaptive", adaptive);
+        results.Add(new OcrStrategyResult("adaptive", await RecognizeAsync(adaptive)));
 
         using var invertedColor = new Mat();
         Cv2.BitwiseNot(colorBinary, invertedColor);
-        var invertedReading = await RecognizeAsync(invertedColor);
-        if (invertedReading.Confidence > best.Confidence)
-        {
-            best = invertedReading;
-        }
+        onStage?.Invoke("inverted", invertedColor);
+        results.Add(new OcrStrategyResult("inverted", await RecognizeAsync(invertedColor)));
 
-        return best;
+        return results;
     }
 
     async Task<NumberReading> RecognizeAsync(Mat image)
     {
+        Interlocked.Increment(ref _ocrCalls);
         using var bgra = new Mat();
         if (image.Channels() == 1)
         {
             Cv2.CvtColor(image, bgra, ColorConversionCodes.GRAY2BGRA);
+        }
+        else if (image.Channels() == 3)
+        {
+            Cv2.CvtColor(image, bgra, ColorConversionCodes.BGR2BGRA);
         }
         else
         {
@@ -107,10 +156,40 @@ public sealed class WindowsNumberReader : INumberReader
         return Interpret(result.Text);
     }
 
-    static Mat BuildOtsuBinary(Mat scaled)
+    static Mat ToBgr(Mat roi)
+    {
+        var bgr = new Mat();
+        if (roi.Channels() == 4)
+        {
+            Cv2.CvtColor(roi, bgr, ColorConversionCodes.BGRA2BGR);
+        }
+        else
+        {
+            roi.CopyTo(bgr);
+        }
+        return bgr;
+    }
+
+    static Mat BuildScaledGray(Mat roi)
+    {
+        using var gray = new Mat();
+        Cv2.CvtColor(
+            roi,
+            gray,
+            roi.Channels() == 4 ? ColorConversionCodes.BGRA2GRAY : ColorConversionCodes.BGR2GRAY);
+        var scaled = new Mat();
+        Cv2.Resize(
+            gray,
+            scaled,
+            new Size(gray.Width * UpscaleFactor, gray.Height * UpscaleFactor),
+            interpolation: InterpolationFlags.Cubic);
+        return scaled;
+    }
+
+    static Mat BuildOtsuBinary(Mat scaledGray)
     {
         var binary = new Mat();
-        Cv2.Threshold(scaled, binary, 0, 255, ThresholdTypes.Binary | ThresholdTypes.Otsu);
+        Cv2.Threshold(scaledGray, binary, 0, 255, ThresholdTypes.Binary | ThresholdTypes.Otsu);
         if (Cv2.Mean(binary).Val0 < 128)
         {
             Cv2.BitwiseNot(binary, binary);
@@ -119,21 +198,21 @@ public sealed class WindowsNumberReader : INumberReader
         return binary;
     }
 
-    static Mat BuildEnhancedGrayscale(Mat scaled)
+    static Mat BuildEnhancedGrayscale(Mat scaledGray)
     {
         var enhanced = new Mat();
-        using var clahe = Cv2.CreateCLAHE(2.0, new OpenCvSharp.Size(8, 8));
-        clahe.Apply(scaled, enhanced);
-        Cv2.GaussianBlur(enhanced, enhanced, new OpenCvSharp.Size(3, 3), 0);
+        using var clahe = Cv2.CreateCLAHE(2.0, new Size(8, 8));
+        clahe.Apply(scaledGray, enhanced);
+        Cv2.GaussianBlur(enhanced, enhanced, new Size(3, 3), 0);
         AddPadding(enhanced);
         return enhanced;
     }
 
-    static Mat BuildAdaptiveBinary(Mat scaled)
+    static Mat BuildAdaptiveBinary(Mat scaledGray)
     {
         var adaptive = new Mat();
         Cv2.AdaptiveThreshold(
-            scaled,
+            scaledGray,
             adaptive,
             255,
             AdaptiveThresholdTypes.GaussianC,
@@ -144,7 +223,7 @@ public sealed class WindowsNumberReader : INumberReader
         {
             Cv2.BitwiseNot(adaptive, adaptive);
         }
-        using var kernel = Cv2.GetStructuringElement(MorphShapes.Rect, new OpenCvSharp.Size(2, 2));
+        using var kernel = Cv2.GetStructuringElement(MorphShapes.Rect, new Size(2, 2));
         Cv2.MorphologyEx(adaptive, adaptive, MorphTypes.Close, kernel);
         AddPadding(adaptive);
         return adaptive;

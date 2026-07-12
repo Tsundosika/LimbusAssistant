@@ -3,6 +3,7 @@ namespace Tsundosika.LimbusAssistant.Vision;
 public sealed record VisionReading(
     IReadOnlyDictionary<string, NumberReading> Numbers,
     IReadOnlyDictionary<string, IconReading> Icons,
+    IReadOnlyDictionary<string, TextReading> Texts,
     IReadOnlyDictionary<string, PixelRect> Regions,
     int FrameWidth,
     int FrameHeight,
@@ -12,11 +13,14 @@ public sealed record VisionReading(
     public static VisionReading Empty { get; } = new(
         new Dictionary<string, NumberReading>(),
         new Dictionary<string, IconReading>(),
+        new Dictionary<string, TextReading>(),
         new Dictionary<string, PixelRect>(),
         0,
         0,
         new PixelRect(0, 0, 0, 0),
         DateTimeOffset.MinValue);
+
+    public TextReading Text(string regionName) => Texts.GetValueOrDefault(regionName, TextReading.Empty);
 
     public NumberReading Number(string regionName) => Numbers.GetValueOrDefault(regionName, NumberReading.Unknown);
 

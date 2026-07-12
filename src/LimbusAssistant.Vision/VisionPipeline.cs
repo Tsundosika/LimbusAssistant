@@ -1,29 +1,42 @@
+using OpenCvSharp;
+
 namespace Tsundosika.LimbusAssistant.Vision;
 
 public sealed class VisionPipeline(INumberReader numberReader, TemplateLibrary templates, CalibrationProfile profile)
 {
+    const int FullSweepInterval = 15;
+    const double UsableConfidence = 0.60;
+
     readonly Dictionary<string, PixelRect> _lastResolvedRegions = new();
+    readonly Dictionary<string, (ulong Hash, PixelRect Rect, NumberReading Reading)> _numberCache = new();
+    int _ticksSinceFullSweep = FullSweepInterval;
 
     public CalibrationProfile Profile { get; } = profile;
 
-    public async Task<VisionReading> ReadAsync(CaptureFrame frame)
+    public Task<VisionReading> ReadAsync(CaptureFrame frame) =>
+        ReadAsync(frame, LetterboxDetector.DetectContent(frame));
+
+    public async Task<VisionReading> ReadAsync(CaptureFrame frame, PixelRect content)
     {
-        var content = LetterboxDetector.DetectContent(frame);
-        
         var numbers = new Dictionary<string, NumberReading>();
         var icons = new Dictionary<string, IconReading>();
+        var texts = new Dictionary<string, TextReading>();
         var regions = new Dictionary<string, PixelRect>();
-        
+        _ticksSinceFullSweep++;
         using var mat = FrameMat.ToMat(frame);
         foreach (var region in Profile.Regions)
         {
             var baseRect = region.Rect.ToPixelsWithin(content);
-
             if (region.Kind == RegionKind.Number)
             {
-                var (reading, rect) = await ReadNumberWithDynamicSearchAsync(frame, content, region.Name, baseRect);
+                var (reading, rect) = await ReadNumberAsync(frame, mat, content, region.Name, baseRect);
                 numbers[region.Name] = reading;
                 regions[region.Name] = rect;
+            }
+            else if (region.Kind == RegionKind.Text)
+            {
+                texts[region.Name] = await numberReader.ReadTextAsync(mat, baseRect);
+                regions[region.Name] = baseRect;
             }
             else
             {
@@ -37,48 +50,112 @@ public sealed class VisionPipeline(INumberReader numberReader, TemplateLibrary t
         {
             _lastResolvedRegions[name] = rect;
         }
-        return new VisionReading(numbers, icons, regions, frame.Width, frame.Height, content, DateTimeOffset.Now);
+        return new VisionReading(numbers, icons, texts, regions, frame.Width, frame.Height, content, DateTimeOffset.Now);
     }
 
-    async Task<(NumberReading Reading, PixelRect Rect)> ReadNumberWithDynamicSearchAsync(
+    async Task<(NumberReading Reading, PixelRect Rect)> ReadNumberAsync(
         CaptureFrame frame,
+        Mat mat,
         PixelRect content,
         string name,
         PixelRect baseRect)
     {
-        var initial = await numberReader.ReadAsync(frame, baseRect);
-        if (IsUsableNumber(name, initial))
+        var seed = _lastResolvedRegions.TryGetValue(name, out var previous) && Fits(previous, content)
+            ? previous
+            : baseRect;
+        var seedHash = FrameHash.SampleRegion(frame, seed);
+        if (_numberCache.TryGetValue(name, out var cached)
+            && cached.Rect == seed
+            && cached.Hash == seedHash
+            && (IsUsableNumber(name, cached.Reading) || _ticksSinceFullSweep < FullSweepInterval))
         {
-            return (initial, baseRect);
+            return (cached.Reading, seed);
         }
 
-        var candidates = BuildCandidateRects(content, name, baseRect).ToList();
-
-        var bestReading = initial;
-        var bestRect = baseRect;
-        var bestScore = ScoreNumber(name, initial, baseRect, baseRect, content);
-        foreach (var candidate in candidates)
+        var best = NumberReading.Unknown;
+        var bestRect = seed;
+        var bestScore = double.MinValue;
+        foreach (var candidate in QuickCandidates(seed, baseRect, content))
         {
-            var reading = await numberReader.ReadAsync(frame, candidate);
+            var reading = await numberReader.ReadAsync(mat, candidate);
             if (IsUsableNumber(name, reading))
             {
-                return (reading, candidate);
+                return Cache(name, seedHash, seed, candidate, reading);
             }
             var score = ScoreNumber(name, reading, candidate, baseRect, content);
             if (score > bestScore)
             {
                 bestScore = score;
-                bestReading = reading;
+                best = reading;
                 bestRect = candidate;
             }
         }
 
-        return (bestReading, bestRect);
+        if (_ticksSinceFullSweep >= FullSweepInterval)
+        {
+            _ticksSinceFullSweep = 0;
+            foreach (var candidate in SweepCandidates(baseRect, content))
+            {
+                var reading = await numberReader.ReadAsync(mat, candidate);
+                if (IsUsableNumber(name, reading))
+                {
+                    return Cache(name, seedHash, seed, candidate, reading);
+                }
+                var score = ScoreNumber(name, reading, candidate, baseRect, content);
+                if (score > bestScore)
+                {
+                    bestScore = score;
+                    best = reading;
+                    bestRect = candidate;
+                }
+            }
+        }
+
+        return Cache(name, seedHash, seed, bestRect, best);
+    }
+
+    (NumberReading, PixelRect) Cache(string name, ulong seedHash, PixelRect seed, PixelRect rect, NumberReading reading)
+    {
+        _numberCache[name] = (seedHash, seed, reading);
+        return (reading, rect);
+    }
+
+    IEnumerable<PixelRect> QuickCandidates(PixelRect seed, PixelRect baseRect, PixelRect content)
+    {
+        var seen = new HashSet<PixelRect> { seed };
+        yield return seed;
+        if (seen.Add(baseRect))
+        {
+            yield return baseRect;
+        }
+        var nudge = MoveRect(baseRect, Math.Max(2, baseRect.Width / 6), 0, content);
+        if (seen.Add(nudge))
+        {
+            yield return nudge;
+        }
+    }
+
+    IEnumerable<PixelRect> SweepCandidates(PixelRect baseRect, PixelRect content)
+    {
+        var seen = new HashSet<PixelRect> { baseRect };
+        var dxBase = Math.Max(2, baseRect.Width / 6);
+        var dyBase = Math.Max(2, baseRect.Height / 4);
+        foreach (var xOffset in new[] { 0, -1, 1 })
+        {
+            foreach (var yOffset in new[] { 0, -1, 1 })
+            {
+                var moved = MoveRect(baseRect, dxBase * xOffset, dyBase * yOffset, content);
+                if (seen.Add(moved))
+                {
+                    yield return moved;
+                }
+            }
+        }
     }
 
     static bool IsUsableNumber(string name, NumberReading reading) =>
         reading.Value is not null
-        && reading.Confidence >= 0.60
+        && reading.Confidence >= UsableConfidence
         && IsPlausibleValue(name, reading.Value.Value);
 
     static double ScoreNumber(string name, NumberReading reading, PixelRect candidate, PixelRect baseRect, PixelRect content)
@@ -88,59 +165,31 @@ public sealed class VisionPipeline(INumberReader numberReader, TemplateLibrary t
             return -10;
         }
         var rangeBonus = IsPlausibleValue(name, reading.Value.Value) ? 0.2 : -0.5;
-        var distancePenalty = PositionPenalty(candidate, baseRect, content);
-        return reading.Confidence + rangeBonus - distancePenalty;
+        return reading.Confidence + rangeBonus - PositionPenalty(candidate, baseRect, content);
     }
 
-    static bool IsPlausibleValue(string name, int value) => name switch
+    static bool IsPlausibleValue(string name, int value)
     {
-        RegionNames.AllySanity => value is >= -45 and <= 45,
-        RegionNames.AllyClashCoins or RegionNames.EnemyClashCoins => value is >= 0 and <= 30,
-        RegionNames.InGameWinRate => value is >= 0 and <= 100,
-        _ => value is >= -99 and <= 999,
-    };
+        if (name.StartsWith("hud.sanity.", StringComparison.Ordinal))
+        {
+            return value is >= -45 and <= 45;
+        }
+        return name switch
+        {
+            RegionNames.AllySanity => value is >= -45 and <= 45,
+            RegionNames.AllyClashCoins or RegionNames.EnemyClashCoins => value is >= 0 and <= 30,
+            RegionNames.InGameWinRate => value is >= 0 and <= 100,
+            _ => value is >= -99 and <= 999,
+        };
+    }
 
     PixelRect ResolveIconRect(PixelRect content, string name, PixelRect baseRect)
     {
-        if (_lastResolvedRegions.TryGetValue(name, out var previous)
-            && Fits(previous, content))
+        if (_lastResolvedRegions.TryGetValue(name, out var previous) && Fits(previous, content))
         {
             return previous;
         }
         return baseRect;
-    }
-
-    IEnumerable<PixelRect> BuildCandidateRects(PixelRect content, string name, PixelRect baseRect)
-    {
-        var seen = new HashSet<PixelRect>();
-        if (seen.Add(baseRect))
-        {
-            yield return baseRect;
-        }
-        if (_lastResolvedRegions.TryGetValue(name, out var previous)
-            && Fits(previous, content)
-            && seen.Add(previous))
-        {
-            yield return previous;
-        }
-
-        var dxBase = Math.Max(2, baseRect.Width / 6);
-        var dyBase = Math.Max(2, baseRect.Height / 4);
-        var xOffsets = new[] { 0, -1, 1 };
-        var yOffsets = new[] { 0, -1, 1 };
-        foreach (var xOffset in xOffsets)
-        {
-            foreach (var yOffset in yOffsets)
-            {
-                var dx = dxBase * xOffset;
-                var dy = dyBase * yOffset;
-                var moved = MoveRect(baseRect, dx, dy, content);
-                if (seen.Add(moved))
-                {
-                    yield return moved;
-                }
-            }
-        }
     }
 
     static PixelRect MoveRect(PixelRect rect, int dx, int dy, PixelRect bounds)

@@ -4,4 +4,5 @@ public enum RegionKind
 {
     Number,
     Icon,
+    Text,
 }
