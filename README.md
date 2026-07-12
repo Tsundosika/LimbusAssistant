@@ -145,6 +145,13 @@ third-party tool at your own discretion.
 **Does it play the game for me?**
 No, and it never will. It gives advice; you make the plays.
 
+**Why is the calculator's number different from the percentage the game shows?**
+The game's on-screen percentage only looks at the first coin toss exchange and
+ignores everything after a lost coin, so it is often far too optimistic or
+pessimistic. The calculator plays out the whole clash, coin by coin, which is
+your real chance to win. The sub-line under the result shows the first-exchange
+figure so you can match it against the game.
+
 **The overlay shows "screen numbers only"?**
 The vision system read the clash values but couldn't identify the exact skills,
 so coin power is unknown and the estimate is rougher. Add template crops of your
