@@ -1,134 +1,6966 @@
 [
   {
-    "id": "lcb-yi-sang",
-    "name": "LCB Sinner Yi Sang",
-    "sinner": "Yi Sang",
-    "defenseLevel": 58,
+    "id": "blade-lineage-mentor-meursault",
+    "name": "Blade Lineage Mentor Meursault",
+    "sinner": "Meursault",
+    "defenseLevel": 38,
     "skills": [
-      { "id": "lcb-yi-sang-s1", "name": "Deflect", "basePower": 4, "coinPower": 7, "coinCount": 1, "sin": "Gloom", "damageType": "Slash", "offenseLevel": 58 },
-      { "id": "lcb-yi-sang-s2", "name": "End-stop Stab", "basePower": 4, "coinPower": 4, "coinCount": 2, "sin": "Envy", "damageType": "Pierce", "offenseLevel": 58 },
-      { "id": "lcb-yi-sang-s3", "name": "Enjamb", "basePower": 6, "coinPower": 2, "coinCount": 3, "sin": "Sloth", "damageType": "Slash", "offenseLevel": 58 }
+      {
+        "id": "blade-lineage-mentor-meursault-skill-1",
+        "name": "Draw of the Sword",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Pride",
+        "damageType": "Slash",
+        "offenseLevel": 38
+      },
+      {
+        "id": "blade-lineage-mentor-meursault-skill-2",
+        "name": "Acupuncture",
+        "basePower": 3,
+        "coinPower": 5,
+        "coinCount": 3,
+        "sin": "Pride",
+        "damageType": "Slash",
+        "offenseLevel": 38
+      },
+      {
+        "id": "blade-lineage-mentor-meursault-skill-3",
+        "name": "Yield My Flesh",
+        "basePower": 20,
+        "coinPower": -8,
+        "coinCount": 1,
+        "sin": "Wrath",
+        "damageType": "Slash",
+        "offenseLevel": 35
+      }
     ]
   },
   {
-    "id": "lcb-faust",
-    "name": "LCB Sinner Faust",
+    "id": "blade-lineage-salsu-don-quixote",
+    "name": "Blade Lineage Salsu Don Quixote",
+    "sinner": "Don Quixote",
+    "defenseLevel": 33,
+    "skills": [
+      {
+        "id": "blade-lineage-salsu-don-quixote-skill-1",
+        "name": "Draw of the Sword",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Pride",
+        "damageType": "Pierce",
+        "offenseLevel": 36
+      },
+      {
+        "id": "blade-lineage-salsu-don-quixote-skill-2",
+        "name": "Blade Arc",
+        "basePower": 4,
+        "coinPower": 5,
+        "coinCount": 2,
+        "sin": "Envy",
+        "damageType": "Slash",
+        "offenseLevel": 36
+      },
+      {
+        "id": "blade-lineage-salsu-don-quixote-skill-3",
+        "name": "Fare Thee Well!",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 3,
+        "sin": "Sloth",
+        "damageType": "Slash",
+        "offenseLevel": 39
+      }
+    ]
+  },
+  {
+    "id": "blade-lineage-salsu-faust",
+    "name": "Blade Lineage Salsu Faust",
     "sinner": "Faust",
-    "defenseLevel": 61,
+    "defenseLevel": 33,
     "skills": [
-      { "id": "lcb-faust-s1", "name": "Downward Slash", "basePower": 4, "coinPower": 7, "coinCount": 1, "sin": "Pride", "damageType": "Blunt", "offenseLevel": 61 },
-      { "id": "lcb-faust-s2", "name": "Upward Slash", "basePower": 5, "coinPower": 4, "coinCount": 2, "sin": "Sloth", "damageType": "Blunt", "offenseLevel": 61 },
-      { "id": "lcb-faust-s3", "name": "Drilling Stab", "basePower": 7, "coinPower": 2, "coinCount": 2, "sin": "Gluttony", "damageType": "Pierce", "offenseLevel": 61 }
+      {
+        "id": "blade-lineage-salsu-faust-skill-1",
+        "name": "Moonlit Blade Dance",
+        "basePower": 3,
+        "coinPower": 2,
+        "coinCount": 3,
+        "sin": "Sloth",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      },
+      {
+        "id": "blade-lineage-salsu-faust-skill-2",
+        "name": "Acupuncture",
+        "basePower": 4,
+        "coinPower": 6,
+        "coinCount": 2,
+        "sin": "Pride",
+        "damageType": "Pierce",
+        "offenseLevel": 37
+      },
+      {
+        "id": "blade-lineage-salsu-faust-skill-3",
+        "name": "Red Plum Blossoms Scatter",
+        "basePower": 5,
+        "coinPower": 6,
+        "coinCount": 2,
+        "sin": "Gloom",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      }
     ]
   },
   {
-    "id": "lcb-don-quixote",
+    "id": "blade-lineage-salsu-outis",
+    "name": "Blade Lineage Salsu Outis",
+    "sinner": "Outis",
+    "defenseLevel": 35,
+    "skills": [
+      {
+        "id": "blade-lineage-salsu-outis-skill-1",
+        "name": "Draw of the Sword",
+        "basePower": 4,
+        "coinPower": 6,
+        "coinCount": 1,
+        "sin": "Wrath",
+        "damageType": "Slash",
+        "offenseLevel": 36
+      },
+      {
+        "id": "blade-lineage-salsu-outis-skill-2",
+        "name": "Acupuncture",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Lust",
+        "damageType": "Pierce",
+        "offenseLevel": 36
+      },
+      {
+        "id": "blade-lineage-salsu-outis-skill-3",
+        "name": "Decisive Dive",
+        "basePower": 6,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Pride",
+        "damageType": "Slash",
+        "offenseLevel": 14
+      }
+    ]
+  },
+  {
+    "id": "blade-lineage-salsu-sinclair",
+    "name": "Blade Lineage Salsu Sinclair",
+    "sinner": "Sinclair",
+    "defenseLevel": 37,
+    "skills": [
+      {
+        "id": "blade-lineage-salsu-sinclair-skill-1",
+        "name": "Slice then Stab",
+        "basePower": 5,
+        "coinPower": 2,
+        "coinCount": 2,
+        "sin": "Gluttony",
+        "damageType": "Pierce",
+        "offenseLevel": 37
+      },
+      {
+        "id": "blade-lineage-salsu-sinclair-skill-2",
+        "name": "Slash Series",
+        "basePower": 6,
+        "coinPower": 2,
+        "coinCount": 3,
+        "sin": "Wrath",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      },
+      {
+        "id": "blade-lineage-salsu-sinclair-skill-3",
+        "name": "To Claim Their Bones",
+        "basePower": 8,
+        "coinPower": 18,
+        "coinCount": 1,
+        "sin": "Pride",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      }
+    ]
+  },
+  {
+    "id": "blade-lineage-salsu-yi-sang",
+    "name": "Blade Lineage Salsu Yi Sang",
+    "sinner": "Yi Sang",
+    "defenseLevel": 31,
+    "skills": [
+      {
+        "id": "blade-lineage-salsu-yi-sang-skill-1",
+        "name": "Striker\u2019s Stance",
+        "basePower": 6,
+        "coinPower": 7,
+        "coinCount": 1,
+        "sin": "Pride",
+        "damageType": "Slash",
+        "offenseLevel": 40
+      },
+      {
+        "id": "blade-lineage-salsu-yi-sang-skill-2",
+        "name": "Heel Turn",
+        "basePower": 7,
+        "coinPower": 2,
+        "coinCount": 2,
+        "sin": "Wrath",
+        "damageType": "Slash",
+        "offenseLevel": 40
+      },
+      {
+        "id": "blade-lineage-salsu-yi-sang-skill-3",
+        "name": "Flank Thrust",
+        "basePower": 8,
+        "coinPower": 2,
+        "coinCount": 3,
+        "sin": "Envy",
+        "damageType": "Slash",
+        "offenseLevel": 40
+      }
+    ]
+  },
+  {
+    "id": "blade-of-the-house-of-spiders-ry-sh",
+    "name": "Blade of the House of Spiders Ry\u014Dsh\u016B",
+    "sinner": "Ry\u014Dsh\u016B",
+    "defenseLevel": 37,
+    "skills": [
+      {
+        "id": "blade-of-the-house-of-spiders-ry-sh-skill-1",
+        "name": "Tripleslash [\u003Cb\u003E\u4E09\u9023\u003C/b\u003E]",
+        "basePower": 3,
+        "coinPower": 3,
+        "coinCount": 3,
+        "sin": "Lust",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      },
+      {
+        "id": "blade-of-the-house-of-spiders-ry-sh-skill-2",
+        "name": "Tripleslash - Echoshear [\u003Cb\u003E\u4E09\u9023\u003C/b\u003E - \u003Cb\u003E\u6B98\u003C/b\u003E]",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Pride",
+        "damageType": "Slash",
+        "offenseLevel": 38
+      },
+      {
+        "id": "blade-of-the-house-of-spiders-ry-sh-skill-3",
+        "name": "Rend Space [\u003Cb\u003E\u7A7A\u9593\u65AC\u003C/b\u003E]",
+        "basePower": 10,
+        "coinPower": 12,
+        "coinCount": 1,
+        "sin": "Wrath",
+        "damageType": "Slash",
+        "offenseLevel": 39
+      }
+    ]
+  },
+  {
+    "id": "cinq-assoc-east-section-3-don-quixote",
+    "name": "Cinq Assoc. East Section 3 Don Quixote",
+    "sinner": "Don Quixote",
+    "defenseLevel": 37,
+    "skills": [
+      {
+        "id": "cinq-assoc-east-section-3-don-quixote-skill-1",
+        "name": "Fa Jin",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Gluttony",
+        "damageType": "Pierce",
+        "offenseLevel": 37
+      },
+      {
+        "id": "cinq-assoc-east-section-3-don-quixote-skill-2",
+        "name": "Virescent Flame Palm",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Wrath",
+        "damageType": "Pierce",
+        "offenseLevel": 37
+      },
+      {
+        "id": "cinq-assoc-east-section-3-don-quixote-skill-3",
+        "name": "Prithee, let this be an enlightening bout",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 4,
+        "sin": "Pride",
+        "damageType": "Pierce",
+        "offenseLevel": 38
+      }
+    ]
+  },
+  {
+    "id": "cinq-assoc-south-section-4-director-sinclair",
+    "name": "Cinq Assoc. South Section 4 Director Sinclair",
+    "sinner": "Sinclair",
+    "defenseLevel": 35,
+    "skills": [
+      {
+        "id": "cinq-assoc-south-section-4-director-sinclair-skill-1",
+        "name": "Remise",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Gluttony",
+        "damageType": "Pierce",
+        "offenseLevel": 37
+      },
+      {
+        "id": "cinq-assoc-south-section-4-director-sinclair-skill-2",
+        "name": "Engagement",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Pride",
+        "damageType": "Pierce",
+        "offenseLevel": 37
+      },
+      {
+        "id": "cinq-assoc-south-section-4-director-sinclair-skill-3",
+        "name": "Contre Attaque",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Lust",
+        "damageType": "Pierce",
+        "offenseLevel": 37
+      }
+    ]
+  },
+  {
+    "id": "cinq-assoc-south-section-4-outis",
+    "name": "Cinq Assoc. South Section 4 Outis",
+    "sinner": "Outis",
+    "defenseLevel": 38,
+    "skills": [
+      {
+        "id": "cinq-assoc-south-section-4-outis-skill-1",
+        "name": "Marche",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Pride",
+        "damageType": "Pierce",
+        "offenseLevel": 34
+      },
+      {
+        "id": "cinq-assoc-south-section-4-outis-skill-2",
+        "name": "Punition",
+        "basePower": 4,
+        "coinPower": 5,
+        "coinCount": 2,
+        "sin": "Gloom",
+        "damageType": "Pierce",
+        "offenseLevel": 34
+      },
+      {
+        "id": "cinq-assoc-south-section-4-outis-skill-3",
+        "name": "Balestra Fente",
+        "basePower": 8,
+        "coinPower": 14,
+        "coinCount": 1,
+        "sin": "Lust",
+        "damageType": "Pierce",
+        "offenseLevel": 34
+      }
+    ]
+  },
+  {
+    "id": "cinq-assoc-south-section-5-director-don-quixote",
+    "name": "Cinq Assoc. South Section 5 Director Don Quixote",
+    "sinner": "Don Quixote",
+    "defenseLevel": 33,
+    "skills": [
+      {
+        "id": "cinq-assoc-south-section-5-director-don-quixote-skill-1",
+        "name": "Remise",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 2,
+        "sin": "Lust",
+        "damageType": "Pierce",
+        "offenseLevel": 39
+      },
+      {
+        "id": "cinq-assoc-south-section-5-director-don-quixote-skill-2",
+        "name": "Fl\u00E8che",
+        "basePower": 5,
+        "coinPower": 5,
+        "coinCount": 2,
+        "sin": "Gloom",
+        "damageType": "Pierce",
+        "offenseLevel": 39
+      },
+      {
+        "id": "cinq-assoc-south-section-5-director-don-quixote-skill-3",
+        "name": "Salut!",
+        "basePower": 6,
+        "coinPower": 6,
+        "coinCount": 2,
+        "sin": "Pride",
+        "damageType": "Pierce",
+        "offenseLevel": 39
+      }
+    ]
+  },
+  {
+    "id": "cinq-assoc-west-section-3-meursault",
+    "name": "Cinq Assoc. West Section 3 Meursault",
+    "sinner": "Meursault",
+    "defenseLevel": 37,
+    "skills": [
+      {
+        "id": "cinq-assoc-west-section-3-meursault-skill-1",
+        "name": "Allez",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Pride",
+        "damageType": "Pierce",
+        "offenseLevel": 37
+      },
+      {
+        "id": "cinq-assoc-west-section-3-meursault-skill-2",
+        "name": "Fente",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Gluttony",
+        "damageType": "Pierce",
+        "offenseLevel": 37
+      },
+      {
+        "id": "cinq-assoc-west-section-3-meursault-skill-3",
+        "name": "Salut",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Gloom",
+        "damageType": "Pierce",
+        "offenseLevel": 38
+      }
+    ]
+  },
+  {
+    "id": "dawn-office-fixer-faust",
+    "name": "Dawn Office Fixer Faust",
+    "sinner": "Faust",
+    "defenseLevel": 35,
+    "skills": [
+      {
+        "id": "dawn-office-fixer-faust-skill-1",
+        "name": "Flash of Sunup",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Pride",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      },
+      {
+        "id": "dawn-office-fixer-faust-skill-2",
+        "name": "Butterfly Slash",
+        "basePower": 4,
+        "coinPower": 6,
+        "coinCount": 2,
+        "sin": "Sloth",
+        "damageType": "Slash",
+        "offenseLevel": 38
+      },
+      {
+        "id": "dawn-office-fixer-faust-skill-3",
+        "name": "Eject",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Wrath",
+        "damageType": "Slash",
+        "offenseLevel": 39
+      }
+    ]
+  },
+  {
+    "id": "dawn-office-fixer-sinclair",
+    "name": "Dawn Office Fixer Sinclair",
+    "sinner": "Sinclair",
+    "defenseLevel": 35,
+    "skills": [
+      {
+        "id": "dawn-office-fixer-sinclair-skill-1",
+        "name": "Fierce Charge",
+        "basePower": 3,
+        "coinPower": 7,
+        "coinCount": 1,
+        "sin": "Gloom",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      },
+      {
+        "id": "dawn-office-fixer-sinclair-skill-2",
+        "name": "Sunset Blade",
+        "basePower": 5,
+        "coinPower": 3,
+        "coinCount": 3,
+        "sin": "Envy",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      },
+      {
+        "id": "dawn-office-fixer-sinclair-skill-3",
+        "name": "Stigmatize",
+        "basePower": 4,
+        "coinPower": 7,
+        "coinCount": 2,
+        "sin": "Wrath",
+        "damageType": "Pierce",
+        "offenseLevel": 38
+      }
+    ]
+  },
+  {
+    "id": "dawn-office-rep-gregor",
+    "name": "Dawn Office Rep Gregor",
+    "sinner": "Gregor",
+    "defenseLevel": 39,
+    "skills": [
+      {
+        "id": "dawn-office-rep-gregor-skill-1",
+        "name": "Flash of Sunup",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Sloth",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      },
+      {
+        "id": "dawn-office-rep-gregor-skill-2",
+        "name": "Sunset Blade",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Pride",
+        "damageType": "Slash",
+        "offenseLevel": 38
+      },
+      {
+        "id": "dawn-office-rep-gregor-skill-3",
+        "name": "Dawnsplitter",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 4,
+        "sin": "Wrath",
+        "damageType": "Slash",
+        "offenseLevel": 39
+      }
+    ]
+  },
+  {
+    "id": "dead-rabbits-boss-meursault",
+    "name": "Dead Rabbits Boss Meursault",
+    "sinner": "Meursault",
+    "defenseLevel": 37,
+    "skills": [
+      {
+        "id": "dead-rabbits-boss-meursault-skill-1",
+        "name": "Bat Strike",
+        "basePower": 5,
+        "coinPower": 6,
+        "coinCount": 1,
+        "sin": "Lust",
+        "damageType": "Blunt",
+        "offenseLevel": 36
+      },
+      {
+        "id": "dead-rabbits-boss-meursault-skill-2",
+        "name": "Smackdown",
+        "basePower": 4,
+        "coinPower": 5,
+        "coinCount": 2,
+        "sin": "Wrath",
+        "damageType": "Pierce",
+        "offenseLevel": 36
+      },
+      {
+        "id": "dead-rabbits-boss-meursault-skill-3",
+        "name": "Relentless",
+        "basePower": 4,
+        "coinPower": 2,
+        "coinCount": 4,
+        "sin": "Gluttony",
+        "damageType": "Blunt",
+        "offenseLevel": 38
+      }
+    ]
+  },
+  {
+    "id": "devyat-assoc-north-section-3-rodion",
+    "name": "Devyat\u0027 Assoc. North Section 3 Rodion",
+    "sinner": "Rodion",
+    "defenseLevel": 37,
+    "skills": [
+      {
+        "id": "devyat-assoc-north-section-3-rodion-skill-1",
+        "name": "Courier Trunk - Decay Knife",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Lust",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      },
+      {
+        "id": "devyat-assoc-north-section-3-rodion-skill-2",
+        "name": "Courier Trunk - Gadget Reveal",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Wrath",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      },
+      {
+        "id": "devyat-assoc-north-section-3-rodion-skill-3",
+        "name": "I Trust Ya, Polu!",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Gluttony",
+        "damageType": "Slash",
+        "offenseLevel": 39
+      }
+    ]
+  },
+  {
+    "id": "devyat-assoc-north-section-3-sinclair",
+    "name": "Devyat\u0027 Assoc. North Section 3 Sinclair",
+    "sinner": "Sinclair",
+    "defenseLevel": 33,
+    "skills": [
+      {
+        "id": "devyat-assoc-north-section-3-sinclair-skill-1",
+        "name": "Courier Trunk - Decay Hammer",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Lust",
+        "damageType": "Blunt",
+        "offenseLevel": 37
+      },
+      {
+        "id": "devyat-assoc-north-section-3-sinclair-skill-2",
+        "name": "Courier Trunk - Demolition Gadget",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Gluttony",
+        "damageType": "Blunt",
+        "offenseLevel": 38
+      },
+      {
+        "id": "devyat-assoc-north-section-3-sinclair-skill-3",
+        "name": "Poludnitsa\u2026 I trust you!",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Wrath",
+        "damageType": "Blunt",
+        "offenseLevel": 40
+      }
+    ]
+  },
+  {
+    "id": "dieci-assoc-south-section-4-director-meursault",
+    "name": "Dieci Assoc. South Section 4 Director Meursault",
+    "sinner": "Meursault",
+    "defenseLevel": 37,
+    "skills": [
+      {
+        "id": "dieci-assoc-south-section-4-director-meursault-skill-1",
+        "name": "Studious Dedication",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Gluttony",
+        "damageType": "Blunt",
+        "offenseLevel": 35
+      },
+      {
+        "id": "dieci-assoc-south-section-4-director-meursault-skill-2",
+        "name": "Moment of Erudition",
+        "basePower": 4,
+        "coinPower": 6,
+        "coinCount": 2,
+        "sin": "Sloth",
+        "damageType": "Pierce",
+        "offenseLevel": 36
+      },
+      {
+        "id": "dieci-assoc-south-section-4-director-meursault-skill-3",
+        "name": "Scorch Knowledge",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Gloom",
+        "damageType": "Blunt",
+        "offenseLevel": 38
+      }
+    ]
+  },
+  {
+    "id": "dieci-assoc-south-section-4-hong-lu",
+    "name": "Dieci Assoc. South Section 4 Hong Lu",
+    "sinner": "Hong Lu",
+    "defenseLevel": 34,
+    "skills": [
+      {
+        "id": "dieci-assoc-south-section-4-hong-lu-skill-1",
+        "name": "Expend Knowledge",
+        "basePower": 5,
+        "coinPower": 5,
+        "coinCount": 1,
+        "sin": "Wrath",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      },
+      {
+        "id": "dieci-assoc-south-section-4-hong-lu-skill-2",
+        "name": "Unveil",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Gloom",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      },
+      {
+        "id": "dieci-assoc-south-section-4-hong-lu-skill-3",
+        "name": "Cyclical Knowledge",
+        "basePower": 5,
+        "coinPower": 3,
+        "coinCount": 3,
+        "sin": "Sloth",
+        "damageType": "Blunt",
+        "offenseLevel": 39
+      }
+    ]
+  },
+  {
+    "id": "dieci-assoc-south-section-4-rodion",
+    "name": "Dieci Assoc. South Section 4 Rodion",
+    "sinner": "Rodion",
+    "defenseLevel": 40,
+    "skills": [
+      {
+        "id": "dieci-assoc-south-section-4-rodion-skill-1",
+        "name": "Illuminate Thy Vacuity",
+        "basePower": 3,
+        "coinPower": 2,
+        "coinCount": 3,
+        "sin": "Gloom",
+        "damageType": "Blunt",
+        "offenseLevel": 34
+      },
+      {
+        "id": "dieci-assoc-south-section-4-rodion-skill-2",
+        "name": "Weight of Knowledge",
+        "basePower": 3,
+        "coinPower": 3,
+        "coinCount": 4,
+        "sin": "Envy",
+        "damageType": "Blunt",
+        "offenseLevel": 36
+      },
+      {
+        "id": "dieci-assoc-south-section-4-rodion-skill-3",
+        "name": "Excruciating Study",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 4,
+        "sin": "Sloth",
+        "damageType": "Blunt",
+        "offenseLevel": 37
+      }
+    ]
+  },
+  {
+    "id": "dieci-assoc-south-section-4-yi-sang",
+    "name": "Dieci Assoc. South Section 4 Yi Sang",
+    "sinner": "Yi Sang",
+    "defenseLevel": 38,
+    "skills": [
+      {
+        "id": "dieci-assoc-south-section-4-yi-sang-skill-1",
+        "name": "Expend Knowledge",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Gluttony",
+        "damageType": "Pierce",
+        "offenseLevel": 34
+      },
+      {
+        "id": "dieci-assoc-south-section-4-yi-sang-skill-2",
+        "name": "Seal Shut",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 3,
+        "sin": "Lust",
+        "damageType": "Blunt",
+        "offenseLevel": 34
+      },
+      {
+        "id": "dieci-assoc-south-section-4-yi-sang-skill-3",
+        "name": "Grace of Knowledge",
+        "basePower": 4,
+        "coinPower": 2,
+        "coinCount": 4,
+        "sin": "Sloth",
+        "damageType": "Blunt",
+        "offenseLevel": 38
+      }
+    ]
+  },
+  {
+    "id": "district-20-yurodivy-hong-lu",
+    "name": "District 20 Yurodivy Hong Lu",
+    "sinner": "Hong Lu",
+    "defenseLevel": 35,
+    "skills": [
+      {
+        "id": "district-20-yurodivy-hong-lu-skill-1",
+        "name": "Deduction Start",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Gloom",
+        "damageType": "Blunt",
+        "offenseLevel": 37
+      },
+      {
+        "id": "district-20-yurodivy-hong-lu-skill-2",
+        "name": "Morph Cane Technique",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Sloth",
+        "damageType": "Pierce",
+        "offenseLevel": 37
+      },
+      {
+        "id": "district-20-yurodivy-hong-lu-skill-3",
+        "name": "You\u0027re the Culprit!",
+        "basePower": 3,
+        "coinPower": 3,
+        "coinCount": 4,
+        "sin": "Gluttony",
+        "damageType": "Pierce",
+        "offenseLevel": 39
+      }
+    ]
+  },
+  {
+    "id": "district-20-yurodivy-ry-sh",
+    "name": "District 20 Yurodivy Ry\u014Dsh\u016B",
+    "sinner": "Ry\u014Dsh\u016B",
+    "defenseLevel": 35,
+    "skills": [
+      {
+        "id": "district-20-yurodivy-ry-sh-skill-1",
+        "name": "Got a Screw Loose?",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Lust",
+        "damageType": "Blunt",
+        "offenseLevel": 36
+      },
+      {
+        "id": "district-20-yurodivy-ry-sh-skill-2",
+        "name": "Compression Wind-up Spanner",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 3,
+        "sin": "Sloth",
+        "damageType": "Pierce",
+        "offenseLevel": 36
+      },
+      {
+        "id": "district-20-yurodivy-ry-sh-skill-3",
+        "name": "Percussive Maintenance",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 3,
+        "sin": "Gluttony",
+        "damageType": "Pierce",
+        "offenseLevel": 36
+      }
+    ]
+  },
+  {
+    "id": "drifting-blade-of-hongyuan-ry-sh",
+    "name": "Drifting Blade of Hongyuan Ry\u014Dsh\u016B",
+    "sinner": "Ry\u014Dsh\u016B",
+    "defenseLevel": 37,
+    "skills": [
+      {
+        "id": "drifting-blade-of-hongyuan-ry-sh-skill-1",
+        "name": "Hey, Back Off",
+        "basePower": 6,
+        "coinPower": 7,
+        "coinCount": 1,
+        "sin": "Gloom",
+        "damageType": "Pierce",
+        "offenseLevel": 36
+      },
+      {
+        "id": "drifting-blade-of-hongyuan-ry-sh-skill-2",
+        "name": "Engraved in Flesh and Bone [\u0027\u0027\u0027\u9298\u808C\u93E4\u9AA8\u0027\u0027\u0027]",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Gluttony",
+        "damageType": "Pierce",
+        "offenseLevel": 37
+      },
+      {
+        "id": "drifting-blade-of-hongyuan-ry-sh-skill-3",
+        "name": "Aiding Strike [\u0027\u0027\u0027\u52A0\u65A5\u6211\u63F4\u0027\u0027\u0027]",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 4,
+        "sin": "Pride",
+        "damageType": "Pierce",
+        "offenseLevel": 40
+      }
+    ]
+  },
+  {
+    "id": "edgar-family-butler-ishmael",
+    "name": "Edgar Family Butler Ishmael",
+    "sinner": "Ishmael",
+    "defenseLevel": 34,
+    "skills": [
+      {
+        "id": "edgar-family-butler-ishmael-skill-1",
+        "name": "Sweeping Redirection",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Sloth",
+        "damageType": "Blunt",
+        "offenseLevel": 36
+      },
+      {
+        "id": "edgar-family-butler-ishmael-skill-2",
+        "name": "Housekeeping",
+        "basePower": 4,
+        "coinPower": 5,
+        "coinCount": 2,
+        "sin": "Gluttony",
+        "damageType": "Slash",
+        "offenseLevel": 36
+      },
+      {
+        "id": "edgar-family-butler-ishmael-skill-3",
+        "name": "Restraining Technique",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 3,
+        "sin": "Gloom",
+        "damageType": "Slash",
+        "offenseLevel": 38
+      }
+    ]
+  },
+  {
+    "id": "edgar-family-chief-butler-ry-sh",
+    "name": "Edgar Family Chief Butler Ry\u014Dsh\u016B",
+    "sinner": "Ry\u014Dsh\u016B",
+    "defenseLevel": 33,
+    "skills": [
+      {
+        "id": "edgar-family-chief-butler-ry-sh-skill-1",
+        "name": "Receiving Arts 1: The Hunt",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Lust",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      },
+      {
+        "id": "edgar-family-chief-butler-ry-sh-skill-2",
+        "name": "Receiving Arts 7: Capture",
+        "basePower": 4,
+        "coinPower": 6,
+        "coinCount": 2,
+        "sin": "Pride",
+        "damageType": "Slash",
+        "offenseLevel": 38
+      },
+      {
+        "id": "edgar-family-chief-butler-ry-sh-skill-3",
+        "name": "Receiving Arts 2: S.Y.N.C.",
+        "basePower": 4,
+        "coinPower": 7,
+        "coinCount": 2,
+        "sin": "Wrath",
+        "damageType": "Slash",
+        "offenseLevel": 40
+      }
+    ]
+  },
+  {
+    "id": "edgar-family-heir-gregor",
+    "name": "Edgar Family Heir Gregor",
+    "sinner": "Gregor",
+    "defenseLevel": 31,
+    "skills": [
+      {
+        "id": "edgar-family-heir-gregor-skill-1",
+        "name": "Sabre Slash",
+        "basePower": 5,
+        "coinPower": 6,
+        "coinCount": 1,
+        "sin": "Envy",
+        "damageType": "Slash",
+        "offenseLevel": 40
+      },
+      {
+        "id": "edgar-family-heir-gregor-skill-2",
+        "name": "Remise",
+        "basePower": 4,
+        "coinPower": 6,
+        "coinCount": 2,
+        "sin": "Gloom",
+        "damageType": "Slash",
+        "offenseLevel": 40
+      },
+      {
+        "id": "edgar-family-heir-gregor-skill-3",
+        "name": "Nightmare Hunt",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 4,
+        "sin": "Lust",
+        "damageType": "Slash",
+        "offenseLevel": 40
+      }
+    ]
+  },
+  {
+    "id": "effloresced-e-g-o-spicebush-yi-sang",
+    "name": "Effloresced E.G.O::Spicebush Yi Sang",
+    "sinner": "Yi Sang",
+    "defenseLevel": 31,
+    "skills": [
+      {
+        "id": "effloresced-e-g-o-spicebush-yi-sang-skill-1",
+        "name": "Sprouting Bud",
+        "basePower": 3,
+        "coinPower": 2,
+        "coinCount": 3,
+        "sin": "Gluttony",
+        "damageType": "Pierce",
+        "offenseLevel": 39
+      },
+      {
+        "id": "effloresced-e-g-o-spicebush-yi-sang-skill-2",
+        "name": "Moment\u0027s Floral Breeze",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Sloth",
+        "damageType": "Blunt",
+        "offenseLevel": 38
+      },
+      {
+        "id": "effloresced-e-g-o-spicebush-yi-sang-skill-3",
+        "name": "Bloodsteeped Scent",
+        "basePower": 6,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Pride",
+        "damageType": "Pierce",
+        "offenseLevel": 40
+      }
+    ]
+  },
+  {
+    "id": "family-hierarch-candidate-ishmael",
+    "name": "Family Hierarch Candidate Ishmael",
+    "sinner": "Ishmael",
+    "defenseLevel": 35,
+    "skills": [
+      {
+        "id": "family-hierarch-candidate-ishmael-skill-1",
+        "name": "Crimson Strike",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Gloom",
+        "damageType": "Blunt",
+        "offenseLevel": 36
+      },
+      {
+        "id": "family-hierarch-candidate-ishmael-skill-2",
+        "name": "Crimson Phoenix",
+        "basePower": 2,
+        "coinPower": 3,
+        "coinCount": 4,
+        "sin": "Gluttony",
+        "damageType": "Blunt",
+        "offenseLevel": 38
+      },
+      {
+        "id": "family-hierarch-candidate-ishmael-skill-3",
+        "name": "Crimson Spring",
+        "basePower": 8,
+        "coinPower": 14,
+        "coinCount": 1,
+        "sin": "Envy",
+        "damageType": "Slash",
+        "offenseLevel": 40
+      }
+    ]
+  },
+  {
+    "id": "fanghunt-office-fixer-hong-lu",
+    "name": "Fanghunt Office Fixer Hong Lu",
+    "sinner": "Hong Lu",
+    "defenseLevel": 35,
+    "skills": [
+      {
+        "id": "fanghunt-office-fixer-hong-lu-skill-1",
+        "name": "Slam",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Gluttony",
+        "damageType": "Blunt",
+        "offenseLevel": 36
+      },
+      {
+        "id": "fanghunt-office-fixer-hong-lu-skill-2",
+        "name": "Bonecrusher",
+        "basePower": 4,
+        "coinPower": 5,
+        "coinCount": 2,
+        "sin": "Pride",
+        "damageType": "Blunt",
+        "offenseLevel": 37
+      },
+      {
+        "id": "fanghunt-office-fixer-hong-lu-skill-3",
+        "name": "A Cheerful Hunt\u0027s End",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 3,
+        "sin": "Wrath",
+        "damageType": "Blunt",
+        "offenseLevel": 38
+      }
+    ]
+  },
+  {
+    "id": "firefist-office-survivor-gregor",
+    "name": "Firefist Office Survivor Gregor",
+    "sinner": "Gregor",
+    "defenseLevel": 38,
+    "skills": [
+      {
+        "id": "firefist-office-survivor-gregor-skill-1",
+        "name": "Flamethrow",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Lust",
+        "damageType": "Blunt",
+        "offenseLevel": 37
+      },
+      {
+        "id": "firefist-office-survivor-gregor-skill-2",
+        "name": "I\u0027ll burn away every last drop of your filthy blood",
+        "basePower": 4,
+        "coinPower": 6,
+        "coinCount": 2,
+        "sin": "Wrath",
+        "damageType": "Blunt",
+        "offenseLevel": 38
+      },
+      {
+        "id": "firefist-office-survivor-gregor-skill-3",
+        "name": "Firefist",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Wrath",
+        "damageType": "Blunt",
+        "offenseLevel": 40
+      }
+    ]
+  },
+  {
+    "id": "full-stop-office-fixer-heathcliff",
+    "name": "Full-Stop Office Fixer Heathcliff",
+    "sinner": "Heathcliff",
+    "defenseLevel": 34,
+    "skills": [
+      {
+        "id": "full-stop-office-fixer-heathcliff-skill-1",
+        "name": "Return Fire",
+        "basePower": 5,
+        "coinPower": 3,
+        "coinCount": 3,
+        "sin": "Gloom",
+        "damageType": "Pierce",
+        "offenseLevel": 36
+      },
+      {
+        "id": "full-stop-office-fixer-heathcliff-skill-2",
+        "name": "Headshot",
+        "basePower": 10,
+        "coinPower": 12,
+        "coinCount": 1,
+        "sin": "Envy",
+        "damageType": "Pierce",
+        "offenseLevel": 37
+      },
+      {
+        "id": "full-stop-office-fixer-heathcliff-skill-3",
+        "name": "Goin\u0027 for the Bullseye",
+        "basePower": 12,
+        "coinPower": 14,
+        "coinCount": 1,
+        "sin": "Pride",
+        "damageType": "Pierce",
+        "offenseLevel": 39
+      }
+    ]
+  },
+  {
+    "id": "full-stop-office-rep-hong-lu",
+    "name": "Full-Stop Office Rep Hong Lu",
+    "sinner": "Hong Lu",
+    "defenseLevel": 35,
+    "skills": [
+      {
+        "id": "full-stop-office-rep-hong-lu-skill-1",
+        "name": "Take the Shot",
+        "basePower": 3,
+        "coinPower": 3,
+        "coinCount": 3,
+        "sin": "Sloth",
+        "damageType": "Pierce",
+        "offenseLevel": 36
+      },
+      {
+        "id": "full-stop-office-rep-hong-lu-skill-2",
+        "name": "Target Marked",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Gloom",
+        "damageType": "Pierce",
+        "offenseLevel": 37
+      },
+      {
+        "id": "full-stop-office-rep-hong-lu-skill-3",
+        "name": "Full-Stop to Life",
+        "basePower": 7,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Pride",
+        "damageType": "Pierce",
+        "offenseLevel": 38
+      }
+    ]
+  },
+  {
+    "id": "g-corp-head-manager-outis",
+    "name": "G Corp. Head Manager Outis",
+    "sinner": "Outis",
+    "defenseLevel": 37,
+    "skills": [
+      {
+        "id": "g-corp-head-manager-outis-skill-1",
+        "name": "Order",
+        "basePower": 4,
+        "coinPower": 6,
+        "coinCount": 1,
+        "sin": "Sloth",
+        "damageType": "Pierce",
+        "offenseLevel": 34
+      },
+      {
+        "id": "g-corp-head-manager-outis-skill-2",
+        "name": "Onslaught Command",
+        "basePower": 6,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Gluttony",
+        "damageType": "Blunt",
+        "offenseLevel": 34
+      },
+      {
+        "id": "g-corp-head-manager-outis-skill-3",
+        "name": "Focus",
+        "basePower": 6,
+        "coinPower": 16,
+        "coinCount": 1,
+        "sin": "Gloom",
+        "damageType": "Blunt",
+        "offenseLevel": 34
+      }
+    ]
+  },
+  {
+    "id": "g-corp-manager-corporal-gregor",
+    "name": "G Corp. Manager Corporal Gregor",
+    "sinner": "Gregor",
+    "defenseLevel": 33,
+    "skills": [
+      {
+        "id": "g-corp-manager-corporal-gregor-skill-1",
+        "name": "Hack",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 2,
+        "sin": "Gluttony",
+        "damageType": "Slash",
+        "offenseLevel": 40
+      },
+      {
+        "id": "g-corp-manager-corporal-gregor-skill-2",
+        "name": "Dismember",
+        "basePower": 6,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Sloth",
+        "damageType": "Slash",
+        "offenseLevel": 40
+      },
+      {
+        "id": "g-corp-manager-corporal-gregor-skill-3",
+        "name": "Eviscerate",
+        "basePower": 4,
+        "coinPower": 2,
+        "coinCount": 4,
+        "sin": "Lust",
+        "damageType": "Pierce",
+        "offenseLevel": 40
+      }
+    ]
+  },
+  {
+    "id": "heishou-pack-mao-branch-adept-faust",
+    "name": "Heishou Pack - Mao Branch Adept Faust",
+    "sinner": "Faust",
+    "defenseLevel": 38,
+    "skills": [
+      {
+        "id": "heishou-pack-mao-branch-adept-faust-skill-1",
+        "name": "Blinkstep",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Sloth",
+        "damageType": "Slash",
+        "offenseLevel": 36
+      },
+      {
+        "id": "heishou-pack-mao-branch-adept-faust-skill-2",
+        "name": "Clearing the Path, My Lord.",
+        "basePower": 4,
+        "coinPower": 6,
+        "coinCount": 2,
+        "sin": "Pride",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      },
+      {
+        "id": "heishou-pack-mao-branch-adept-faust-skill-3",
+        "name": "Traceless to Sight and Sound Alike.",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Gluttony",
+        "damageType": "Slash",
+        "offenseLevel": 38
+      }
+    ]
+  },
+  {
+    "id": "heishou-pack-mao-branch-outis",
+    "name": "Heishou Pack - Mao Branch Outis",
+    "sinner": "Outis",
+    "defenseLevel": 32,
+    "skills": [
+      {
+        "id": "heishou-pack-mao-branch-outis-skill-1",
+        "name": "Blinkstep",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 2,
+        "sin": "Sloth",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      },
+      {
+        "id": "heishou-pack-mao-branch-outis-skill-2",
+        "name": "Perforating Kill",
+        "basePower": 4,
+        "coinPower": 6,
+        "coinCount": 2,
+        "sin": "Gluttony",
+        "damageType": "Slash",
+        "offenseLevel": 38
+      },
+      {
+        "id": "heishou-pack-mao-branch-outis-skill-3",
+        "name": "Cursewrit Butcherblade",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Gloom",
+        "damageType": "Slash",
+        "offenseLevel": 40
+      }
+    ]
+  },
+  {
+    "id": "heishou-pack-mao-branch-ry-sh",
+    "name": "Heishou Pack - Mao Branch Ry\u014Dsh\u016B",
+    "sinner": "Ry\u014Dsh\u016B",
+    "defenseLevel": 33,
+    "skills": [
+      {
+        "id": "heishou-pack-mao-branch-ry-sh-skill-1",
+        "name": "Blinkstep",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Lust",
+        "damageType": "Slash",
+        "offenseLevel": 36
+      },
+      {
+        "id": "heishou-pack-mao-branch-ry-sh-skill-2",
+        "name": "As Written",
+        "basePower": 4,
+        "coinPower": 6,
+        "coinCount": 2,
+        "sin": "Gluttony",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      },
+      {
+        "id": "heishou-pack-mao-branch-ry-sh-skill-3",
+        "name": "I\u0027ll gut you with a curse-engraved blade",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Pride",
+        "damageType": "Slash",
+        "offenseLevel": 39
+      }
+    ]
+  },
+  {
+    "id": "heishou-pack-si-branch-gregor",
+    "name": "Heishou Pack - Si Branch Gregor",
+    "sinner": "Gregor",
+    "defenseLevel": 35,
+    "skills": [
+      {
+        "id": "heishou-pack-si-branch-gregor-skill-1",
+        "name": "Snake Fang",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Pride",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      },
+      {
+        "id": "heishou-pack-si-branch-gregor-skill-2",
+        "name": "Blindsiding Cleave",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Gluttony",
+        "damageType": "Slash",
+        "offenseLevel": 38
+      },
+      {
+        "id": "heishou-pack-si-branch-gregor-skill-3",
+        "name": "Serpentshear Puncturing Arm",
+        "basePower": 8,
+        "coinPower": 14,
+        "coinCount": 1,
+        "sin": "Envy",
+        "damageType": "Pierce",
+        "offenseLevel": 39
+      }
+    ]
+  },
+  {
+    "id": "heishou-pack-si-branch-rodion",
+    "name": "Heishou Pack - Si Branch Rodion",
+    "sinner": "Rodion",
+    "defenseLevel": 35,
+    "skills": [
+      {
+        "id": "heishou-pack-si-branch-rodion-skill-1",
+        "name": "Serpent Glint",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Envy",
+        "damageType": "Slash",
+        "offenseLevel": 36
+      },
+      {
+        "id": "heishou-pack-si-branch-rodion-skill-2",
+        "name": "Snake Fang",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Gluttony",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      },
+      {
+        "id": "heishou-pack-si-branch-rodion-skill-3",
+        "name": "Serpent\u0027s Mortal Flurry",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Gloom",
+        "damageType": "Pierce",
+        "offenseLevel": 40
+      }
+    ]
+  },
+  {
+    "id": "heishou-pack-wei-branch-don-quixote",
+    "name": "Heishou Pack - Wei Branch Don Quixote",
+    "sinner": "Don Quixote",
+    "defenseLevel": 38,
+    "skills": [
+      {
+        "id": "heishou-pack-wei-branch-don-quixote-skill-1",
+        "name": "Breakthrough",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Lust",
+        "damageType": "Blunt",
+        "offenseLevel": 37
+      },
+      {
+        "id": "heishou-pack-wei-branch-don-quixote-skill-2",
+        "name": "Seize the Momentum, Shatter the Wall",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Gluttony",
+        "damageType": "Blunt",
+        "offenseLevel": 37
+      },
+      {
+        "id": "heishou-pack-wei-branch-don-quixote-skill-3",
+        "name": "Crushing Horns [\u0027\u0027\u0027\u7834\u788E\u89D2\u0027\u0027\u0027]",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 4,
+        "sin": "Gloom",
+        "damageType": "Blunt",
+        "offenseLevel": 38
+      }
+    ]
+  },
+  {
+    "id": "heishou-pack-wu-branch-adept-yi-sang",
+    "name": "Heishou Pack - Wu Branch Adept Yi Sang",
+    "sinner": "Yi Sang",
+    "defenseLevel": 40,
+    "skills": [
+      {
+        "id": "heishou-pack-wu-branch-adept-yi-sang-skill-1",
+        "name": "Cut Down and Trample",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Sloth",
+        "damageType": "Slash",
+        "offenseLevel": 36
+      },
+      {
+        "id": "heishou-pack-wu-branch-adept-yi-sang-skill-2",
+        "name": "Crescent Blade Strike [\u0027\u0027\u0027\u6708\u5200\u64CA\u0027\u0027\u0027]",
+        "basePower": 4,
+        "coinPower": 5,
+        "coinCount": 2,
+        "sin": "Envy",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      },
+      {
+        "id": "heishou-pack-wu-branch-adept-yi-sang-skill-3",
+        "name": "Cavalry\u0027s Vanguard Charge",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Gluttony",
+        "damageType": "Slash",
+        "offenseLevel": 38
+      }
+    ]
+  },
+  {
+    "id": "heishou-pack-you-branch-adept-heathcliff",
+    "name": "Heishou Pack - You Branch Adept Heathcliff",
+    "sinner": "Heathcliff",
+    "defenseLevel": 34,
+    "skills": [
+      {
+        "id": "heishou-pack-you-branch-adept-heathcliff-skill-1",
+        "name": "Peck \u0027em",
+        "basePower": 2,
+        "coinPower": 3,
+        "coinCount": 3,
+        "sin": "Envy",
+        "damageType": "Slash",
+        "offenseLevel": 36
+      },
+      {
+        "id": "heishou-pack-you-branch-adept-heathcliff-skill-2",
+        "name": "Mutilating Talons",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Gluttony",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      },
+      {
+        "id": "heishou-pack-you-branch-adept-heathcliff-skill-3",
+        "name": "Bloodflame Massacre [\u0027\u0027\u0027\u8840\u708E\u4E82\u821E\u0027\u0027\u0027]",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 4,
+        "sin": "Wrath",
+        "damageType": "Slash",
+        "offenseLevel": 38
+      }
+    ]
+  },
+  {
+    "id": "heishou-pack-you-branch-sinclair",
+    "name": "Heishou Pack - You Branch Sinclair",
+    "sinner": "Sinclair",
+    "defenseLevel": 31,
+    "skills": [
+      {
+        "id": "heishou-pack-you-branch-sinclair-skill-1",
+        "name": "Oh, Let the Smell of Burning Blood\u2026",
+        "basePower": 2,
+        "coinPower": 3,
+        "coinCount": 3,
+        "sin": "Lust",
+        "damageType": "Slash",
+        "offenseLevel": 36
+      },
+      {
+        "id": "heishou-pack-you-branch-sinclair-skill-2",
+        "name": "\u2026 Fuel My Rampage.",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Gluttony",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      },
+      {
+        "id": "heishou-pack-you-branch-sinclair-skill-3",
+        "name": "Bloodflame Massacre [\u0027\u0027\u0027\u8840\u708E\u4E82\u821E\u0027\u0027\u0027]",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 4,
+        "sin": "Wrath",
+        "damageType": "Slash",
+        "offenseLevel": 38
+      }
+    ]
+  },
+  {
+    "id": "hook-office-fixer-hong-lu",
+    "name": "Hook Office Fixer Hong Lu",
+    "sinner": "Hong Lu",
+    "defenseLevel": 32,
+    "skills": [
+      {
+        "id": "hook-office-fixer-hong-lu-skill-1",
+        "name": "Track",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Wrath",
+        "damageType": "Pierce",
+        "offenseLevel": 36
+      },
+      {
+        "id": "hook-office-fixer-hong-lu-skill-2",
+        "name": "Goin\u0027 First",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 3,
+        "sin": "Lust",
+        "damageType": "Pierce",
+        "offenseLevel": 37
+      },
+      {
+        "id": "hook-office-fixer-hong-lu-skill-3",
+        "name": "Rampage",
+        "basePower": 4,
+        "coinPower": 2,
+        "coinCount": 4,
+        "sin": "Pride",
+        "damageType": "Pierce",
+        "offenseLevel": 38
+      }
+    ]
+  },
+  {
+    "id": "jeong-s-office-rep-ishmael",
+    "name": "Jeong\u0027s Office Rep Ishmael",
+    "sinner": "Ishmael",
+    "defenseLevel": 35,
+    "skills": [
+      {
+        "id": "jeong-s-office-rep-ishmael-skill-1",
+        "name": "Tsuru-giri [\u0027\u0027\u0027\u9DB4\u65AC\u308A\u0027\u0027\u0027]",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Wrath",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      },
+      {
+        "id": "jeong-s-office-rep-ishmael-skill-2",
+        "name": "Susuki Misdirection",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Sloth",
+        "damageType": "Slash",
+        "offenseLevel": 38
+      },
+      {
+        "id": "jeong-s-office-rep-ishmael-skill-3",
+        "name": "Sakura-sen [\u0027\u0027\u0027\u685C\u9583\u0027\u0027\u0027]",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Gloom",
+        "damageType": "Slash",
+        "offenseLevel": 39
+      }
+    ]
+  },
+  {
+    "id": "k-corp-class-3-excision-staff-hong-lu",
+    "name": "K Corp. Class 3 Excision Staff Hong Lu",
+    "sinner": "Hong Lu",
+    "defenseLevel": 40,
+    "skills": [
+      {
+        "id": "k-corp-class-3-excision-staff-hong-lu-skill-1",
+        "name": "Impede the Intruder",
+        "basePower": 5,
+        "coinPower": 6,
+        "coinCount": 1,
+        "sin": "Pride",
+        "damageType": "Slash",
+        "offenseLevel": 12
+      },
+      {
+        "id": "k-corp-class-3-excision-staff-hong-lu-skill-2",
+        "name": "Decay Blade",
+        "basePower": 6,
+        "coinPower": 5,
+        "coinCount": 2,
+        "sin": "Gluttony",
+        "damageType": "Blunt",
+        "offenseLevel": 12
+      },
+      {
+        "id": "k-corp-class-3-excision-staff-hong-lu-skill-3",
+        "name": "Excise Target",
+        "basePower": 8,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Sloth",
+        "damageType": "Slash",
+        "offenseLevel": 12
+      }
+    ]
+  },
+  {
+    "id": "kurokumo-clan-captain-gregor",
+    "name": "Kurokumo Clan Captain Gregor",
+    "sinner": "Gregor",
+    "defenseLevel": 36,
+    "skills": [
+      {
+        "id": "kurokumo-clan-captain-gregor-skill-1",
+        "name": "Lenticular Rend",
+        "basePower": 5,
+        "coinPower": 5,
+        "coinCount": 1,
+        "sin": "Sloth",
+        "damageType": "Slash",
+        "offenseLevel": 36
+      },
+      {
+        "id": "kurokumo-clan-captain-gregor-skill-2",
+        "name": "Shadow Cloud",
+        "basePower": 5,
+        "coinPower": 5,
+        "coinCount": 2,
+        "sin": "Lust",
+        "damageType": "Blunt",
+        "offenseLevel": 37
+      },
+      {
+        "id": "kurokumo-clan-captain-gregor-skill-3",
+        "name": "Shadowcloud Shattercleave",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 3,
+        "sin": "Gloom",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      }
+    ]
+  },
+  {
+    "id": "kurokumo-clan-captain-ishmael",
+    "name": "Kurokumo Clan Captain Ishmael",
+    "sinner": "Ishmael",
+    "defenseLevel": 38,
+    "skills": [
+      {
+        "id": "kurokumo-clan-captain-ishmael-skill-1",
+        "name": "Clean Up",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Envy",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      },
+      {
+        "id": "kurokumo-clan-captain-ishmael-skill-2",
+        "name": "Sharpened Blade",
+        "basePower": 4,
+        "coinPower": 6,
+        "coinCount": 2,
+        "sin": "Pride",
+        "damageType": "Slash",
+        "offenseLevel": 38
+      },
+      {
+        "id": "kurokumo-clan-captain-ishmael-skill-3",
+        "name": "Ink Over",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Lust",
+        "damageType": "Slash",
+        "offenseLevel": 40
+      }
+    ]
+  },
+  {
+    "id": "kurokumo-clan-wakashu-heathcliff",
+    "name": "Kurokumo Clan Wakashu Heathcliff",
+    "sinner": "Heathcliff",
+    "defenseLevel": 38,
+    "skills": [
+      {
+        "id": "kurokumo-clan-wakashu-heathcliff-skill-1",
+        "name": "Lenticular Rend",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Wrath",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      },
+      {
+        "id": "kurokumo-clan-wakashu-heathcliff-skill-2",
+        "name": "Stormcloud",
+        "basePower": 4,
+        "coinPower": 6,
+        "coinCount": 2,
+        "sin": "Pride",
+        "damageType": "Slash",
+        "offenseLevel": 38
+      },
+      {
+        "id": "kurokumo-clan-wakashu-heathcliff-skill-3",
+        "name": "Thundercleave",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Lust",
+        "damageType": "Slash",
+        "offenseLevel": 40
+      }
+    ]
+  },
+  {
+    "id": "kurokumo-clan-wakashu-hong-lu",
+    "name": "Kurokumo Clan Wakashu Hong Lu",
+    "sinner": "Hong Lu",
+    "defenseLevel": 36,
+    "skills": [
+      {
+        "id": "kurokumo-clan-wakashu-hong-lu-skill-1",
+        "name": "Cleave",
+        "basePower": 4,
+        "coinPower": 7,
+        "coinCount": 1,
+        "sin": "Lust",
+        "damageType": "Slash",
+        "offenseLevel": 35
+      },
+      {
+        "id": "kurokumo-clan-wakashu-hong-lu-skill-2",
+        "name": "Cloud Cutter",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Pride",
+        "damageType": "Slash",
+        "offenseLevel": 35
+      },
+      {
+        "id": "kurokumo-clan-wakashu-hong-lu-skill-3",
+        "name": "Cloudburst",
+        "basePower": 7,
+        "coinPower": 2,
+        "coinCount": 3,
+        "sin": "Sloth",
+        "damageType": "Slash",
+        "offenseLevel": 35
+      }
+    ]
+  },
+  {
+    "id": "kurokumo-clan-wakashu-rodion",
+    "name": "Kurokumo Clan Wakashu Rodion",
+    "sinner": "Rodion",
+    "defenseLevel": 37,
+    "skills": [
+      {
+        "id": "kurokumo-clan-wakashu-rodion-skill-1",
+        "name": "Sharpened Blade",
+        "basePower": 5,
+        "coinPower": 6,
+        "coinCount": 1,
+        "sin": "Gloom",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      },
+      {
+        "id": "kurokumo-clan-wakashu-rodion-skill-2",
+        "name": "Scattering Slash",
+        "basePower": 6,
+        "coinPower": 3,
+        "coinCount": 2,
+        "sin": "Lust",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      },
+      {
+        "id": "kurokumo-clan-wakashu-rodion-skill-3",
+        "name": "Sky-clearing Cut",
+        "basePower": 7,
+        "coinPower": 18,
+        "coinCount": 1,
+        "sin": "Pride",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      }
+    ]
+  },
+  {
+    "id": "kurokumo-clan-wakashu-ry-sh",
+    "name": "Kurokumo Clan Wakashu Ry\u014Dsh\u016B",
+    "sinner": "Ry\u014Dsh\u016B",
+    "defenseLevel": 35,
+    "skills": [
+      {
+        "id": "kurokumo-clan-wakashu-ry-sh-skill-1",
+        "name": "Focus Strike",
+        "basePower": 5,
+        "coinPower": 6,
+        "coinCount": 1,
+        "sin": "Gluttony",
+        "damageType": "Pierce",
+        "offenseLevel": 38
+      },
+      {
+        "id": "kurokumo-clan-wakashu-ry-sh-skill-2",
+        "name": "Clean Up",
+        "basePower": 5,
+        "coinPower": 5,
+        "coinCount": 2,
+        "sin": "Pride",
+        "damageType": "Pierce",
+        "offenseLevel": 38
+      },
+      {
+        "id": "kurokumo-clan-wakashu-ry-sh-skill-3",
+        "name": "Lenticular Swirl",
+        "basePower": 8,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Lust",
+        "damageType": "Pierce",
+        "offenseLevel": 38
+      }
+    ]
+  },
+  {
+    "id": "lca-udjat-vanguard-team-3-leader-outis",
+    "name": "LCA Udjat Vanguard Team 3 Leader Outis",
+    "sinner": "Outis",
+    "defenseLevel": 38,
+    "skills": [
+      {
+        "id": "lca-udjat-vanguard-team-3-leader-outis-skill-1",
+        "name": "Khopesh Swordplay",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Pride",
+        "damageType": "Slash",
+        "offenseLevel": 36
+      },
+      {
+        "id": "lca-udjat-vanguard-team-3-leader-outis-skill-2",
+        "name": "Mirage Incision",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Sloth",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      },
+      {
+        "id": "lca-udjat-vanguard-team-3-leader-outis-skill-3",
+        "name": "The Vanguard will See it Done",
+        "basePower": 6,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Gloom",
+        "damageType": "Pierce",
+        "offenseLevel": 38
+      }
+    ]
+  },
+  {
+    "id": "lcb-sinner-don-quixote",
     "name": "LCB Sinner Don Quixote",
     "sinner": "Don Quixote",
-    "defenseLevel": 58,
+    "defenseLevel": 33,
     "skills": [
-      { "id": "lcb-don-quixote-s1", "name": "Joust", "basePower": 4, "coinPower": 7, "coinCount": 1, "sin": "Lust", "damageType": "Pierce", "offenseLevel": 58 },
-      { "id": "lcb-don-quixote-s2", "name": "Galloping Tilt", "basePower": 4, "coinPower": 12, "coinCount": 1, "sin": "Envy", "damageType": "Pierce", "offenseLevel": 58 },
-      { "id": "lcb-don-quixote-s3", "name": "For Justice!", "basePower": 3, "coinPower": 3, "coinCount": 3, "sin": "Gluttony", "damageType": "Pierce", "offenseLevel": 58 }
+      {
+        "id": "lcb-sinner-don-quixote-skill-1",
+        "name": "Joust",
+        "basePower": 4,
+        "coinPower": 7,
+        "coinCount": 1,
+        "sin": "Lust",
+        "damageType": "Pierce",
+        "offenseLevel": 37
+      },
+      {
+        "id": "lcb-sinner-don-quixote-skill-2",
+        "name": "Galloping Tilt",
+        "basePower": 4,
+        "coinPower": 12,
+        "coinCount": 1,
+        "sin": "Envy",
+        "damageType": "Pierce",
+        "offenseLevel": 37
+      },
+      {
+        "id": "lcb-sinner-don-quixote-skill-3",
+        "name": "For Justice!",
+        "basePower": 3,
+        "coinPower": 3,
+        "coinCount": 3,
+        "sin": "Gluttony",
+        "damageType": "Pierce",
+        "offenseLevel": 37
+      }
     ]
   },
   {
-    "id": "lcb-ryoshu",
-    "name": "LCB Sinner Ryōshū",
-    "sinner": "Ryōshū",
-    "defenseLevel": 56,
+    "id": "lcb-sinner-faust",
+    "name": "LCB Sinner Faust",
+    "sinner": "Faust",
+    "defenseLevel": 36,
     "skills": [
-      { "id": "lcb-ryoshu-s1", "name": "Paint", "basePower": 4, "coinPower": 7, "coinCount": 1, "sin": "Gluttony", "damageType": "Slash", "offenseLevel": 56 },
-      { "id": "lcb-ryoshu-s2", "name": "Splatter", "basePower": 4, "coinPower": 5, "coinCount": 2, "sin": "Lust", "damageType": "Slash", "offenseLevel": 56 },
-      { "id": "lcb-ryoshu-s3", "name": "Brushstroke", "basePower": 5, "coinPower": 3, "coinCount": 3, "sin": "Pride", "damageType": "Slash", "offenseLevel": 56 }
+      {
+        "id": "lcb-sinner-faust-skill-1",
+        "name": "Downward Slash",
+        "basePower": 4,
+        "coinPower": 7,
+        "coinCount": 1,
+        "sin": "Pride",
+        "damageType": "Blunt",
+        "offenseLevel": 34
+      },
+      {
+        "id": "lcb-sinner-faust-skill-2",
+        "name": "Upward Slash",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Sloth",
+        "damageType": "Blunt",
+        "offenseLevel": 34
+      },
+      {
+        "id": "lcb-sinner-faust-skill-3",
+        "name": "Drilling Stab",
+        "basePower": 7,
+        "coinPower": 2,
+        "coinCount": 2,
+        "sin": "Gluttony",
+        "damageType": "Pierce",
+        "offenseLevel": 34
+      }
     ]
   },
   {
-    "id": "lcb-meursault",
-    "name": "LCB Sinner Meursault",
-    "sinner": "Meursault",
-    "defenseLevel": 63,
-    "skills": [
-      { "id": "lcb-meursault-s1", "name": "Un, Deux", "basePower": 3, "coinPower": 4, "coinCount": 2, "sin": "Sloth", "damageType": "Blunt", "offenseLevel": 63 },
-      { "id": "lcb-meursault-s2", "name": "Nailing Fist", "basePower": 6, "coinPower": 9, "coinCount": 1, "sin": "Pride", "damageType": "Blunt", "offenseLevel": 63 },
-      { "id": "lcb-meursault-s3", "name": "Des Coups", "basePower": 4, "coinPower": 2, "coinCount": 4, "sin": "Gloom", "damageType": "Blunt", "offenseLevel": 63 }
-    ]
-  },
-  {
-    "id": "lcb-hong-lu",
-    "name": "LCB Sinner Hong Lu",
-    "sinner": "Hong Lu",
-    "defenseLevel": 58,
-    "skills": [
-      { "id": "lcb-hong-lu-s1", "name": "Downward Cleave", "basePower": 4, "coinPower": 7, "coinCount": 1, "sin": "Pride", "damageType": "Blunt", "offenseLevel": 58 },
-      { "id": "lcb-hong-lu-s2", "name": "Dual Strike", "basePower": 4, "coinPower": 4, "coinCount": 2, "sin": "Sloth", "damageType": "Slash", "offenseLevel": 58 },
-      { "id": "lcb-hong-lu-s3", "name": "Whirlwind", "basePower": 6, "coinPower": 4, "coinCount": 2, "sin": "Lust", "damageType": "Blunt", "offenseLevel": 58 }
-    ]
-  },
-  {
-    "id": "lcb-heathcliff",
-    "name": "LCB Sinner Heathcliff",
-    "sinner": "Heathcliff",
-    "defenseLevel": 60,
-    "skills": [
-      { "id": "lcb-heathcliff-s1", "name": "Bat Bash", "basePower": 4, "coinPower": 7, "coinCount": 1, "sin": "Envy", "damageType": "Blunt", "offenseLevel": 60 },
-      { "id": "lcb-heathcliff-s2", "name": "Smackdown", "basePower": 4, "coinPower": 4, "coinCount": 2, "sin": "Wrath", "damageType": "Blunt", "offenseLevel": 60 },
-      { "id": "lcb-heathcliff-s3", "name": "Upheaval", "basePower": 4, "coinPower": 8, "coinCount": 2, "sin": "Lust", "damageType": "Blunt", "offenseLevel": 60 }
-    ]
-  },
-  {
-    "id": "lcb-ishmael",
-    "name": "LCB Sinner Ishmael",
-    "sinner": "Ishmael",
-    "defenseLevel": 60,
-    "skills": [
-      { "id": "lcb-ishmael-s1", "name": "Loggerhead", "basePower": 4, "coinPower": 7, "coinCount": 1, "sin": "Wrath", "damageType": "Blunt", "offenseLevel": 60 },
-      { "id": "lcb-ishmael-s2", "name": "Slide", "basePower": 6, "coinPower": 9, "coinCount": 1, "sin": "Gluttony", "damageType": "Blunt", "offenseLevel": 60 },
-      { "id": "lcb-ishmael-s3", "name": "Shield Bash", "basePower": 8, "coinPower": 12, "coinCount": 1, "sin": "Gloom", "damageType": "Blunt", "offenseLevel": 60 }
-    ]
-  },
-  {
-    "id": "lcb-rodion",
-    "name": "LCB Sinner Rodion",
-    "sinner": "Rodion",
-    "defenseLevel": 60,
-    "skills": [
-      { "id": "lcb-rodion-s1", "name": "Strike Down", "basePower": 4, "coinPower": 7, "coinCount": 1, "sin": "Gluttony", "damageType": "Slash", "offenseLevel": 60 },
-      { "id": "lcb-rodion-s2", "name": "Axe Combo", "basePower": 4, "coinPower": 4, "coinCount": 2, "sin": "Pride", "damageType": "Slash", "offenseLevel": 60 },
-      { "id": "lcb-rodion-s3", "name": "Slay", "basePower": 4, "coinPower": 2, "coinCount": 4, "sin": "Wrath", "damageType": "Slash", "offenseLevel": 60 }
-    ]
-  },
-  {
-    "id": "lcb-sinclair",
-    "name": "LCB Sinner Sinclair",
-    "sinner": "Sinclair",
-    "defenseLevel": 56,
-    "skills": [
-      { "id": "lcb-sinclair-s1", "name": "Downward Swing", "basePower": 4, "coinPower": 7, "coinCount": 1, "sin": "Pride", "damageType": "Slash", "offenseLevel": 56 },
-      { "id": "lcb-sinclair-s2", "name": "Halberd Combo", "basePower": 4, "coinPower": 2, "coinCount": 3, "sin": "Wrath", "damageType": "Slash", "offenseLevel": 56 },
-      { "id": "lcb-sinclair-s3", "name": "Ravaging Cut", "basePower": 5, "coinPower": 3, "coinCount": 3, "sin": "Envy", "damageType": "Slash", "offenseLevel": 56 }
-    ]
-  },
-  {
-    "id": "lcb-outis",
-    "name": "LCB Sinner Outis",
-    "sinner": "Outis",
-    "defenseLevel": 56,
-    "skills": [
-      { "id": "lcb-outis-s1", "name": "Pulled Blade", "basePower": 3, "coinPower": 2, "coinCount": 3, "sin": "Sloth", "damageType": "Pierce", "offenseLevel": 56 },
-      { "id": "lcb-outis-s2", "name": "Backslash", "basePower": 5, "coinPower": 4, "coinCount": 2, "sin": "Pride", "damageType": "Slash", "offenseLevel": 56 },
-      { "id": "lcb-outis-s3", "name": "Piercing Thrust", "basePower": 7, "coinPower": 14, "coinCount": 1, "sin": "Gloom", "damageType": "Pierce", "offenseLevel": 56 }
-    ]
-  },
-  {
-    "id": "lcb-gregor",
+    "id": "lcb-sinner-gregor",
     "name": "LCB Sinner Gregor",
     "sinner": "Gregor",
-    "defenseLevel": 60,
+    "defenseLevel": 35,
     "skills": [
-      { "id": "lcb-gregor-s1", "name": "Swipe", "basePower": 4, "coinPower": 7, "coinCount": 1, "sin": "Gloom", "damageType": "Slash", "offenseLevel": 60 },
-      { "id": "lcb-gregor-s2", "name": "Jag", "basePower": 5, "coinPower": 10, "coinCount": 1, "sin": "Gluttony", "damageType": "Pierce", "offenseLevel": 60 },
-      { "id": "lcb-gregor-s3", "name": "Chop Up", "basePower": 6, "coinPower": 4, "coinCount": 2, "sin": "Sloth", "damageType": "Pierce", "offenseLevel": 60 }
+      {
+        "id": "lcb-sinner-gregor-skill-1",
+        "name": "Swipe",
+        "basePower": 4,
+        "coinPower": 7,
+        "coinCount": 1,
+        "sin": "Gloom",
+        "damageType": "Slash",
+        "offenseLevel": 34
+      },
+      {
+        "id": "lcb-sinner-gregor-skill-2",
+        "name": "Jag",
+        "basePower": 5,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Gluttony",
+        "damageType": "Pierce",
+        "offenseLevel": 34
+      },
+      {
+        "id": "lcb-sinner-gregor-skill-3",
+        "name": "Chop Up",
+        "basePower": 6,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Sloth",
+        "damageType": "Pierce",
+        "offenseLevel": 34
+      }
+    ]
+  },
+  {
+    "id": "lcb-sinner-heathcliff",
+    "name": "LCB Sinner Heathcliff",
+    "sinner": "Heathcliff",
+    "defenseLevel": 35,
+    "skills": [
+      {
+        "id": "lcb-sinner-heathcliff-skill-1",
+        "name": "Bat Bash",
+        "basePower": 4,
+        "coinPower": 7,
+        "coinCount": 1,
+        "sin": "Envy",
+        "damageType": "Blunt",
+        "offenseLevel": 13
+      },
+      {
+        "id": "lcb-sinner-heathcliff-skill-2",
+        "name": "Smackdown",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Wrath",
+        "damageType": "Blunt",
+        "offenseLevel": 13
+      },
+      {
+        "id": "lcb-sinner-heathcliff-skill-3",
+        "name": "Upheaval",
+        "basePower": 4,
+        "coinPower": 8,
+        "coinCount": 2,
+        "sin": "Lust",
+        "damageType": "Blunt",
+        "offenseLevel": 13
+      }
+    ]
+  },
+  {
+    "id": "lcb-sinner-hong-lu",
+    "name": "LCB Sinner Hong Lu",
+    "sinner": "Hong Lu",
+    "defenseLevel": 33,
+    "skills": [
+      {
+        "id": "lcb-sinner-hong-lu-skill-1",
+        "name": "Downward Cleave",
+        "basePower": 4,
+        "coinPower": 7,
+        "coinCount": 1,
+        "sin": "Pride",
+        "damageType": "Blunt",
+        "offenseLevel": 16
+      },
+      {
+        "id": "lcb-sinner-hong-lu-skill-2",
+        "name": "Dual Strike",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Sloth",
+        "damageType": "Slash",
+        "offenseLevel": 16
+      },
+      {
+        "id": "lcb-sinner-hong-lu-skill-3",
+        "name": "Whirlwind",
+        "basePower": 6,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Lust",
+        "damageType": "Blunt",
+        "offenseLevel": 16
+      }
+    ]
+  },
+  {
+    "id": "lcb-sinner-ishmael",
+    "name": "LCB Sinner Ishmael",
+    "sinner": "Ishmael",
+    "defenseLevel": 35,
+    "skills": [
+      {
+        "id": "lcb-sinner-ishmael-skill-1",
+        "name": "Loggerhead",
+        "basePower": 4,
+        "coinPower": 7,
+        "coinCount": 1,
+        "sin": "Wrath",
+        "damageType": "Blunt",
+        "offenseLevel": 11
+      },
+      {
+        "id": "lcb-sinner-ishmael-skill-2",
+        "name": "Slide",
+        "basePower": 6,
+        "coinPower": 9,
+        "coinCount": 1,
+        "sin": "Gluttony",
+        "damageType": "Blunt",
+        "offenseLevel": 11
+      },
+      {
+        "id": "lcb-sinner-ishmael-skill-3",
+        "name": "Shield Bash",
+        "basePower": 8,
+        "coinPower": 12,
+        "coinCount": 1,
+        "sin": "Gloom",
+        "damageType": "Blunt",
+        "offenseLevel": 11
+      }
+    ]
+  },
+  {
+    "id": "lcb-sinner-meursault",
+    "name": "LCB Sinner Meursault",
+    "sinner": "Meursault",
+    "defenseLevel": 38,
+    "skills": [
+      {
+        "id": "lcb-sinner-meursault-skill-1",
+        "name": "Un, Deux",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Sloth",
+        "damageType": "Blunt",
+        "offenseLevel": 32
+      },
+      {
+        "id": "lcb-sinner-meursault-skill-2",
+        "name": "Nailing Fist",
+        "basePower": 6,
+        "coinPower": 9,
+        "coinCount": 1,
+        "sin": "Pride",
+        "damageType": "Blunt",
+        "offenseLevel": 32
+      },
+      {
+        "id": "lcb-sinner-meursault-skill-3",
+        "name": "Des Coups",
+        "basePower": 4,
+        "coinPower": 2,
+        "coinCount": 4,
+        "sin": "Gloom",
+        "damageType": "Blunt",
+        "offenseLevel": 32
+      }
+    ]
+  },
+  {
+    "id": "lcb-sinner-outis",
+    "name": "LCB Sinner Outis",
+    "sinner": "Outis",
+    "defenseLevel": 31,
+    "skills": [
+      {
+        "id": "lcb-sinner-outis-skill-1",
+        "name": "Pulled Blade",
+        "basePower": 3,
+        "coinPower": 2,
+        "coinCount": 3,
+        "sin": "Sloth",
+        "damageType": "Pierce",
+        "offenseLevel": 38
+      },
+      {
+        "id": "lcb-sinner-outis-skill-2",
+        "name": "Backslash",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Pride",
+        "damageType": "Slash",
+        "offenseLevel": 38
+      },
+      {
+        "id": "lcb-sinner-outis-skill-3",
+        "name": "Piercing Thrust",
+        "basePower": 7,
+        "coinPower": 14,
+        "coinCount": 1,
+        "sin": "Gloom",
+        "damageType": "Pierce",
+        "offenseLevel": 38
+      }
+    ]
+  },
+  {
+    "id": "lcb-sinner-rodion",
+    "name": "LCB Sinner Rodion",
+    "sinner": "Rodion",
+    "defenseLevel": 35,
+    "skills": [
+      {
+        "id": "lcb-sinner-rodion-skill-1",
+        "name": "Strike Down",
+        "basePower": 4,
+        "coinPower": 7,
+        "coinCount": 1,
+        "sin": "Gluttony",
+        "damageType": "Slash",
+        "offenseLevel": 35
+      },
+      {
+        "id": "lcb-sinner-rodion-skill-2",
+        "name": "Axe Combo",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Pride",
+        "damageType": "Slash",
+        "offenseLevel": 35
+      },
+      {
+        "id": "lcb-sinner-rodion-skill-3",
+        "name": "Slay",
+        "basePower": 4,
+        "coinPower": 2,
+        "coinCount": 4,
+        "sin": "Wrath",
+        "damageType": "Slash",
+        "offenseLevel": 35
+      }
+    ]
+  },
+  {
+    "id": "lcb-sinner-ry-sh",
+    "name": "LCB Sinner Ry\u014Dsh\u016B",
+    "sinner": "Ry\u014Dsh\u016B",
+    "defenseLevel": 31,
+    "skills": [
+      {
+        "id": "lcb-sinner-ry-sh-skill-1",
+        "name": "Paint",
+        "basePower": 4,
+        "coinPower": 7,
+        "coinCount": 1,
+        "sin": "Gluttony",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      },
+      {
+        "id": "lcb-sinner-ry-sh-skill-2",
+        "name": "Splatter",
+        "basePower": 4,
+        "coinPower": 5,
+        "coinCount": 2,
+        "sin": "Lust",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      },
+      {
+        "id": "lcb-sinner-ry-sh-skill-3",
+        "name": "Brushstroke",
+        "basePower": 5,
+        "coinPower": 3,
+        "coinCount": 3,
+        "sin": "Pride",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      }
+    ]
+  },
+  {
+    "id": "lcb-sinner-sinclair",
+    "name": "LCB Sinner Sinclair",
+    "sinner": "Sinclair",
+    "defenseLevel": 31,
+    "skills": [
+      {
+        "id": "lcb-sinner-sinclair-skill-1",
+        "name": "Downward Swing",
+        "basePower": 4,
+        "coinPower": 7,
+        "coinCount": 1,
+        "sin": "Pride",
+        "damageType": "Slash",
+        "offenseLevel": 38
+      },
+      {
+        "id": "lcb-sinner-sinclair-skill-2",
+        "name": "Halberd Combo",
+        "basePower": 4,
+        "coinPower": 2,
+        "coinCount": 3,
+        "sin": "Wrath",
+        "damageType": "Slash",
+        "offenseLevel": 38
+      },
+      {
+        "id": "lcb-sinner-sinclair-skill-3",
+        "name": "Ravaging Cut",
+        "basePower": 5,
+        "coinPower": 3,
+        "coinCount": 3,
+        "sin": "Envy",
+        "damageType": "Slash",
+        "offenseLevel": 38
+      }
+    ]
+  },
+  {
+    "id": "lcb-sinner-yi-sang",
+    "name": "LCB Sinner Yi Sang",
+    "sinner": "Yi Sang",
+    "defenseLevel": 33,
+    "skills": [
+      {
+        "id": "lcb-sinner-yi-sang-skill-1",
+        "name": "Deflect",
+        "basePower": 4,
+        "coinPower": 7,
+        "coinCount": 1,
+        "sin": "Gloom",
+        "damageType": "Slash",
+        "offenseLevel": 35
+      },
+      {
+        "id": "lcb-sinner-yi-sang-skill-2",
+        "name": "End-stop Stab",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Envy",
+        "damageType": "Pierce",
+        "offenseLevel": 35
+      },
+      {
+        "id": "lcb-sinner-yi-sang-skill-3",
+        "name": "Enjamb",
+        "basePower": 6,
+        "coinPower": 2,
+        "coinCount": 3,
+        "sin": "Sloth",
+        "damageType": "Slash",
+        "offenseLevel": 35
+      }
+    ]
+  },
+  {
+    "id": "lccb-assistant-manager-ishmael",
+    "name": "LCCB Assistant Manager Ishmael",
+    "sinner": "Ishmael",
+    "defenseLevel": 38,
+    "skills": [
+      {
+        "id": "lccb-assistant-manager-ishmael-skill-1",
+        "name": "Shove",
+        "basePower": 4,
+        "coinPower": 6,
+        "coinCount": 1,
+        "sin": "Gluttony",
+        "damageType": "Blunt",
+        "offenseLevel": 34
+      },
+      {
+        "id": "lccb-assistant-manager-ishmael-skill-2",
+        "name": "Quake Rounds",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 3,
+        "sin": "Gloom",
+        "damageType": "Blunt",
+        "offenseLevel": 34
+      },
+      {
+        "id": "lccb-assistant-manager-ishmael-skill-3",
+        "name": "Suppress",
+        "basePower": 4,
+        "coinPower": 2,
+        "coinCount": 4,
+        "sin": "Pride",
+        "damageType": "Blunt",
+        "offenseLevel": 34
+      }
+    ]
+  },
+  {
+    "id": "lccb-assistant-manager-rodion",
+    "name": "LCCB Assistant Manager Rodion",
+    "sinner": "Rodion",
+    "defenseLevel": 31,
+    "skills": [
+      {
+        "id": "lccb-assistant-manager-rodion-skill-1",
+        "name": "Bludgeon",
+        "basePower": 5,
+        "coinPower": 6,
+        "coinCount": 1,
+        "sin": "Pride",
+        "damageType": "Blunt",
+        "offenseLevel": 40
+      },
+      {
+        "id": "lccb-assistant-manager-rodion-skill-2",
+        "name": "Thrust",
+        "basePower": 6,
+        "coinPower": 1,
+        "coinCount": 2,
+        "sin": "Gluttony",
+        "damageType": "Blunt",
+        "offenseLevel": 40
+      },
+      {
+        "id": "lccb-assistant-manager-rodion-skill-3",
+        "name": "Suppress",
+        "basePower": 7,
+        "coinPower": 2,
+        "coinCount": 2,
+        "sin": "Envy",
+        "damageType": "Blunt",
+        "offenseLevel": 40
+      }
+    ]
+  },
+  {
+    "id": "lccb-assistant-manager-ry-sh",
+    "name": "LCCB Assistant Manager Ry\u014Dsh\u016B",
+    "sinner": "Ry\u014Dsh\u016B",
+    "defenseLevel": 35,
+    "skills": [
+      {
+        "id": "lccb-assistant-manager-ry-sh-skill-1",
+        "name": "Shove",
+        "basePower": 5,
+        "coinPower": 5,
+        "coinCount": 1,
+        "sin": "Lust",
+        "damageType": "Blunt",
+        "offenseLevel": 36
+      },
+      {
+        "id": "lccb-assistant-manager-ry-sh-skill-2",
+        "name": "T.N.",
+        "basePower": 4,
+        "coinPower": 5,
+        "coinCount": 2,
+        "sin": "Gluttony",
+        "damageType": "Blunt",
+        "offenseLevel": 36
+      },
+      {
+        "id": "lccb-assistant-manager-ry-sh-skill-3",
+        "name": "O.O.F.",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 3,
+        "sin": "Pride",
+        "damageType": "Pierce",
+        "offenseLevel": 38
+      }
+    ]
+  },
+  {
+    "id": "lcd-osir-team-ishmael",
+    "name": "LCD OSIR Team Ishmael",
+    "sinner": "Ishmael",
+    "defenseLevel": 38,
+    "skills": [
+      {
+        "id": "lcd-osir-team-ishmael-skill-1",
+        "name": "Rending Arts",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Wrath",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      },
+      {
+        "id": "lcd-osir-team-ishmael-skill-2",
+        "name": "Acupuncture",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Gloom",
+        "damageType": "Slash",
+        "offenseLevel": 38
+      },
+      {
+        "id": "lcd-osir-team-ishmael-skill-3",
+        "name": "Lucent Rippling Flame",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Pride",
+        "damageType": "Slash",
+        "offenseLevel": 39
+      }
+    ]
+  },
+  {
+    "id": "lce-e-g-o-aedd-gregor",
+    "name": "LCE E.G.O::AEDD Gregor",
+    "sinner": "Gregor",
+    "defenseLevel": 38,
+    "skills": [
+      {
+        "id": "lce-e-g-o-aedd-gregor-skill-1",
+        "name": "Electric Release",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Gluttony",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      },
+      {
+        "id": "lce-e-g-o-aedd-gregor-skill-2",
+        "name": "DC Inversion",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Gloom",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      },
+      {
+        "id": "lce-e-g-o-aedd-gregor-skill-3",
+        "name": "High-voltage Current Discharge",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Envy",
+        "damageType": "Slash",
+        "offenseLevel": 38
+      }
+    ]
+  },
+  {
+    "id": "lce-e-g-o-ardor-blossom-star-faust",
+    "name": "LCE E.G.O::Ardor Blossom Star Faust",
+    "sinner": "Faust",
+    "defenseLevel": 34,
+    "skills": [
+      {
+        "id": "lce-e-g-o-ardor-blossom-star-faust-skill-1",
+        "name": "Ignition",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Sloth",
+        "damageType": "Blunt",
+        "offenseLevel": 36
+      },
+      {
+        "id": "lce-e-g-o-ardor-blossom-star-faust-skill-2",
+        "name": "E.G.O - A.B.S. Activation",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Pride",
+        "damageType": "Blunt",
+        "offenseLevel": 38
+      },
+      {
+        "id": "lce-e-g-o-ardor-blossom-star-faust-skill-3",
+        "name": "Drawn by Flame",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Wrath",
+        "damageType": "Blunt",
+        "offenseLevel": 40
+      }
+    ]
+  },
+  {
+    "id": "lce-e-g-o-lantern-yi-sang",
+    "name": "LCE E.G.O::Lantern Yi Sang",
+    "sinner": "Yi Sang",
+    "defenseLevel": 35,
+    "skills": [
+      {
+        "id": "lce-e-g-o-lantern-yi-sang-skill-1",
+        "name": "Though it must be prefaced that E.G.O gears are standardized equipment,",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 2,
+        "sin": "Sloth",
+        "damageType": "Blunt",
+        "offenseLevel": 35
+      },
+      {
+        "id": "lce-e-g-o-lantern-yi-sang-skill-2",
+        "name": "when juxtaposed with E.G.O gear from L Corp., \u003Cbr\u003E depending on the degree of attunement to the Abnormality,",
+        "basePower": 8,
+        "coinPower": 6,
+        "coinCount": 1,
+        "sin": "Envy",
+        "damageType": "Pierce",
+        "offenseLevel": 36
+      },
+      {
+        "id": "lce-e-g-o-lantern-yi-sang-skill-3",
+        "name": "the idiosyncrasies of the source may be utilized with greater flexibility",
+        "basePower": 16,
+        "coinPower": -5,
+        "coinCount": 3,
+        "sin": "Gluttony",
+        "damageType": "Blunt",
+        "offenseLevel": 40
+      }
+    ]
+  },
+  {
+    "id": "liu-assoc-south-section-3-yi-sang",
+    "name": "Liu Assoc. South Section 3 Yi Sang",
+    "sinner": "Yi Sang",
+    "defenseLevel": 37,
+    "skills": [
+      {
+        "id": "liu-assoc-south-section-3-yi-sang-skill-1",
+        "name": "Flame Hew",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Sloth",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      },
+      {
+        "id": "liu-assoc-south-section-3-yi-sang-skill-2",
+        "name": "Frontal Assault",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Wrath",
+        "damageType": "Slash",
+        "offenseLevel": 38
+      },
+      {
+        "id": "liu-assoc-south-section-3-yi-sang-skill-3",
+        "name": "Flow of the Sword",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 4,
+        "sin": "Envy",
+        "damageType": "Slash",
+        "offenseLevel": 39
+      }
+    ]
+  },
+  {
+    "id": "liu-assoc-south-section-4-director-rodion",
+    "name": "Liu Assoc. South Section 4 Director Rodion",
+    "sinner": "Rodion",
+    "defenseLevel": 35,
+    "skills": [
+      {
+        "id": "liu-assoc-south-section-4-director-rodion-skill-1",
+        "name": "Flaming Fists",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Pride",
+        "damageType": "Blunt",
+        "offenseLevel": 37
+      },
+      {
+        "id": "liu-assoc-south-section-4-director-rodion-skill-2",
+        "name": "Fiery Knifehand-Combust",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Wrath",
+        "damageType": "Pierce",
+        "offenseLevel": 37
+      },
+      {
+        "id": "liu-assoc-south-section-4-director-rodion-skill-3",
+        "name": "Pinpoint Blitz",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 4,
+        "sin": "Lust",
+        "damageType": "Pierce",
+        "offenseLevel": 37
+      }
+    ]
+  },
+  {
+    "id": "liu-assoc-south-section-4-ishmael",
+    "name": "Liu Assoc. South Section 4 Ishmael",
+    "sinner": "Ishmael",
+    "defenseLevel": 35,
+    "skills": [
+      {
+        "id": "liu-assoc-south-section-4-ishmael-skill-1",
+        "name": "Red Kick",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 2,
+        "sin": "Lust",
+        "damageType": "Blunt",
+        "offenseLevel": 37
+      },
+      {
+        "id": "liu-assoc-south-section-4-ishmael-skill-2",
+        "name": "Frontal Assault",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Wrath",
+        "damageType": "Blunt",
+        "offenseLevel": 37
+      },
+      {
+        "id": "liu-assoc-south-section-4-ishmael-skill-3",
+        "name": "Inner Gate Elbow Strike",
+        "basePower": 3,
+        "coinPower": 3,
+        "coinCount": 4,
+        "sin": "Envy",
+        "damageType": "Blunt",
+        "offenseLevel": 37
+      }
+    ]
+  },
+  {
+    "id": "liu-assoc-south-section-4-ry-sh",
+    "name": "Liu Assoc. South Section 4 Ry\u014Dsh\u016B",
+    "sinner": "Ry\u014Dsh\u016B",
+    "defenseLevel": 34,
+    "skills": [
+      {
+        "id": "liu-assoc-south-section-4-ry-sh-skill-1",
+        "name": "All-out War",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Gluttony",
+        "damageType": "Slash",
+        "offenseLevel": 36
+      },
+      {
+        "id": "liu-assoc-south-section-4-ry-sh-skill-2",
+        "name": "Fiery Knifehand",
+        "basePower": 4,
+        "coinPower": 5,
+        "coinCount": 2,
+        "sin": "Wrath",
+        "damageType": "Pierce",
+        "offenseLevel": 36
+      },
+      {
+        "id": "liu-assoc-south-section-4-ry-sh-skill-3",
+        "name": "Flame Cleave",
+        "basePower": 4,
+        "coinPower": 2,
+        "coinCount": 4,
+        "sin": "Lust",
+        "damageType": "Slash",
+        "offenseLevel": 38
+      }
+    ]
+  },
+  {
+    "id": "liu-assoc-south-section-5-hong-lu",
+    "name": "Liu Assoc. South Section 5 Hong Lu",
+    "sinner": "Hong Lu",
+    "defenseLevel": 36,
+    "skills": [
+      {
+        "id": "liu-assoc-south-section-5-hong-lu-skill-1",
+        "name": "Warm Up",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Gloom",
+        "damageType": "Blunt",
+        "offenseLevel": 35
+      },
+      {
+        "id": "liu-assoc-south-section-5-hong-lu-skill-2",
+        "name": "Flowing Flame",
+        "basePower": 6,
+        "coinPower": 2,
+        "coinCount": 2,
+        "sin": "Lust",
+        "damageType": "Blunt",
+        "offenseLevel": 35
+      },
+      {
+        "id": "liu-assoc-south-section-5-hong-lu-skill-3",
+        "name": "Crimson Blaze Fist",
+        "basePower": 5,
+        "coinPower": 6,
+        "coinCount": 2,
+        "sin": "Wrath",
+        "damageType": "Blunt",
+        "offenseLevel": 35
+      }
+    ]
+  },
+  {
+    "id": "liu-assoc-south-section-6-gregor",
+    "name": "Liu Assoc. South Section 6 Gregor",
+    "sinner": "Gregor",
+    "defenseLevel": 31,
+    "skills": [
+      {
+        "id": "liu-assoc-south-section-6-gregor-skill-1",
+        "name": "Single-point Stab",
+        "basePower": 4,
+        "coinPower": 2,
+        "coinCount": 2,
+        "sin": "Wrath",
+        "damageType": "Blunt",
+        "offenseLevel": 40
+      },
+      {
+        "id": "liu-assoc-south-section-6-gregor-skill-2",
+        "name": "Rush Down",
+        "basePower": 5,
+        "coinPower": 2,
+        "coinCount": 3,
+        "sin": "Lust",
+        "damageType": "Blunt",
+        "offenseLevel": 40
+      },
+      {
+        "id": "liu-assoc-south-section-6-gregor-skill-3",
+        "name": "Perfected Palm Strike",
+        "basePower": 4,
+        "coinPower": 2,
+        "coinCount": 4,
+        "sin": "Sloth",
+        "damageType": "Blunt",
+        "offenseLevel": 40
+      }
+    ]
+  },
+  {
+    "id": "liu-assoc-south-section-6-meursault",
+    "name": "Liu Assoc. South Section 6 Meursault",
+    "sinner": "Meursault",
+    "defenseLevel": 36,
+    "skills": [
+      {
+        "id": "liu-assoc-south-section-6-meursault-skill-1",
+        "name": "Assault",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Lust",
+        "damageType": "Blunt",
+        "offenseLevel": 36
+      },
+      {
+        "id": "liu-assoc-south-section-6-meursault-skill-2",
+        "name": "Stalwart Stance",
+        "basePower": 7,
+        "coinPower": 2,
+        "coinCount": 2,
+        "sin": "Sloth",
+        "damageType": "Blunt",
+        "offenseLevel": 36
+      },
+      {
+        "id": "liu-assoc-south-section-6-meursault-skill-3",
+        "name": "Perfected Death Fist",
+        "basePower": 5,
+        "coinPower": 3,
+        "coinCount": 3,
+        "sin": "Wrath",
+        "damageType": "Pierce",
+        "offenseLevel": 36
+      }
+    ]
+  },
+  {
+    "id": "lobotomy-corp-remnant-faust",
+    "name": "Lobotomy Corp. Remnant Faust",
+    "sinner": "Faust",
+    "defenseLevel": 31,
+    "skills": [
+      {
+        "id": "lobotomy-corp-remnant-faust-skill-1",
+        "name": "Sole Strike",
+        "basePower": 3,
+        "coinPower": 8,
+        "coinCount": 1,
+        "sin": "Lust",
+        "damageType": "Slash",
+        "offenseLevel": 17
+      },
+      {
+        "id": "lobotomy-corp-remnant-faust-skill-2",
+        "name": "Deep Cuts",
+        "basePower": 5,
+        "coinPower": 3,
+        "coinCount": 3,
+        "sin": "Gloom",
+        "damageType": "Pierce",
+        "offenseLevel": 17
+      },
+      {
+        "id": "lobotomy-corp-remnant-faust-skill-3",
+        "name": "Opportunistic Slash",
+        "basePower": 4,
+        "coinPower": 8,
+        "coinCount": 2,
+        "sin": "Envy",
+        "damageType": "Slash",
+        "offenseLevel": 17
+      }
+    ]
+  },
+  {
+    "id": "lobotomy-e-g-o-faint-aroma-solitude-ry-sh",
+    "name": "Lobotomy E.G.O::Faint Aroma \u0026 Solitude Ry\u014Dsh\u016B",
+    "sinner": "Ry\u014Dsh\u016B",
+    "defenseLevel": 35,
+    "skills": [
+      {
+        "id": "lobotomy-e-g-o-faint-aroma-solitude-ry-sh-skill-1",
+        "name": "Bang. Bang.",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Sloth",
+        "damageType": "Pierce",
+        "offenseLevel": 37
+      },
+      {
+        "id": "lobotomy-e-g-o-faint-aroma-solitude-ry-sh-skill-2",
+        "name": "Blossoming Fragrance in the Void",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Envy",
+        "damageType": "Pierce",
+        "offenseLevel": 37
+      },
+      {
+        "id": "lobotomy-e-g-o-faint-aroma-solitude-ry-sh-skill-3",
+        "name": "Full Bloom",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Gloom",
+        "damageType": "Pierce",
+        "offenseLevel": 38
+      }
+    ]
+  },
+  {
+    "id": "lobotomy-e-g-o-hornet-alteration-meursault",
+    "name": "Lobotomy E.G.O::Hornet\u3010Alteration\u3011 Meursault",
+    "sinner": "Meursault",
+    "defenseLevel": 35,
+    "skills": [
+      {
+        "id": "lobotomy-e-g-o-hornet-alteration-meursault-skill-1",
+        "name": "Warning Shot",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Lust",
+        "damageType": "Pierce",
+        "offenseLevel": 38
+      },
+      {
+        "id": "lobotomy-e-g-o-hornet-alteration-meursault-skill-2",
+        "name": "E.G.O Alteration - Buckshot",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Wrath",
+        "damageType": "Pierce",
+        "offenseLevel": 39
+      },
+      {
+        "id": "lobotomy-e-g-o-hornet-alteration-meursault-skill-3",
+        "name": "Field Test - Dust Spark",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 4,
+        "sin": "Wrath",
+        "damageType": "Pierce",
+        "offenseLevel": 40
+      }
+    ]
+  },
+  {
+    "id": "lobotomy-e-g-o-in-the-name-of-love-and-hate-don-quixote",
+    "name": "Lobotomy E.G.O::In the Name of Love and Hate Don Quixote",
+    "sinner": "Don Quixote",
+    "defenseLevel": 37,
+    "skills": [
+      {
+        "id": "lobotomy-e-g-o-in-the-name-of-love-and-hate-don-quixote-skill-1",
+        "name": "By Manager Esquire\u0027s Orders, I Am Here!",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Wrath",
+        "damageType": "Blunt",
+        "offenseLevel": 36
+      },
+      {
+        "id": "lobotomy-e-g-o-in-the-name-of-love-and-hate-don-quixote-skill-2",
+        "name": "With Love! Hyah!",
+        "basePower": 6,
+        "coinPower": 5,
+        "coinCount": 2,
+        "sin": "Envy",
+        "damageType": "Blunt",
+        "offenseLevel": 37
+      },
+      {
+        "id": "lobotomy-e-g-o-in-the-name-of-love-and-hate-don-quixote-skill-3",
+        "name": "Arcana Beats!! / Minor Arcana Slave!!!",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Envy",
+        "damageType": "Blunt",
+        "offenseLevel": 38
+      }
+    ]
+  },
+  {
+    "id": "lobotomy-e-g-o-lamp-gregor",
+    "name": "Lobotomy E.G.O::Lamp Gregor",
+    "sinner": "Gregor",
+    "defenseLevel": 40,
+    "skills": [
+      {
+        "id": "lobotomy-e-g-o-lamp-gregor-skill-1",
+        "name": "Intense Stare: Zero Range",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Wrath",
+        "damageType": "Pierce",
+        "offenseLevel": 36
+      },
+      {
+        "id": "lobotomy-e-g-o-lamp-gregor-skill-2",
+        "name": "Destroy the Visible with the Invisible",
+        "basePower": 3,
+        "coinPower": 3,
+        "coinCount": 4,
+        "sin": "Gloom",
+        "damageType": "Pierce",
+        "offenseLevel": 37
+      },
+      {
+        "id": "lobotomy-e-g-o-lamp-gregor-skill-3",
+        "name": "Salvation for those Enchanted by the Lamp",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Pride",
+        "damageType": "Pierce",
+        "offenseLevel": 40
+      }
+    ]
+  },
+  {
+    "id": "lobotomy-e-g-o-lantern-don-quixote",
+    "name": "Lobotomy E.G.O::Lantern Don Quixote",
+    "sinner": "Don Quixote",
+    "defenseLevel": 39,
+    "skills": [
+      {
+        "id": "lobotomy-e-g-o-lantern-don-quixote-skill-1",
+        "name": "I Shall Nibble Thee!",
+        "basePower": 5,
+        "coinPower": 7,
+        "coinCount": 1,
+        "sin": "Gluttony",
+        "damageType": "Slash",
+        "offenseLevel": 34
+      },
+      {
+        "id": "lobotomy-e-g-o-lantern-don-quixote-skill-2",
+        "name": "Flashing Lure",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 3,
+        "sin": "Lust",
+        "damageType": "Slash",
+        "offenseLevel": 34
+      },
+      {
+        "id": "lobotomy-e-g-o-lantern-don-quixote-skill-3",
+        "name": "Whirlwind Om-Nom-Nom!",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 3,
+        "sin": "Gloom",
+        "damageType": "Pierce",
+        "offenseLevel": 36
+      }
+    ]
+  },
+  {
+    "id": "lobotomy-e-g-o-magic-bullet-outis",
+    "name": "Lobotomy E.G.O::Magic Bullet Outis",
+    "sinner": "Outis",
+    "defenseLevel": 32,
+    "skills": [
+      {
+        "id": "lobotomy-e-g-o-magic-bullet-outis-skill-1",
+        "name": "Ignition",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Wrath",
+        "damageType": "Blunt",
+        "offenseLevel": 38
+      },
+      {
+        "id": "lobotomy-e-g-o-magic-bullet-outis-skill-2",
+        "name": "Detonate Magic Bullet",
+        "basePower": 4,
+        "coinPower": 6,
+        "coinCount": 2,
+        "sin": "Pride",
+        "damageType": "Blunt",
+        "offenseLevel": 38
+      },
+      {
+        "id": "lobotomy-e-g-o-magic-bullet-outis-skill-3",
+        "name": "Magic Bullet Fire",
+        "basePower": 15,
+        "coinPower": 4,
+        "coinCount": 1,
+        "sin": "Pride",
+        "damageType": "Pierce",
+        "offenseLevel": 40
+      }
+    ]
+  },
+  {
+    "id": "lobotomy-e-g-o-red-eyes-penitence-ry-sh",
+    "name": "Lobotomy E.G.O::Red Eyes \u0026 Penitence Ry\u014Dsh\u016B",
+    "sinner": "Ry\u014Dsh\u016B",
+    "defenseLevel": 35,
+    "skills": [
+      {
+        "id": "lobotomy-e-g-o-red-eyes-penitence-ry-sh-skill-1",
+        "name": "Both of You, Shut Up",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Envy",
+        "damageType": "Blunt",
+        "offenseLevel": 36
+      },
+      {
+        "id": "lobotomy-e-g-o-red-eyes-penitence-ry-sh-skill-2",
+        "name": "S.H. / S.F.",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Gloom",
+        "damageType": "Blunt",
+        "offenseLevel": 37
+      },
+      {
+        "id": "lobotomy-e-g-o-red-eyes-penitence-ry-sh-skill-3",
+        "name": "Skullbuster",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Lust",
+        "damageType": "Blunt",
+        "offenseLevel": 38
+      }
+    ]
+  },
+  {
+    "id": "lobotomy-e-g-o-red-sheet-sinclair",
+    "name": "Lobotomy E.G.O::Red Sheet Sinclair",
+    "sinner": "Sinclair",
+    "defenseLevel": 35,
+    "skills": [
+      {
+        "id": "lobotomy-e-g-o-red-sheet-sinclair-skill-1",
+        "name": "Magnify Wound",
+        "basePower": 5,
+        "coinPower": 5,
+        "coinCount": 1,
+        "sin": "Gluttony",
+        "damageType": "Blunt",
+        "offenseLevel": 35
+      },
+      {
+        "id": "lobotomy-e-g-o-red-sheet-sinclair-skill-2",
+        "name": "Proliferating Talismans",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 3,
+        "sin": "Pride",
+        "damageType": "Blunt",
+        "offenseLevel": 35
+      },
+      {
+        "id": "lobotomy-e-g-o-red-sheet-sinclair-skill-3",
+        "name": "Rupturing Talisman",
+        "basePower": 5,
+        "coinPower": 6,
+        "coinCount": 2,
+        "sin": "Lust",
+        "damageType": "Pierce",
+        "offenseLevel": 35
+      }
+    ]
+  },
+  {
+    "id": "lobotomy-e-g-o-regret-faust",
+    "name": "Lobotomy E.G.O::Regret Faust",
+    "sinner": "Faust",
+    "defenseLevel": 36,
+    "skills": [
+      {
+        "id": "lobotomy-e-g-o-regret-faust-skill-1",
+        "name": "Contracting Straight-jacket",
+        "basePower": 4,
+        "coinPower": 7,
+        "coinCount": 1,
+        "sin": "Sloth",
+        "damageType": "Blunt",
+        "offenseLevel": 38
+      },
+      {
+        "id": "lobotomy-e-g-o-regret-faust-skill-2",
+        "name": "Metallic Ringing",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Pride",
+        "damageType": "Blunt",
+        "offenseLevel": 38
+      },
+      {
+        "id": "lobotomy-e-g-o-regret-faust-skill-3",
+        "name": "Unleashed Violence",
+        "basePower": 3,
+        "coinPower": 5,
+        "coinCount": 3,
+        "sin": "Wrath",
+        "damageType": "Blunt",
+        "offenseLevel": 38
+      }
+    ]
+  },
+  {
+    "id": "lobotomy-e-g-o-sloshing-ishmael",
+    "name": "Lobotomy E.G.O::Sloshing Ishmael",
+    "sinner": "Ishmael",
+    "defenseLevel": 40,
+    "skills": [
+      {
+        "id": "lobotomy-e-g-o-sloshing-ishmael-skill-1",
+        "name": "It\u0027s Heavy...!",
+        "basePower": 4,
+        "coinPower": 6,
+        "coinCount": 1,
+        "sin": "Gloom",
+        "damageType": "Blunt",
+        "offenseLevel": 34
+      },
+      {
+        "id": "lobotomy-e-g-o-sloshing-ishmael-skill-2",
+        "name": "It\u0027s Churning...!",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Wrath",
+        "damageType": "Blunt",
+        "offenseLevel": 34
+      },
+      {
+        "id": "lobotomy-e-g-o-sloshing-ishmael-skill-3",
+        "name": "Corrosive Splash",
+        "basePower": 6,
+        "coinPower": 16,
+        "coinCount": 1,
+        "sin": "Gluttony",
+        "damageType": "Blunt",
+        "offenseLevel": 34
+      }
+    ]
+  },
+  {
+    "id": "lobotomy-e-g-o-solemn-lament-yi-sang",
+    "name": "Lobotomy E.G.O::Solemn Lament Yi Sang",
+    "sinner": "Yi Sang",
+    "defenseLevel": 37,
+    "skills": [
+      {
+        "id": "lobotomy-e-g-o-solemn-lament-yi-sang-skill-1",
+        "name": "Celebration for the Departed",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Pride",
+        "damageType": "Pierce",
+        "offenseLevel": 37
+      },
+      {
+        "id": "lobotomy-e-g-o-solemn-lament-yi-sang-skill-2",
+        "name": "Solemn Lament for the Living",
+        "basePower": 4,
+        "coinPower": 6,
+        "coinCount": 2,
+        "sin": "Gloom",
+        "damageType": "Pierce",
+        "offenseLevel": 37
+      },
+      {
+        "id": "lobotomy-e-g-o-solemn-lament-yi-sang-skill-3",
+        "name": "Goodbye Now, a Sorrow in You",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 4,
+        "sin": "Sloth",
+        "damageType": "Pierce",
+        "offenseLevel": 40
+      }
+    ]
+  },
+  {
+    "id": "lobotomy-e-g-o-sunshower-heathcliff",
+    "name": "Lobotomy E.G.O::Sunshower Heathcliff",
+    "sinner": "Heathcliff",
+    "defenseLevel": 37,
+    "skills": [
+      {
+        "id": "lobotomy-e-g-o-sunshower-heathcliff-skill-1",
+        "name": "Umbrella Thwack",
+        "basePower": 6,
+        "coinPower": -2,
+        "coinCount": 3,
+        "sin": "Envy",
+        "damageType": "Blunt",
+        "offenseLevel": 37
+      },
+      {
+        "id": "lobotomy-e-g-o-sunshower-heathcliff-skill-2",
+        "name": "Puddle Stomp",
+        "basePower": 10,
+        "coinPower": -3,
+        "coinCount": 4,
+        "sin": "Gloom",
+        "damageType": "Blunt",
+        "offenseLevel": 38
+      },
+      {
+        "id": "lobotomy-e-g-o-sunshower-heathcliff-skill-3",
+        "name": "Spread Out!",
+        "basePower": 18,
+        "coinPower": -7,
+        "coinCount": 3,
+        "sin": "Sloth",
+        "damageType": "Pierce",
+        "offenseLevel": 38
+      }
+    ]
+  },
+  {
+    "id": "lobotomy-e-g-o-the-sword-sharpened-with-tears-rodion",
+    "name": "Lobotomy E.G.O::The Sword Sharpened with Tears Rodion",
+    "sinner": "Rodion",
+    "defenseLevel": 40,
+    "skills": [
+      {
+        "id": "lobotomy-e-g-o-the-sword-sharpened-with-tears-rodion-skill-1",
+        "name": "The Knight\u0027s Sanctuary",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Gloom",
+        "damageType": "Pierce",
+        "offenseLevel": 36
+      },
+      {
+        "id": "lobotomy-e-g-o-the-sword-sharpened-with-tears-rodion-skill-2",
+        "name": "With the Power of Justice",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Envy",
+        "damageType": "Pierce",
+        "offenseLevel": 37
+      },
+      {
+        "id": "lobotomy-e-g-o-the-sword-sharpened-with-tears-rodion-skill-3",
+        "name": "Arcana Pierce",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Pride",
+        "damageType": "Pierce",
+        "offenseLevel": 38
+      }
+    ]
+  },
+  {
+    "id": "los-mariachis-jefe-sinclair",
+    "name": "Los Mariachis Jefe Sinclair",
+    "sinner": "Sinclair",
+    "defenseLevel": 38,
+    "skills": [
+      {
+        "id": "los-mariachis-jefe-sinclair-skill-1",
+        "name": "Baile y Rola",
+        "basePower": 4,
+        "coinPower": 2,
+        "coinCount": 2,
+        "sin": "Sloth",
+        "damageType": "Blunt",
+        "offenseLevel": 32
+      },
+      {
+        "id": "los-mariachis-jefe-sinclair-skill-2",
+        "name": "Danza de Pasi\u00F3n",
+        "basePower": 5,
+        "coinPower": 1,
+        "coinCount": 3,
+        "sin": "Envy",
+        "damageType": "Blunt",
+        "offenseLevel": 32
+      },
+      {
+        "id": "los-mariachis-jefe-sinclair-skill-3",
+        "name": "Pa\u00F1ata Party",
+        "basePower": 8,
+        "coinPower": 11,
+        "coinCount": 1,
+        "sin": "Gloom",
+        "damageType": "Blunt",
+        "offenseLevel": 32
+      }
+    ]
+  },
+  {
+    "id": "molar-boatworks-fixer-ishmael",
+    "name": "Molar Boatworks Fixer Ishmael",
+    "sinner": "Ishmael",
+    "defenseLevel": 33,
+    "skills": [
+      {
+        "id": "molar-boatworks-fixer-ishmael-skill-1",
+        "name": "Ready to Crush",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 2,
+        "sin": "Pride",
+        "damageType": "Pierce",
+        "offenseLevel": 38
+      },
+      {
+        "id": "molar-boatworks-fixer-ishmael-skill-2",
+        "name": "Explosive Blast",
+        "basePower": 5,
+        "coinPower": 5,
+        "coinCount": 2,
+        "sin": "Sloth",
+        "damageType": "Pierce",
+        "offenseLevel": 38
+      },
+      {
+        "id": "molar-boatworks-fixer-ishmael-skill-3",
+        "name": "Risky Judgement",
+        "basePower": 3,
+        "coinPower": 5,
+        "coinCount": 3,
+        "sin": "Gloom",
+        "damageType": "Pierce",
+        "offenseLevel": 40
+      }
+    ]
+  },
+  {
+    "id": "molar-boatworks-fixer-sinclair",
+    "name": "Molar Boatworks Fixer Sinclair",
+    "sinner": "Sinclair",
+    "defenseLevel": 33,
+    "skills": [
+      {
+        "id": "molar-boatworks-fixer-sinclair-skill-1",
+        "name": "Fierce Assault",
+        "basePower": 2,
+        "coinPower": 1,
+        "coinCount": 4,
+        "sin": "Gloom",
+        "damageType": "Blunt",
+        "offenseLevel": 36
+      },
+      {
+        "id": "molar-boatworks-fixer-sinclair-skill-2",
+        "name": "Steady...",
+        "basePower": 4,
+        "coinPower": 12,
+        "coinCount": 1,
+        "sin": "Envy",
+        "damageType": "Pierce",
+        "offenseLevel": 36
+      },
+      {
+        "id": "molar-boatworks-fixer-sinclair-skill-3",
+        "name": "Gamble",
+        "basePower": 4,
+        "coinPower": 6,
+        "coinCount": 2,
+        "sin": "Gluttony",
+        "damageType": "Pierce",
+        "offenseLevel": 36
+      }
+    ]
+  },
+  {
+    "id": "molar-office-fixer-outis",
+    "name": "Molar Office Fixer Outis",
+    "sinner": "Outis",
+    "defenseLevel": 32,
+    "skills": [
+      {
+        "id": "molar-office-fixer-outis-skill-1",
+        "name": "Wait Up!",
+        "basePower": 4,
+        "coinPower": 7,
+        "coinCount": 1,
+        "sin": "Wrath",
+        "damageType": "Slash",
+        "offenseLevel": 36
+      },
+      {
+        "id": "molar-office-fixer-outis-skill-2",
+        "name": "Slice",
+        "basePower": 3,
+        "coinPower": 5,
+        "coinCount": 3,
+        "sin": "Lust",
+        "damageType": "Blunt",
+        "offenseLevel": 39
+      },
+      {
+        "id": "molar-office-fixer-outis-skill-3",
+        "name": "Daring Decision",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 4,
+        "sin": "Sloth",
+        "damageType": "Blunt",
+        "offenseLevel": 40
+      }
+    ]
+  },
+  {
+    "id": "molar-office-fixer-yi-sang",
+    "name": "Molar Office Fixer Yi Sang",
+    "sinner": "Yi Sang",
+    "defenseLevel": 33,
+    "skills": [
+      {
+        "id": "molar-office-fixer-yi-sang-skill-1",
+        "name": "Stay Calm",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Lust",
+        "damageType": "Pierce",
+        "offenseLevel": 33
+      },
+      {
+        "id": "molar-office-fixer-yi-sang-skill-2",
+        "name": "Gamble",
+        "basePower": 4,
+        "coinPower": 12,
+        "coinCount": 1,
+        "sin": "Sloth",
+        "damageType": "Blunt",
+        "offenseLevel": 37
+      },
+      {
+        "id": "molar-office-fixer-yi-sang-skill-3",
+        "name": "Grinding the Molars",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 3,
+        "sin": "Wrath",
+        "damageType": "Blunt",
+        "offenseLevel": 40
+      }
+    ]
+  },
+  {
+    "id": "multicrack-office-fixer-heathcliff",
+    "name": "MultiCrack Office Fixer Heathcliff",
+    "sinner": "Heathcliff",
+    "defenseLevel": 34,
+    "skills": [
+      {
+        "id": "multicrack-office-fixer-heathcliff-skill-1",
+        "name": "40S-2 Activation",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Wrath",
+        "damageType": "Slash",
+        "offenseLevel": 35
+      },
+      {
+        "id": "multicrack-office-fixer-heathcliff-skill-2",
+        "name": "Photoelectric Mark",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 3,
+        "sin": "Envy",
+        "damageType": "Blunt",
+        "offenseLevel": 36
+      },
+      {
+        "id": "multicrack-office-fixer-heathcliff-skill-3",
+        "name": "Photoelectric Harpoon",
+        "basePower": 5,
+        "coinPower": 2,
+        "coinCount": 4,
+        "sin": "Gloom",
+        "damageType": "Blunt",
+        "offenseLevel": 37
+      }
+    ]
+  },
+  {
+    "id": "multicrack-office-rep-faust",
+    "name": "MultiCrack Office Rep Faust",
+    "sinner": "Faust",
+    "defenseLevel": 34,
+    "skills": [
+      {
+        "id": "multicrack-office-rep-faust-skill-1",
+        "name": "40Y-3 Activation",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Lust",
+        "damageType": "Slash",
+        "offenseLevel": 36
+      },
+      {
+        "id": "multicrack-office-rep-faust-skill-2",
+        "name": "Charge Countercurrent",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Envy",
+        "damageType": "Blunt",
+        "offenseLevel": 39
+      },
+      {
+        "id": "multicrack-office-rep-faust-skill-3",
+        "name": "40Y-3 Charge",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 4,
+        "sin": "Gloom",
+        "damageType": "Blunt",
+        "offenseLevel": 38
+      }
+    ]
+  },
+  {
+    "id": "n-corp-e-g-o-contempt-awe-ry-sh",
+    "name": "N Corp. E.G.O::Contempt, Awe Ry\u014Dsh\u016B",
+    "sinner": "Ry\u014Dsh\u016B",
+    "defenseLevel": 33,
+    "skills": [
+      {
+        "id": "n-corp-e-g-o-contempt-awe-ry-sh-skill-1",
+        "name": "Contemptuous Thing",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Envy",
+        "damageType": "Pierce",
+        "offenseLevel": 37
+      },
+      {
+        "id": "n-corp-e-g-o-contempt-awe-ry-sh-skill-2",
+        "name": "Be Awed",
+        "basePower": 4,
+        "coinPower": 6,
+        "coinCount": 2,
+        "sin": "Wrath",
+        "damageType": "Pierce",
+        "offenseLevel": 38
+      },
+      {
+        "id": "n-corp-e-g-o-contempt-awe-ry-sh-skill-3",
+        "name": "Awe, Contempt",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Lust",
+        "damageType": "Pierce",
+        "offenseLevel": 40
+      },
+      {
+        "id": "n-corp-e-g-o-contempt-awe-ry-sh-skill-4",
+        "name": "I Shall Fire / Anytime",
+        "basePower": 4,
+        "coinPower": 7,
+        "coinCount": 2,
+        "sin": "Pride",
+        "damageType": "Pierce",
+        "offenseLevel": 40
+      }
+    ]
+  },
+  {
+    "id": "n-corp-e-g-o-fell-bullet-yi-sang",
+    "name": "N Corp. E.G.O::Fell Bullet Yi Sang",
+    "sinner": "Yi Sang",
+    "defenseLevel": 37,
+    "skills": [
+      {
+        "id": "n-corp-e-g-o-fell-bullet-yi-sang-skill-1",
+        "name": "See Through Defenses",
+        "basePower": 5,
+        "coinPower": 6,
+        "coinCount": 1,
+        "sin": "Wrath",
+        "damageType": "Blunt",
+        "offenseLevel": 36
+      },
+      {
+        "id": "n-corp-e-g-o-fell-bullet-yi-sang-skill-2",
+        "name": "Punch Through",
+        "basePower": 4,
+        "coinPower": 6,
+        "coinCount": 2,
+        "sin": "Lust",
+        "damageType": "Pierce",
+        "offenseLevel": 38
+      },
+      {
+        "id": "n-corp-e-g-o-fell-bullet-yi-sang-skill-3",
+        "name": "Target Readjustment Fire",
+        "basePower": 4,
+        "coinPower": 7,
+        "coinCount": 2,
+        "sin": "Pride",
+        "damageType": "Pierce",
+        "offenseLevel": 40
+      }
+    ]
+  },
+  {
+    "id": "n-corp-gro-hammer-meursault",
+    "name": "N Corp. Gro\u00DFhammer Meursault",
+    "sinner": "Meursault",
+    "defenseLevel": 40,
+    "skills": [
+      {
+        "id": "n-corp-gro-hammer-meursault-skill-1",
+        "name": "Drive",
+        "basePower": 5,
+        "coinPower": 1,
+        "coinCount": 2,
+        "sin": "Sloth",
+        "damageType": "Pierce",
+        "offenseLevel": 12
+      },
+      {
+        "id": "n-corp-gro-hammer-meursault-skill-2",
+        "name": "You Are Cleansed of Sin",
+        "basePower": 6,
+        "coinPower": 3,
+        "coinCount": 2,
+        "sin": "Wrath",
+        "damageType": "Blunt",
+        "offenseLevel": 12
+      },
+      {
+        "id": "n-corp-gro-hammer-meursault-skill-3",
+        "name": "Annihilate Heretics",
+        "basePower": 8,
+        "coinPower": 3,
+        "coinCount": 2,
+        "sin": "Pride",
+        "damageType": "Pierce",
+        "offenseLevel": 12
+      }
+    ]
+  },
+  {
+    "id": "n-corp-kleinhammer-heathcliff",
+    "name": "N Corp. Kleinhammer Heathcliff",
+    "sinner": "Heathcliff",
+    "defenseLevel": 36,
+    "skills": [
+      {
+        "id": "n-corp-kleinhammer-heathcliff-skill-1",
+        "name": "Gawky Nailing",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Envy",
+        "damageType": "Pierce",
+        "offenseLevel": 35
+      },
+      {
+        "id": "n-corp-kleinhammer-heathcliff-skill-2",
+        "name": "Puri\u2026fy!",
+        "basePower": 6,
+        "coinPower": 8,
+        "coinCount": 1,
+        "sin": "Gloom",
+        "damageType": "Blunt",
+        "offenseLevel": 35
+      },
+      {
+        "id": "n-corp-kleinhammer-heathcliff-skill-3",
+        "name": "Infirm Retribution",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Lust",
+        "damageType": "Blunt",
+        "offenseLevel": 35
+      }
+    ]
+  },
+  {
+    "id": "n-corp-mittelhammer-don-quixote",
+    "name": "N Corp. Mittelhammer Don Quixote",
+    "sinner": "Don Quixote",
+    "defenseLevel": 36,
+    "skills": [
+      {
+        "id": "n-corp-mittelhammer-don-quixote-skill-1",
+        "name": "Rightful Purge",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Lust",
+        "damageType": "Pierce",
+        "offenseLevel": 36
+      },
+      {
+        "id": "n-corp-mittelhammer-don-quixote-skill-2",
+        "name": "Enactment!",
+        "basePower": 4,
+        "coinPower": 12,
+        "coinCount": 1,
+        "sin": "Gluttony",
+        "damageType": "Blunt",
+        "offenseLevel": 36
+      },
+      {
+        "id": "n-corp-mittelhammer-don-quixote-skill-3",
+        "name": "Fanatical Judgement",
+        "basePower": 5,
+        "coinPower": 3,
+        "coinCount": 3,
+        "sin": "Wrath",
+        "damageType": "Blunt",
+        "offenseLevel": 36
+      }
+    ]
+  },
+  {
+    "id": "n-corp-mittelhammer-rodion",
+    "name": "N Corp. Mittelhammer Rodion",
+    "sinner": "Rodion",
+    "defenseLevel": 35,
+    "skills": [
+      {
+        "id": "n-corp-mittelhammer-rodion-skill-1",
+        "name": "Devoted Hammering",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Pride",
+        "damageType": "Pierce",
+        "offenseLevel": 38
+      },
+      {
+        "id": "n-corp-mittelhammer-rodion-skill-2",
+        "name": "Zealous Purge",
+        "basePower": 6,
+        "coinPower": 2,
+        "coinCount": 2,
+        "sin": "Lust",
+        "damageType": "Blunt",
+        "offenseLevel": 38
+      },
+      {
+        "id": "n-corp-mittelhammer-rodion-skill-3",
+        "name": "Ironclad Retribution",
+        "basePower": 4,
+        "coinPower": 2,
+        "coinCount": 4,
+        "sin": "Wrath",
+        "damageType": "Blunt",
+        "offenseLevel": 38
+      }
+    ]
+  },
+  {
+    "id": "night-awls-capitano-gregor",
+    "name": "Night Awls Capitano Gregor",
+    "sinner": "Gregor",
+    "defenseLevel": 33,
+    "skills": [
+      {
+        "id": "night-awls-capitano-gregor-skill-1",
+        "name": "Gap Attack",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Sloth",
+        "damageType": "Pierce",
+        "offenseLevel": 37
+      },
+      {
+        "id": "night-awls-capitano-gregor-skill-2",
+        "name": "Stiletto Doppio",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Lust",
+        "damageType": "Pierce",
+        "offenseLevel": 38
+      },
+      {
+        "id": "night-awls-capitano-gregor-skill-3",
+        "name": "Execution",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 4,
+        "sin": "Pride",
+        "damageType": "Pierce",
+        "offenseLevel": 39
+      }
+    ]
+  },
+  {
+    "id": "r-corp-4th-pack-rabbit-heathcliff",
+    "name": "R Corp. 4th Pack Rabbit Heathcliff",
+    "sinner": "Heathcliff",
+    "defenseLevel": 31,
+    "skills": [
+      {
+        "id": "r-corp-4th-pack-rabbit-heathcliff-skill-1",
+        "name": "Graze the Grass",
+        "basePower": 4,
+        "coinPower": 2,
+        "coinCount": 3,
+        "sin": "Wrath",
+        "damageType": "Pierce",
+        "offenseLevel": 40
+      },
+      {
+        "id": "r-corp-4th-pack-rabbit-heathcliff-skill-2",
+        "name": "Concentrated Fire",
+        "basePower": 4,
+        "coinPower": 2,
+        "coinCount": 4,
+        "sin": "Gluttony",
+        "damageType": "Pierce",
+        "offenseLevel": 40
+      },
+      {
+        "id": "r-corp-4th-pack-rabbit-heathcliff-skill-3",
+        "name": "Quick Suppression",
+        "basePower": 3,
+        "coinPower": 2,
+        "coinCount": 5,
+        "sin": "Envy",
+        "damageType": "Pierce",
+        "offenseLevel": 40
+      }
+    ]
+  },
+  {
+    "id": "r-corp-4th-pack-reindeer-hong-lu",
+    "name": "R Corp. 4th Pack Reindeer Hong Lu",
+    "sinner": "Hong Lu",
+    "defenseLevel": 34,
+    "skills": [
+      {
+        "id": "r-corp-4th-pack-reindeer-hong-lu-skill-1",
+        "name": "Energy Strike",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Gluttony",
+        "damageType": "Blunt",
+        "offenseLevel": 37
+      },
+      {
+        "id": "r-corp-4th-pack-reindeer-hong-lu-skill-2",
+        "name": "Mind Whip",
+        "basePower": 2,
+        "coinPower": 3,
+        "coinCount": 4,
+        "sin": "Envy",
+        "damageType": "Blunt",
+        "offenseLevel": 38
+      },
+      {
+        "id": "r-corp-4th-pack-reindeer-hong-lu-skill-3",
+        "name": "Concentration",
+        "basePower": 8,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Wrath",
+        "damageType": "Blunt",
+        "offenseLevel": 39
+      }
+    ]
+  },
+  {
+    "id": "r-corp-4th-pack-reindeer-ishmael",
+    "name": "R Corp. 4th Pack Reindeer Ishmael",
+    "sinner": "Ishmael",
+    "defenseLevel": 38,
+    "skills": [
+      {
+        "id": "r-corp-4th-pack-reindeer-ishmael-skill-1",
+        "name": "Mind Strike",
+        "basePower": 4,
+        "coinPower": 5,
+        "coinCount": 2,
+        "sin": "Gloom",
+        "damageType": "Blunt",
+        "offenseLevel": 13
+      },
+      {
+        "id": "r-corp-4th-pack-reindeer-ishmael-skill-2",
+        "name": "Flaying Surge",
+        "basePower": 6,
+        "coinPower": 12,
+        "coinCount": 1,
+        "sin": "Envy",
+        "damageType": "Blunt",
+        "offenseLevel": 36
+      },
+      {
+        "id": "r-corp-4th-pack-reindeer-ishmael-skill-3",
+        "name": "Mind Whip",
+        "basePower": 2,
+        "coinPower": 6,
+        "coinCount": 4,
+        "sin": "Wrath",
+        "damageType": "Blunt",
+        "offenseLevel": 36
+      }
+    ]
+  },
+  {
+    "id": "r-corp-4th-pack-reindeer-rodion",
+    "name": "R Corp. 4th Pack Reindeer Rodion",
+    "sinner": "Rodion",
+    "defenseLevel": 36,
+    "skills": [
+      {
+        "id": "r-corp-4th-pack-reindeer-rodion-skill-1",
+        "name": "Energy Strike - \u0027That\u0027s What You Get for Giving Us Holiday Shifts!\u0027",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Gloom",
+        "damageType": "Blunt",
+        "offenseLevel": 37
+      },
+      {
+        "id": "r-corp-4th-pack-reindeer-rodion-skill-2",
+        "name": "Concentration - \u0027Burst and Pop with Christmas Colors!\u0027",
+        "basePower": 4,
+        "coinPower": 6,
+        "coinCount": 2,
+        "sin": "Envy",
+        "damageType": "Blunt",
+        "offenseLevel": 37
+      },
+      {
+        "id": "r-corp-4th-pack-reindeer-rodion-skill-3",
+        "name": "Mind Whip - \u0027Ahaha\u2026 Look, Everyone! We\u0027re the Fireworks this Christmas!\u0027",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 4,
+        "sin": "Wrath",
+        "damageType": "Blunt",
+        "offenseLevel": 38
+      }
+    ]
+  },
+  {
+    "id": "r-corp-4th-pack-rhino-meursault",
+    "name": "R Corp. 4th Pack Rhino Meursault",
+    "sinner": "Meursault",
+    "defenseLevel": 40,
+    "skills": [
+      {
+        "id": "r-corp-4th-pack-rhino-meursault-skill-1",
+        "name": "Weighty Bash",
+        "basePower": 5,
+        "coinPower": 6,
+        "coinCount": 1,
+        "sin": "Envy",
+        "damageType": "Blunt",
+        "offenseLevel": 35
+      },
+      {
+        "id": "r-corp-4th-pack-rhino-meursault-skill-2",
+        "name": "Demolish",
+        "basePower": 5,
+        "coinPower": 3,
+        "coinCount": 3,
+        "sin": "Gloom",
+        "damageType": "Slash",
+        "offenseLevel": 35
+      },
+      {
+        "id": "r-corp-4th-pack-rhino-meursault-skill-3",
+        "name": "Rhino Ram",
+        "basePower": 6,
+        "coinPower": 3,
+        "coinCount": 3,
+        "sin": "Lust",
+        "damageType": "Slash",
+        "offenseLevel": 35
+      }
+    ]
+  },
+  {
+    "id": "r-b-chef-de-cuisine-ry-sh",
+    "name": "R.B. Chef de Cuisine Ry\u014Dsh\u016B",
+    "sinner": "Ry\u014Dsh\u016B",
+    "defenseLevel": 33,
+    "skills": [
+      {
+        "id": "r-b-chef-de-cuisine-ry-sh-skill-1",
+        "name": "P.C.",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 2,
+        "sin": "Wrath",
+        "damageType": "Slash",
+        "offenseLevel": 38
+      },
+      {
+        "id": "r-b-chef-de-cuisine-ry-sh-skill-2",
+        "name": "I.H.",
+        "basePower": 3,
+        "coinPower": 5,
+        "coinCount": 3,
+        "sin": "Envy",
+        "damageType": "Pierce",
+        "offenseLevel": 38
+      },
+      {
+        "id": "r-b-chef-de-cuisine-ry-sh-skill-3",
+        "name": "I Can Cook Anything",
+        "basePower": 3,
+        "coinPower": 3,
+        "coinCount": 4,
+        "sin": "Lust",
+        "damageType": "Slash",
+        "offenseLevel": 38
+      }
+    ]
+  },
+  {
+    "id": "r-b-sous-chef-gregor",
+    "name": "R.B. Sous-chef Gregor",
+    "sinner": "Gregor",
+    "defenseLevel": 35,
+    "skills": [
+      {
+        "id": "r-b-sous-chef-gregor-skill-1",
+        "name": "Keep It Fresh",
+        "basePower": 4,
+        "coinPower": 2,
+        "coinCount": 2,
+        "sin": "Lust",
+        "damageType": "Blunt",
+        "offenseLevel": 36
+      },
+      {
+        "id": "r-b-sous-chef-gregor-skill-2",
+        "name": "You Fresh Enough?",
+        "basePower": 6,
+        "coinPower": 8,
+        "coinCount": 1,
+        "sin": "Gluttony",
+        "damageType": "Slash",
+        "offenseLevel": 35
+      },
+      {
+        "id": "r-b-sous-chef-gregor-skill-3",
+        "name": "Butcher Viand",
+        "basePower": 5,
+        "coinPower": 1,
+        "coinCount": 4,
+        "sin": "Envy",
+        "damageType": "Slash",
+        "offenseLevel": 38
+      }
+    ]
+  },
+  {
+    "id": "rosespanner-workshop-fixer-gregor",
+    "name": "Rosespanner Workshop Fixer Gregor",
+    "sinner": "Gregor",
+    "defenseLevel": 33,
+    "skills": [
+      {
+        "id": "rosespanner-workshop-fixer-gregor-skill-1",
+        "name": "Rev Up",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Gluttony",
+        "damageType": "Slash",
+        "offenseLevel": 36
+      },
+      {
+        "id": "rosespanner-workshop-fixer-gregor-skill-2",
+        "name": "Grease Chains",
+        "basePower": 4,
+        "coinPower": 12,
+        "coinCount": 1,
+        "sin": "Envy",
+        "damageType": "Pierce",
+        "offenseLevel": 36
+      },
+      {
+        "id": "rosespanner-workshop-fixer-gregor-skill-3",
+        "name": "Let\u0027s Grind \u0027Em",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 3,
+        "sin": "Gloom",
+        "damageType": "Slash",
+        "offenseLevel": 36
+      }
+    ]
+  },
+  {
+    "id": "rosespanner-workshop-fixer-meursault",
+    "name": "Rosespanner Workshop Fixer Meursault",
+    "sinner": "Meursault",
+    "defenseLevel": 35,
+    "skills": [
+      {
+        "id": "rosespanner-workshop-fixer-meursault-skill-1",
+        "name": "Saddled Tasks",
+        "basePower": 4,
+        "coinPower": 6,
+        "coinCount": 1,
+        "sin": "Gloom",
+        "damageType": "Blunt",
+        "offenseLevel": 36
+      },
+      {
+        "id": "rosespanner-workshop-fixer-meursault-skill-2",
+        "name": "Forced Break",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Pride",
+        "damageType": "Blunt",
+        "offenseLevel": 36
+      },
+      {
+        "id": "rosespanner-workshop-fixer-meursault-skill-3",
+        "name": "Finishing Runup",
+        "basePower": 4,
+        "coinPower": 2,
+        "coinCount": 4,
+        "sin": "Sloth",
+        "damageType": "Blunt",
+        "offenseLevel": 36
+      }
+    ]
+  },
+  {
+    "id": "rosespanner-workshop-rep-rodion",
+    "name": "Rosespanner Workshop Rep Rodion",
+    "sinner": "Rodion",
+    "defenseLevel": 34,
+    "skills": [
+      {
+        "id": "rosespanner-workshop-rep-rodion-skill-1",
+        "name": "Rev Up",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 2,
+        "sin": "Pride",
+        "damageType": "Blunt",
+        "offenseLevel": 38
+      },
+      {
+        "id": "rosespanner-workshop-rep-rodion-skill-2",
+        "name": "Vibration Compression",
+        "basePower": 6,
+        "coinPower": 3,
+        "coinCount": 2,
+        "sin": "Gloom",
+        "damageType": "Pierce",
+        "offenseLevel": 38
+      },
+      {
+        "id": "rosespanner-workshop-rep-rodion-skill-3",
+        "name": "Let\u2019s Rack Up Some Scores",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Envy",
+        "damageType": "Blunt",
+        "offenseLevel": 38
+      }
+    ]
+  },
+  {
+    "id": "s-corp-ch-unokkun-hong-lu",
+    "name": "S Corp. Ch\u0027unokkun Hong Lu",
+    "sinner": "Hong Lu",
+    "defenseLevel": 37,
+    "skills": [
+      {
+        "id": "s-corp-ch-unokkun-hong-lu-skill-1",
+        "name": "Constricting Ohra Bonds",
+        "basePower": 2,
+        "coinPower": 3,
+        "coinCount": 3,
+        "sin": "Gluttony",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      },
+      {
+        "id": "s-corp-ch-unokkun-hong-lu-skill-2",
+        "name": "Avulsion Slash",
+        "basePower": 4,
+        "coinPower": 6,
+        "coinCount": 2,
+        "sin": "Lust",
+        "damageType": "Slash",
+        "offenseLevel": 38
+      },
+      {
+        "id": "s-corp-ch-unokkun-hong-lu-skill-3",
+        "name": "Hunter\u0027s Scouring",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 4,
+        "sin": "Pride",
+        "damageType": "Slash",
+        "offenseLevel": 39
+      }
+    ]
+  },
+  {
+    "id": "seven-assoc-south-section-4-faust",
+    "name": "Seven Assoc. South Section 4 Faust",
+    "sinner": "Faust",
+    "defenseLevel": 33,
+    "skills": [
+      {
+        "id": "seven-assoc-south-section-4-faust-skill-1",
+        "name": "Predictive Analysis",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 2,
+        "sin": "Envy",
+        "damageType": "Slash",
+        "offenseLevel": 38
+      },
+      {
+        "id": "seven-assoc-south-section-4-faust-skill-2",
+        "name": "Dissect Target",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Gloom",
+        "damageType": "Slash",
+        "offenseLevel": 38
+      },
+      {
+        "id": "seven-assoc-south-section-4-faust-skill-3",
+        "name": "Profiling",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Gluttony",
+        "damageType": "Slash",
+        "offenseLevel": 38
+      }
+    ]
+  },
+  {
+    "id": "seven-assoc-south-section-4-heathcliff",
+    "name": "Seven Assoc. South Section 4 Heathcliff",
+    "sinner": "Heathcliff",
+    "defenseLevel": 34,
+    "skills": [
+      {
+        "id": "seven-assoc-south-section-4-heathcliff-skill-1",
+        "name": "Intuition",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Wrath",
+        "damageType": "Slash",
+        "offenseLevel": 36
+      },
+      {
+        "id": "seven-assoc-south-section-4-heathcliff-skill-2",
+        "name": "The Wrap-Up",
+        "basePower": 6,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Envy",
+        "damageType": "Pierce",
+        "offenseLevel": 36
+      },
+      {
+        "id": "seven-assoc-south-section-4-heathcliff-skill-3",
+        "name": "Forensics",
+        "basePower": 4,
+        "coinPower": 2,
+        "coinCount": 4,
+        "sin": "Gluttony",
+        "damageType": "Slash",
+        "offenseLevel": 36
+      }
+    ]
+  },
+  {
+    "id": "seven-assoc-south-section-6-director-outis",
+    "name": "Seven Assoc. South Section 6 Director Outis",
+    "sinner": "Outis",
+    "defenseLevel": 38,
+    "skills": [
+      {
+        "id": "seven-assoc-south-section-6-director-outis-skill-1",
+        "name": "Predictive Analysis",
+        "basePower": 6,
+        "coinPower": 4,
+        "coinCount": 1,
+        "sin": "Gluttony",
+        "damageType": "Blunt",
+        "offenseLevel": 35
+      },
+      {
+        "id": "seven-assoc-south-section-6-director-outis-skill-2",
+        "name": "Field Command",
+        "basePower": 5,
+        "coinPower": 5,
+        "coinCount": 2,
+        "sin": "Sloth",
+        "damageType": "Slash",
+        "offenseLevel": 35
+      },
+      {
+        "id": "seven-assoc-south-section-6-director-outis-skill-3",
+        "name": "Exploit the Gap",
+        "basePower": 6,
+        "coinPower": 2,
+        "coinCount": 3,
+        "sin": "Lust",
+        "damageType": "Blunt",
+        "offenseLevel": 35
+      }
+    ]
+  },
+  {
+    "id": "seven-assoc-south-section-6-ry-sh",
+    "name": "Seven Assoc. South Section 6 Ry\u014Dsh\u016B",
+    "sinner": "Ry\u014Dsh\u016B",
+    "defenseLevel": 31,
+    "skills": [
+      {
+        "id": "seven-assoc-south-section-6-ry-sh-skill-1",
+        "name": "Slash",
+        "basePower": 4,
+        "coinPower": 8,
+        "coinCount": 1,
+        "sin": "Sloth",
+        "damageType": "Blunt",
+        "offenseLevel": 40
+      },
+      {
+        "id": "seven-assoc-south-section-6-ry-sh-skill-2",
+        "name": "Upper Slash",
+        "basePower": 4,
+        "coinPower": 14,
+        "coinCount": 1,
+        "sin": "Pride",
+        "damageType": "Slash",
+        "offenseLevel": 40
+      },
+      {
+        "id": "seven-assoc-south-section-6-ry-sh-skill-3",
+        "name": "Swash",
+        "basePower": 4,
+        "coinPower": 5,
+        "coinCount": 3,
+        "sin": "Gluttony",
+        "damageType": "Slash",
+        "offenseLevel": 40
+      }
+    ]
+  },
+  {
+    "id": "seven-assoc-south-section-6-yi-sang",
+    "name": "Seven Assoc. South Section 6 Yi Sang",
+    "sinner": "Yi Sang",
+    "defenseLevel": 37,
+    "skills": [
+      {
+        "id": "seven-assoc-south-section-6-yi-sang-skill-1",
+        "name": "Fl\u00E8che",
+        "basePower": 5,
+        "coinPower": 7,
+        "coinCount": 1,
+        "sin": "Gloom",
+        "damageType": "Pierce",
+        "offenseLevel": 35
+      },
+      {
+        "id": "seven-assoc-south-section-6-yi-sang-skill-2",
+        "name": "Riposte",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Gluttony",
+        "damageType": "Pierce",
+        "offenseLevel": 35
+      },
+      {
+        "id": "seven-assoc-south-section-6-yi-sang-skill-3",
+        "name": "Moulinet",
+        "basePower": 5,
+        "coinPower": 3,
+        "coinCount": 3,
+        "sin": "Sloth",
+        "damageType": "Blunt",
+        "offenseLevel": 35
+      }
+    ]
+  },
+  {
+    "id": "shi-assoc-east-section-3-faust",
+    "name": "Shi Assoc. East Section 3 Faust",
+    "sinner": "Faust",
+    "defenseLevel": 34,
+    "skills": [
+      {
+        "id": "shi-assoc-east-section-3-faust-skill-1",
+        "name": "Cleave",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Wrath",
+        "damageType": "Slash",
+        "offenseLevel": 36
+      },
+      {
+        "id": "shi-assoc-east-section-3-faust-skill-2",
+        "name": "Positioning Maneuver",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Pride",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      },
+      {
+        "id": "shi-assoc-east-section-3-faust-skill-3",
+        "name": "Glimmering Bow [\u0027\u0027\u0027\u5F13\u9583\u0027\u0027\u0027]",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 4,
+        "sin": "Lust",
+        "damageType": "Slash",
+        "offenseLevel": 38
+      }
+    ]
+  },
+  {
+    "id": "shi-assoc-south-section-5-director-don-quixote",
+    "name": "Shi Assoc. South Section 5 Director Don Quixote",
+    "sinner": "Don Quixote",
+    "defenseLevel": 31,
+    "skills": [
+      {
+        "id": "shi-assoc-south-section-5-director-don-quixote-skill-1",
+        "name": "Catch Breath",
+        "basePower": 4,
+        "coinPower": 7,
+        "coinCount": 1,
+        "sin": "Wrath",
+        "damageType": "Slash",
+        "offenseLevel": 38
+      },
+      {
+        "id": "shi-assoc-south-section-5-director-don-quixote-skill-2",
+        "name": "Dual Strike",
+        "basePower": 4,
+        "coinPower": 6,
+        "coinCount": 2,
+        "sin": "Envy",
+        "damageType": "Slash",
+        "offenseLevel": 38
+      },
+      {
+        "id": "shi-assoc-south-section-5-director-don-quixote-skill-3",
+        "name": "Overbreathe",
+        "basePower": 4,
+        "coinPower": 21,
+        "coinCount": 1,
+        "sin": "Lust",
+        "damageType": "Slash",
+        "offenseLevel": 38
+      }
+    ]
+  },
+  {
+    "id": "shi-assoc-south-section-5-heathcliff",
+    "name": "Shi Assoc. South Section 5 Heathcliff",
+    "sinner": "Heathcliff",
+    "defenseLevel": 36,
+    "skills": [
+      {
+        "id": "shi-assoc-south-section-5-heathcliff-skill-1",
+        "name": "Extreme Edge",
+        "basePower": 4,
+        "coinPower": 6,
+        "coinCount": 1,
+        "sin": "Lust",
+        "damageType": "Slash",
+        "offenseLevel": 36
+      },
+      {
+        "id": "shi-assoc-south-section-5-heathcliff-skill-2",
+        "name": "Flying Sword",
+        "basePower": 5,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Wrath",
+        "damageType": "Pierce",
+        "offenseLevel": 36
+      },
+      {
+        "id": "shi-assoc-south-section-5-heathcliff-skill-3",
+        "name": "Flashing Strike",
+        "basePower": 5,
+        "coinPower": 6,
+        "coinCount": 2,
+        "sin": "Envy",
+        "damageType": "Slash",
+        "offenseLevel": 36
+      }
+    ]
+  },
+  {
+    "id": "shi-assoc-south-section-5-ishmael",
+    "name": "Shi Assoc. South Section 5 Ishmael",
+    "sinner": "Ishmael",
+    "defenseLevel": 36,
+    "skills": [
+      {
+        "id": "shi-assoc-south-section-5-ishmael-skill-1",
+        "name": "Flying Sword",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Envy",
+        "damageType": "Pierce",
+        "offenseLevel": 36
+      },
+      {
+        "id": "shi-assoc-south-section-5-ishmael-skill-2",
+        "name": "Flashing Strike",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Lust",
+        "damageType": "Slash",
+        "offenseLevel": 36
+      },
+      {
+        "id": "shi-assoc-south-section-5-ishmael-skill-3",
+        "name": "Catch Breath",
+        "basePower": 6,
+        "coinPower": 6,
+        "coinCount": 2,
+        "sin": "Wrath",
+        "damageType": "Slash",
+        "offenseLevel": 36
+      }
+    ]
+  },
+  {
+    "id": "t-corp-class-2-collection-staff-rodion",
+    "name": "T Corp. Class 2 Collection Staff Rodion",
+    "sinner": "Rodion",
+    "defenseLevel": 34,
+    "skills": [
+      {
+        "id": "t-corp-class-2-collection-staff-rodion-skill-1",
+        "name": "Prepare to Collect",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Envy",
+        "damageType": "Blunt",
+        "offenseLevel": 36
+      },
+      {
+        "id": "t-corp-class-2-collection-staff-rodion-skill-2",
+        "name": "T Corp. Martial Suppression",
+        "basePower": 4,
+        "coinPower": 5,
+        "coinCount": 2,
+        "sin": "Wrath",
+        "damageType": "Blunt",
+        "offenseLevel": 36
+      },
+      {
+        "id": "t-corp-class-2-collection-staff-rodion-skill-3",
+        "name": "Execute Collections",
+        "basePower": 2,
+        "coinPower": 3,
+        "coinCount": 4,
+        "sin": "Sloth",
+        "damageType": "Blunt",
+        "offenseLevel": 36
+      }
+    ]
+  },
+  {
+    "id": "t-corp-class-3-collection-staff-don-quixote",
+    "name": "T Corp. Class 3 Collection Staff Don Quixote",
+    "sinner": "Don Quixote",
+    "defenseLevel": 39,
+    "skills": [
+      {
+        "id": "t-corp-class-3-collection-staff-don-quixote-skill-1",
+        "name": "Let Us Prepare to Collect",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Gluttony",
+        "damageType": "Blunt",
+        "offenseLevel": 35
+      },
+      {
+        "id": "t-corp-class-3-collection-staff-don-quixote-skill-2",
+        "name": "T Corp. Accelerated Amputator",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Pride",
+        "damageType": "Slash",
+        "offenseLevel": 35
+      },
+      {
+        "id": "t-corp-class-3-collection-staff-don-quixote-skill-3",
+        "name": "I Command Thee, Halt!",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 4,
+        "sin": "Sloth",
+        "damageType": "Blunt",
+        "offenseLevel": 35
+      }
+    ]
+  },
+  {
+    "id": "t-corp-class-3-vdcu-staff-outis",
+    "name": "T Corp. Class 3 VDCU Staff Outis",
+    "sinner": "Outis",
+    "defenseLevel": 37,
+    "skills": [
+      {
+        "id": "t-corp-class-3-vdcu-staff-outis-skill-1",
+        "name": "Prepare to Collect",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Pride",
+        "damageType": "Blunt",
+        "offenseLevel": 36
+      },
+      {
+        "id": "t-corp-class-3-vdcu-staff-outis-skill-2",
+        "name": "T Corp. Microcavity Module",
+        "basePower": 3,
+        "coinPower": 5,
+        "coinCount": 3,
+        "sin": "Sloth",
+        "damageType": "Blunt",
+        "offenseLevel": 38
+      },
+      {
+        "id": "t-corp-class-3-vdcu-staff-outis-skill-3",
+        "name": "T-3 Collector Mace Max Activation",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Lust",
+        "damageType": "Blunt",
+        "offenseLevel": 40
+      }
+    ]
+  },
+  {
+    "id": "the-barber-of-la-manchaland-outis",
+    "name": "The Barber of La Manchaland Outis",
+    "sinner": "Outis",
+    "defenseLevel": 35,
+    "skills": [
+      {
+        "id": "the-barber-of-la-manchaland-outis-skill-1",
+        "name": "Sewing",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Gluttony",
+        "damageType": "Slash",
+        "offenseLevel": 36
+      },
+      {
+        "id": "the-barber-of-la-manchaland-outis-skill-2",
+        "name": "Scission",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Lust",
+        "damageType": "Slash",
+        "offenseLevel": 38
+      },
+      {
+        "id": "the-barber-of-la-manchaland-outis-skill-3",
+        "name": "I\u0027ll Make You a New Dress!",
+        "basePower": 3,
+        "coinPower": 3,
+        "coinCount": 4,
+        "sin": "Wrath",
+        "damageType": "Slash",
+        "offenseLevel": 40
+      }
+    ]
+  },
+  {
+    "id": "the-house-of-spiders-the-index-nursefather-yi-sang",
+    "name": "The House of Spiders: The Index Nursefather Yi Sang",
+    "sinner": "Yi Sang",
+    "defenseLevel": 37,
+    "skills": [
+      {
+        "id": "the-house-of-spiders-the-index-nursefather-yi-sang-skill-1",
+        "name": "\u0022Enwrap 330 Times in Long Swaths of Frozen Blood\u0022",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Gluttony",
+        "damageType": "Blunt",
+        "offenseLevel": 37
+      },
+      {
+        "id": "the-house-of-spiders-the-index-nursefather-yi-sang-skill-2",
+        "name": "\u0022Revel with Soundless Applause, Impale in Voiceless Sorrow\u0022",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Pride",
+        "damageType": "Pierce",
+        "offenseLevel": 38
+      },
+      {
+        "id": "the-house-of-spiders-the-index-nursefather-yi-sang-skill-3",
+        "name": "\u0022Raise and Laugh the Blade, Cry the Waterfall Like the Scent of Fallen Leaves\u0022",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 4,
+        "sin": "Gloom",
+        "damageType": "Slash",
+        "offenseLevel": 39
+      }
+    ]
+  },
+  {
+    "id": "the-house-of-spiders-the-middle-apprentice-ishmael",
+    "name": "The House of Spiders: The Middle Apprentice Ishmael",
+    "sinner": "Ishmael",
+    "defenseLevel": 39,
+    "skills": [
+      {
+        "id": "the-house-of-spiders-the-middle-apprentice-ishmael-skill-1",
+        "name": "Totally Badass Ass-kicking",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Lust",
+        "damageType": "Blunt",
+        "offenseLevel": 37
+      },
+      {
+        "id": "the-house-of-spiders-the-middle-apprentice-ishmael-skill-2",
+        "name": "Crossing Dervish",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Wrath",
+        "damageType": "Blunt",
+        "offenseLevel": 38
+      },
+      {
+        "id": "the-house-of-spiders-the-middle-apprentice-ishmael-skill-3",
+        "name": "Violet~ Breaking Slam",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 4,
+        "sin": "Envy",
+        "damageType": "Blunt",
+        "offenseLevel": 38
+      }
+    ]
+  },
+  {
+    "id": "the-house-of-spiders-the-middle-nursefather-outis",
+    "name": "The House of Spiders: The Middle Nursefather Outis",
+    "sinner": "Outis",
+    "defenseLevel": 40,
+    "skills": [
+      {
+        "id": "the-house-of-spiders-the-middle-nursefather-outis-skill-1",
+        "name": "Stomping",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Lust",
+        "damageType": "Blunt",
+        "offenseLevel": 37
+      },
+      {
+        "id": "the-house-of-spiders-the-middle-nursefather-outis-skill-2",
+        "name": "Don\u0027t Let Somethin\u0027 Like This Break You!",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Envy",
+        "damageType": "Blunt",
+        "offenseLevel": 38
+      },
+      {
+        "id": "the-house-of-spiders-the-middle-nursefather-outis-skill-3",
+        "name": "Stamp of Vengeance",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 4,
+        "sin": "Envy",
+        "damageType": "Blunt",
+        "offenseLevel": 39
+      }
+    ]
+  },
+  {
+    "id": "the-house-of-spiders-the-pinky-apprentice-sinclair",
+    "name": "The House of Spiders: The Pinky Apprentice Sinclair",
+    "sinner": "Sinclair",
+    "defenseLevel": 33,
+    "skills": [
+      {
+        "id": "the-house-of-spiders-the-pinky-apprentice-sinclair-skill-1",
+        "name": "Chainstrike [\u003Cb\u003E\u9023\u64CA\u003C/b\u003E]",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Gloom",
+        "damageType": "Slash",
+        "offenseLevel": 36
+      },
+      {
+        "id": "the-house-of-spiders-the-pinky-apprentice-sinclair-skill-2",
+        "name": "Nameless Slash [\u003Cb\u003E\u7121\u540D\u65AC\u003C/b\u003E]",
+        "basePower": 6,
+        "coinPower": 5,
+        "coinCount": 2,
+        "sin": "Pride",
+        "damageType": "Slash",
+        "offenseLevel": 38
+      },
+      {
+        "id": "the-house-of-spiders-the-pinky-apprentice-sinclair-skill-3",
+        "name": "Fallstar Slayer [\u003Cb\u003E\u843D\u661F\u4E00\u6BBA\u003C/b\u003E]",
+        "basePower": 8,
+        "coinPower": 14,
+        "coinCount": 1,
+        "sin": "Wrath",
+        "damageType": "Slash",
+        "offenseLevel": 40
+      }
+    ]
+  },
+  {
+    "id": "the-house-of-spiders-the-ring-apprentice-faust",
+    "name": "The House of Spiders: The Ring Apprentice Faust",
+    "sinner": "Faust",
+    "defenseLevel": 37,
+    "skills": [
+      {
+        "id": "the-house-of-spiders-the-ring-apprentice-faust-skill-1",
+        "name": "Butcher - Ribs",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Gluttony",
+        "damageType": "Slash",
+        "offenseLevel": 36
+      },
+      {
+        "id": "the-house-of-spiders-the-ring-apprentice-faust-skill-2",
+        "name": "Fascia Hungers",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Envy",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      },
+      {
+        "id": "the-house-of-spiders-the-ring-apprentice-faust-skill-3",
+        "name": "Repressed Flesh",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 4,
+        "sin": "Lust",
+        "damageType": "Slash",
+        "offenseLevel": 38
+      }
+    ]
+  },
+  {
+    "id": "the-house-of-spiders-the-ring-nursefather-hong-lu",
+    "name": "The House of Spiders: The Ring Nursefather Hong Lu",
+    "sinner": "Hong Lu",
+    "defenseLevel": 37,
+    "skills": [
+      {
+        "id": "the-house-of-spiders-the-ring-nursefather-hong-lu-skill-1",
+        "name": "Anatomize",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Pride",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      },
+      {
+        "id": "the-house-of-spiders-the-ring-nursefather-hong-lu-skill-2",
+        "name": "Gather Ingredient - Blood-bathed Objet",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Envy",
+        "damageType": "Slash",
+        "offenseLevel": 38
+      },
+      {
+        "id": "the-house-of-spiders-the-ring-nursefather-hong-lu-skill-3",
+        "name": "Tibia\u0027s Melody - Anatomization of the Unanatomized by the Anatomized",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 4,
+        "sin": "Lust",
+        "damageType": "Slash",
+        "offenseLevel": 39
+      }
+    ]
+  },
+  {
+    "id": "the-house-of-spiders-the-thumb-apprentice-heathcliff",
+    "name": "The House of Spiders: The Thumb Apprentice Heathcliff",
+    "sinner": "Heathcliff",
+    "defenseLevel": 37,
+    "skills": [
+      {
+        "id": "the-house-of-spiders-the-thumb-apprentice-heathcliff-skill-1",
+        "name": "La Spada di Palermo",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Lust",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      },
+      {
+        "id": "the-house-of-spiders-the-thumb-apprentice-heathcliff-skill-2",
+        "name": "Colpi Sottani",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Sloth",
+        "damageType": "Slash",
+        "offenseLevel": 38
+      },
+      {
+        "id": "the-house-of-spiders-the-thumb-apprentice-heathcliff-skill-3",
+        "name": "Il Cacciatore",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Wrath",
+        "damageType": "Slash",
+        "offenseLevel": 39
+      }
+    ]
+  },
+  {
+    "id": "the-house-of-spiders-the-thumb-nursefather-rodion",
+    "name": "The House of Spiders: The Thumb Nursefather Rodion",
+    "sinner": "Rodion",
+    "defenseLevel": 35,
+    "skills": [
+      {
+        "id": "the-house-of-spiders-the-thumb-nursefather-rodion-skill-1",
+        "name": "Colpi di Taglio",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Pride",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      },
+      {
+        "id": "the-house-of-spiders-the-thumb-nursefather-rodion-skill-2",
+        "name": "I\u0027ll Gladly Blast a Hole Through Ya",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Sloth",
+        "damageType": "Slash",
+        "offenseLevel": 38
+      },
+      {
+        "id": "the-house-of-spiders-the-thumb-nursefather-rodion-skill-3",
+        "name": "Sezionatura di Elefante",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 4,
+        "sin": "Wrath",
+        "damageType": "Slash",
+        "offenseLevel": 39
+      }
+    ]
+  },
+  {
+    "id": "the-index-proselyte-paper-slip-faust",
+    "name": "The Index Proselyte:\u3010Paper Slip\u3011 Faust",
+    "sinner": "Faust",
+    "defenseLevel": 36,
+    "skills": [
+      {
+        "id": "the-index-proselyte-paper-slip-faust-skill-1",
+        "name": "Unerringly, as the Prescript Demands",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Sloth",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      },
+      {
+        "id": "the-index-proselyte-paper-slip-faust-skill-2",
+        "name": "Undertake the Prescript, Again Undertake",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Pride",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      },
+      {
+        "id": "the-index-proselyte-paper-slip-faust-skill-3",
+        "name": "As the Prescript Demands, You Will Be Eliminated.",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Gloom",
+        "damageType": "Slash",
+        "offenseLevel": 38
+      }
+    ]
+  },
+  {
+    "id": "the-index-proxy-effloresced-e-g-o-procuration-don-quixote",
+    "name": "The Index Proxy - Effloresced E.G.O::Procuration Don Quixote",
+    "sinner": "Don Quixote",
+    "defenseLevel": 37,
+    "skills": [
+      {
+        "id": "the-index-proxy-effloresced-e-g-o-procuration-don-quixote-skill-1",
+        "name": "Skull Crushing",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Lust",
+        "damageType": "Blunt",
+        "offenseLevel": 37
+      },
+      {
+        "id": "the-index-proxy-effloresced-e-g-o-procuration-don-quixote-skill-2",
+        "name": "B-be Thee Silent",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Pride",
+        "damageType": "Blunt",
+        "offenseLevel": 38
+      },
+      {
+        "id": "the-index-proxy-effloresced-e-g-o-procuration-don-quixote-skill-3",
+        "name": "T-the Prescript Must be Fulfilled Anon\u2026",
+        "basePower": 6,
+        "coinPower": 6,
+        "coinCount": 2,
+        "sin": "Gloom",
+        "damageType": "Blunt",
+        "offenseLevel": 39
+      }
+    ]
+  },
+  {
+    "id": "the-lord-of-hongyuan-hong-lu",
+    "name": "The Lord of Hongyuan Hong Lu",
+    "sinner": "Hong Lu",
+    "defenseLevel": 33,
+    "skills": [
+      {
+        "id": "the-lord-of-hongyuan-hong-lu-skill-1",
+        "name": "I Wish to Open the Path",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Gloom",
+        "damageType": "Slash",
+        "offenseLevel": 36
+      },
+      {
+        "id": "the-lord-of-hongyuan-hong-lu-skill-2",
+        "name": "Tarnished Blood\u0027s Absolute Cleaver of Ambitions [\u0027\u0027\u0027\u6C5A\u8840\u7D55\u5FD7\u7ADF\u6210\u0027\u0027\u0027]",
+        "basePower": 3,
+        "coinPower": 3,
+        "coinCount": 4,
+        "sin": "Gluttony",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      },
+      {
+        "id": "the-lord-of-hongyuan-hong-lu-skill-3",
+        "name": "Answer Me, Heishou Packs",
+        "basePower": 10,
+        "coinPower": 12,
+        "coinCount": 1,
+        "sin": "Pride",
+        "damageType": "Slash",
+        "offenseLevel": 38
+      }
+    ]
+  },
+  {
+    "id": "the-manager-of-la-manchaland-don-quixote",
+    "name": "The Manager of La Manchaland Don Quixote",
+    "sinner": "Don Quixote",
+    "defenseLevel": 35,
+    "skills": [
+      {
+        "id": "the-manager-of-la-manchaland-don-quixote-skill-1",
+        "name": "Enough is Enough",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Sloth",
+        "damageType": "Pierce",
+        "offenseLevel": 38
+      },
+      {
+        "id": "the-manager-of-la-manchaland-don-quixote-skill-2",
+        "name": "Let All Blossom Free",
+        "basePower": 4,
+        "coinPower": 6,
+        "coinCount": 2,
+        "sin": "Wrath",
+        "damageType": "Pierce",
+        "offenseLevel": 38
+      },
+      {
+        "id": "the-manager-of-la-manchaland-don-quixote-skill-3",
+        "name": "I Shall Impale",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Lust",
+        "damageType": "Pierce",
+        "offenseLevel": 40
+      }
+    ]
+  },
+  {
+    "id": "the-middle-big-brother-heathcliff",
+    "name": "The Middle Big Brother Heathcliff",
+    "sinner": "Heathcliff",
+    "defenseLevel": 40,
+    "skills": [
+      {
+        "id": "the-middle-big-brother-heathcliff-skill-1",
+        "name": "Kicking",
+        "basePower": 2,
+        "coinPower": 3,
+        "coinCount": 3,
+        "sin": "Wrath",
+        "damageType": "Blunt",
+        "offenseLevel": 37
+      },
+      {
+        "id": "the-middle-big-brother-heathcliff-skill-2",
+        "name": "Watch Your Back!",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Envy",
+        "damageType": "Blunt",
+        "offenseLevel": 38
+      },
+      {
+        "id": "the-middle-big-brother-heathcliff-skill-3",
+        "name": "MY HAIR COUPOOOOOOOOOOONS!!!!",
+        "basePower": 10,
+        "coinPower": 12,
+        "coinCount": 1,
+        "sin": "Envy",
+        "damageType": "Blunt",
+        "offenseLevel": 40
+      }
+    ]
+  },
+  {
+    "id": "the-middle-little-brother-meursault",
+    "name": "The Middle Little Brother Meursault",
+    "sinner": "Meursault",
+    "defenseLevel": 38,
+    "skills": [
+      {
+        "id": "the-middle-little-brother-meursault-skill-1",
+        "name": "We Remember",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Sloth",
+        "damageType": "Blunt",
+        "offenseLevel": 36
+      },
+      {
+        "id": "the-middle-little-brother-meursault-skill-2",
+        "name": "Chains of Loyalty",
+        "basePower": 4,
+        "coinPower": 5,
+        "coinCount": 2,
+        "sin": "Envy",
+        "damageType": "Blunt",
+        "offenseLevel": 36
+      },
+      {
+        "id": "the-middle-little-brother-meursault-skill-3",
+        "name": "Recording",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 3,
+        "sin": "Wrath",
+        "damageType": "Blunt",
+        "offenseLevel": 38
+      }
+    ]
+  },
+  {
+    "id": "the-middle-little-brother-sinclair",
+    "name": "The Middle Little Brother Sinclair",
+    "sinner": "Sinclair",
+    "defenseLevel": 40,
+    "skills": [
+      {
+        "id": "the-middle-little-brother-sinclair-skill-1",
+        "name": "Is it You?!",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Gluttony",
+        "damageType": "Blunt",
+        "offenseLevel": 37
+      },
+      {
+        "id": "the-middle-little-brother-sinclair-skill-2",
+        "name": "Payback with Interest",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Envy",
+        "damageType": "Blunt",
+        "offenseLevel": 38
+      },
+      {
+        "id": "the-middle-little-brother-sinclair-skill-3",
+        "name": "Write \u0027em all down",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Envy",
+        "damageType": "Blunt",
+        "offenseLevel": 39
+      }
+    ]
+  },
+  {
+    "id": "the-middle-little-sister-don-quixote",
+    "name": "The Middle Little Sister Don Quixote",
+    "sinner": "Don Quixote",
+    "defenseLevel": 40,
+    "skills": [
+      {
+        "id": "the-middle-little-sister-don-quixote-skill-1",
+        "name": "Checking the Book",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 2,
+        "sin": "Wrath",
+        "damageType": "Blunt",
+        "offenseLevel": 37
+      },
+      {
+        "id": "the-middle-little-sister-don-quixote-skill-2",
+        "name": "Proof of Loyalty",
+        "basePower": 4,
+        "coinPower": 6,
+        "coinCount": 2,
+        "sin": "Envy",
+        "damageType": "Blunt",
+        "offenseLevel": 38
+      },
+      {
+        "id": "the-middle-little-sister-don-quixote-skill-3",
+        "name": "A Just Vengeance",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 4,
+        "sin": "Pride",
+        "damageType": "Blunt",
+        "offenseLevel": 38
+      }
+    ]
+  },
+  {
+    "id": "the-one-who-grips-faust",
+    "name": "The One Who Grips Faust",
+    "sinner": "Faust",
+    "defenseLevel": 34,
+    "skills": [
+      {
+        "id": "the-one-who-grips-faust-skill-1",
+        "name": "Cackle",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 2,
+        "sin": "Envy",
+        "damageType": "Pierce",
+        "offenseLevel": 39
+      },
+      {
+        "id": "the-one-who-grips-faust-skill-2",
+        "name": "The Gripping",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Lust",
+        "damageType": "Pierce",
+        "offenseLevel": 39
+      },
+      {
+        "id": "the-one-who-grips-faust-skill-3",
+        "name": "Execution",
+        "basePower": 6,
+        "coinPower": 2,
+        "coinCount": 3,
+        "sin": "Pride",
+        "damageType": "Blunt",
+        "offenseLevel": 39
+      }
+    ]
+  },
+  {
+    "id": "the-one-who-shall-grip-sinclair",
+    "name": "The One Who Shall Grip Sinclair",
+    "sinner": "Sinclair",
+    "defenseLevel": 31,
+    "skills": [
+      {
+        "id": "the-one-who-shall-grip-sinclair-skill-1",
+        "name": "Coerced Judgement",
+        "basePower": 8,
+        "coinPower": -2,
+        "coinCount": 2,
+        "sin": "Gloom",
+        "damageType": "Blunt",
+        "offenseLevel": 39
+      },
+      {
+        "id": "the-one-who-shall-grip-sinclair-skill-2",
+        "name": "Amoral Enactment",
+        "basePower": 16,
+        "coinPower": -4,
+        "coinCount": 4,
+        "sin": "Lust",
+        "damageType": "Blunt",
+        "offenseLevel": 40
+      },
+      {
+        "id": "the-one-who-shall-grip-sinclair-skill-3",
+        "name": "Self-destructive Purge",
+        "basePower": 30,
+        "coinPower": -12,
+        "coinCount": 3,
+        "sin": "Wrath",
+        "damageType": "Blunt",
+        "offenseLevel": 40
+      }
+    ]
+  },
+  {
+    "id": "the-pequod-captain-ishmael",
+    "name": "The Pequod Captain Ishmael",
+    "sinner": "Ishmael",
+    "defenseLevel": 32,
+    "skills": [
+      {
+        "id": "the-pequod-captain-ishmael-skill-1",
+        "name": "To Me!",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Envy",
+        "damageType": "Pierce",
+        "offenseLevel": 38
+      },
+      {
+        "id": "the-pequod-captain-ishmael-skill-2",
+        "name": "Pursue Them to the End!",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Pride",
+        "damageType": "Pierce",
+        "offenseLevel": 38
+      },
+      {
+        "id": "the-pequod-captain-ishmael-skill-3",
+        "name": "Harpoon of Obsession",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 4,
+        "sin": "Wrath",
+        "damageType": "Pierce",
+        "offenseLevel": 38
+      }
+    ]
+  },
+  {
+    "id": "the-pequod-first-mate-yi-sang",
+    "name": "The Pequod First Mate Yi Sang",
+    "sinner": "Yi Sang",
+    "defenseLevel": 32,
+    "skills": [
+      {
+        "id": "the-pequod-first-mate-yi-sang-skill-1",
+        "name": "Impale",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Pride",
+        "damageType": "Pierce",
+        "offenseLevel": 37
+      },
+      {
+        "id": "the-pequod-first-mate-yi-sang-skill-2",
+        "name": "Relentless Stabbing",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Envy",
+        "damageType": "Pierce",
+        "offenseLevel": 37
+      },
+      {
+        "id": "the-pequod-first-mate-yi-sang-skill-3",
+        "name": "Ambush",
+        "basePower": 4,
+        "coinPower": 6,
+        "coinCount": 2,
+        "sin": "Gluttony",
+        "damageType": "Pierce",
+        "offenseLevel": 37
+      }
+    ]
+  },
+  {
+    "id": "the-pequod-harpooneer-heathcliff",
+    "name": "The Pequod Harpooneer Heathcliff",
+    "sinner": "Heathcliff",
+    "defenseLevel": 40,
+    "skills": [
+      {
+        "id": "the-pequod-harpooneer-heathcliff-skill-1",
+        "name": "Stalk Prey",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Pride",
+        "damageType": "Pierce",
+        "offenseLevel": 36
+      },
+      {
+        "id": "the-pequod-harpooneer-heathcliff-skill-2",
+        "name": "Snagharpoon",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Envy",
+        "damageType": "Pierce",
+        "offenseLevel": 36
+      },
+      {
+        "id": "the-pequod-harpooneer-heathcliff-skill-3",
+        "name": "Sever Knot",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 4,
+        "sin": "Envy",
+        "damageType": "Pierce",
+        "offenseLevel": 38
+      }
+    ]
+  },
+  {
+    "id": "the-priest-of-la-manchaland-gregor",
+    "name": "The Priest of La Manchaland Gregor",
+    "sinner": "Gregor",
+    "defenseLevel": 40,
+    "skills": [
+      {
+        "id": "the-priest-of-la-manchaland-gregor-skill-1",
+        "name": "Sacrifice for the Family",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Gluttony",
+        "damageType": "Blunt",
+        "offenseLevel": 36
+      },
+      {
+        "id": "the-priest-of-la-manchaland-gregor-skill-2",
+        "name": "Suffocating Guilt",
+        "basePower": 4,
+        "coinPower": 6,
+        "coinCount": 2,
+        "sin": "Pride",
+        "damageType": "Blunt",
+        "offenseLevel": 36
+      },
+      {
+        "id": "the-priest-of-la-manchaland-gregor-skill-3",
+        "name": "The Unforgivable Sin",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Lust",
+        "damageType": "Blunt",
+        "offenseLevel": 38
+      }
+    ]
+  },
+  {
+    "id": "the-prince-of-la-manchaland-meursault",
+    "name": "The Prince of La Manchaland Meursault",
+    "sinner": "Meursault",
+    "defenseLevel": 37,
+    "skills": [
+      {
+        "id": "the-prince-of-la-manchaland-meursault-skill-1",
+        "name": "March Conductor",
+        "basePower": 2,
+        "coinPower": 3,
+        "coinCount": 3,
+        "sin": "Envy",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      },
+      {
+        "id": "the-prince-of-la-manchaland-meursault-skill-2",
+        "name": "Responsibility to Rebuild",
+        "basePower": 4,
+        "coinPower": 6,
+        "coinCount": 2,
+        "sin": "Pride",
+        "damageType": "Slash",
+        "offenseLevel": 38
+      },
+      {
+        "id": "the-prince-of-la-manchaland-meursault-skill-3",
+        "name": "Let us wear the coagulated mantle of blood.",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 4,
+        "sin": "Lust",
+        "damageType": "Slash",
+        "offenseLevel": 39
+      }
+    ]
+  },
+  {
+    "id": "the-princess-of-la-manchaland-rodion",
+    "name": "The Princess of La Manchaland Rodion",
+    "sinner": "Rodion",
+    "defenseLevel": 38,
+    "skills": [
+      {
+        "id": "the-princess-of-la-manchaland-rodion-skill-1",
+        "name": "Begone\u2026",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Pride",
+        "damageType": "Pierce",
+        "offenseLevel": 36
+      },
+      {
+        "id": "the-princess-of-la-manchaland-rodion-skill-2",
+        "name": "In Finely Ground Mistfall",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Envy",
+        "damageType": "Pierce",
+        "offenseLevel": 37
+      },
+      {
+        "id": "the-princess-of-la-manchaland-rodion-skill-3",
+        "name": "The Festival Will End",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Lust",
+        "damageType": "Pierce",
+        "offenseLevel": 38
+      }
+    ]
+  },
+  {
+    "id": "the-ring-fauvist-docent-rodion",
+    "name": "The Ring Fauvist Docent Rodion",
+    "sinner": "Rodion",
+    "defenseLevel": 35,
+    "skills": [
+      {
+        "id": "the-ring-fauvist-docent-rodion-skill-1",
+        "name": "Vehement Overpainting",
+        "basePower": 6,
+        "coinPower": 7,
+        "coinCount": 1,
+        "sin": "Gloom",
+        "damageType": "Blunt",
+        "offenseLevel": 37
+      },
+      {
+        "id": "the-ring-fauvist-docent-rodion-skill-2",
+        "name": "Expression of Primary Colors",
+        "basePower": 4,
+        "coinPower": 6,
+        "coinCount": 2,
+        "sin": "Envy",
+        "damageType": "Blunt",
+        "offenseLevel": 38
+      },
+      {
+        "id": "the-ring-fauvist-docent-rodion-skill-3",
+        "name": "Le Fauvisme - D\u00E9cha\u00EEnement Brutal",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 4,
+        "sin": "Lust",
+        "damageType": "Blunt",
+        "offenseLevel": 39
+      }
+    ]
+  },
+  {
+    "id": "the-ring-fauvist-student-meursault",
+    "name": "The Ring Fauvist Student Meursault",
+    "sinner": "Meursault",
+    "defenseLevel": 34,
+    "skills": [
+      {
+        "id": "the-ring-fauvist-student-meursault-skill-1",
+        "name": "Rough Portrayal",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Wrath",
+        "damageType": "Blunt",
+        "offenseLevel": 37
+      },
+      {
+        "id": "the-ring-fauvist-student-meursault-skill-2",
+        "name": "Visceral Strokes",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Pride",
+        "damageType": "Blunt",
+        "offenseLevel": 38
+      },
+      {
+        "id": "the-ring-fauvist-student-meursault-skill-3",
+        "name": "Le Fauvisme - Reveal Submission",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Lust",
+        "damageType": "Blunt",
+        "offenseLevel": 39
+      }
+    ]
+  },
+  {
+    "id": "the-ring-pointillist-student-outis",
+    "name": "The Ring Pointillist Student Outis",
+    "sinner": "Outis",
+    "defenseLevel": 33,
+    "skills": [
+      {
+        "id": "the-ring-pointillist-student-outis-skill-1",
+        "name": "Dotting",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Lust",
+        "damageType": "Pierce",
+        "offenseLevel": 35
+      },
+      {
+        "id": "the-ring-pointillist-student-outis-skill-2",
+        "name": "Sanguine Painting",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Wrath",
+        "damageType": "Pierce",
+        "offenseLevel": 35
+      },
+      {
+        "id": "the-ring-pointillist-student-outis-skill-3",
+        "name": "Artwork Inspection",
+        "basePower": 4,
+        "coinPower": 6,
+        "coinCount": 2,
+        "sin": "Gluttony",
+        "damageType": "Pierce",
+        "offenseLevel": 37
+      }
+    ]
+  },
+  {
+    "id": "the-ring-pointillist-student-yi-sang",
+    "name": "The Ring Pointillist Student Yi Sang",
+    "sinner": "Yi Sang",
+    "defenseLevel": 33,
+    "skills": [
+      {
+        "id": "the-ring-pointillist-student-yi-sang-skill-1",
+        "name": "Paint Over",
+        "basePower": 2,
+        "coinPower": 3,
+        "coinCount": 3,
+        "sin": "Gloom",
+        "damageType": "Pierce",
+        "offenseLevel": 38
+      },
+      {
+        "id": "the-ring-pointillist-student-yi-sang-skill-2",
+        "name": "Sanguine Pointillism",
+        "basePower": 8,
+        "coinPower": 8,
+        "coinCount": 1,
+        "sin": "Lust",
+        "damageType": "Pierce",
+        "offenseLevel": 38
+      },
+      {
+        "id": "the-ring-pointillist-student-yi-sang-skill-3",
+        "name": "Hematic Coloring",
+        "basePower": 3,
+        "coinPower": 3,
+        "coinCount": 4,
+        "sin": "Sloth",
+        "damageType": "Pierce",
+        "offenseLevel": 38
+      }
+    ]
+  },
+  {
+    "id": "the-thumb-east-capo-iiii-meursault",
+    "name": "The Thumb East Capo IIII Meursault",
+    "sinner": "Meursault",
+    "defenseLevel": 37,
+    "skills": [
+      {
+        "id": "the-thumb-east-capo-iiii-meursault-skill-1",
+        "name": "Double Slash - Blast [\u0027\u0027\u0027\u7206\u0027\u0027\u0027]",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Sloth",
+        "damageType": "Slash",
+        "offenseLevel": 38
+      },
+      {
+        "id": "the-thumb-east-capo-iiii-meursault-skill-2",
+        "name": "Triple Slash - Blast [\u0027\u0027\u0027\u7206\u0027\u0027\u0027]",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Lust",
+        "damageType": "Slash",
+        "offenseLevel": 39
+      },
+      {
+        "id": "the-thumb-east-capo-iiii-meursault-skill-3",
+        "name": "Tanglecleaver [\u0027\u0027\u0027\u5FEB\u5200\u4E82\u9EBB\u0027\u0027\u0027]",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Wrath",
+        "damageType": "Blunt",
+        "offenseLevel": 40
+      }
+    ]
+  },
+  {
+    "id": "the-thumb-east-soldato-ii-sinclair",
+    "name": "The Thumb East Soldato II Sinclair",
+    "sinner": "Sinclair",
+    "defenseLevel": 35,
+    "skills": [
+      {
+        "id": "the-thumb-east-soldato-ii-sinclair-skill-1",
+        "name": "Adherence to Propriety.",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Lust",
+        "damageType": "Pierce",
+        "offenseLevel": 37
+      },
+      {
+        "id": "the-thumb-east-soldato-ii-sinclair-skill-2",
+        "name": "Respect the Thumb.",
+        "basePower": 4,
+        "coinPower": 6,
+        "coinCount": 2,
+        "sin": "Sloth",
+        "damageType": "Pierce",
+        "offenseLevel": 38
+      },
+      {
+        "id": "the-thumb-east-soldato-ii-sinclair-skill-3",
+        "name": "Thruster Compression",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Wrath",
+        "damageType": "Slash",
+        "offenseLevel": 40
+      }
+    ]
+  },
+  {
+    "id": "tingtang-gang-gangleader-hong-lu",
+    "name": "Tingtang Gang Gangleader Hong Lu",
+    "sinner": "Hong Lu",
+    "defenseLevel": 37,
+    "skills": [
+      {
+        "id": "tingtang-gang-gangleader-hong-lu-skill-1",
+        "name": "Throat Slit",
+        "basePower": 5,
+        "coinPower": 8,
+        "coinCount": 1,
+        "sin": "Envy",
+        "damageType": "Slash",
+        "offenseLevel": 17
+      },
+      {
+        "id": "tingtang-gang-gangleader-hong-lu-skill-2",
+        "name": "Shank",
+        "basePower": 3,
+        "coinPower": 5,
+        "coinCount": 3,
+        "sin": "Lust",
+        "damageType": "Pierce",
+        "offenseLevel": 17
+      },
+      {
+        "id": "tingtang-gang-gangleader-hong-lu-skill-3",
+        "name": "Mutilate",
+        "basePower": 5,
+        "coinPower": 25,
+        "coinCount": 1,
+        "sin": "Gluttony",
+        "damageType": "Slash",
+        "offenseLevel": 17
+      }
+    ]
+  },
+  {
+    "id": "twinhook-pirates-first-mate-gregor",
+    "name": "Twinhook Pirates First Mate Gregor",
+    "sinner": "Gregor",
+    "defenseLevel": 32,
+    "skills": [
+      {
+        "id": "twinhook-pirates-first-mate-gregor-skill-1",
+        "name": "Negotiation Start",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 2,
+        "sin": "Sloth",
+        "damageType": "Pierce",
+        "offenseLevel": 37
+      },
+      {
+        "id": "twinhook-pirates-first-mate-gregor-skill-2",
+        "name": "Unilateral Business",
+        "basePower": 4,
+        "coinPower": 6,
+        "coinCount": 2,
+        "sin": "Pride",
+        "damageType": "Pierce",
+        "offenseLevel": 38
+      },
+      {
+        "id": "twinhook-pirates-first-mate-gregor-skill-3",
+        "name": "Foregone Conclusion",
+        "basePower": 5,
+        "coinPower": 6,
+        "coinCount": 2,
+        "sin": "Gloom",
+        "damageType": "Pierce",
+        "offenseLevel": 40
+      }
+    ]
+  },
+  {
+    "id": "w-corp-l2-cleanup-agent-faust",
+    "name": "W Corp. L2 Cleanup Agent Faust",
+    "sinner": "Faust",
+    "defenseLevel": 38,
+    "skills": [
+      {
+        "id": "w-corp-l2-cleanup-agent-faust-skill-1",
+        "name": "Energy Cycle",
+        "basePower": 4,
+        "coinPower": 8,
+        "coinCount": 1,
+        "sin": "Envy",
+        "damageType": "Blunt",
+        "offenseLevel": 34
+      },
+      {
+        "id": "w-corp-l2-cleanup-agent-faust-skill-2",
+        "name": "Leap",
+        "basePower": 6,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Gloom",
+        "damageType": "Blunt",
+        "offenseLevel": 34
+      },
+      {
+        "id": "w-corp-l2-cleanup-agent-faust-skill-3",
+        "name": "Overcharge",
+        "basePower": 6,
+        "coinPower": 3,
+        "coinCount": 3,
+        "sin": "Wrath",
+        "damageType": "Blunt",
+        "offenseLevel": 34
+      }
+    ]
+  },
+  {
+    "id": "w-corp-l2-cleanup-agent-hong-lu",
+    "name": "W Corp. L2 Cleanup Agent Hong Lu",
+    "sinner": "Hong Lu",
+    "defenseLevel": 37,
+    "skills": [
+      {
+        "id": "w-corp-l2-cleanup-agent-hong-lu-skill-1",
+        "name": "Energy Cycle",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Pride",
+        "damageType": "Pierce",
+        "offenseLevel": 34
+      },
+      {
+        "id": "w-corp-l2-cleanup-agent-hong-lu-skill-2",
+        "name": "Cleanup Support",
+        "basePower": 6,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Wrath",
+        "damageType": "Pierce",
+        "offenseLevel": 34
+      },
+      {
+        "id": "w-corp-l2-cleanup-agent-hong-lu-skill-3",
+        "name": "Deploy Charge Barrier",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Gluttony",
+        "damageType": "Slash",
+        "offenseLevel": 34
+      }
+    ]
+  },
+  {
+    "id": "w-corp-l2-cleanup-agent-meursault",
+    "name": "W Corp. L2 Cleanup Agent Meursault",
+    "sinner": "Meursault",
+    "defenseLevel": 39,
+    "skills": [
+      {
+        "id": "w-corp-l2-cleanup-agent-meursault-skill-1",
+        "name": "Rip",
+        "basePower": 5,
+        "coinPower": 6,
+        "coinCount": 1,
+        "sin": "Envy",
+        "damageType": "Slash",
+        "offenseLevel": 11
+      },
+      {
+        "id": "w-corp-l2-cleanup-agent-meursault-skill-2",
+        "name": "Energy Cycle",
+        "basePower": 5,
+        "coinPower": 2,
+        "coinCount": 3,
+        "sin": "Gloom",
+        "damageType": "Slash",
+        "offenseLevel": 11
+      },
+      {
+        "id": "w-corp-l2-cleanup-agent-meursault-skill-3",
+        "name": "Energy Current",
+        "basePower": 5,
+        "coinPower": 2,
+        "coinCount": 4,
+        "sin": "Pride",
+        "damageType": "Slash",
+        "offenseLevel": 11
+      }
+    ]
+  },
+  {
+    "id": "w-corp-l3-cleanup-agent-don-quixote",
+    "name": "W Corp. L3 Cleanup Agent Don Quixote",
+    "sinner": "Don Quixote",
+    "defenseLevel": 34,
+    "skills": [
+      {
+        "id": "w-corp-l3-cleanup-agent-don-quixote-skill-1",
+        "name": "Rip",
+        "basePower": 5,
+        "coinPower": 6,
+        "coinCount": 1,
+        "sin": "Sloth",
+        "damageType": "Slash",
+        "offenseLevel": 38
+      },
+      {
+        "id": "w-corp-l3-cleanup-agent-don-quixote-skill-2",
+        "name": "Leap",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Gloom",
+        "damageType": "Pierce",
+        "offenseLevel": 38
+      },
+      {
+        "id": "w-corp-l3-cleanup-agent-don-quixote-skill-3",
+        "name": "Rip Space",
+        "basePower": 1,
+        "coinPower": 2,
+        "coinCount": 5,
+        "sin": "Envy",
+        "damageType": "Slash",
+        "offenseLevel": 38
+      }
+    ]
+  },
+  {
+    "id": "w-corp-l3-cleanup-agent-ry-sh",
+    "name": "W Corp. L3 Cleanup Agent Ry\u014Dsh\u016B",
+    "sinner": "Ry\u014Dsh\u016B",
+    "defenseLevel": 31,
+    "skills": [
+      {
+        "id": "w-corp-l3-cleanup-agent-ry-sh-skill-1",
+        "name": "E.C.",
+        "basePower": 3,
+        "coinPower": 2,
+        "coinCount": 3,
+        "sin": "Lust",
+        "damageType": "Slash",
+        "offenseLevel": 40
+      },
+      {
+        "id": "w-corp-l3-cleanup-agent-ry-sh-skill-2",
+        "name": "Leap",
+        "basePower": 2,
+        "coinPower": 5,
+        "coinCount": 3,
+        "sin": "Pride",
+        "damageType": "Slash",
+        "offenseLevel": 40
+      },
+      {
+        "id": "w-corp-l3-cleanup-agent-ry-sh-skill-3",
+        "name": "D.D.E.D.R.",
+        "basePower": 3,
+        "coinPower": 2,
+        "coinCount": 4,
+        "sin": "Envy",
+        "damageType": "Slash",
+        "offenseLevel": 40
+      }
+    ]
+  },
+  {
+    "id": "w-corp-l3-cleanup-agent-yi-sang",
+    "name": "W Corp. L3 Cleanup Agent Yi Sang",
+    "sinner": "Yi Sang",
+    "defenseLevel": 33,
+    "skills": [
+      {
+        "id": "w-corp-l3-cleanup-agent-yi-sang-skill-1",
+        "name": "Dimensional Slit",
+        "basePower": 5,
+        "coinPower": 6,
+        "coinCount": 1,
+        "sin": "Sloth",
+        "damageType": "Slash",
+        "offenseLevel": 38
+      },
+      {
+        "id": "w-corp-l3-cleanup-agent-yi-sang-skill-2",
+        "name": "Energy Cycle",
+        "basePower": 5,
+        "coinPower": 5,
+        "coinCount": 2,
+        "sin": "Gluttony",
+        "damageType": "Pierce",
+        "offenseLevel": 38
+      },
+      {
+        "id": "w-corp-l3-cleanup-agent-yi-sang-skill-3",
+        "name": "Dimensional Rift",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Gloom",
+        "damageType": "Pierce",
+        "offenseLevel": 40
+      }
+    ]
+  },
+  {
+    "id": "w-corp-l3-cleanup-captain-outis",
+    "name": "W Corp. L3 Cleanup Captain Outis",
+    "sinner": "Outis",
+    "defenseLevel": 35,
+    "skills": [
+      {
+        "id": "w-corp-l3-cleanup-captain-outis-skill-1",
+        "name": "Ripple",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Pride",
+        "damageType": "Blunt",
+        "offenseLevel": 35
+      },
+      {
+        "id": "w-corp-l3-cleanup-captain-outis-skill-2",
+        "name": "Charged Leap",
+        "basePower": 5,
+        "coinPower": 6,
+        "coinCount": 2,
+        "sin": "Envy",
+        "damageType": "Blunt",
+        "offenseLevel": 35
+      },
+      {
+        "id": "w-corp-l3-cleanup-captain-outis-skill-3",
+        "name": "Rip Dimension",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 4,
+        "sin": "Gloom",
+        "damageType": "Slash",
+        "offenseLevel": 35
+      }
+    ]
+  },
+  {
+    "id": "w-corp-l4-cleanup-agent-cca-heathcliff",
+    "name": "W Corp. L4 Cleanup Agent - CCA Heathcliff",
+    "sinner": "Heathcliff",
+    "defenseLevel": 38,
+    "skills": [
+      {
+        "id": "w-corp-l4-cleanup-agent-cca-heathcliff-skill-1",
+        "name": "Congestion Cleanup",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Gluttony",
+        "damageType": "Blunt",
+        "offenseLevel": 35
+      },
+      {
+        "id": "w-corp-l4-cleanup-agent-cca-heathcliff-skill-2",
+        "name": "Boost: Elbow Blade",
+        "basePower": 5,
+        "coinPower": 6,
+        "coinCount": 2,
+        "sin": "Gloom",
+        "damageType": "Blunt",
+        "offenseLevel": 36
+      },
+      {
+        "id": "w-corp-l4-cleanup-agent-cca-heathcliff-skill-3",
+        "name": "Rip Space - CCA Overdrive",
+        "basePower": 3,
+        "coinPower": 2,
+        "coinCount": 4,
+        "sin": "Envy",
+        "damageType": "Blunt",
+        "offenseLevel": 40
+      }
+    ]
+  },
+  {
+    "id": "wild-hunt-heathcliff",
+    "name": "Wild Hunt Heathcliff",
+    "sinner": "Heathcliff",
+    "defenseLevel": 33,
+    "skills": [
+      {
+        "id": "wild-hunt-heathcliff-skill-1",
+        "name": "Beheading",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Wrath",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      },
+      {
+        "id": "wild-hunt-heathcliff-skill-2",
+        "name": "Memorial Procession",
+        "basePower": 5,
+        "coinPower": 3,
+        "coinCount": 3,
+        "sin": "Envy",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      },
+      {
+        "id": "wild-hunt-heathcliff-skill-3",
+        "name": "Requiem",
+        "basePower": 6,
+        "coinPower": 6,
+        "coinCount": 2,
+        "sin": "Gloom",
+        "damageType": "Blunt",
+        "offenseLevel": 40
+      }
+    ]
+  },
+  {
+    "id": "wuthering-heights-butler-faust",
+    "name": "Wuthering Heights Butler Faust",
+    "sinner": "Faust",
+    "defenseLevel": 34,
+    "skills": [
+      {
+        "id": "wuthering-heights-butler-faust-skill-1",
+        "name": "Confiscation",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Gloom",
+        "damageType": "Slash",
+        "offenseLevel": 36
+      },
+      {
+        "id": "wuthering-heights-butler-faust-skill-2",
+        "name": "Interloper Reception",
+        "basePower": 4,
+        "coinPower": 5,
+        "coinCount": 2,
+        "sin": "Lust",
+        "damageType": "Blunt",
+        "offenseLevel": 37
+      },
+      {
+        "id": "wuthering-heights-butler-faust-skill-3",
+        "name": "Reception Arts 4: Heartseal",
+        "basePower": 4,
+        "coinPower": 2,
+        "coinCount": 4,
+        "sin": "Wrath",
+        "damageType": "Slash",
+        "offenseLevel": 39
+      }
+    ]
+  },
+  {
+    "id": "wuthering-heights-chief-butler-outis",
+    "name": "Wuthering Heights Chief Butler Outis",
+    "sinner": "Outis",
+    "defenseLevel": 32,
+    "skills": [
+      {
+        "id": "wuthering-heights-chief-butler-outis-skill-1",
+        "name": "Knocking",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Pride",
+        "damageType": "Blunt",
+        "offenseLevel": 37
+      },
+      {
+        "id": "wuthering-heights-chief-butler-outis-skill-2",
+        "name": "Dusting",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Gloom",
+        "damageType": "Blunt",
+        "offenseLevel": 37
+      },
+      {
+        "id": "wuthering-heights-chief-butler-outis-skill-3",
+        "name": "As Mistress Commands",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 4,
+        "sin": "Lust",
+        "damageType": "Blunt",
+        "offenseLevel": 39
+      }
+    ]
+  },
+  {
+    "id": "zwei-assoc-south-section-4-faust",
+    "name": "Zwei Assoc. South Section 4 Faust",
+    "sinner": "Faust",
+    "defenseLevel": 37,
+    "skills": [
+      {
+        "id": "zwei-assoc-south-section-4-faust-skill-1",
+        "name": "Patrolling",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Envy",
+        "damageType": "Pierce",
+        "offenseLevel": 34
+      },
+      {
+        "id": "zwei-assoc-south-section-4-faust-skill-2",
+        "name": "Client Protection",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 3,
+        "sin": "Gloom",
+        "damageType": "Slash",
+        "offenseLevel": 34
+      },
+      {
+        "id": "zwei-assoc-south-section-4-faust-skill-3",
+        "name": "Law and Order",
+        "basePower": 6,
+        "coinPower": 5,
+        "coinCount": 2,
+        "sin": "Lust",
+        "damageType": "Slash",
+        "offenseLevel": 34
+      }
+    ]
+  },
+  {
+    "id": "zwei-assoc-south-section-4-gregor",
+    "name": "Zwei Assoc. South Section 4 Gregor",
+    "sinner": "Gregor",
+    "defenseLevel": 40,
+    "skills": [
+      {
+        "id": "zwei-assoc-south-section-4-gregor-skill-1",
+        "name": "Standoff",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 2,
+        "sin": "Sloth",
+        "damageType": "Slash",
+        "offenseLevel": 35
+      },
+      {
+        "id": "zwei-assoc-south-section-4-gregor-skill-2",
+        "name": "Flexible Suppression",
+        "basePower": 3,
+        "coinPower": 3,
+        "coinCount": 4,
+        "sin": "Gluttony",
+        "damageType": "Slash",
+        "offenseLevel": 35
+      },
+      {
+        "id": "zwei-assoc-south-section-4-gregor-skill-3",
+        "name": "Guardian",
+        "basePower": 5,
+        "coinPower": 3,
+        "coinCount": 3,
+        "sin": "Gloom",
+        "damageType": "Slash",
+        "offenseLevel": 35
+      }
+    ]
+  },
+  {
+    "id": "zwei-assoc-south-section-5-rodion",
+    "name": "Zwei Assoc. South Section 5 Rodion",
+    "sinner": "Rodion",
+    "defenseLevel": 38,
+    "skills": [
+      {
+        "id": "zwei-assoc-south-section-5-rodion-skill-1",
+        "name": "Careful Obstruction",
+        "basePower": 4,
+        "coinPower": 2,
+        "coinCount": 2,
+        "sin": "Wrath",
+        "damageType": "Blunt",
+        "offenseLevel": 33
+      },
+      {
+        "id": "zwei-assoc-south-section-5-rodion-skill-2",
+        "name": "Focused Defense",
+        "basePower": 6,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Sloth",
+        "damageType": "Blunt",
+        "offenseLevel": 33
+      },
+      {
+        "id": "zwei-assoc-south-section-5-rodion-skill-3",
+        "name": "Subdue Threat",
+        "basePower": 5,
+        "coinPower": 2,
+        "coinCount": 3,
+        "sin": "Gloom",
+        "damageType": "Blunt",
+        "offenseLevel": 33
+      }
+    ]
+  },
+  {
+    "id": "zwei-assoc-south-section-6-sinclair",
+    "name": "Zwei Assoc. South Section 6 Sinclair",
+    "sinner": "Sinclair",
+    "defenseLevel": 38,
+    "skills": [
+      {
+        "id": "zwei-assoc-south-section-6-sinclair-skill-1",
+        "name": "Baton",
+        "basePower": 4,
+        "coinPower": 6,
+        "coinCount": 1,
+        "sin": "Gloom",
+        "damageType": "Blunt",
+        "offenseLevel": 33
+      },
+      {
+        "id": "zwei-assoc-south-section-6-sinclair-skill-2",
+        "name": "Suppress",
+        "basePower": 6,
+        "coinPower": 2,
+        "coinCount": 2,
+        "sin": "Wrath",
+        "damageType": "Blunt",
+        "offenseLevel": 33
+      },
+      {
+        "id": "zwei-assoc-south-section-6-sinclair-skill-3",
+        "name": "Strong Strike",
+        "basePower": 7,
+        "coinPower": 13,
+        "coinCount": 1,
+        "sin": "Sloth",
+        "damageType": "Blunt",
+        "offenseLevel": 33
+      }
+    ]
+  },
+  {
+    "id": "zwei-assoc-west-section-3-ishmael",
+    "name": "Zwei Assoc. West Section 3 Ishmael",
+    "sinner": "Ishmael",
+    "defenseLevel": 40,
+    "skills": [
+      {
+        "id": "zwei-assoc-west-section-3-ishmael-skill-1",
+        "name": "Zwei Knight\u0027s Greatsword Form",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Pride",
+        "damageType": "Blunt",
+        "offenseLevel": 35
+      },
+      {
+        "id": "zwei-assoc-west-section-3-ishmael-skill-2",
+        "name": "Can\u0027t Let You Through.",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Envy",
+        "damageType": "Blunt",
+        "offenseLevel": 36
+      },
+      {
+        "id": "zwei-assoc-west-section-3-ishmael-skill-3",
+        "name": "Ward",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Gluttony",
+        "damageType": "Blunt",
+        "offenseLevel": 37
+      }
+    ]
+  },
+  {
+    "id": "zwei-assoc-west-section-3-sinclair",
+    "name": "Zwei Assoc. West Section 3 Sinclair",
+    "sinner": "Sinclair",
+    "defenseLevel": 39,
+    "skills": [
+      {
+        "id": "zwei-assoc-west-section-3-sinclair-skill-1",
+        "name": "Suppressing.",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Lust",
+        "damageType": "Slash",
+        "offenseLevel": 35
+      },
+      {
+        "id": "zwei-assoc-west-section-3-sinclair-skill-2",
+        "name": "Combat Preparation",
+        "basePower": 4,
+        "coinPower": 5,
+        "coinCount": 2,
+        "sin": "Gloom",
+        "damageType": "Slash",
+        "offenseLevel": 36
+      },
+      {
+        "id": "zwei-assoc-west-section-3-sinclair-skill-3",
+        "name": "Fence",
+        "basePower": 4,
+        "coinPower": 3,
+        "coinCount": 3,
+        "sin": "Sloth",
+        "damageType": "Blunt",
+        "offenseLevel": 37
+      }
+    ]
+  },
+  {
+    "id": "ufi-assoc-south-section-3-heathcliff",
+    "name": "\u00D6ufi Assoc. South Section 3 Heathcliff",
+    "sinner": "Heathcliff",
+    "defenseLevel": 33,
+    "skills": [
+      {
+        "id": "ufi-assoc-south-section-3-heathcliff-skill-1",
+        "name": "Execution Advised",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Envy",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      },
+      {
+        "id": "ufi-assoc-south-section-3-heathcliff-skill-2",
+        "name": "Final Warning",
+        "basePower": 4,
+        "coinPower": 6,
+        "coinCount": 2,
+        "sin": "Gloom",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      },
+      {
+        "id": "ufi-assoc-south-section-3-heathcliff-skill-3",
+        "name": "Execution Sentencing",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 3,
+        "sin": "Pride",
+        "damageType": "Pierce",
+        "offenseLevel": 37
+      }
     ]
   }
 ]

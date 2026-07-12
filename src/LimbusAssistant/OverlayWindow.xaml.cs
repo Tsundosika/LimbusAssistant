@@ -80,27 +80,49 @@ public partial class OverlayWindow : Window
         VerdictPanel.Visibility = Visibility.Visible;
         if (planning.Skill is { } skill)
         {
-            HeadlineText.Text = skill.Name;
-            HeadlineText.Foreground = GoodBrush;
             var maxRoll = skill.BasePower + skill.CoinPower * skill.CoinCount;
             KitText.Text =
                 $"base {skill.BasePower}, {(skill.CoinPower >= 0 ? "+" : "")}{skill.CoinPower} per coin, " +
                 $"{skill.CoinCount} coin{(skill.CoinCount == 1 ? "" : "s")}, max roll {maxRoll}";
-            SanityText.Text = planning.Sanity is { } sanity
-                ? $"sanity {sanity:+0;-0;0} means {50 + Math.Clamp(sanity, -45, 45)}% heads per coin"
-                : "sanity not read, assume 50% heads";
-            if (planning.Matchups is { Count: > 0 } matchups)
+            if (planning.IsEnemySkill)
             {
-                MatchupsText.Visibility = Visibility.Visible;
-                MatchupsText.Text = FormatMatchups(planning.EnemyName, matchups);
-                ActionText.Text = "Green clashes are safe picks. Red means guard or reroute.";
+                HeadlineText.Text = $"Their attack: {skill.Name}";
+                HeadlineText.Foreground = BadBrush;
+                SanityText.Text = planning.EnemyName ?? "";
+                if (planning.Matchups is { Count: > 0 } answers)
+                {
+                    MatchupsText.Visibility = Visibility.Visible;
+                    MatchupsText.Text = FormatMatchups("your best answers:", answers);
+                    ActionText.Text = "Send the greenest sinner into this clash.";
+                }
+                else
+                {
+                    MatchupsText.Visibility = Visibility.Collapsed;
+                    ActionText.Text = "Add your team in Turn Advisor (Ctrl+F9) to see who answers this best.";
+                }
             }
             else
             {
-                MatchupsText.Visibility = Visibility.Collapsed;
-                ActionText.Text = planning.EnemyName is null
-                    ? "Pick the enemy in Turn Advisor (Ctrl+F9) to see live win odds here."
-                    : $"No skill data for {planning.EnemyName}.";
+                HeadlineText.Text = skill.Name;
+                HeadlineText.Foreground = GoodBrush;
+                SanityText.Text = planning.Sanity is { } sanity
+                    ? planning.SanityFromTeam
+                        ? $"{planning.IdentityName}: sanity {sanity:+0;-0;0} from your team, {50 + Math.Clamp(sanity, -45, 45)}% heads"
+                        : $"sanity ~{sanity:+0;-0;0} (dock guess), {50 + Math.Clamp(sanity, -45, 45)}% heads. Set exact SP in Turn Advisor."
+                    : "sanity unknown, assuming 50% heads. Add your team in Turn Advisor.";
+                if (planning.Matchups is { Count: > 0 } matchups)
+                {
+                    MatchupsText.Visibility = Visibility.Visible;
+                    MatchupsText.Text = FormatMatchups($"vs {planning.EnemyName}:", matchups);
+                    ActionText.Text = "Green clashes are safe picks. Red means guard or reroute.";
+                }
+                else
+                {
+                    MatchupsText.Visibility = Visibility.Collapsed;
+                    ActionText.Text = planning.EnemyName is null
+                        ? "Hover the enemy or pick them in Turn Advisor to see win odds."
+                        : $"No skill data for {planning.EnemyName}.";
+                }
             }
         }
         else
@@ -110,7 +132,7 @@ public partial class OverlayWindow : Window
             KitText.Text = "skill not found in the dataset";
             SanityText.Text = "";
             MatchupsText.Visibility = Visibility.Collapsed;
-            ActionText.Text = "Add this identity to Data/identities.json to get full coin math.";
+            ActionText.Text = "Refresh the dataset with the wiki importer to cover every identity.";
         }
         PlacePanel(snapshot);
         PlaceOutline(snapshot, planning.Confidence);
@@ -147,12 +169,12 @@ public partial class OverlayWindow : Window
         Canvas.SetTop(ReadOutline, ribbon.Top - 4);
     }
 
-    static string FormatMatchups(string? enemyName, IReadOnlyList<MatchupOdds> matchups)
+    static string FormatMatchups(string? header, IReadOnlyList<MatchupOdds> matchups)
     {
         var lines = new List<string>();
-        if (enemyName is not null)
+        if (header is not null)
         {
-            lines.Add($"vs {enemyName}:");
+            lines.Add(header);
         }
         foreach (var matchup in matchups.Take(5))
         {

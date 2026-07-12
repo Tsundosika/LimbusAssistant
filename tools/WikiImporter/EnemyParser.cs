@@ -100,7 +100,7 @@ public static class EnemyParser
         return skills;
     }
 
-    static SkillData? ParseSkill(WikitextTemplate template)
+    public static SkillData? ParseSkill(WikitextTemplate template)
     {
         if (!Enum.TryParse<DamageType>(template.Value("type"), true, out var damageType))
         {

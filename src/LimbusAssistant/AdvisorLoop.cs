@@ -221,20 +221,89 @@ public sealed class AdvisorLoop : IDisposable
             return null;
         }
         var (skill, identity) = MatchSkill(name.Text);
-        var sanity = SanityFor(identity);
+        if (skill is null && MatchEnemySkill(name.Text) is { } enemySkill)
+        {
+            var owner = EffectiveEnemy();
+            return new PlanningHint(
+                name.Text,
+                enemySkill,
+                owner?.Name,
+                null,
+                name.Confidence,
+                owner?.Name,
+                BestAnswers(owner, enemySkill),
+                true);
+        }
+        var (sanity, fromTeam) = SanityFor(identity);
         var (enemyName, matchups) = BuildMatchups(skill, identity, sanity);
-        return new PlanningHint(name.Text, skill, identity, sanity, name.Confidence, enemyName, matchups);
+        return new PlanningHint(name.Text, skill, identity, sanity, name.Confidence, enemyName, matchups, false, fromTeam);
     }
 
-    int? SanityFor(string? identityName)
+    SkillData? MatchEnemySkill(string rawName)
+    {
+        var enemy = EffectiveEnemy();
+        if (enemy is null)
+        {
+            return null;
+        }
+        var normalized = Normalize(rawName);
+        if (normalized.Length < 3)
+        {
+            return null;
+        }
+        SkillData? best = null;
+        var bestDistance = int.MaxValue;
+        foreach (var skill in enemy.Skills)
+        {
+            var candidate = Normalize(skill.Name);
+            var cap = Math.Max(2, normalized.Length / 4);
+            var distance = EditDistance(normalized, candidate, cap);
+            if (distance < bestDistance)
+            {
+                bestDistance = distance;
+                best = skill;
+            }
+        }
+        return best is not null && bestDistance <= Math.Max(2, normalized.Length / 4) ? best : null;
+    }
+
+    IReadOnlyList<MatchupOdds>? BestAnswers(EnemyData? enemy, SkillData enemySkill)
+    {
+        if (enemy is null || _teamSanities is not { Count: > 0 } sanities)
+        {
+            return null;
+        }
+        var threat = new EnemyThreat(enemy, enemySkill);
+        var answers = new List<MatchupOdds>();
+        foreach (var (identityName, sanity) in sanities)
+        {
+            var identity = _data.Identities.FirstOrDefault(candidate => candidate.Name == identityName);
+            if (identity is null || identity.Skills.Count == 0)
+            {
+                continue;
+            }
+            var unit = new TurnUnit(identity, sanity);
+            var best = identity.Skills
+                .Select(skill => (Skill: skill, Result: _solver.EvaluateClash(unit, skill, threat)))
+                .MaxBy(pair => pair.Result.ExpectedValue);
+            answers.Add(new MatchupOdds(
+                $"{identity.Sinner}: {best.Skill.Name}",
+                best.Result.WinProbability,
+                best.Result.ExpectedDamageDealt,
+                best.Result.ExpectedDamageTaken));
+        }
+        return answers.Count == 0 ? null : answers.OrderByDescending(answer => answer.WinProbability).ToList();
+    }
+
+    (int? Sanity, bool FromTeam) SanityFor(string? identityName)
     {
         if (identityName is not null
             && _teamSanities is { } sanities
             && sanities.TryGetValue(identityName, out var teamSanity))
         {
-            return teamSanity;
+            return (teamSanity, true);
         }
-        return CachedSanity();
+        return (CachedSanity(), false);
     }
 
     int? CachedSanity()
