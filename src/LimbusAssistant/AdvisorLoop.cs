@@ -177,16 +177,11 @@ public sealed class AdvisorLoop : IDisposable
                     _cachedSanities = values;
                 }
             }
-            var withinGrace = _stickyPlanning is not null && now - _stickyPlanningTimestamp < HintGraceMilliseconds;
-            _lastPlanning = withinGrace ? _stickyPlanning : null;
-            if (!withinGrace)
-            {
-                _stickyPlanning = null;
-            }
+            _lastPlanning = _stickyPlanning;
             _lastLiveClash = null;
             _lastFrame = frame;
             _lastReading = EmptyReadingFor(frame, content);
-            Publish(BuildSnapshot(CaptureStatus.Ok, window, withinGrace, true, CurrentMetrics(_reader.ConsumeOcrCallCount())));
+            Publish(BuildSnapshot(CaptureStatus.Ok, window, _stickyPlanning is not null, true, CurrentMetrics(_reader.ConsumeOcrCallCount())));
             return;
         }
         _lastReading = await _pipeline.ReadAsync(frame, content);
@@ -194,10 +189,6 @@ public sealed class AdvisorLoop : IDisposable
         if (fresh?.Skill is not null)
         {
             _stickyPlanning = fresh;
-            _stickyPlanningTimestamp = now;
-        }
-        else if (_stickyPlanning is not null)
-        {
             _stickyPlanningTimestamp = now;
         }
         _lastPlanning = fresh?.Skill is not null ? fresh : _stickyPlanning ?? fresh;
@@ -647,6 +638,7 @@ public sealed class AdvisorLoop : IDisposable
             || !Equals(snapshot.GameBounds, _lastPublished.GameBounds)
             || !Equals(snapshot.LiveClash, _lastPublished.LiveClash)
             || snapshot.Planning?.Skill?.Id != _lastPublished.Planning?.Skill?.Id
+            || snapshot.Planning?.RawSkillName != _lastPublished.Planning?.RawSkillName
             || snapshot.Planning?.Sanity != _lastPublished.Planning?.Sanity
             || snapshot.Planning?.EnemyName != _lastPublished.Planning?.EnemyName
             || (snapshot.Planning?.Matchups?.Count ?? -1) != (_lastPublished.Planning?.Matchups?.Count ?? -1))

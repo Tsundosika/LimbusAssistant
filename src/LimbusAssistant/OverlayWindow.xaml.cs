@@ -71,12 +71,12 @@ public partial class OverlayWindow : Window
             HideAll();
             return;
         }
-        if (!snapshot.ClashGateOpen || snapshot.Planning is null)
+        if (snapshot.Planning is { } planning && (planning.Skill is not null || planning.RawSkillName.Length >= 3))
         {
-            ShowIdleChip("watching for your next move");
+            RenderPlanning(snapshot, planning);
             return;
         }
-        RenderPlanning(snapshot, snapshot.Planning);
+        RenderWatchingPanel();
     }
 
     void RenderPlanning(AdvisorSnapshot snapshot, PlanningHint planning)
@@ -169,24 +169,30 @@ public partial class OverlayWindow : Window
             MatchupsText.Visibility = Visibility.Collapsed;
             ActionText.Text = "Refresh the dataset with the wiki importer to cover every identity.";
         }
-        PlacePanel(snapshot);
+        PlacePanel();
         PlaceOutline(snapshot, planning.Confidence);
     }
 
-    void PlacePanel(AdvisorSnapshot snapshot)
+    void PlacePanel()
     {
         VerdictPanel.Measure(new Size(340, double.PositiveInfinity));
         var desired = VerdictPanel.DesiredSize;
-        if (!TryMapRegion(snapshot, RegionNames.DragSkillName, out var ribbon))
-        {
-            Canvas.SetLeft(VerdictPanel, Math.Max(8, Width - desired.Width - 24));
-            Canvas.SetTop(VerdictPanel, 24);
-            return;
-        }
-        var left = Math.Clamp(ribbon.Right + 16, 8, Math.Max(8, Width - desired.Width - 8));
-        var top = Math.Clamp(ribbon.Top - 4, 8, Math.Max(8, Height - desired.Height - 8));
-        Canvas.SetLeft(VerdictPanel, left);
-        Canvas.SetTop(VerdictPanel, top);
+        Canvas.SetLeft(VerdictPanel, Math.Max(8, Width - desired.Width - 20));
+        Canvas.SetTop(VerdictPanel, Math.Clamp(Height * 0.30, 8, Math.Max(8, Height - desired.Height - 8)));
+    }
+
+    void RenderWatchingPanel()
+    {
+        IdleChip.Visibility = Visibility.Collapsed;
+        ReadOutline.Visibility = Visibility.Collapsed;
+        VerdictPanel.Visibility = Visibility.Visible;
+        HeadlineText.Text = "watching";
+        HeadlineText.Foreground = WarnBrush;
+        KitText.Text = "hover a skill or a queued clash to read it";
+        SanityText.Text = "";
+        MatchupsText.Visibility = Visibility.Collapsed;
+        ActionText.Text = "the panel fills in as soon as a tooltip is visible";
+        PlacePanel();
     }
 
     void PlaceOutline(AdvisorSnapshot snapshot, double confidence)
