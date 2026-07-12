@@ -25,6 +25,7 @@ public sealed class AdvisorLoop : IDisposable
     const int DockScanIntervalMilliseconds = 1000;
 
     volatile EnemyData? _liveEnemy;
+    volatile IReadOnlyDictionary<string, int>? _teamSanities;
     EnemyData? _autoEnemy;
     long _autoEnemyTimestamp;
     long _lastCaptureTimestamp;
@@ -71,6 +72,8 @@ public sealed class AdvisorLoop : IDisposable
     }
 
     public void SetLiveEnemy(EnemyData? enemy) => _liveEnemy = enemy;
+
+    public void SetTeamSanities(IReadOnlyDictionary<string, int> sanities) => _teamSanities = sanities;
 
     async Task RunAsync(CancellationToken token)
     {
@@ -217,10 +220,21 @@ public sealed class AdvisorLoop : IDisposable
         {
             return null;
         }
-        var sanity = CachedSanity();
         var (skill, identity) = MatchSkill(name.Text);
+        var sanity = SanityFor(identity);
         var (enemyName, matchups) = BuildMatchups(skill, identity, sanity);
         return new PlanningHint(name.Text, skill, identity, sanity, name.Confidence, enemyName, matchups);
+    }
+
+    int? SanityFor(string? identityName)
+    {
+        if (identityName is not null
+            && _teamSanities is { } sanities
+            && sanities.TryGetValue(identityName, out var teamSanity))
+        {
+            return teamSanity;
+        }
+        return CachedSanity();
     }
 
     int? CachedSanity()

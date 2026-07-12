@@ -2,9 +2,9 @@ namespace Tsundosika.LimbusAssistant.Vision;
 
 public static class ClashGate
 {
-    public const double DefaultThreshold = 0.05;
+    public const double DefaultThreshold = 0.0015;
 
-    public static readonly NormalizedRect SampleBand = new(0.355, 0.155, 0.125, 0.055);
+    public static readonly NormalizedRect SampleBand = new(0.05, 0.02, 0.90, 0.70);
 
     public static double MeasureSignal(CaptureFrame frame, PixelRect content)
     {
@@ -13,10 +13,10 @@ public static class ClashGate
         var maxX = Math.Min(frame.Width, band.X + band.Width);
         var total = 0;
         var matching = 0;
-        for (var y = Math.Max(0, band.Y); y < maxY; y += 2)
+        for (var y = Math.Max(0, band.Y); y < maxY; y += 6)
         {
             var rowOffset = y * frame.Stride;
-            for (var x = Math.Max(0, band.X); x < maxX; x += 2)
+            for (var x = Math.Max(0, band.X); x < maxX; x += 6)
             {
                 var index = rowOffset + x * 4;
                 var blue = frame.PixelsBgra[index];

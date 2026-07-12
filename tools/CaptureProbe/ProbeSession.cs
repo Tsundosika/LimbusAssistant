@@ -132,8 +132,18 @@ public sealed class ProbeSession(ProbeOptions options)
             {
                 if (!options.NoOcr)
                 {
-                    var text = await _reader.ReadTextAsync(mat, rect);
-                    report.AppendLine($"{region.Name}  rect {rect.X},{rect.Y} {rect.Width}x{rect.Height}  text \"{text.Text}\" conf {text.Confidence:F2}");
+                    var textRect = rect;
+                    var detected = false;
+                    if (region.Name == RegionNames.DragSkillName
+                        && RibbonScanner.FindSkillRibbon(mat, content) is { } ribbon)
+                    {
+                        textRect = ribbon;
+                        detected = true;
+                    }
+                    var text = await _reader.ReadTextAsync(mat, textRect);
+                    report.AppendLine(
+                        $"{region.Name}  rect {textRect.X},{textRect.Y} {textRect.Width}x{textRect.Height}" +
+                        $"{(detected ? " (ribbon detected)" : "")}  text \"{text.Text}\" conf {text.Confidence:F2}");
                 }
                 continue;
             }

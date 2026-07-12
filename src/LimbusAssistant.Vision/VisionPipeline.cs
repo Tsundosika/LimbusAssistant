@@ -49,8 +49,14 @@ public sealed class VisionPipeline(INumberReader numberReader, TemplateLibrary t
             }
             else if (region.Kind == RegionKind.Text)
             {
-                texts[region.Name] = await numberReader.ReadTextAsync(mat, baseRect);
-                regions[region.Name] = baseRect;
+                var rect = baseRect;
+                if (region.Name == RegionNames.DragSkillName
+                    && RibbonScanner.FindSkillRibbon(mat, content) is { } ribbon)
+                {
+                    rect = ribbon;
+                }
+                texts[region.Name] = await numberReader.ReadTextAsync(mat, rect);
+                regions[region.Name] = rect;
             }
             else
             {
