@@ -77,6 +77,13 @@ public sealed class WindowsNumberReader : INumberReader
             return best;
         }
 
+        using var relative = BuildRelativeTextMask(roi);
+        best = Better(best, await RecognizeTextAsync(relative));
+        if (IsGoodText(best))
+        {
+            return best;
+        }
+
         using var grayThreshold = new Mat();
         Cv2.Threshold(scaledGray, grayThreshold, 170, 255, ThresholdTypes.Binary);
         Cv2.BitwiseNot(grayThreshold, grayThreshold);
@@ -115,6 +122,29 @@ public sealed class WindowsNumberReader : INumberReader
         var currentScore = current.Text.Count(char.IsLetter) * Math.Max(0.1, current.Confidence);
         var candidateScore = candidate.Text.Count(char.IsLetter) * Math.Max(0.1, candidate.Confidence);
         return candidateScore > currentScore ? candidate : current;
+    }
+
+    static Mat BuildRelativeTextMask(Mat roi)
+    {
+        using var bgr = ToBgr(roi);
+        using var hsv = new Mat();
+        Cv2.CvtColor(bgr, hsv, ColorConversionCodes.BGR2HSV);
+        var mean = Cv2.Mean(hsv);
+        var saturationCeiling = Math.Max(70, mean.Val1 - 45);
+        var valueFloor = Math.Min(200, Math.Max(140, mean.Val2 + 20));
+        using var mask = new Mat();
+        Cv2.InRange(hsv, new Scalar(0, 0, valueFloor), new Scalar(180, saturationCeiling, 255), mask);
+        using var scaled = new Mat();
+        Cv2.Resize(
+            mask,
+            scaled,
+            new Size(mask.Width * UpscaleFactor, mask.Height * UpscaleFactor),
+            interpolation: InterpolationFlags.Cubic);
+        var binary = new Mat();
+        Cv2.Threshold(scaled, binary, 127, 255, ThresholdTypes.Binary);
+        Cv2.BitwiseNot(binary, binary);
+        PadWhite(binary);
+        return binary;
     }
 
     static Mat BuildWhiteTextOnAnyBackground(Mat roi)
