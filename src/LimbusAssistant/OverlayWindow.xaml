@@ -38,6 +38,12 @@
                            FontSize="12"
                            Foreground="#FFB8C0D8"
                            Margin="0,4,0,0"/>
+                <TextBlock x:Name="MatchupsText"
+                           FontSize="13"
+                           FontFamily="Consolas"
+                           Foreground="#FFE8ECF8"
+                           Margin="0,6,0,0"
+                           Visibility="Collapsed"/>
                 <TextBlock x:Name="ActionText"
                            FontSize="12"
                            Foreground="#FF9AA0B4"

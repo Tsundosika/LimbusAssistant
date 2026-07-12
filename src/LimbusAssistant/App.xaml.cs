@@ -35,6 +35,8 @@ public partial class App : Application
         _main.Show();
 
         _loop = new AdvisorLoop(_settings, data, pipeline, reader);
+        _main.LiveEnemySelected += enemy => _loop?.SetLiveEnemy(enemy);
+        _loop.SetLiveEnemy(_main.SelectedEnemy);
         _loop.SnapshotPublished += snapshot => Dispatcher.BeginInvoke(() =>
         {
             _overlay?.UpdateSnapshot(snapshot);

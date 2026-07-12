@@ -26,6 +26,10 @@ public partial class MainWindow : Window
 
     public event Action? OverlayToggleRequested;
 
+    public event Action<EnemyData?>? LiveEnemySelected;
+
+    public EnemyData? SelectedEnemy => EnemyList.SelectedItem as EnemyData;
+
     public MainWindow(GameData data, CalibrationProfile profile)
     {
         InitializeComponent();
@@ -189,6 +193,9 @@ public partial class MainWindow : Window
     }
 
     void OnEnemySearchChanged(object sender, TextChangedEventArgs e) => RefreshEnemyList(EnemySearchBox.Text);
+
+    void OnEnemySelectionChanged(object sender, SelectionChangedEventArgs e) =>
+        LiveEnemySelected?.Invoke(EnemyList.SelectedItem as EnemyData);
 
     void RefreshEnemyList(string query)
     {

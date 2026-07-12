@@ -7,4 +7,6 @@ public sealed record PlanningHint(
     SkillData? Skill,
     string? IdentityName,
     int? Sanity,
-    double Confidence);
+    double Confidence,
+    string? EnemyName = null,
+    IReadOnlyList<MatchupOdds>? Matchups = null);

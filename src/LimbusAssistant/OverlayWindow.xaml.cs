@@ -85,7 +85,19 @@ public partial class OverlayWindow : Window
             SanityText.Text = planning.Sanity is { } sanity
                 ? $"sanity {sanity:+0;-0;0} means {50 + Math.Clamp(sanity, -45, 45)}% heads per coin"
                 : "sanity not read, assume 50% heads";
-            ActionText.Text = "Exact clash odds vs any enemy skill: Turn Advisor (Ctrl+F9).";
+            if (planning.Matchups is { Count: > 0 } matchups)
+            {
+                MatchupsText.Visibility = Visibility.Visible;
+                MatchupsText.Text = FormatMatchups(planning.EnemyName, matchups);
+                ActionText.Text = "Green clashes are safe picks. Red means guard or reroute.";
+            }
+            else
+            {
+                MatchupsText.Visibility = Visibility.Collapsed;
+                ActionText.Text = planning.EnemyName is null
+                    ? "Pick the enemy in Turn Advisor (Ctrl+F9) to see live win odds here."
+                    : $"No skill data for {planning.EnemyName}.";
+            }
         }
         else
         {
@@ -93,6 +105,7 @@ public partial class OverlayWindow : Window
             HeadlineText.Foreground = WarnBrush;
             KitText.Text = "skill not found in the dataset";
             SanityText.Text = "";
+            MatchupsText.Visibility = Visibility.Collapsed;
             ActionText.Text = "Add this identity to Data/identities.json to get full coin math.";
         }
         PlacePanel(snapshot);
@@ -129,6 +142,29 @@ public partial class OverlayWindow : Window
         Canvas.SetLeft(ReadOutline, ribbon.Left - 4);
         Canvas.SetTop(ReadOutline, ribbon.Top - 4);
     }
+
+    static string FormatMatchups(string? enemyName, IReadOnlyList<MatchupOdds> matchups)
+    {
+        var lines = new List<string>();
+        if (enemyName is not null)
+        {
+            lines.Add($"vs {enemyName}:");
+        }
+        foreach (var matchup in matchups.Take(5))
+        {
+            var icon = matchup.WinProbability switch
+            {
+                >= 0.65 => "🟢",
+                >= 0.45 => "🟡",
+                _ => "🔴",
+            };
+            lines.Add($"{icon} {Truncate(matchup.EnemySkillName, 16),-16} {matchup.WinProbability,4:P0}  deal {matchup.ExpectedDamageDealt:F0}");
+        }
+        return string.Join(Environment.NewLine, lines);
+    }
+
+    static string Truncate(string text, int length) =>
+        text.Length <= length ? text : text[..(length - 1)] + "…";
 
     bool TryMapRegion(AdvisorSnapshot snapshot, string regionName, out Rect mapped)
     {

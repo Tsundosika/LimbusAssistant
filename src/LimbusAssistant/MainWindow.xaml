@@ -212,7 +212,13 @@
                                  VirtualizingPanel.IsVirtualizing="True"
                                  VirtualizingPanel.VirtualizationMode="Recycling"
                                  VirtualizingPanel.ScrollUnit="Pixel"
-                                 ScrollViewer.CanContentScroll="True"/>
+                                 ScrollViewer.CanContentScroll="True"
+                                 SelectionChanged="OnEnemySelectionChanged"/>
+                        <TextBlock Foreground="{StaticResource MutedBrush}"
+                                   FontSize="11"
+                                   Margin="0,4,0,0"
+                                   TextWrapping="Wrap"
+                                   Text="The overlay uses the selected enemy for live win odds while you drag skills in game."/>
                         <Button Content="Plan the turn"
                                 Style="{StaticResource AccentButton}"
                                 HorizontalAlignment="Left"

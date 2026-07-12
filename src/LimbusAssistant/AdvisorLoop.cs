@@ -10,11 +10,18 @@ public sealed class AdvisorLoop : IDisposable
     const int LocateIntervalMilliseconds = 1000;
     const int HeartbeatMilliseconds = 250;
 
+    const int HintGraceMilliseconds = 1500;
+
     readonly AppSettings _settings;
     readonly VisionPipeline _pipeline;
     readonly INumberReader _reader;
+    readonly TurnSolver _solver = new();
+    readonly GameData _data;
     readonly int _targetFrameIntervalMs;
     readonly IReadOnlyList<(string Normalized, SkillData Skill, string Identity)> _skillIndex;
+    volatile EnemyData? _liveEnemy;
+    PlanningHint? _stickyPlanning;
+    long _stickyPlanningTimestamp;
     readonly CancellationTokenSource _cancellation = new();
     readonly double[] _tickDurations = new double[MetricsWindow];
     int _tickCount;
@@ -37,6 +44,7 @@ public sealed class AdvisorLoop : IDisposable
         _settings = settings;
         _pipeline = pipeline;
         _reader = reader;
+        _data = data;
         _targetFrameIntervalMs = Math.Clamp(settings.CaptureIntervalMilliseconds, 33, 1000);
         _targetTitle = string.IsNullOrWhiteSpace(settings.WindowTitle) ? null : settings.WindowTitle;
         _skillIndex = data.Identities
@@ -51,6 +59,8 @@ public sealed class AdvisorLoop : IDisposable
         _targetTitle = string.IsNullOrWhiteSpace(title) ? null : title;
         _window = null;
     }
+
+    public void SetLiveEnemy(EnemyData? enemy) => _liveEnemy = enemy;
 
     async Task RunAsync(CancellationToken token)
     {
@@ -109,17 +119,30 @@ public sealed class AdvisorLoop : IDisposable
         }
         _lastFrameHash = hash;
         var content = LetterboxDetector.DetectContent(frame);
+        var now = Environment.TickCount64;
         if (!ClashGate.IsClashLikely(frame, content))
         {
-            _lastPlanning = null;
+            var withinGrace = _stickyPlanning is not null && now - _stickyPlanningTimestamp < HintGraceMilliseconds;
+            _lastPlanning = withinGrace ? _stickyPlanning : null;
+            if (!withinGrace)
+            {
+                _stickyPlanning = null;
+            }
             _lastLiveClash = null;
             _lastFrame = frame;
-            _lastReading = VisionReading.Empty;
-            Publish(BuildSnapshot(CaptureStatus.Ok, window, false, CurrentMetrics(_reader.ConsumeOcrCallCount())));
+            _lastReading = EmptyReadingFor(frame, content);
+            Publish(BuildSnapshot(CaptureStatus.Ok, window, withinGrace, CurrentMetrics(_reader.ConsumeOcrCallCount())));
             return;
         }
         _lastReading = await _pipeline.ReadAsync(frame, content);
-        _lastPlanning = BuildPlanningHint(_lastReading);
+        var fresh = BuildPlanningHint(_lastReading);
+        if (fresh is not null)
+        {
+            _stickyPlanning = fresh;
+            _stickyPlanningTimestamp = now;
+        }
+        var withinStick = _stickyPlanning is not null && now - _stickyPlanningTimestamp < HintGraceMilliseconds;
+        _lastPlanning = fresh ?? (withinStick ? _stickyPlanning : null);
         _lastLiveClash = null;
         _lastFrame = frame;
         Publish(BuildSnapshot(CaptureStatus.Ok, window, true, CurrentMetrics(_reader.ConsumeOcrCallCount())));
@@ -160,14 +183,54 @@ public sealed class AdvisorLoop : IDisposable
     PlanningHint? BuildPlanningHint(VisionReading reading)
     {
         var name = reading.Text(RegionNames.DragSkillName);
-        if (name.Confidence < 0.5 || name.Text.Length < 3)
+        if (name.Confidence < 0.45 || name.Text.Length < 3)
         {
             return null;
         }
         var sanity = ReadBestSanity(reading);
         var (skill, identity) = MatchSkill(name.Text);
-        return new PlanningHint(name.Text, skill, identity, sanity, name.Confidence);
+        var (enemyName, matchups) = BuildMatchups(skill, identity, sanity);
+        return new PlanningHint(name.Text, skill, identity, sanity, name.Confidence, enemyName, matchups);
     }
+
+    (string? EnemyName, IReadOnlyList<MatchupOdds>? Matchups) BuildMatchups(SkillData? skill, string? identityName, int? sanity)
+    {
+        var enemy = _liveEnemy;
+        if (skill is null || enemy is null || enemy.Skills.Count == 0)
+        {
+            return (enemy?.Name, null);
+        }
+        var identity = _data.Identities.FirstOrDefault(candidate => candidate.Name == identityName);
+        if (identity is null)
+        {
+            return (enemy.Name, null);
+        }
+        var unit = new TurnUnit(identity, sanity ?? 0);
+        var matchups = enemy.Skills
+            .Take(6)
+            .Select(enemySkill =>
+            {
+                var assignment = _solver.EvaluateClash(unit, skill, new EnemyThreat(enemy, enemySkill));
+                return new MatchupOdds(
+                    enemySkill.Name,
+                    assignment.WinProbability,
+                    assignment.ExpectedDamageDealt,
+                    assignment.ExpectedDamageTaken);
+            })
+            .OrderByDescending(matchup => matchup.WinProbability)
+            .ToList();
+        return (enemy.Name, matchups);
+    }
+
+    static VisionReading EmptyReadingFor(CaptureFrame frame, PixelRect content) => new(
+        new Dictionary<string, NumberReading>(),
+        new Dictionary<string, IconReading>(),
+        new Dictionary<string, TextReading>(),
+        new Dictionary<string, PixelRect>(),
+        frame.Width,
+        frame.Height,
+        content,
+        DateTimeOffset.Now);
 
     int? ReadBestSanity(VisionReading reading)
     {
@@ -280,7 +343,9 @@ public sealed class AdvisorLoop : IDisposable
             || !Equals(snapshot.GameBounds, _lastPublished.GameBounds)
             || !Equals(snapshot.LiveClash, _lastPublished.LiveClash)
             || snapshot.Planning?.Skill?.Id != _lastPublished.Planning?.Skill?.Id
-            || snapshot.Planning?.Sanity != _lastPublished.Planning?.Sanity)
+            || snapshot.Planning?.Sanity != _lastPublished.Planning?.Sanity
+            || snapshot.Planning?.EnemyName != _lastPublished.Planning?.EnemyName
+            || (snapshot.Planning?.Matchups?.Count ?? -1) != (_lastPublished.Planning?.Matchups?.Count ?? -1))
         {
             return true;
         }
