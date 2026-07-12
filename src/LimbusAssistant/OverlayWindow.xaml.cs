@@ -101,6 +101,33 @@ public partial class OverlayWindow : Window
                     ActionText.Text = "Add your team in Turn Advisor (Ctrl+F9) to see who answers this best.";
                 }
             }
+            else if (planning.ExactClash is { } exact)
+            {
+                var (verdict, brush) = exact.WinProbability switch
+                {
+                    >= 0.65 => ("take it", GoodBrush),
+                    >= 0.45 => ("close call", WarnBrush),
+                    _ => ("risky", BadBrush),
+                };
+                HeadlineText.Text = $"{exact.WinProbability:P0} win, {verdict}";
+                HeadlineText.Foreground = brush;
+                KitText.Text =
+                    $"{skill.Name} vs {planning.ExactEnemySkillName}" +
+                    $" · deal ~{exact.ExpectedDamageDealt:F0} · take ~{exact.ExpectedDamageTaken:F0}";
+                SanityText.Text = planning.Sanity is { } exactSanity
+                    ? $"sanity {exactSanity:+0;-0;0}, {50 + Math.Clamp(exactSanity, -45, 45)}% heads ({planning.SanitySource ?? "assumed"})"
+                    : "sanity unknown, assuming 50% heads";
+                if (planning.Matchups is { Count: > 0 } rest)
+                {
+                    MatchupsText.Visibility = Visibility.Visible;
+                    MatchupsText.Text = FormatMatchups($"other skills of {planning.EnemyName}:", rest);
+                }
+                else
+                {
+                    MatchupsText.Visibility = Visibility.Collapsed;
+                }
+                ActionText.Text = "Exact clash read from both tooltips, full coin math.";
+            }
             else
             {
                 HeadlineText.Text = skill.Name;

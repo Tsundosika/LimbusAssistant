@@ -11,4 +11,6 @@ public sealed record PlanningHint(
     string? EnemyName = null,
     IReadOnlyList<MatchupOdds>? Matchups = null,
     bool IsEnemySkill = false,
-    string? SanitySource = null);
+    string? SanitySource = null,
+    MatchupOdds? ExactClash = null,
+    string? ExactEnemySkillName = null);

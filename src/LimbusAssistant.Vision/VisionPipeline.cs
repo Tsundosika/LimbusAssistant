@@ -87,16 +87,13 @@ public sealed class VisionPipeline(INumberReader numberReader, TemplateLibrary t
             }
             else if (region.Kind == RegionKind.Text)
             {
-                var rect = baseRect;
                 if (region.Name == RegionNames.DragSkillName)
                 {
-                    var (bestText, bestRect) = await ReadBestRibbonAsync(mat, content, baseRect);
-                    texts[region.Name] = bestText;
-                    regions[region.Name] = bestRect;
+                    await ReadRibbonsAsync(mat, content, baseRect, texts, regions);
                     continue;
                 }
-                texts[region.Name] = await numberReader.ReadTextAsync(mat, rect);
-                regions[region.Name] = rect;
+                texts[region.Name] = await numberReader.ReadTextAsync(mat, baseRect);
+                regions[region.Name] = baseRect;
             }
             else
             {
@@ -113,29 +110,72 @@ public sealed class VisionPipeline(INumberReader numberReader, TemplateLibrary t
         return new VisionReading(numbers, icons, texts, regions, frame.Width, frame.Height, content, DateTimeOffset.Now);
     }
 
-    async Task<(TextReading Text, PixelRect Rect)> ReadBestRibbonAsync(Mat mat, PixelRect content, PixelRect fallback)
+    async Task ReadRibbonsAsync(
+        Mat mat,
+        PixelRect content,
+        PixelRect fallback,
+        Dictionary<string, TextReading> texts,
+        Dictionary<string, PixelRect> regions)
     {
         var candidates = RibbonScanner.FindSkillRibbons(mat, content);
         if (candidates.Count == 0)
         {
-            return (await numberReader.ReadTextAsync(mat, fallback), fallback);
+            texts[RegionNames.DragSkillName] = await numberReader.ReadTextAsync(mat, fallback);
+            regions[RegionNames.DragSkillName] = fallback;
+            return;
         }
-        var bestText = TextReading.Empty;
-        var bestRect = candidates[0];
-        var bestScore = double.MinValue;
+        var readings = new List<(PixelRect Rect, TextReading Text, double Score)>();
         foreach (var candidate in candidates)
         {
             var text = await numberReader.ReadTextAsync(mat, candidate);
             var letters = text.Text.Count(char.IsLetter);
-            var score = letters * Math.Max(0.1, text.Confidence);
-            if (score > bestScore)
+            readings.Add((candidate, text, letters * Math.Max(0.1, text.Confidence)));
+        }
+        var pair = FindRibbonPair(readings);
+        if (pair is { } found)
+        {
+            texts[RegionNames.DragSkillName] = found.Left.Text;
+            regions[RegionNames.DragSkillName] = found.Left.Rect;
+            texts[RegionNames.EnemySkillName] = found.Right.Text;
+            regions[RegionNames.EnemySkillName] = found.Right.Rect;
+        }
+        else
+        {
+            var best = readings.MaxBy(reading => reading.Score);
+            texts[RegionNames.DragSkillName] = best.Text;
+            regions[RegionNames.DragSkillName] = best.Rect;
+        }
+        var index = 1;
+        foreach (var reading in readings.OrderByDescending(reading => reading.Score))
+        {
+            texts[$"ribbon.{index}"] = reading.Text;
+            regions[$"ribbon.{index}"] = reading.Rect;
+            index++;
+        }
+    }
+
+    static ((PixelRect Rect, TextReading Text, double Score) Left, (PixelRect Rect, TextReading Text, double Score) Right)?
+        FindRibbonPair(List<(PixelRect Rect, TextReading Text, double Score)> readings)
+    {
+        var lettered = readings.Where(reading => reading.Text.Text.Count(char.IsLetter) >= 4).ToList();
+        for (var i = 0; i < lettered.Count; i++)
+        {
+            for (var j = i + 1; j < lettered.Count; j++)
             {
-                bestScore = score;
-                bestText = text;
-                bestRect = candidate;
+                var first = lettered[i];
+                var second = lettered[j];
+                if (Math.Abs(first.Rect.Y - second.Rect.Y) > 30)
+                {
+                    continue;
+                }
+                if (Math.Abs(first.Rect.X - second.Rect.X) < 60)
+                {
+                    continue;
+                }
+                return first.Rect.X < second.Rect.X ? (first, second) : (second, first);
             }
         }
-        return (bestText, bestRect);
+        return null;
     }
 
     async Task<(NumberReading Reading, PixelRect Rect)> ReadNumberAsync(

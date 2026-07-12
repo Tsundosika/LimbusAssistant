@@ -19,6 +19,7 @@ public sealed class AdvisorLoop : IDisposable
     readonly GameData _data;
     readonly int _targetFrameIntervalMs;
     readonly IReadOnlyList<(string Normalized, SkillData Skill, string Identity)> _skillIndex;
+    readonly IReadOnlyList<(string Normalized, SkillData Skill, EnemyData Owner)> _enemySkillIndex;
     const int CaptureGraceMilliseconds = 2000;
     const int AutoEnemyGraceMilliseconds = 15000;
 
@@ -60,6 +61,9 @@ public sealed class AdvisorLoop : IDisposable
         _targetTitle = string.IsNullOrWhiteSpace(settings.WindowTitle) ? null : settings.WindowTitle;
         _skillIndex = data.Identities
             .SelectMany(identity => identity.Skills.Select(skill => (Normalize(skill.Name), skill, identity.Name)))
+            .ToList();
+        _enemySkillIndex = data.Enemies
+            .SelectMany(enemy => enemy.Skills.Select(skill => (Normalize(skill.Name), skill, enemy)))
             .ToList();
     }
 
@@ -168,13 +172,16 @@ public sealed class AdvisorLoop : IDisposable
         }
         _lastReading = await _pipeline.ReadAsync(frame, content);
         var fresh = await BuildPlanningHintAsync(frame, content, _lastReading);
-        if (fresh is not null)
+        if (fresh?.Skill is not null)
         {
             _stickyPlanning = fresh;
             _stickyPlanningTimestamp = now;
         }
-        var withinStick = _stickyPlanning is not null && now - _stickyPlanningTimestamp < HintGraceMilliseconds;
-        _lastPlanning = fresh ?? (withinStick ? _stickyPlanning : null);
+        else if (_stickyPlanning is not null)
+        {
+            _stickyPlanningTimestamp = now;
+        }
+        _lastPlanning = fresh?.Skill is not null ? fresh : _stickyPlanning ?? fresh;
         _lastLiveClash = null;
         _lastFrame = frame;
         Publish(BuildSnapshot(CaptureStatus.Ok, window, true, CurrentMetrics(_reader.ConsumeOcrCallCount())));
@@ -220,23 +227,127 @@ public sealed class AdvisorLoop : IDisposable
         {
             return null;
         }
-        var (skill, identity) = MatchSkill(name.Text);
-        if (skill is null && MatchEnemySkill(name.Text) is { } enemySkill)
+        var (skill, identity) = MatchSkillWithCandidates(name.Text, reading);
+        if (skill is null && MatchEnemySkill(name.Text) is { } hoveredEnemySkill)
         {
             var owner = EffectiveEnemy();
             return new PlanningHint(
                 name.Text,
-                enemySkill,
+                hoveredEnemySkill,
                 owner?.Name,
                 null,
                 name.Confidence,
                 owner?.Name,
-                BestAnswers(owner, enemySkill),
+                BestAnswers(owner, hoveredEnemySkill),
                 true);
         }
         var (sanity, source) = await ResolveSanityAsync(frame, content, identity);
+        var exact = MatchExactEnemySkill(reading);
+        if (skill is not null && identity is not null && exact is { } exactMatch)
+        {
+            var identityData = _data.Identities.FirstOrDefault(candidate => candidate.Name == identity);
+            if (identityData is not null)
+            {
+                var unit = new TurnUnit(identityData, sanity ?? 0);
+                var result = _solver.EvaluateClash(unit, skill, new EnemyThreat(exactMatch.Owner, exactMatch.Skill));
+                var exactOdds = new MatchupOdds(
+                    exactMatch.Skill.Name,
+                    result.WinProbability,
+                    result.ExpectedDamageDealt,
+                    result.ExpectedDamageTaken);
+                _autoEnemy = exactMatch.Owner;
+                _autoEnemyTimestamp = Environment.TickCount64;
+                var (_, others) = BuildMatchups(skill, identity, sanity);
+                return new PlanningHint(
+                    name.Text,
+                    skill,
+                    identity,
+                    sanity,
+                    name.Confidence,
+                    exactMatch.Owner.Name,
+                    others,
+                    false,
+                    source,
+                    exactOdds,
+                    exactMatch.Skill.Name);
+            }
+        }
         var (enemyName, matchups) = BuildMatchups(skill, identity, sanity);
         return new PlanningHint(name.Text, skill, identity, sanity, name.Confidence, enemyName, matchups, false, source);
+    }
+
+    (SkillData? Skill, string? Identity) MatchSkillWithCandidates(string primaryText, VisionReading reading)
+    {
+        var (skill, identity) = MatchSkill(primaryText);
+        if (skill is not null)
+        {
+            return (skill, identity);
+        }
+        foreach (var (key, text) in reading.Texts)
+        {
+            if (!key.StartsWith("ribbon.", StringComparison.Ordinal) || text.Text.Length < 3)
+            {
+                continue;
+            }
+            var (candidateSkill, candidateIdentity) = MatchSkill(text.Text);
+            if (candidateSkill is not null)
+            {
+                return (candidateSkill, candidateIdentity);
+            }
+        }
+        return (null, null);
+    }
+
+    (SkillData Skill, EnemyData Owner)? MatchExactEnemySkill(VisionReading reading)
+    {
+        var text = reading.Text(RegionNames.EnemySkillName);
+        if (text.Confidence < 0.45 || text.Text.Length < 3)
+        {
+            return null;
+        }
+        var normalized = Normalize(text.Text);
+        if (normalized.Length < 3)
+        {
+            return null;
+        }
+        var live = EffectiveEnemy();
+        if (live is not null && MatchWithin(normalized, live.Skills.Select(skill => (skill, live))) is { } liveMatch)
+        {
+            return liveMatch;
+        }
+        return MatchWithin(normalized, _enemySkillIndex.Select(entry => (entry.Skill, entry.Owner)));
+    }
+
+    static (SkillData Skill, EnemyData Owner)? MatchWithin(
+        string normalized,
+        IEnumerable<(SkillData Skill, EnemyData Owner)> candidates)
+    {
+        SkillData? bestSkill = null;
+        EnemyData? bestOwner = null;
+        var bestDistance = int.MaxValue;
+        var cap = Math.Max(2, normalized.Length / 4);
+        foreach (var (skill, owner) in candidates)
+        {
+            var candidate = Normalize(skill.Name);
+            if (candidate.Length < 3)
+            {
+                continue;
+            }
+            var distance = EditDistance(normalized, candidate, cap);
+            if (distance < bestDistance)
+            {
+                bestDistance = distance;
+                bestSkill = skill;
+                bestOwner = owner;
+            }
+            if (distance == 0)
+            {
+                break;
+            }
+        }
+        return bestSkill is not null && bestOwner is not null && bestDistance <= cap
+            ? (bestSkill, bestOwner)
+            : null;
     }
 
     async Task<(int? Sanity, string? Source)> ResolveSanityAsync(CaptureFrame frame, PixelRect content, string? identityName)
