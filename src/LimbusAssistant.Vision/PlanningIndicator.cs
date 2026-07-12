@@ -2,7 +2,7 @@ namespace Tsundosika.LimbusAssistant.Vision;
 
 public static class PlanningIndicator
 {
-    const double Threshold = 0.02;
+    const double Threshold = 0.015;
 
     static readonly NormalizedRect[] ToggleBands =
     [

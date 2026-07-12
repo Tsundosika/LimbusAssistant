@@ -34,6 +34,7 @@ public sealed class AdvisorLoop : IDisposable
     IReadOnlyList<int> _cachedSanities = [];
     PlanningHint? _stickyPlanning;
     long _stickyPlanningTimestamp;
+    int _nonPlanningStreak;
     readonly CancellationTokenSource _cancellation = new();
     readonly double[] _tickDurations = new double[MetricsWindow];
     int _tickCount;
@@ -143,7 +144,15 @@ public sealed class AdvisorLoop : IDisposable
         _lastFrameHash = hash;
         var content = LetterboxDetector.DetectContent(frame);
         var now = Environment.TickCount64;
-        if (!PlanningIndicator.IsPlanningVisible(frame, content))
+        if (PlanningIndicator.IsPlanningVisible(frame, content))
+        {
+            _nonPlanningStreak = 0;
+        }
+        else
+        {
+            _nonPlanningStreak++;
+        }
+        if (_nonPlanningStreak >= 3)
         {
             _stickyPlanning = null;
             _lastPlanning = null;
