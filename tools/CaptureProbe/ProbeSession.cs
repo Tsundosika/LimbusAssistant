@@ -120,6 +120,10 @@ public sealed class ProbeSession(ProbeOptions options)
         report.AppendLine($"frame {index:D3} · {frame.Width}x{frame.Height}");
         report.AppendLine($"content rect: {content.X},{content.Y} {content.Width}x{content.Height}");
         report.AppendLine($"clash gate signal: {gateSignal:F4} (threshold {ClashGate.DefaultThreshold:F4})");
+        var planningSignals = PlanningIndicator.MeasureBands(frame, content);
+        report.AppendLine(
+            $"planning phase visible: {PlanningIndicator.IsPlanningVisible(frame, content)}" +
+            $" (bands {string.Join(", ", planningSignals.Select(signal => signal.ToString("F4")))})");
         report.AppendLine();
 
         var readableNumbers = 0;

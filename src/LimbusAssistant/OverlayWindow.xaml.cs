@@ -66,6 +66,11 @@ public partial class OverlayWindow : Window
                 : "waiting for the game picture");
             return;
         }
+        if (!snapshot.PlanningPhase)
+        {
+            HideAll();
+            return;
+        }
         if (!snapshot.ClashGateOpen || snapshot.Planning is null)
         {
             ShowIdleChip("watching for your next move");
@@ -234,6 +239,13 @@ public partial class OverlayWindow : Window
         var scaleY = Height / snapshot.Reading.FrameHeight;
         mapped = new Rect(region.X * scaleX, region.Y * scaleY, region.Width * scaleX, region.Height * scaleY);
         return true;
+    }
+
+    void HideAll()
+    {
+        VerdictPanel.Visibility = Visibility.Collapsed;
+        ReadOutline.Visibility = Visibility.Collapsed;
+        IdleChip.Visibility = Visibility.Collapsed;
     }
 
     void ShowIdleChip(string text)

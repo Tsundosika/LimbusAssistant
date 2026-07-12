@@ -17,7 +17,7 @@ public sealed record AppSettings
 
     public string ToggleDebugHotkey { get; init; } = "Ctrl+F9";
 
-    public int CaptureIntervalMilliseconds { get; init; } = 100;
+    public int CaptureIntervalMilliseconds { get; init; } = 50;
 
     public double MinimumConfidence { get; init; } = 0.5;
 

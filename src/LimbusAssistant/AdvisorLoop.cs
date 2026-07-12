@@ -129,7 +129,7 @@ public sealed class AdvisorLoop : IDisposable
                 Publish(_lastPublished with { GameBounds = window.ClientBounds, Timestamp = DateTimeOffset.Now });
                 return;
             }
-            Publish(BuildSnapshot(CaptureStatus.WaitingForFrame, window, false, CurrentMetrics(0)));
+            Publish(BuildSnapshot(CaptureStatus.WaitingForFrame, window, false, false, CurrentMetrics(0)));
             return;
         }
         _lastCaptureTimestamp = Environment.TickCount64;
@@ -137,12 +137,22 @@ public sealed class AdvisorLoop : IDisposable
         var hash = FrameHash.SampleFrame(frame);
         if (hash == _lastFrameHash && _lastPublished is not null)
         {
-            Publish(BuildSnapshot(CaptureStatus.Ok, window, _lastPublished.ClashGateOpen, CurrentMetrics(0)));
+            Publish(BuildSnapshot(CaptureStatus.Ok, window, _lastPublished.ClashGateOpen, _lastPublished.PlanningPhase, CurrentMetrics(0)));
             return;
         }
         _lastFrameHash = hash;
         var content = LetterboxDetector.DetectContent(frame);
         var now = Environment.TickCount64;
+        if (!PlanningIndicator.IsPlanningVisible(frame, content))
+        {
+            _stickyPlanning = null;
+            _lastPlanning = null;
+            _lastLiveClash = null;
+            _lastFrame = frame;
+            _lastReading = EmptyReadingFor(frame, content);
+            Publish(BuildSnapshot(CaptureStatus.Ok, window, false, false, CurrentMetrics(_reader.ConsumeOcrCallCount())));
+            return;
+        }
         if (!ClashGate.IsClashLikely(frame, content))
         {
             if (now - _lastDockScanTimestamp >= DockScanIntervalMilliseconds)
@@ -167,7 +177,7 @@ public sealed class AdvisorLoop : IDisposable
             _lastLiveClash = null;
             _lastFrame = frame;
             _lastReading = EmptyReadingFor(frame, content);
-            Publish(BuildSnapshot(CaptureStatus.Ok, window, withinGrace, CurrentMetrics(_reader.ConsumeOcrCallCount())));
+            Publish(BuildSnapshot(CaptureStatus.Ok, window, withinGrace, true, CurrentMetrics(_reader.ConsumeOcrCallCount())));
             return;
         }
         _lastReading = await _pipeline.ReadAsync(frame, content);
@@ -184,7 +194,7 @@ public sealed class AdvisorLoop : IDisposable
         _lastPlanning = fresh?.Skill is not null ? fresh : _stickyPlanning ?? fresh;
         _lastLiveClash = null;
         _lastFrame = frame;
-        Publish(BuildSnapshot(CaptureStatus.Ok, window, true, CurrentMetrics(_reader.ConsumeOcrCallCount())));
+        Publish(BuildSnapshot(CaptureStatus.Ok, window, true, true, CurrentMetrics(_reader.ConsumeOcrCallCount())));
     }
 
     GameWindow? ResolveWindow()
@@ -207,13 +217,19 @@ public sealed class AdvisorLoop : IDisposable
         return null;
     }
 
-    AdvisorSnapshot BuildSnapshot(CaptureStatus status, GameWindow window, bool gateOpen, TickMetrics metrics) => new(
+    AdvisorSnapshot BuildSnapshot(
+        CaptureStatus status,
+        GameWindow window,
+        bool gateOpen,
+        bool planningPhase,
+        TickMetrics metrics) => new(
         status,
         window.ClientBounds,
         _lastReading,
         _lastLiveClash,
         _lastPlanning,
         gateOpen,
+        planningPhase,
         _lastReading.OverallConfidence,
         _lastFrame,
         metrics,
@@ -241,7 +257,17 @@ public sealed class AdvisorLoop : IDisposable
                 BestAnswers(owner, hoveredEnemySkill),
                 true);
         }
-        var (sanity, source) = await ResolveSanityAsync(frame, content, identity);
+        int? sanity;
+        string? source;
+        if (_stickyPlanning is { } sticky && sticky.Skill?.Id == skill?.Id && sticky.Sanity is not null)
+        {
+            sanity = sticky.Sanity;
+            source = sticky.SanitySource;
+        }
+        else
+        {
+            (sanity, source) = await ResolveSanityAsync(frame, content, identity);
+        }
         var exact = MatchExactEnemySkill(reading);
         if (skill is not null && identity is not null && exact is { } exactMatch)
         {
@@ -614,6 +640,7 @@ public sealed class AdvisorLoop : IDisposable
             return true;
         }
         if (snapshot.Status != _lastPublished.Status
+            || snapshot.PlanningPhase != _lastPublished.PlanningPhase
             || snapshot.ClashGateOpen != _lastPublished.ClashGateOpen
             || !Equals(snapshot.GameBounds, _lastPublished.GameBounds)
             || !Equals(snapshot.LiveClash, _lastPublished.LiveClash)

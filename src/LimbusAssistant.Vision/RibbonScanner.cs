@@ -35,7 +35,7 @@ public static class RibbonScanner
             {
                 var rect = Cv2.BoundingRect(contour);
                 var aspect = rect.Height == 0 ? 0 : rect.Width / (double)rect.Height;
-                if (rect.Width < 110 || rect.Width > 700 || rect.Height < 22 || rect.Height > 110 || aspect < 1.6)
+                if (rect.Width < 110 || rect.Width > 380 || rect.Height < 22 || rect.Height > 110 || aspect < 1.6)
                 {
                     continue;
                 }

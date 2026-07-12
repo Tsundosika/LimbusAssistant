@@ -32,6 +32,7 @@ public sealed record VisionReading(
         {
             var confidences = Numbers.Values.Select(reading => reading.Confidence)
                 .Concat(Icons.Values.Select(reading => reading.Confidence))
+                .Concat(Texts.Values.Select(reading => reading.Confidence))
                 .ToList();
             return confidences.Count == 0 ? 0 : confidences.Average();
         }
