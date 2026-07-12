@@ -85,6 +85,42 @@ public sealed class AdvisorLoop : IDisposable
 
     public void SetTeam(IReadOnlyList<(string Name, int Sanity)> members) => _team = members;
 
+    public string? DumpDebugSnapshot()
+    {
+        var frame = _lastFrame;
+        if (frame is null)
+        {
+            return null;
+        }
+        var directory = Path.Combine("probe-out", "appdump", DateTime.Now.ToString("yyyyMMdd-HHmmss"));
+        Directory.CreateDirectory(directory);
+        DebugDump.SaveFrame(frame, Path.Combine(directory, "frame.png"));
+        var report = new System.Text.StringBuilder();
+        var published = _lastPublished;
+        report.AppendLine($"status {published?.Status} gate {published?.ClashGateOpen} planning {published?.PlanningPhase}");
+        var reading = _lastReading;
+        foreach (var (key, text) in reading.Texts.OrderBy(pair => pair.Key))
+        {
+            var rect = reading.Regions.GetValueOrDefault(key);
+            report.AppendLine($"{key,-24} rect {rect.X},{rect.Y} {rect.Width}x{rect.Height}  \"{text.Text}\" conf {text.Confidence:F2}");
+        }
+        var planning = _lastPlanning;
+        if (planning is not null)
+        {
+            report.AppendLine($"hint raw \"{planning.RawSkillName}\" skill {planning.Skill?.Name ?? "none"} identity {planning.IdentityName ?? "none"}");
+            report.AppendLine($"  enemy {planning.EnemyName ?? "none"} exact {planning.ExactEnemySkillName ?? "none"} isEnemySkill {planning.IsEnemySkill}");
+            report.AppendLine($"  sanity {planning.Sanity?.ToString() ?? "?"} ({planning.SanitySource ?? "none"}) matchups {planning.Matchups?.Count ?? 0}");
+        }
+        else
+        {
+            report.AppendLine("hint none");
+        }
+        var sticky = _stickyPlanning;
+        report.AppendLine($"lock {sticky?.Skill?.Name ?? "none"}");
+        File.WriteAllText(Path.Combine(directory, "state.txt"), report.ToString());
+        return directory;
+    }
+
     async Task RunAsync(CancellationToken token)
     {
         while (!token.IsCancellationRequested)
