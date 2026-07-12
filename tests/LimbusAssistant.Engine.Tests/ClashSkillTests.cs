@@ -59,4 +59,30 @@ public class ClashSkillTests
         var skill = new ClashSkill(4, 7, 3, 0);
         Assert.Equal(2, skill.AfterLose().CoinCount);
     }
+
+    [Fact]
+    public void ModifierShiftsEveryPowerOutcome()
+    {
+        var skill = new ClashSkill(4, 7, 1, 0, 0, 3);
+        var distribution = skill.PowerDistribution();
+        Assert.Equal(2, distribution.Count);
+        Assert.Equal(7, distribution[0].Power);
+        Assert.Equal(14, distribution[1].Power);
+    }
+
+    [Fact]
+    public void NegativeModifierClampsPowerAtZero()
+    {
+        var skill = new ClashSkill(2, 1, 1, 0, 0, -5);
+        var distribution = skill.PowerDistribution();
+        var outcome = Assert.Single(distribution);
+        Assert.Equal(0, outcome.Power);
+        Assert.Equal(1.0, outcome.Probability, 10);
+    }
+
+    [Fact]
+    public void DefaultModifierPreservesEquality()
+    {
+        Assert.Equal(new ClashSkill(4, 7, 1, 0), new ClashSkill(4, 7, 1, 0, 0, 0));
+    }
 }

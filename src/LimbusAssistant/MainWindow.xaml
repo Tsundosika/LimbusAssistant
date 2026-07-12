@@ -71,7 +71,7 @@
                                    FontSize="13"
                                    TextWrapping="Wrap"
                                    Margin="0,0,0,12"
-                                   Text="Enter both skills and get the full coin by coin result: who wins the clash, how often, and what lands afterwards."/>
+                                   Text="Enter both skills and get the full coin by coin result: who wins the clash, how often, and what lands afterwards. The headline is your true chance over the whole clash; the game itself only shows the first exchange, so that figure appears underneath for comparison."/>
                         <Grid Margin="0,0,0,14">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
@@ -81,7 +81,7 @@
                             <Border Grid.Column="0" Style="{StaticResource Card}">
                                 <StackPanel>
                                     <TextBlock Text="Your skill" Style="{StaticResource SectionHeader}"/>
-                                    <UniformGrid Columns="2" Rows="4">
+                                    <UniformGrid Columns="2" Rows="3">
                                         <StackPanel Margin="0,0,6,8">
                                             <TextBlock Text="Base power" Style="{StaticResource FieldLabel}"/>
                                             <TextBox x:Name="AllyBaseBox" Text="4"/>
@@ -91,12 +91,20 @@
                                             <TextBox x:Name="AllyCoinBox" Text="7"/>
                                         </StackPanel>
                                         <StackPanel Margin="0,0,6,8">
-                                            <TextBlock Text="Coins" Style="{StaticResource FieldLabel}"/>
+                                            <TextBlock Text="Coins (0 to 30)" Style="{StaticResource FieldLabel}"/>
                                             <TextBox x:Name="AllyCountBox" Text="1"/>
                                         </StackPanel>
                                         <StackPanel Margin="0,0,0,8">
                                             <TextBlock Text="Sanity (-45 to 45)" Style="{StaticResource FieldLabel}"/>
                                             <TextBox x:Name="AllySanityBox" Text="0"/>
+                                        </StackPanel>
+                                        <StackPanel Margin="0,0,6,8">
+                                            <TextBlock Text="Clash power modifier" Style="{StaticResource FieldLabel}"/>
+                                            <TextBox x:Name="AllyModifierBox" Text="0"/>
+                                        </StackPanel>
+                                        <StackPanel Margin="0,0,0,8">
+                                            <TextBlock Text="Paralyzed coins" Style="{StaticResource FieldLabel}"/>
+                                            <TextBox x:Name="AllyParalyzeBox" Text="0"/>
                                         </StackPanel>
                                     </UniformGrid>
                                 </StackPanel>
@@ -104,7 +112,7 @@
                             <Border Grid.Column="2" Style="{StaticResource Card}">
                                 <StackPanel>
                                     <TextBlock Text="Enemy skill" Style="{StaticResource SectionHeader}"/>
-                                    <UniformGrid Columns="2" Rows="4">
+                                    <UniformGrid Columns="2" Rows="3">
                                         <StackPanel Margin="0,0,6,8">
                                             <TextBlock Text="Base power" Style="{StaticResource FieldLabel}"/>
                                             <TextBox x:Name="EnemyBaseBox" Text="5"/>
@@ -114,12 +122,20 @@
                                             <TextBox x:Name="EnemyCoinBox" Text="4"/>
                                         </StackPanel>
                                         <StackPanel Margin="0,0,6,8">
-                                            <TextBlock Text="Coins" Style="{StaticResource FieldLabel}"/>
+                                            <TextBlock Text="Coins (0 to 30)" Style="{StaticResource FieldLabel}"/>
                                             <TextBox x:Name="EnemyCountBox" Text="2"/>
                                         </StackPanel>
                                         <StackPanel Margin="0,0,0,8">
                                             <TextBlock Text="Sanity (-45 to 45)" Style="{StaticResource FieldLabel}"/>
                                             <TextBox x:Name="EnemySanityBox" Text="0"/>
+                                        </StackPanel>
+                                        <StackPanel Margin="0,0,6,8">
+                                            <TextBlock Text="Clash power modifier" Style="{StaticResource FieldLabel}"/>
+                                            <TextBox x:Name="EnemyModifierBox" Text="0"/>
+                                        </StackPanel>
+                                        <StackPanel Margin="0,0,0,8">
+                                            <TextBlock Text="Paralyzed coins" Style="{StaticResource FieldLabel}"/>
+                                            <TextBox x:Name="EnemyParalyzeBox" Text="0"/>
                                         </StackPanel>
                                     </UniformGrid>
                                 </StackPanel>
@@ -136,6 +152,11 @@
                                            FontSize="26"
                                            FontWeight="Bold"
                                            Text="Enter skills and press Calculate"/>
+                                <TextBlock x:Name="ClashGameStyleLine"
+                                           FontSize="13"
+                                           Foreground="{StaticResource MutedBrush}"
+                                           Margin="0,4,0,0"
+                                           TextWrapping="Wrap"/>
                                 <TextBlock x:Name="ClashResultDetail"
                                            FontSize="13"
                                            Foreground="{StaticResource MutedBrush}"

@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Tsundosika.LimbusAssistant.Engine;
 using Tsundosika.LimbusAssistant.Vision;
 
@@ -12,10 +13,10 @@ public sealed class AdvisorLoop : IDisposable
     readonly ClashCalculator _calculator = new();
     readonly Dictionary<string, SkillData> _skillsById;
     readonly CancellationTokenSource _cancellation = new();
+    readonly int _targetFrameIntervalMs;
     IFrameSource? _source;
     GameWindow? _window;
     volatile string? _targetTitle;
-    long _lastFrameHash;
     VisionReading _lastReading = VisionReading.Empty;
     LiveClashEstimate? _lastLiveClash;
     CaptureFrame? _lastFrame;
@@ -26,6 +27,7 @@ public sealed class AdvisorLoop : IDisposable
     {
         _settings = settings;
         _pipeline = pipeline;
+        _targetFrameIntervalMs = Math.Clamp(settings.CaptureIntervalMilliseconds, 1, 16);
         _targetTitle = string.IsNullOrWhiteSpace(settings.WindowTitle) ? null : settings.WindowTitle;
         _skillsById = data.Identities.SelectMany(identity => identity.Skills)
             .Concat(data.Enemies.SelectMany(enemy => enemy.Skills))
@@ -42,6 +44,7 @@ public sealed class AdvisorLoop : IDisposable
     {
         while (!token.IsCancellationRequested)
         {
+            var startedAt = Stopwatch.GetTimestamp();
             try
             {
                 await TickAsync();
@@ -52,7 +55,10 @@ public sealed class AdvisorLoop : IDisposable
             }
             try
             {
-                await Task.Delay(_settings.CaptureIntervalMilliseconds, token);
+                var elapsedMs = (int)Math.Round(
+                    (Stopwatch.GetTimestamp() - startedAt) * 1000.0 / Stopwatch.Frequency);
+                var delayMs = Math.Max(0, _targetFrameIntervalMs - elapsedMs);
+                await Task.Delay(delayMs, token);
             }
             catch (TaskCanceledException)
             {
@@ -90,14 +96,9 @@ public sealed class AdvisorLoop : IDisposable
                 DateTimeOffset.Now));
             return;
         }
-        var hash = SampleHash(frame);
-        if (hash != _lastFrameHash)
-        {
-            _lastFrameHash = hash;
-            _lastReading = await _pipeline.ReadAsync(frame);
-            _lastLiveClash = EstimateLiveClash(_lastReading);
-            _lastFrame = frame;
-        }
+        _lastReading = await _pipeline.ReadAsync(frame);
+        _lastLiveClash = EstimateLiveClash(_lastReading);
+        _lastFrame = frame;
         Publish(new AdvisorSnapshot(
             CaptureStatus.Ok,
             window.ClientBounds,
@@ -131,6 +132,7 @@ public sealed class AdvisorLoop : IDisposable
         var attackPower = ExpectedAttackPower.OnClashWin(ally.Value.Skill, outcome.WinStates);
         return new LiveClashEstimate(
             outcome.EffectiveWinProbability,
+            ClashCalculator.FirstExchangeWinProbability(ally.Value.Skill, enemy.Value.Skill),
             attackPower,
             ally.Value.FromDataset && enemy.Value.FromDataset,
             Math.Min(ally.Value.Confidence, enemy.Value.Confidence));
@@ -158,21 +160,12 @@ public sealed class AdvisorLoop : IDisposable
             return null;
         }
         var confidence = Math.Min(power.Confidence, coinsReading.Confidence);
-        if (confidence < _settings.MinimumConfidence)
+        var minimumConfidence = Math.Min(_settings.MinimumConfidence, 0.35);
+        if (confidence < minimumConfidence)
         {
             return null;
         }
         return (new ClashSkill(power.Value.Value, 0, coinsReading.Value.Value, sanity), false, confidence);
-    }
-
-    static long SampleHash(CaptureFrame frame)
-    {
-        var hash = 17L;
-        for (var i = 0; i < frame.PixelsBgra.Length; i += 4093)
-        {
-            hash = hash * 31 + frame.PixelsBgra[i];
-        }
-        return hash;
     }
 
     void Publish(AdvisorSnapshot snapshot) => SnapshotPublished?.Invoke(snapshot);
@@ -181,7 +174,6 @@ public sealed class AdvisorLoop : IDisposable
     {
         _source?.Dispose();
         _source = null;
-        _lastFrameHash = 0;
     }
 
     public void Dispose()

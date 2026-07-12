@@ -20,7 +20,6 @@ public partial class MainWindow : Window
     readonly TurnSolver _solver = new();
     readonly ObservableCollection<TeamEntry> _team = [];
     WriteableBitmap? _bitmap;
-    PixelRect _lastContentRect;
     bool _suppressSelection;
 
     public event Action<string?>? GameWindowSelected;
@@ -63,7 +62,7 @@ public partial class MainWindow : Window
         ReadingsText.Text = FormatReadings(snapshot);
         if (snapshot.Frame is { } frame)
         {
-            UpdateFrame(frame, snapshot.Reading.ContentRect);
+            UpdateFrame(frame, snapshot.Reading);
         }
     }
 
@@ -97,17 +96,32 @@ public partial class MainWindow : Window
 
     void OnCalculateClashClick(object sender, RoutedEventArgs e)
     {
-        var ally = new ClashSkill(
-            ReadInt(AllyBaseBox, 4),
-            ReadInt(AllyCoinBox, 7),
-            Math.Max(0, ReadInt(AllyCountBox, 1)),
-            Math.Clamp(ReadInt(AllySanityBox, 0), ClashSkill.MinSanity, ClashSkill.MaxSanity));
-        var enemy = new ClashSkill(
-            ReadInt(EnemyBaseBox, 5),
-            ReadInt(EnemyCoinBox, 4),
-            Math.Max(0, ReadInt(EnemyCountBox, 2)),
-            Math.Clamp(ReadInt(EnemySanityBox, 0), ClashSkill.MinSanity, ClashSkill.MaxSanity));
+        var valid = TryReadInt(AllyBaseBox, -99, 999, out var allyBase)
+            & TryReadInt(AllyCoinBox, -99, 99, out var allyCoin)
+            & TryReadInt(AllyCountBox, 0, 30, out var allyCount)
+            & TryReadInt(AllySanityBox, ClashSkill.MinSanity, ClashSkill.MaxSanity, out var allySanity)
+            & TryReadInt(AllyModifierBox, -99, 99, out var allyModifier)
+            & TryReadInt(AllyParalyzeBox, 0, 99, out var allyParalyze)
+            & TryReadInt(EnemyBaseBox, -99, 999, out var enemyBase)
+            & TryReadInt(EnemyCoinBox, -99, 99, out var enemyCoin)
+            & TryReadInt(EnemyCountBox, 0, 30, out var enemyCount)
+            & TryReadInt(EnemySanityBox, ClashSkill.MinSanity, ClashSkill.MaxSanity, out var enemySanity)
+            & TryReadInt(EnemyModifierBox, -99, 99, out var enemyModifier)
+            & TryReadInt(EnemyParalyzeBox, 0, 99, out var enemyParalyze);
+        if (!valid)
+        {
+            ClashResultHeadline.Text = "Fix the highlighted fields";
+            ClashResultHeadline.Foreground = (Brush)FindResource("BadBrush");
+            ClashGameStyleLine.Text = "";
+            ClashResultDetail.Text = "Every box needs a whole number. Coins 0 to 30, sanity -45 to 45.";
+            return;
+        }
+        var ally = new ClashSkill(allyBase, allyCoin, allyCount, allySanity, allyParalyze, allyModifier);
+        var enemy = new ClashSkill(enemyBase, enemyCoin, enemyCount, enemySanity, enemyParalyze, enemyModifier);
         var outcome = _calculator.Calculate(ally, enemy);
+        ClashGameStyleLine.Text =
+            $"the game will show about {ClashCalculator.FirstExchangeWinProbability(ally, enemy):P1} " +
+            "(first exchange only, ignores the rest of the clash)";
         var attackPower = ExpectedAttackPower.OnClashWin(ally, outcome.WinStates);
         var takenPower = ExpectedAttackPower.OnClashWin(enemy, outcome.LoseStates);
         var (verdict, brushKey) = outcome.EffectiveWinProbability switch
@@ -137,7 +151,10 @@ public partial class MainWindow : Window
         {
             return;
         }
-        var sanity = Math.Clamp(ReadInt(TeamSanityBox, 0), ClashSkill.MinSanity, ClashSkill.MaxSanity);
+        if (!TryReadInt(TeamSanityBox, ClashSkill.MinSanity, ClashSkill.MaxSanity, out var sanity))
+        {
+            return;
+        }
         _team.Add(new TeamEntry(identity, sanity));
     }
 
@@ -203,15 +220,23 @@ public partial class MainWindow : Window
             $"   win {assignment.WinProbability:P0} · deal ~{assignment.ExpectedDamageDealt:F1} · take ~{assignment.ExpectedDamageTaken:F1}";
     }
 
-    static int ReadInt(TextBox box, int fallback) =>
-        int.TryParse(box.Text.Trim(), out var value) ? value : fallback;
+    bool TryReadInt(TextBox box, int min, int max, out int value)
+    {
+        var valid = int.TryParse(box.Text.Trim(), out value) && value >= min && value <= max;
+        box.BorderBrush = (Brush)FindResource(valid ? "FieldBorderBrush" : "BadBrush");
+        box.BorderThickness = new Thickness(valid ? 1 : 2);
+        return valid;
+    }
 
     static string FormatReadings(AdvisorSnapshot snapshot)
     {
         var builder = new StringBuilder();
         if (snapshot.LiveClash is { } clash)
         {
-            builder.AppendLine($"live clash: win {clash.WinProbability:P1}, power {clash.ExpectedAttackPowerOnWin:F1}");
+            builder.AppendLine(
+                $"live clash: win {clash.WinProbability:P1} " +
+                $"(game shows about {clash.FirstExchangeWinProbability:P1}), " +
+                $"power {clash.ExpectedAttackPowerOnWin:F1}");
             builder.AppendLine($"  source: {(clash.FromDataset ? "dataset" : "screen numbers")} · confidence {clash.Confidence:P0}");
             builder.AppendLine();
         }
@@ -236,7 +261,7 @@ public partial class MainWindow : Window
         return builder.ToString();
     }
 
-    void UpdateFrame(CaptureFrame frame, PixelRect contentRect)
+    void UpdateFrame(CaptureFrame frame, VisionReading reading)
     {
         if (_bitmap is null || _bitmap.PixelWidth != frame.Width || _bitmap.PixelHeight != frame.Height)
         {
@@ -244,43 +269,55 @@ public partial class MainWindow : Window
             FrameImage.Source = _bitmap;
             RegionCanvas.Width = frame.Width;
             RegionCanvas.Height = frame.Height;
-            _lastContentRect = default;
         }
         _bitmap.WritePixels(new Int32Rect(0, 0, frame.Width, frame.Height), frame.PixelsBgra, frame.Stride, 0);
-        if (contentRect != _lastContentRect)
+        DrawRegions(reading, frame.Height);
+    }
+
+    void DrawRegions(VisionReading reading, int frameHeight)
+    {
+        RegionCanvas.Children.Clear();
+        if (reading.Regions.Count > 0)
         {
-            _lastContentRect = contentRect;
-            DrawRegions(contentRect, frame.Height);
+            foreach (var region in _profile.Regions)
+            {
+                if (!reading.Regions.TryGetValue(region.Name, out var rect))
+                {
+                    rect = region.Rect.ToPixelsWithin(reading.ContentRect);
+                }
+                DrawRegion(region, rect, frameHeight);
+            }
+            return;
+        }
+        foreach (var region in _profile.Regions)
+        {
+            var rect = region.Rect.ToPixelsWithin(reading.ContentRect);
+            DrawRegion(region, rect, frameHeight);
         }
     }
 
-    void DrawRegions(PixelRect content, int frameHeight)
+    void DrawRegion(AnchorRegion region, PixelRect rect, int frameHeight)
     {
-        RegionCanvas.Children.Clear();
-        foreach (var region in _profile.Regions)
+        var box = new Rectangle
         {
-            var rect = region.Rect.ToPixelsWithin(content);
-            var box = new Rectangle
-            {
-                Width = rect.Width,
-                Height = rect.Height,
-                Stroke = region.Kind == RegionKind.Number ? Brushes.OrangeRed : Brushes.DeepSkyBlue,
-                StrokeThickness = 2,
-            };
-            Canvas.SetLeft(box, rect.X);
-            Canvas.SetTop(box, rect.Y);
-            RegionCanvas.Children.Add(box);
-            var label = new TextBlock
-            {
-                Text = region.Name,
-                Foreground = Brushes.White,
-                Background = new SolidColorBrush(Color.FromArgb(160, 0, 0, 0)),
-                FontSize = Math.Max(10, frameHeight / 90.0),
-            };
-            Canvas.SetLeft(label, rect.X);
-            Canvas.SetTop(label, Math.Max(0, rect.Y - frameHeight / 60.0));
-            RegionCanvas.Children.Add(label);
-        }
+            Width = rect.Width,
+            Height = rect.Height,
+            Stroke = region.Kind == RegionKind.Number ? Brushes.OrangeRed : Brushes.DeepSkyBlue,
+            StrokeThickness = 2,
+        };
+        Canvas.SetLeft(box, rect.X);
+        Canvas.SetTop(box, rect.Y);
+        RegionCanvas.Children.Add(box);
+        var label = new TextBlock
+        {
+            Text = region.Name,
+            Foreground = Brushes.White,
+            Background = new SolidColorBrush(Color.FromArgb(160, 0, 0, 0)),
+            FontSize = Math.Max(10, frameHeight / 90.0),
+        };
+        Canvas.SetLeft(label, rect.X);
+        Canvas.SetTop(label, Math.Max(0, rect.Y - frameHeight / 60.0));
+        RegionCanvas.Children.Add(label);
     }
 
     sealed record TeamEntry(IdentityData Identity, int Sanity)

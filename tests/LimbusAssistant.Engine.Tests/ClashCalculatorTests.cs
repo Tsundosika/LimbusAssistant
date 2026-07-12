@@ -96,6 +96,38 @@ public class ClashCalculatorTests
     }
 
     [Fact]
+    public void FirstExchangeMatchesInGameStyleNumber()
+    {
+        var ally = new ClashSkill(4, 7, 1, 0);
+        var enemy = new ClashSkill(5, 4, 2, 0);
+        Assert.Equal(0.375, ClashCalculator.FirstExchangeWinProbability(ally, enemy), 10);
+        Assert.Equal(0.1875, _calculator.Calculate(ally, enemy).WinProbability, 10);
+    }
+
+    [Fact]
+    public void FirstExchangeRerollsTies()
+    {
+        var skill = new ClashSkill(4, 7, 1, 0);
+        Assert.Equal(0.5, ClashCalculator.FirstExchangeWinProbability(skill, skill), 10);
+    }
+
+    [Fact]
+    public void FirstExchangeOnPureStalemateIsHalf()
+    {
+        var skill = new ClashSkill(5, 0, 1, 0);
+        Assert.Equal(0.5, ClashCalculator.FirstExchangeWinProbability(skill, skill), 10);
+    }
+
+    [Fact]
+    public void ModifierImprovesWinRate()
+    {
+        var enemy = new ClashSkill(5, 4, 2, 0);
+        var plain = _calculator.Calculate(new ClashSkill(4, 7, 2, 0), enemy);
+        var boosted = _calculator.Calculate(new ClashSkill(4, 7, 2, 0, 0, 3), enemy);
+        Assert.True(boosted.WinProbability > plain.WinProbability);
+    }
+
+    [Fact]
     public void LargeClashCompletesQuickly()
     {
         var ally = new ClashSkill(10, 4, 20, 20);

@@ -13,6 +13,13 @@ public sealed class ClashCalculator
         return new ClashOutcome(win, lose, unresolved, winStates, loseStates);
     }
 
+    public static double FirstExchangeWinProbability(ClashSkill ally, ClashSkill enemy)
+    {
+        var (leftWin, _, rightWin) = SingleExchange(ally, enemy);
+        var decisive = leftWin + rightWin;
+        return decisive <= 0 ? 0.5 : leftWin / decisive;
+    }
+
     public static ExchangeProbabilities SingleExchange(ClashSkill left, ClashSkill right)
     {
         var leftWin = 0.0;

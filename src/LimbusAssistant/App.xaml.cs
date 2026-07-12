@@ -1,5 +1,6 @@
 using System.IO;
 using System.Windows;
+using System.Windows.Threading;
 using Tsundosika.LimbusAssistant.Engine;
 using Tsundosika.LimbusAssistant.Vision;
 
@@ -17,6 +18,7 @@ public partial class App : Application
     protected override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
+        DispatcherUnhandledException += OnDispatcherUnhandledException;
         _settings = AppSettings.Load();
         _settings.Save();
         var data = GameData.Load(Path.Combine(AppContext.BaseDirectory, "Data"));
@@ -96,6 +98,16 @@ public partial class App : Application
         {
             _main.Show();
         }
+    }
+
+    void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+    {
+        MessageBox.Show(
+            $"Something went wrong: {e.Exception.Message}\n\nThe assistant keeps running. If this repeats, restart it.",
+            "Limbus Assistant",
+            MessageBoxButton.OK,
+            MessageBoxImage.Error);
+        e.Handled = true;
     }
 
     protected override void OnExit(ExitEventArgs e)

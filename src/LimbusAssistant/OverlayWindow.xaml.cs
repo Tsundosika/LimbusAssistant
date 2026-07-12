@@ -67,6 +67,7 @@ public partial class OverlayWindow : Window
             };
             var brush = new SolidColorBrush(color);
             WinRateText.Foreground = brush;
+            GameStyleText.Text = $"game shows about {clash.FirstExchangeWinProbability:P0} (first exchange)";
             VerdictText.Foreground = brush;
             VerdictText.Text = verdict;
             DamageText.Text = $"expected damage if you win: ~{clash.ExpectedAttackPowerOnWin:F0}";
@@ -78,6 +79,7 @@ public partial class OverlayWindow : Window
         {
             WinRateText.Text = "…";
             WinRateText.Foreground = Brushes.White;
+            GameStyleText.Text = "";
             VerdictText.Text = "";
             DamageText.Text = "hover a clash to see your odds";
             SourceText.Text = "";
@@ -101,6 +103,19 @@ public partial class OverlayWindow : Window
         Top = topLeft.Y;
         Width = Math.Max(1, size.X);
         Height = Math.Max(1, size.Y);
+
+        if (snapshot.LiveClash is not null &&
+            snapshot.Reading.Regions.TryGetValue(Vision.RegionNames.AllySkillIcon, out var allyIcon) &&
+            allyIcon.Width > 0)
+        {
+            var x = transform.Transform(new Point(allyIcon.X, 0)).X;
+            var y = transform.Transform(new Point(0, allyIcon.Y)).Y;
+            OverlayBorder.Margin = new Thickness(Math.Max(0, x - 125 + allyIcon.Width / 2), Math.Max(0, y - 180), 0, 0);
+        }
+        else
+        {
+            OverlayBorder.Margin = new Thickness(Math.Max(0, size.X - 280), 24, 0, 0);
+        }
     }
 
     [DllImport("user32.dll")]

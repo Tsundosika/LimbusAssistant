@@ -1,6 +1,6 @@
 namespace Tsundosika.LimbusAssistant.Engine;
 
-public sealed record ClashSkill(int BasePower, int CoinPower, int CoinCount, int Sanity, int Paralyze = 0)
+public sealed record ClashSkill(int BasePower, int CoinPower, int CoinCount, int Sanity, int Paralyze = 0, int Modifier = 0)
 {
     public const int MinSanity = -45;
     public const int MaxSanity = 45;
@@ -22,7 +22,7 @@ public sealed record ClashSkill(int BasePower, int CoinPower, int CoinCount, int
         var byPower = new SortedDictionary<int, double>();
         for (var heads = 0; heads <= flipped; heads++)
         {
-            var power = Math.Max(0, BasePower + CoinPower * heads);
+            var power = Math.Max(0, BasePower + CoinPower * heads + Modifier);
             var probability = BinomialCoefficient(flipped, heads)
                 * Math.Pow(headProbability, heads)
                 * Math.Pow(1 - headProbability, flipped - heads);

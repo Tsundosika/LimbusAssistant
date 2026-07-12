@@ -10,7 +10,8 @@
         ShowActivated="False"
         ResizeMode="NoResize">
     <Grid>
-        <Border HorizontalAlignment="Right"
+        <Border x:Name="OverlayBorder"
+                HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Margin="24"
                 Background="#D9101018"
@@ -33,6 +34,9 @@
                            FontSize="28"
                            FontWeight="Bold"
                            Text="…"/>
+                <TextBlock x:Name="GameStyleText"
+                           Foreground="#FF9AA0B4"
+                           FontSize="11"/>
                 <TextBlock x:Name="VerdictText"
                            Foreground="#FFB8C0D8"
                            FontSize="14"
