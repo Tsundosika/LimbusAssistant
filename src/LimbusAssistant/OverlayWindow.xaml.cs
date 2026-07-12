@@ -106,9 +106,12 @@ public partial class OverlayWindow : Window
                 HeadlineText.Text = skill.Name;
                 HeadlineText.Foreground = GoodBrush;
                 SanityText.Text = planning.Sanity is { } sanity
-                    ? planning.SanityFromTeam
-                        ? $"{planning.IdentityName}: sanity {sanity:+0;-0;0} from your team, {50 + Math.Clamp(sanity, -45, 45)}% heads"
-                        : $"sanity ~{sanity:+0;-0;0} (dock guess), {50 + Math.Clamp(sanity, -45, 45)}% heads. Set exact SP in Turn Advisor."
+                    ? planning.SanitySource switch
+                    {
+                        "field" => $"sanity {sanity:+0;-0;0} read next to your sinner, {50 + Math.Clamp(sanity, -45, 45)}% heads",
+                        "team" => $"{planning.IdentityName}: sanity {sanity:+0;-0;0} from your team, {50 + Math.Clamp(sanity, -45, 45)}% heads",
+                        _ => $"sanity ~{sanity:+0;-0;0} (dock guess), {50 + Math.Clamp(sanity, -45, 45)}% heads. Set exact SP in Turn Advisor.",
+                    }
                     : "sanity unknown, assuming 50% heads. Add your team in Turn Advisor.";
                 if (planning.Matchups is { Count: > 0 } matchups)
                 {

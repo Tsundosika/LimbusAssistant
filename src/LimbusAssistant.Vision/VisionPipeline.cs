@@ -30,6 +30,44 @@ public sealed class VisionPipeline(INumberReader numberReader, TemplateLibrary t
         return results;
     }
 
+    public async Task<(PixelRect Rect, NumberReading Reading)?> ReadDraggerSanityAsync(
+        CaptureFrame frame,
+        PixelRect content)
+    {
+        const int maxDistance = 300;
+        using var mat = FrameMat.ToMat(frame);
+        if (HighlightScanner.FindHighlightedUnit(mat, content) is not { } highlight)
+        {
+            return null;
+        }
+        var circles = DockScanner.FindSanityCircles(mat, content, DockScanner.FieldBand);
+        if (circles.Count == 0)
+        {
+            return null;
+        }
+        var highlightCenterX = highlight.X + highlight.Width / 2.0;
+        var highlightCenterY = highlight.Y + highlight.Height / 2.0;
+        var nearest = circles
+            .Select(circle => (Circle: circle, Distance: Distance(circle, highlightCenterX, highlightCenterY)))
+            .OrderBy(pair => pair.Distance)
+            .First();
+        if (nearest.Distance > maxDistance)
+        {
+            return null;
+        }
+        var reading = await numberReader.ReadAsync(mat, nearest.Circle);
+        return (nearest.Circle, reading);
+    }
+
+    static double Distance(PixelRect circle, double x, double y)
+    {
+        var cx = circle.X + circle.Width / 2.0;
+        var cy = circle.Y + circle.Height / 2.0;
+        var dx = cx - x;
+        var dy = cy - y;
+        return Math.Sqrt(dx * dx + dy * dy);
+    }
+
     public async Task<VisionReading> ReadAsync(CaptureFrame frame, PixelRect content)
     {
         var numbers = new Dictionary<string, NumberReading>();
@@ -50,10 +88,12 @@ public sealed class VisionPipeline(INumberReader numberReader, TemplateLibrary t
             else if (region.Kind == RegionKind.Text)
             {
                 var rect = baseRect;
-                if (region.Name == RegionNames.DragSkillName
-                    && RibbonScanner.FindSkillRibbon(mat, content) is { } ribbon)
+                if (region.Name == RegionNames.DragSkillName)
                 {
-                    rect = ribbon;
+                    var (bestText, bestRect) = await ReadBestRibbonAsync(mat, content, baseRect);
+                    texts[region.Name] = bestText;
+                    regions[region.Name] = bestRect;
+                    continue;
                 }
                 texts[region.Name] = await numberReader.ReadTextAsync(mat, rect);
                 regions[region.Name] = rect;
@@ -71,6 +111,31 @@ public sealed class VisionPipeline(INumberReader numberReader, TemplateLibrary t
             _lastResolvedRegions[name] = rect;
         }
         return new VisionReading(numbers, icons, texts, regions, frame.Width, frame.Height, content, DateTimeOffset.Now);
+    }
+
+    async Task<(TextReading Text, PixelRect Rect)> ReadBestRibbonAsync(Mat mat, PixelRect content, PixelRect fallback)
+    {
+        var candidates = RibbonScanner.FindSkillRibbons(mat, content);
+        if (candidates.Count == 0)
+        {
+            return (await numberReader.ReadTextAsync(mat, fallback), fallback);
+        }
+        var bestText = TextReading.Empty;
+        var bestRect = candidates[0];
+        var bestScore = double.MinValue;
+        foreach (var candidate in candidates)
+        {
+            var text = await numberReader.ReadTextAsync(mat, candidate);
+            var letters = text.Text.Count(char.IsLetter);
+            var score = letters * Math.Max(0.1, text.Confidence);
+            if (score > bestScore)
+            {
+                bestScore = score;
+                bestText = text;
+                bestRect = candidate;
+            }
+        }
+        return (bestText, bestRect);
     }
 
     async Task<(NumberReading Reading, PixelRect Rect)> ReadNumberAsync(

@@ -8,9 +8,14 @@ public static class DockScanner
 
     public static readonly NormalizedRect DockBand = new(0.20, 0.90, 0.75, 0.10);
 
-    public static List<PixelRect> FindSanityCircles(Mat frameBgra, PixelRect content)
+    public static readonly NormalizedRect FieldBand = new(0.05, 0.20, 0.90, 0.60);
+
+    public static List<PixelRect> FindSanityCircles(Mat frameBgra, PixelRect content) =>
+        FindSanityCircles(frameBgra, content, DockBand);
+
+    public static List<PixelRect> FindSanityCircles(Mat frameBgra, PixelRect content, NormalizedRect searchBand)
     {
-        var band = DockBand.ToPixelsWithin(content);
+        var band = searchBand.ToPixelsWithin(content);
         if (band.Width < 8 || band.Height < 8)
         {
             return [];
@@ -31,7 +36,7 @@ public static class DockScanner
             var rect = Cv2.BoundingRect(contour);
             var area = rect.Width * rect.Height;
             var aspect = rect.Height == 0 ? 0 : rect.Width / (double)rect.Height;
-            if (area < 400 || area > 6000 || aspect < 0.6 || aspect > 1.6)
+            if (area < 400 || area > 6000 || aspect < 0.6 || aspect > 1.6 || rect.Width > 66 || rect.Height > 66)
             {
                 continue;
             }

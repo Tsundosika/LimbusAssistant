@@ -4,7 +4,7 @@ public static class ClashGate
 {
     public const double DefaultThreshold = 0.0015;
 
-    public static readonly NormalizedRect SampleBand = new(0.05, 0.02, 0.90, 0.70);
+    public static readonly NormalizedRect SampleBand = new(0.10, 0.02, 0.85, 0.31);
 
     public static double MeasureSignal(CaptureFrame frame, PixelRect content)
     {
@@ -24,7 +24,10 @@ public static class ClashGate
                 var red = frame.PixelsBgra[index + 2];
                 total++;
                 var ribbonBlue = blue > 140 && blue > red + 60 && green > 40 && green < blue;
-                if (ribbonBlue)
+                var ribbonGold = red > 170 && green > 120 && blue < 100 && red > blue + 90;
+                var ribbonRed = red > 160 && green < 90 && blue < 90;
+                var ribbonViolet = red > 110 && blue > 150 && green < 100;
+                if (ribbonBlue || ribbonGold || ribbonRed || ribbonViolet)
                 {
                     matching++;
                 }

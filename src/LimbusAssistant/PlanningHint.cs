@@ -11,4 +11,4 @@ public sealed record PlanningHint(
     string? EnemyName = null,
     IReadOnlyList<MatchupOdds>? Matchups = null,
     bool IsEnemySkill = false,
-    bool SanityFromTeam = false);
+    string? SanitySource = null);

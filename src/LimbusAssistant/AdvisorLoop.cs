@@ -167,7 +167,7 @@ public sealed class AdvisorLoop : IDisposable
             return;
         }
         _lastReading = await _pipeline.ReadAsync(frame, content);
-        var fresh = BuildPlanningHint(_lastReading);
+        var fresh = await BuildPlanningHintAsync(frame, content, _lastReading);
         if (fresh is not null)
         {
             _stickyPlanning = fresh;
@@ -212,7 +212,7 @@ public sealed class AdvisorLoop : IDisposable
         metrics,
         DateTimeOffset.Now);
 
-    PlanningHint? BuildPlanningHint(VisionReading reading)
+    async Task<PlanningHint?> BuildPlanningHintAsync(CaptureFrame frame, PixelRect content, VisionReading reading)
     {
         UpdateAutoEnemy(reading);
         var name = reading.Text(RegionNames.DragSkillName);
@@ -234,9 +234,26 @@ public sealed class AdvisorLoop : IDisposable
                 BestAnswers(owner, enemySkill),
                 true);
         }
-        var (sanity, fromTeam) = SanityFor(identity);
+        var (sanity, source) = await ResolveSanityAsync(frame, content, identity);
         var (enemyName, matchups) = BuildMatchups(skill, identity, sanity);
-        return new PlanningHint(name.Text, skill, identity, sanity, name.Confidence, enemyName, matchups, false, fromTeam);
+        return new PlanningHint(name.Text, skill, identity, sanity, name.Confidence, enemyName, matchups, false, source);
+    }
+
+    async Task<(int? Sanity, string? Source)> ResolveSanityAsync(CaptureFrame frame, PixelRect content, string? identityName)
+    {
+        var field = await _pipeline.ReadDraggerSanityAsync(frame, content);
+        if (field?.Reading.Value is >= -45 and <= 45 && field.Value.Reading.Confidence >= 0.4)
+        {
+            return (field.Value.Reading.Value, "field");
+        }
+        if (identityName is not null
+            && _teamSanities is { } sanities
+            && sanities.TryGetValue(identityName, out var teamSanity))
+        {
+            return (teamSanity, "team");
+        }
+        var cached = CachedSanity();
+        return (cached, cached is null ? null : "dock");
     }
 
     SkillData? MatchEnemySkill(string rawName)
@@ -293,17 +310,6 @@ public sealed class AdvisorLoop : IDisposable
                 best.Result.ExpectedDamageTaken));
         }
         return answers.Count == 0 ? null : answers.OrderByDescending(answer => answer.WinProbability).ToList();
-    }
-
-    (int? Sanity, bool FromTeam) SanityFor(string? identityName)
-    {
-        if (identityName is not null
-            && _teamSanities is { } sanities
-            && sanities.TryGetValue(identityName, out var teamSanity))
-        {
-            return (teamSanity, true);
-        }
-        return (CachedSanity(), false);
     }
 
     int? CachedSanity()

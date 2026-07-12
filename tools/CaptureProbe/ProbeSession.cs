@@ -132,18 +132,22 @@ public sealed class ProbeSession(ProbeOptions options)
             {
                 if (!options.NoOcr)
                 {
-                    var textRect = rect;
-                    var detected = false;
-                    if (region.Name == RegionNames.DragSkillName
-                        && RibbonScanner.FindSkillRibbon(mat, content) is { } ribbon)
+                    if (region.Name == RegionNames.DragSkillName)
                     {
-                        textRect = ribbon;
-                        detected = true;
+                        var candidates = RibbonScanner.FindSkillRibbons(mat, content);
+                        report.AppendLine($"{region.Name}  ribbon candidates: {candidates.Count}");
+                        foreach (var candidate in candidates)
+                        {
+                            var candidateText = await _reader.ReadTextAsync(mat, candidate);
+                            report.AppendLine(
+                                $"   candidate {candidate.X},{candidate.Y} {candidate.Width}x{candidate.Height}" +
+                                $"  text \"{candidateText.Text}\" conf {candidateText.Confidence:F2}");
+                        }
+                        continue;
                     }
-                    var text = await _reader.ReadTextAsync(mat, textRect);
+                    var text = await _reader.ReadTextAsync(mat, rect);
                     report.AppendLine(
-                        $"{region.Name}  rect {textRect.X},{textRect.Y} {textRect.Width}x{textRect.Height}" +
-                        $"{(detected ? " (ribbon detected)" : "")}  text \"{text.Text}\" conf {text.Confidence:F2}");
+                        $"{region.Name}  rect {rect.X},{rect.Y} {rect.Width}x{rect.Height}  text \"{text.Text}\" conf {text.Confidence:F2}");
                 }
                 continue;
             }
@@ -183,6 +187,23 @@ public sealed class ProbeSession(ProbeOptions options)
         if (!options.NoOcr)
         {
             report.AppendLine();
+            if (HighlightScanner.FindHighlightedUnit(mat, content) is { } highlight)
+            {
+                report.AppendLine($"highlighted unit: {highlight.X},{highlight.Y} {highlight.Width}x{highlight.Height}");
+                var fieldCircles = DockScanner.FindSanityCircles(mat, content, DockScanner.FieldBand);
+                report.AppendLine($"field sanity circles: {fieldCircles.Count}");
+                foreach (var circle in fieldCircles)
+                {
+                    var fieldReading = await _reader.ReadAsync(mat, circle);
+                    report.AppendLine(
+                        $"   field circle {circle.X},{circle.Y} {circle.Width}x{circle.Height}" +
+                        $"  value {fieldReading.Value?.ToString() ?? "?"}  conf {fieldReading.Confidence:F2}");
+                }
+            }
+            else
+            {
+                report.AppendLine("highlighted unit: none");
+            }
             var circles = DockScanner.FindSanityCircles(mat, content);
             report.AppendLine($"dock sanity circles found: {circles.Count}");
             foreach (var circle in circles)
