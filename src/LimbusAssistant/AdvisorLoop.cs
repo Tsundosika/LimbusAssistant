@@ -10,7 +10,6 @@ public sealed class AdvisorLoop : IDisposable
     const int LocateIntervalMilliseconds = 1000;
     const int HeartbeatMilliseconds = 250;
 
-    const int HintGraceMilliseconds = 1500;
 
     readonly AppSettings _settings;
     readonly VisionPipeline _pipeline;
@@ -21,12 +20,13 @@ public sealed class AdvisorLoop : IDisposable
     readonly IReadOnlyList<(string Normalized, SkillData Skill, string Identity)> _skillIndex;
     readonly IReadOnlyList<(string Normalized, SkillData Skill, EnemyData Owner)> _enemySkillIndex;
     const int CaptureGraceMilliseconds = 2000;
-    const int AutoEnemyGraceMilliseconds = 15000;
 
     const int DockScanIntervalMilliseconds = 1000;
 
     volatile EnemyData? _liveEnemy;
-    volatile IReadOnlyDictionary<string, int>? _teamSanities;
+    volatile IReadOnlyList<(string Name, int Sanity)>? _team;
+    readonly Dictionary<string, int> _dockSanities = new();
+    readonly List<string> _observedIdentities = [];
     EnemyData? _autoEnemy;
     long _autoEnemyTimestamp;
     long _lastCaptureTimestamp;
@@ -83,7 +83,7 @@ public sealed class AdvisorLoop : IDisposable
 
     public void SetLiveEnemy(EnemyData? enemy) => _liveEnemy = enemy;
 
-    public void SetTeamSanities(IReadOnlyDictionary<string, int> sanities) => _teamSanities = sanities;
+    public void SetTeam(IReadOnlyList<(string Name, int Sanity)> members) => _team = members;
 
     async Task RunAsync(CancellationToken token)
     {
@@ -163,6 +163,7 @@ public sealed class AdvisorLoop : IDisposable
             if (_nonPlanningStreak >= ClearStreak)
             {
                 _stickyPlanning = null;
+                _autoEnemy = null;
             }
             _lastPlanning = null;
             _lastLiveClash = null;
@@ -177,13 +178,27 @@ public sealed class AdvisorLoop : IDisposable
             {
                 _lastDockScanTimestamp = now;
                 var dock = await _pipeline.ReadDockSanityAsync(frame, content);
-                var values = dock
-                    .Where(slot => slot.Reading.Value is >= -45 and <= 45 && slot.Reading.Confidence >= 0.4)
-                    .Select(slot => slot.Reading.Value!.Value)
+                var slots = dock
+                    .OrderBy(slot => slot.Rect.X)
+                    .Select(slot => slot.Reading.Value is >= -45 and <= 45 && slot.Reading.Confidence >= 0.4
+                        ? slot.Reading.Value
+                        : null)
                     .ToList();
+                var values = slots.Where(value => value is not null).Select(value => value!.Value).ToList();
                 if (values.Count > 0)
                 {
                     _cachedSanities = values;
+                }
+                var team = _team;
+                if (team is { Count: > 0 })
+                {
+                    for (var i = 0; i < Math.Min(team.Count, slots.Count); i++)
+                    {
+                        if (slots[i] is { } slotValue)
+                        {
+                            _dockSanities[team[i].Name] = slotValue;
+                        }
+                    }
                 }
             }
             _lastPlanning = _stickyPlanning;
@@ -203,6 +218,11 @@ public sealed class AdvisorLoop : IDisposable
         {
             _stickyPlanning = fresh;
             _stickyPlanningTimestamp = now;
+            if (fresh is { IsEnemySkill: false, IdentityName: { } observedIdentity }
+                && !_observedIdentities.Contains(observedIdentity))
+            {
+                _observedIdentities.Add(observedIdentity);
+            }
         }
         _lastPlanning = fresh?.Skill is not null ? fresh : _stickyPlanning ?? fresh;
         _lastLiveClash = null;
@@ -364,7 +384,7 @@ public sealed class AdvisorLoop : IDisposable
         SkillData? bestSkill = null;
         EnemyData? bestOwner = null;
         var bestDistance = int.MaxValue;
-        var cap = Math.Max(2, normalized.Length / 4);
+        var cap = Math.Max(2, normalized.Length / 3);
         foreach (var (skill, owner) in candidates)
         {
             var candidate = Normalize(skill.Name);
@@ -372,7 +392,11 @@ public sealed class AdvisorLoop : IDisposable
             {
                 continue;
             }
-            var distance = EditDistance(normalized, candidate, cap);
+            var distance = candidate.Length >= 5
+                && (normalized.Contains(candidate, StringComparison.Ordinal)
+                    || candidate.Contains(normalized, StringComparison.Ordinal) && normalized.Length >= 5)
+                ? 0
+                : EditDistance(normalized, candidate, cap);
             if (distance < bestDistance)
             {
                 bestDistance = distance;
@@ -391,16 +415,20 @@ public sealed class AdvisorLoop : IDisposable
 
     async Task<(int? Sanity, string? Source)> ResolveSanityAsync(CaptureFrame frame, PixelRect content, string? identityName)
     {
+        if (identityName is not null && _dockSanities.TryGetValue(identityName, out var dockSanity))
+        {
+            return (dockSanity, "dock slot");
+        }
+        if (identityName is not null
+            && _team is { } team
+            && team.FirstOrDefault(member => member.Name == identityName) is { Name: not null } manual)
+        {
+            return (manual.Sanity, "team");
+        }
         var field = await _pipeline.ReadDraggerSanityAsync(frame, content);
         if (field?.Reading.Value is >= -45 and <= 45 && field.Value.Reading.Confidence >= 0.4)
         {
             return (field.Value.Reading.Value, "field");
-        }
-        if (identityName is not null
-            && _teamSanities is { } sanities
-            && sanities.TryGetValue(identityName, out var teamSanity))
-        {
-            return (teamSanity, "team");
         }
         var cached = CachedSanity();
         return (cached, cached is null ? null : "dock");
@@ -429,20 +457,25 @@ public sealed class AdvisorLoop : IDisposable
 
     IReadOnlyList<MatchupOdds>? BestAnswers(EnemyData? enemy, SkillData enemySkill)
     {
-        if (enemy is null || _teamSanities is not { Count: > 0 } sanities)
+        if (enemy is null)
+        {
+            return null;
+        }
+        var roster = RosterNames();
+        if (roster.Count == 0)
         {
             return null;
         }
         var threat = new EnemyThreat(enemy, enemySkill);
         var answers = new List<MatchupOdds>();
-        foreach (var (identityName, sanity) in sanities)
+        foreach (var identityName in roster)
         {
             var identity = _data.Identities.FirstOrDefault(candidate => candidate.Name == identityName);
             if (identity is null || identity.Skills.Count == 0)
             {
                 continue;
             }
-            var unit = new TurnUnit(identity, sanity);
+            var unit = new TurnUnit(identity, RosterSanity(identityName));
             var best = identity.Skills
                 .Select(skill => (Skill: skill, Result: _solver.EvaluateClash(unit, skill, threat)))
                 .MaxBy(pair => pair.Result.ExpectedValue);
@@ -453,6 +486,28 @@ public sealed class AdvisorLoop : IDisposable
                 best.Result.ExpectedDamageTaken));
         }
         return answers.Count == 0 ? null : answers.OrderByDescending(answer => answer.WinProbability).ToList();
+    }
+
+    IReadOnlyList<string> RosterNames()
+    {
+        if (_team is { Count: > 0 } team)
+        {
+            return team.Select(member => member.Name).ToList();
+        }
+        return _observedIdentities;
+    }
+
+    int RosterSanity(string identityName)
+    {
+        if (_dockSanities.TryGetValue(identityName, out var dockSanity))
+        {
+            return dockSanity;
+        }
+        if (_team is { } team && team.FirstOrDefault(member => member.Name == identityName) is { Name: not null } manual)
+        {
+            return manual.Sanity;
+        }
+        return CachedSanity() ?? 0;
     }
 
     int? CachedSanity()
@@ -507,14 +562,7 @@ public sealed class AdvisorLoop : IDisposable
         }
     }
 
-    EnemyData? EffectiveEnemy()
-    {
-        if (_autoEnemy is not null && Environment.TickCount64 - _autoEnemyTimestamp < AutoEnemyGraceMilliseconds)
-        {
-            return _autoEnemy;
-        }
-        return _liveEnemy;
-    }
+    EnemyData? EffectiveEnemy() => _autoEnemy ?? _liveEnemy;
 
     (string? EnemyName, IReadOnlyList<MatchupOdds>? Matchups) BuildMatchups(SkillData? skill, string? identityName, int? sanity)
     {
@@ -562,20 +610,28 @@ public sealed class AdvisorLoop : IDisposable
         {
             return (null, null);
         }
+        var limit = Math.Max(2, normalized.Length / 3);
         SkillData? bestSkill = null;
         string? bestIdentity = null;
         var bestDistance = int.MaxValue;
         foreach (var (candidate, skill, identity) in _skillIndex)
         {
-            var distance = EditDistance(normalized, candidate, Math.Max(2, normalized.Length / 4));
+            var distance = candidate.Length >= 5
+                && (normalized.Contains(candidate, StringComparison.Ordinal)
+                    || candidate.Contains(normalized, StringComparison.Ordinal) && normalized.Length >= 5)
+                ? 0
+                : EditDistance(normalized, candidate, limit);
             if (distance < bestDistance)
             {
                 bestDistance = distance;
                 bestSkill = skill;
                 bestIdentity = identity;
             }
+            if (distance == 0)
+            {
+                break;
+            }
         }
-        var limit = Math.Max(2, normalized.Length / 4);
         return bestDistance <= limit ? (bestSkill, bestIdentity) : (null, null);
     }
 

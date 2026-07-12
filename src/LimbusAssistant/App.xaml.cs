@@ -36,9 +36,9 @@ public partial class App : Application
 
         _loop = new AdvisorLoop(_settings, data, pipeline, reader);
         _main.LiveEnemySelected += enemy => _loop?.SetLiveEnemy(enemy);
-        _main.TeamChanged += sanities => _loop?.SetTeamSanities(sanities);
+        _main.TeamChanged += members => _loop?.SetTeam(members);
         _loop.SetLiveEnemy(_main.SelectedEnemy);
-        _loop.SetTeamSanities(_main.TeamSanities);
+        _loop.SetTeam(_main.TeamMembers);
         _loop.SnapshotPublished += snapshot => Dispatcher.BeginInvoke(() =>
         {
             _overlay?.UpdateSnapshot(snapshot);

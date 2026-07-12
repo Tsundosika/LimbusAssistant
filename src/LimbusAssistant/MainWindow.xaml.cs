@@ -28,14 +28,12 @@ public partial class MainWindow : Window
 
     public event Action<EnemyData?>? LiveEnemySelected;
 
-    public event Action<IReadOnlyDictionary<string, int>>? TeamChanged;
+    public event Action<IReadOnlyList<(string Name, int Sanity)>>? TeamChanged;
 
     public EnemyData? SelectedEnemy => EnemyList.SelectedItem as EnemyData;
 
-    public IReadOnlyDictionary<string, int> TeamSanities =>
-        _team
-            .GroupBy(entry => entry.Identity.Name)
-            .ToDictionary(group => group.Key, group => group.Last().Sanity);
+    public IReadOnlyList<(string Name, int Sanity)> TeamMembers =>
+        _team.Select(entry => (entry.Identity.Name, entry.Sanity)).ToList();
 
     public MainWindow(GameData data, CalibrationProfile profile)
     {
@@ -48,7 +46,7 @@ public partial class MainWindow : Window
             IdentityCombo.SelectedIndex = 0;
         }
         TeamList.ItemsSource = _team;
-        _team.CollectionChanged += (_, _) => TeamChanged?.Invoke(TeamSanities);
+        _team.CollectionChanged += (_, _) => TeamChanged?.Invoke(TeamMembers);
         RefreshEnemyList("");
         PopulateWindowList();
     }
