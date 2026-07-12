@@ -34,6 +34,16 @@
         "sin": "Wrath",
         "damageType": "Slash",
         "offenseLevel": 35
+      },
+      {
+        "id": "blade-lineage-mentor-meursault-skill-4",
+        "name": "Overthrow",
+        "basePower": 8,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Envy",
+        "damageType": "Slash",
+        "offenseLevel": 40
       }
     ]
   },
@@ -72,6 +82,16 @@
         "sin": "Sloth",
         "damageType": "Slash",
         "offenseLevel": 39
+      },
+      {
+        "id": "blade-lineage-salsu-don-quixote-skill-4",
+        "name": "Evade",
+        "basePower": 3,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Pride",
+        "damageType": "Evade",
+        "offenseLevel": 35
       }
     ]
   },
@@ -110,6 +130,16 @@
         "sin": "Gloom",
         "damageType": "Slash",
         "offenseLevel": 37
+      },
+      {
+        "id": "blade-lineage-salsu-faust-skill-4",
+        "name": "Redirect",
+        "basePower": 10,
+        "coinPower": 4,
+        "coinCount": 1,
+        "sin": "Gloom",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -148,6 +178,16 @@
         "sin": "Pride",
         "damageType": "Slash",
         "offenseLevel": 14
+      },
+      {
+        "id": "blade-lineage-salsu-outis-skill-4",
+        "name": "Evade",
+        "basePower": 3,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Pride",
+        "damageType": "Evade",
+        "offenseLevel": 35
       }
     ]
   },
@@ -186,6 +226,16 @@
         "sin": "Pride",
         "damageType": "Slash",
         "offenseLevel": 37
+      },
+      {
+        "id": "blade-lineage-salsu-sinclair-skill-4",
+        "name": "Newsprung Counter",
+        "basePower": 9,
+        "coinPower": 6,
+        "coinCount": 1,
+        "sin": "Wrath",
+        "damageType": "Pierce",
+        "offenseLevel": 37
       }
     ]
   },
@@ -222,6 +272,16 @@
         "coinPower": 2,
         "coinCount": 3,
         "sin": "Envy",
+        "damageType": "Slash",
+        "offenseLevel": 40
+      },
+      {
+        "id": "blade-lineage-salsu-yi-sang-skill-4",
+        "name": "Counter",
+        "basePower": 10,
+        "coinPower": 8,
+        "coinCount": 1,
+        "sin": "Pride",
         "damageType": "Slash",
         "offenseLevel": 40
       }
@@ -262,6 +322,16 @@
         "sin": "Wrath",
         "damageType": "Slash",
         "offenseLevel": 39
+      },
+      {
+        "id": "blade-of-the-house-of-spiders-ry-sh-skill-4",
+        "name": "Phantom Step [\u003Cb\u003E\u6B98\u50CF\u6B65\u003C/b\u003E]",
+        "basePower": 4,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Pride",
+        "damageType": "Evade",
+        "offenseLevel": 35
       }
     ]
   },
@@ -300,6 +370,16 @@
         "sin": "Pride",
         "damageType": "Pierce",
         "offenseLevel": 38
+      },
+      {
+        "id": "cinq-assoc-east-section-3-don-quixote-skill-4",
+        "name": "Thou\u0027rt in dire need of a lesson in table manners!",
+        "basePower": 4,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Wrath",
+        "damageType": "Evade",
+        "offenseLevel": 35
       }
     ]
   },
@@ -338,6 +418,16 @@
         "sin": "Lust",
         "damageType": "Pierce",
         "offenseLevel": 37
+      },
+      {
+        "id": "cinq-assoc-south-section-4-director-sinclair-skill-4",
+        "name": "D\u00E9fensive",
+        "basePower": 4,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Gluttony",
+        "damageType": "Evade",
+        "offenseLevel": 35
       }
     ]
   },
@@ -376,6 +466,16 @@
         "sin": "Lust",
         "damageType": "Pierce",
         "offenseLevel": 34
+      },
+      {
+        "id": "cinq-assoc-south-section-4-outis-skill-4",
+        "name": "Retraite",
+        "basePower": 5,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Pride",
+        "damageType": "Evade",
+        "offenseLevel": 35
       }
     ]
   },
@@ -414,6 +514,16 @@
         "sin": "Pride",
         "damageType": "Pierce",
         "offenseLevel": 39
+      },
+      {
+        "id": "cinq-assoc-south-section-5-director-don-quixote-skill-4",
+        "name": "D\u00E9fensive",
+        "basePower": 4,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Pride",
+        "damageType": "Evade",
+        "offenseLevel": 35
       }
     ]
   },
@@ -452,6 +562,16 @@
         "sin": "Gloom",
         "damageType": "Pierce",
         "offenseLevel": 38
+      },
+      {
+        "id": "cinq-assoc-west-section-3-meursault-skill-4",
+        "name": "D\u00E9fensive",
+        "basePower": 4,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Gloom",
+        "damageType": "Evade",
+        "offenseLevel": 35
       }
     ]
   },
@@ -490,6 +610,16 @@
         "sin": "Wrath",
         "damageType": "Slash",
         "offenseLevel": 39
+      },
+      {
+        "id": "dawn-office-fixer-faust-skill-4",
+        "name": "Stigmatize",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Wrath",
+        "damageType": "Slash",
+        "offenseLevel": 36
       }
     ]
   },
@@ -528,6 +658,16 @@
         "sin": "Wrath",
         "damageType": "Pierce",
         "offenseLevel": 38
+      },
+      {
+        "id": "dawn-office-fixer-sinclair-skill-4",
+        "name": "Rue",
+        "basePower": 15,
+        "coinPower": 5,
+        "coinCount": 1,
+        "sin": "Lust",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -566,6 +706,16 @@
         "sin": "Wrath",
         "damageType": "Slash",
         "offenseLevel": 39
+      },
+      {
+        "id": "dawn-office-rep-gregor-skill-4",
+        "name": "Guardian",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Wrath",
+        "damageType": "Slash",
+        "offenseLevel": 37
       }
     ]
   },
@@ -604,6 +754,16 @@
         "sin": "Gluttony",
         "damageType": "Blunt",
         "offenseLevel": 38
+      },
+      {
+        "id": "dead-rabbits-boss-meursault-skill-4",
+        "name": "Counter",
+        "basePower": 7,
+        "coinPower": 6,
+        "coinCount": 1,
+        "sin": "Gluttony",
+        "damageType": "Blunt",
+        "offenseLevel": 36
       }
     ]
   },
@@ -642,6 +802,16 @@
         "sin": "Gluttony",
         "damageType": "Slash",
         "offenseLevel": 39
+      },
+      {
+        "id": "devyat-assoc-north-section-3-rodion-skill-4",
+        "name": "Courier Support \u0026 Control Sequence",
+        "basePower": 9,
+        "coinPower": 7,
+        "coinCount": 1,
+        "sin": "Gluttony",
+        "damageType": "Slash",
+        "offenseLevel": 38
       }
     ]
   },
@@ -680,6 +850,16 @@
         "sin": "Wrath",
         "damageType": "Blunt",
         "offenseLevel": 40
+      },
+      {
+        "id": "devyat-assoc-north-section-3-sinclair-skill-4",
+        "name": "Courier Assistance \u0026 Crisis Control System",
+        "basePower": 9,
+        "coinPower": 7,
+        "coinCount": 1,
+        "sin": "Gluttony",
+        "damageType": "Blunt",
+        "offenseLevel": 38
       }
     ]
   },
@@ -718,6 +898,16 @@
         "sin": "Gloom",
         "damageType": "Blunt",
         "offenseLevel": 38
+      },
+      {
+        "id": "dieci-assoc-south-section-4-director-meursault-skill-4",
+        "name": "Fixated Study",
+        "basePower": 15,
+        "coinPower": 5,
+        "coinCount": 1,
+        "sin": "Gloom",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -756,6 +946,16 @@
         "sin": "Sloth",
         "damageType": "Blunt",
         "offenseLevel": 39
+      },
+      {
+        "id": "dieci-assoc-south-section-4-hong-lu-skill-4",
+        "name": "Guiding Steps",
+        "basePower": 4,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Gloom",
+        "damageType": "Evade",
+        "offenseLevel": 35
       }
     ]
   },
@@ -794,6 +994,16 @@
         "sin": "Sloth",
         "damageType": "Blunt",
         "offenseLevel": 37
+      },
+      {
+        "id": "dieci-assoc-south-section-4-rodion-skill-4",
+        "name": "Fixated Study",
+        "basePower": 15,
+        "coinPower": 5,
+        "coinCount": 1,
+        "sin": "Gloom",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -832,6 +1042,16 @@
         "sin": "Sloth",
         "damageType": "Blunt",
         "offenseLevel": 38
+      },
+      {
+        "id": "dieci-assoc-south-section-4-yi-sang-skill-4",
+        "name": "Fixated Study",
+        "basePower": 12,
+        "coinPower": 6,
+        "coinCount": 1,
+        "sin": "Sloth",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -870,6 +1090,16 @@
         "sin": "Gluttony",
         "damageType": "Pierce",
         "offenseLevel": 39
+      },
+      {
+        "id": "district-20-yurodivy-hong-lu-skill-4",
+        "name": "Wait?!",
+        "basePower": 10,
+        "coinPower": 4,
+        "coinCount": 1,
+        "sin": "Sloth",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -908,6 +1138,16 @@
         "sin": "Gluttony",
         "damageType": "Pierce",
         "offenseLevel": 36
+      },
+      {
+        "id": "district-20-yurodivy-ry-sh-skill-4",
+        "name": "Guard",
+        "basePower": 7,
+        "coinPower": 6,
+        "coinCount": 1,
+        "sin": "Sloth",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -946,6 +1186,16 @@
         "sin": "Pride",
         "damageType": "Pierce",
         "offenseLevel": 40
+      },
+      {
+        "id": "drifting-blade-of-hongyuan-ry-sh-skill-4",
+        "name": "Sentinel",
+        "basePower": 3,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Pride",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -984,6 +1234,16 @@
         "sin": "Gloom",
         "damageType": "Slash",
         "offenseLevel": 38
+      },
+      {
+        "id": "edgar-family-butler-ishmael-skill-4",
+        "name": "Evade",
+        "basePower": 3,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Gloom",
+        "damageType": "Evade",
+        "offenseLevel": 35
       }
     ]
   },
@@ -1022,6 +1282,16 @@
         "sin": "Wrath",
         "damageType": "Slash",
         "offenseLevel": 40
+      },
+      {
+        "id": "edgar-family-chief-butler-ry-sh-skill-4",
+        "name": "Mediocre",
+        "basePower": 4,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Lust",
+        "damageType": "Evade",
+        "offenseLevel": 35
       }
     ]
   },
@@ -1060,6 +1330,16 @@
         "sin": "Lust",
         "damageType": "Slash",
         "offenseLevel": 40
+      },
+      {
+        "id": "edgar-family-heir-gregor-skill-4",
+        "name": "Do You Wish to Weep?",
+        "basePower": 4,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Gloom",
+        "damageType": "Evade",
+        "offenseLevel": 35
       }
     ]
   },
@@ -1098,6 +1378,16 @@
         "sin": "Pride",
         "damageType": "Pierce",
         "offenseLevel": 40
+      },
+      {
+        "id": "effloresced-e-g-o-spicebush-yi-sang-skill-4",
+        "name": "Scattering Aroma",
+        "basePower": 4,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Sloth",
+        "damageType": "Evade",
+        "offenseLevel": 35
       }
     ]
   },
@@ -1136,6 +1426,16 @@
         "sin": "Envy",
         "damageType": "Slash",
         "offenseLevel": 40
+      },
+      {
+        "id": "family-hierarch-candidate-ishmael-skill-4",
+        "name": "Adept Evasion",
+        "basePower": 4,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Gloom",
+        "damageType": "Evade",
+        "offenseLevel": 35
       }
     ]
   },
@@ -1174,6 +1474,16 @@
         "sin": "Wrath",
         "damageType": "Blunt",
         "offenseLevel": 38
+      },
+      {
+        "id": "fanghunt-office-fixer-hong-lu-skill-4",
+        "name": "Emergency Styptics",
+        "basePower": 10,
+        "coinPower": 4,
+        "coinCount": 1,
+        "sin": "Wrath",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -1212,6 +1522,16 @@
         "sin": "Wrath",
         "damageType": "Blunt",
         "offenseLevel": 40
+      },
+      {
+        "id": "firefist-office-survivor-gregor-skill-4",
+        "name": "I have to keep going for big sis",
+        "basePower": 9,
+        "coinPower": 7,
+        "coinCount": 1,
+        "sin": "Gloom",
+        "damageType": "Blunt",
+        "offenseLevel": 37
       }
     ]
   },
@@ -1250,6 +1570,16 @@
         "sin": "Pride",
         "damageType": "Pierce",
         "offenseLevel": 39
+      },
+      {
+        "id": "full-stop-office-fixer-heathcliff-skill-4",
+        "name": "Combat Poise",
+        "basePower": 4,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Pride",
+        "damageType": "Evade",
+        "offenseLevel": 35
       }
     ]
   },
@@ -1288,6 +1618,16 @@
         "sin": "Pride",
         "damageType": "Pierce",
         "offenseLevel": 38
+      },
+      {
+        "id": "full-stop-office-rep-hong-lu-skill-4",
+        "name": "Combat Poise",
+        "basePower": 4,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Pride",
+        "damageType": "Evade",
+        "offenseLevel": 35
       }
     ]
   },
@@ -1326,6 +1666,16 @@
         "sin": "Gloom",
         "damageType": "Blunt",
         "offenseLevel": 34
+      },
+      {
+        "id": "g-corp-head-manager-outis-skill-4",
+        "name": "Guard",
+        "basePower": 9,
+        "coinPower": 4,
+        "coinCount": 1,
+        "sin": "Sloth",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -1364,6 +1714,16 @@
         "sin": "Lust",
         "damageType": "Pierce",
         "offenseLevel": 40
+      },
+      {
+        "id": "g-corp-manager-corporal-gregor-skill-4",
+        "name": "Guard",
+        "basePower": 10,
+        "coinPower": 4,
+        "coinCount": 1,
+        "sin": "Gluttony",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -1402,6 +1762,16 @@
         "sin": "Gluttony",
         "damageType": "Slash",
         "offenseLevel": 38
+      },
+      {
+        "id": "heishou-pack-mao-branch-adept-faust-skill-4",
+        "name": "It Shall Be Done.",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Gluttony",
+        "damageType": "Slash",
+        "offenseLevel": 37
       }
     ]
   },
@@ -1440,6 +1810,16 @@
         "sin": "Gloom",
         "damageType": "Slash",
         "offenseLevel": 40
+      },
+      {
+        "id": "heishou-pack-mao-branch-outis-skill-4",
+        "name": "Partial Heishou Mutation",
+        "basePower": 5,
+        "coinPower": 7,
+        "coinCount": 1,
+        "sin": "Gluttony",
+        "damageType": "Slash",
+        "offenseLevel": 35
       }
     ]
   },
@@ -1478,6 +1858,16 @@
         "sin": "Pride",
         "damageType": "Slash",
         "offenseLevel": 39
+      },
+      {
+        "id": "heishou-pack-mao-branch-ry-sh-skill-4",
+        "name": "Strider. Unleashed. Heh",
+        "basePower": 5,
+        "coinPower": 8,
+        "coinCount": 1,
+        "sin": "Gluttony",
+        "damageType": "Slash",
+        "offenseLevel": 36
       }
     ]
   },
@@ -1516,6 +1906,16 @@
         "sin": "Envy",
         "damageType": "Pierce",
         "offenseLevel": 39
+      },
+      {
+        "id": "heishou-pack-si-branch-gregor-skill-4",
+        "name": "Reversal Kick",
+        "basePower": 3,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Gluttony",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -1554,6 +1954,16 @@
         "sin": "Gloom",
         "damageType": "Pierce",
         "offenseLevel": 40
+      },
+      {
+        "id": "heishou-pack-si-branch-rodion-skill-4",
+        "name": "Reversal Kick",
+        "basePower": 3,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Gluttony",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -1592,6 +2002,16 @@
         "sin": "Gloom",
         "damageType": "Blunt",
         "offenseLevel": 38
+      },
+      {
+        "id": "heishou-pack-wei-branch-don-quixote-skill-4",
+        "name": "I shall crush all that standeth in our way!",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Gluttony",
+        "damageType": "Blunt",
+        "offenseLevel": 36
       }
     ]
   },
@@ -1630,6 +2050,16 @@
         "sin": "Gluttony",
         "damageType": "Slash",
         "offenseLevel": 38
+      },
+      {
+        "id": "heishou-pack-wu-branch-adept-yi-sang-skill-4",
+        "name": "Preparation Afore the Charge.",
+        "basePower": 3,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Gluttony",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -1668,6 +2098,16 @@
         "sin": "Wrath",
         "damageType": "Slash",
         "offenseLevel": 38
+      },
+      {
+        "id": "heishou-pack-you-branch-adept-heathcliff-skill-4",
+        "name": "More Grub for Us",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Gluttony",
+        "damageType": "Slash",
+        "offenseLevel": 37
       }
     ]
   },
@@ -1706,6 +2146,16 @@
         "sin": "Wrath",
         "damageType": "Slash",
         "offenseLevel": 38
+      },
+      {
+        "id": "heishou-pack-you-branch-sinclair-skill-4",
+        "name": "Rooster\u0027s Deathstrike [\u0027\u0027\u0027\u9DC4\u7AAE\u5247\u6BBA\u0027\u0027\u0027]",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Gluttony",
+        "damageType": "Slash",
+        "offenseLevel": 37
       }
     ]
   },
@@ -1744,6 +2194,16 @@
         "sin": "Pride",
         "damageType": "Pierce",
         "offenseLevel": 38
+      },
+      {
+        "id": "hook-office-fixer-hong-lu-skill-4",
+        "name": "Quickness",
+        "basePower": 3,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Pride",
+        "damageType": "Evade",
+        "offenseLevel": 35
       }
     ]
   },
@@ -1782,6 +2242,16 @@
         "sin": "Gloom",
         "damageType": "Slash",
         "offenseLevel": 39
+      },
+      {
+        "id": "jeong-s-office-rep-ishmael-skill-4",
+        "name": "Shuffle Hands - Floral Deck",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Pride",
+        "damageType": "Slash",
+        "offenseLevel": 38
       }
     ]
   },
@@ -1820,6 +2290,16 @@
         "sin": "Sloth",
         "damageType": "Slash",
         "offenseLevel": 12
+      },
+      {
+        "id": "k-corp-class-3-excision-staff-hong-lu-skill-4",
+        "name": "Ampule Injection",
+        "basePower": 15,
+        "coinPower": 5,
+        "coinCount": 1,
+        "sin": "Gluttony",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -1858,6 +2338,16 @@
         "sin": "Gloom",
         "damageType": "Slash",
         "offenseLevel": 37
+      },
+      {
+        "id": "kurokumo-clan-captain-gregor-skill-4",
+        "name": "Guard",
+        "basePower": 8,
+        "coinPower": 8,
+        "coinCount": 1,
+        "sin": "Lust",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -1896,6 +2386,16 @@
         "sin": "Lust",
         "damageType": "Slash",
         "offenseLevel": 40
+      },
+      {
+        "id": "kurokumo-clan-captain-ishmael-skill-4",
+        "name": "Scattering Slash",
+        "basePower": 4,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Lust",
+        "damageType": "Evade",
+        "offenseLevel": 35
       }
     ]
   },
@@ -1934,6 +2434,16 @@
         "sin": "Lust",
         "damageType": "Slash",
         "offenseLevel": 40
+      },
+      {
+        "id": "kurokumo-clan-wakashu-heathcliff-skill-4",
+        "name": "Rules of the Backstreets",
+        "basePower": 4,
+        "coinPower": 5,
+        "coinCount": 1,
+        "sin": "Lust",
+        "damageType": "Slash",
+        "offenseLevel": 39
       }
     ]
   },
@@ -1972,6 +2482,16 @@
         "sin": "Sloth",
         "damageType": "Slash",
         "offenseLevel": 35
+      },
+      {
+        "id": "kurokumo-clan-wakashu-hong-lu-skill-4",
+        "name": "Guard",
+        "basePower": 9,
+        "coinPower": 3,
+        "coinCount": 1,
+        "sin": "Sloth",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -2006,6 +2526,16 @@
         "name": "Sky-clearing Cut",
         "basePower": 7,
         "coinPower": 18,
+        "coinCount": 1,
+        "sin": "Pride",
+        "damageType": "Slash",
+        "offenseLevel": 37
+      },
+      {
+        "id": "kurokumo-clan-wakashu-rodion-skill-4",
+        "name": "Counter",
+        "basePower": 9,
+        "coinPower": 6,
         "coinCount": 1,
         "sin": "Pride",
         "damageType": "Slash",
@@ -2048,6 +2578,16 @@
         "sin": "Lust",
         "damageType": "Pierce",
         "offenseLevel": 38
+      },
+      {
+        "id": "kurokumo-clan-wakashu-ry-sh-skill-4",
+        "name": "Guard",
+        "basePower": 10,
+        "coinPower": 6,
+        "coinCount": 1,
+        "sin": "Lust",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -2086,6 +2626,16 @@
         "sin": "Gloom",
         "damageType": "Pierce",
         "offenseLevel": 38
+      },
+      {
+        "id": "lca-udjat-vanguard-team-3-leader-outis-skill-4",
+        "name": "Composure",
+        "basePower": 15,
+        "coinPower": 5,
+        "coinCount": 1,
+        "sin": "Gloom",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -2124,6 +2674,16 @@
         "sin": "Gluttony",
         "damageType": "Pierce",
         "offenseLevel": 37
+      },
+      {
+        "id": "lcb-sinner-don-quixote-skill-4",
+        "name": "Evade",
+        "basePower": 2,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Lust",
+        "damageType": "Evade",
+        "offenseLevel": 35
       }
     ]
   },
@@ -2162,6 +2722,16 @@
         "sin": "Gluttony",
         "damageType": "Pierce",
         "offenseLevel": 34
+      },
+      {
+        "id": "lcb-sinner-faust-skill-4",
+        "name": "Evade",
+        "basePower": 2,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Pride",
+        "damageType": "Evade",
+        "offenseLevel": 35
       }
     ]
   },
@@ -2200,6 +2770,16 @@
         "sin": "Sloth",
         "damageType": "Pierce",
         "offenseLevel": 34
+      },
+      {
+        "id": "lcb-sinner-gregor-skill-4",
+        "name": "Guard",
+        "basePower": 8,
+        "coinPower": 3,
+        "coinCount": 1,
+        "sin": "Gloom",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -2236,6 +2816,16 @@
         "coinPower": 8,
         "coinCount": 2,
         "sin": "Lust",
+        "damageType": "Blunt",
+        "offenseLevel": 13
+      },
+      {
+        "id": "lcb-sinner-heathcliff-skill-4",
+        "name": "Counter",
+        "basePower": 7,
+        "coinPower": 4,
+        "coinCount": 1,
+        "sin": "Envy",
         "damageType": "Blunt",
         "offenseLevel": 13
       }
@@ -2276,6 +2866,16 @@
         "sin": "Lust",
         "damageType": "Blunt",
         "offenseLevel": 16
+      },
+      {
+        "id": "lcb-sinner-hong-lu-skill-4",
+        "name": "Evade",
+        "basePower": 2,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Sloth",
+        "damageType": "Evade",
+        "offenseLevel": 35
       }
     ]
   },
@@ -2314,6 +2914,16 @@
         "sin": "Gloom",
         "damageType": "Blunt",
         "offenseLevel": 11
+      },
+      {
+        "id": "lcb-sinner-ishmael-skill-4",
+        "name": "Guard",
+        "basePower": 7,
+        "coinPower": 3,
+        "coinCount": 1,
+        "sin": "Wrath",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -2352,6 +2962,16 @@
         "sin": "Gloom",
         "damageType": "Blunt",
         "offenseLevel": 32
+      },
+      {
+        "id": "lcb-sinner-meursault-skill-4",
+        "name": "Guard",
+        "basePower": 10,
+        "coinPower": 3,
+        "coinCount": 1,
+        "sin": "Sloth",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -2390,6 +3010,16 @@
         "sin": "Gloom",
         "damageType": "Pierce",
         "offenseLevel": 38
+      },
+      {
+        "id": "lcb-sinner-outis-skill-4",
+        "name": "Evade",
+        "basePower": 2,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Sloth",
+        "damageType": "Evade",
+        "offenseLevel": 35
       }
     ]
   },
@@ -2425,6 +3055,16 @@
         "basePower": 4,
         "coinPower": 2,
         "coinCount": 4,
+        "sin": "Wrath",
+        "damageType": "Slash",
+        "offenseLevel": 35
+      },
+      {
+        "id": "lcb-sinner-rodion-skill-4",
+        "name": "Counter",
+        "basePower": 7,
+        "coinPower": 4,
+        "coinCount": 1,
         "sin": "Wrath",
         "damageType": "Slash",
         "offenseLevel": 35
@@ -2466,6 +3106,16 @@
         "sin": "Pride",
         "damageType": "Slash",
         "offenseLevel": 37
+      },
+      {
+        "id": "lcb-sinner-ry-sh-skill-4",
+        "name": "Evade",
+        "basePower": 2,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Gluttony",
+        "damageType": "Evade",
+        "offenseLevel": 35
       }
     ]
   },
@@ -2502,6 +3152,16 @@
         "coinPower": 3,
         "coinCount": 3,
         "sin": "Envy",
+        "damageType": "Slash",
+        "offenseLevel": 38
+      },
+      {
+        "id": "lcb-sinner-sinclair-skill-4",
+        "name": "Counter",
+        "basePower": 7,
+        "coinPower": 4,
+        "coinCount": 1,
+        "sin": "Pride",
         "damageType": "Slash",
         "offenseLevel": 38
       }
@@ -2542,6 +3202,16 @@
         "sin": "Sloth",
         "damageType": "Slash",
         "offenseLevel": 35
+      },
+      {
+        "id": "lcb-sinner-yi-sang-skill-4",
+        "name": "Guard",
+        "basePower": 7,
+        "coinPower": 3,
+        "coinCount": 1,
+        "sin": "Gloom",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -2580,6 +3250,16 @@
         "sin": "Pride",
         "damageType": "Blunt",
         "offenseLevel": 34
+      },
+      {
+        "id": "lccb-assistant-manager-ishmael-skill-4",
+        "name": "Guard",
+        "basePower": 10,
+        "coinPower": 8,
+        "coinCount": 1,
+        "sin": "Gluttony",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -2618,6 +3298,16 @@
         "sin": "Envy",
         "damageType": "Blunt",
         "offenseLevel": 40
+      },
+      {
+        "id": "lccb-assistant-manager-rodion-skill-4",
+        "name": "Guard",
+        "basePower": 8,
+        "coinPower": 8,
+        "coinCount": 1,
+        "sin": "Envy",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -2656,6 +3346,16 @@
         "sin": "Pride",
         "damageType": "Pierce",
         "offenseLevel": 38
+      },
+      {
+        "id": "lccb-assistant-manager-ry-sh-skill-4",
+        "name": "Guard",
+        "basePower": 8,
+        "coinPower": 8,
+        "coinCount": 1,
+        "sin": "Gluttony",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -2694,6 +3394,16 @@
         "sin": "Pride",
         "damageType": "Slash",
         "offenseLevel": 39
+      },
+      {
+        "id": "lcd-osir-team-ishmael-skill-4",
+        "name": "I\u0027ll Light the Path Forward",
+        "basePower": 5,
+        "coinPower": 8,
+        "coinCount": 1,
+        "sin": "Pride",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -2732,6 +3442,16 @@
         "sin": "Envy",
         "damageType": "Slash",
         "offenseLevel": 38
+      },
+      {
+        "id": "lce-e-g-o-aedd-gregor-skill-4",
+        "name": "This E.G.O Gift\u0027s Defensive Capability is Uniquely Superior",
+        "basePower": 5,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Envy",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -2770,6 +3490,16 @@
         "sin": "Wrath",
         "damageType": "Blunt",
         "offenseLevel": 40
+      },
+      {
+        "id": "lce-e-g-o-ardor-blossom-star-faust-skill-4",
+        "name": "Resonating by Raising A.B.S Attunement.",
+        "basePower": 4,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Wrath",
+        "damageType": "Evade",
+        "offenseLevel": 35
       }
     ]
   },
@@ -2805,6 +3535,16 @@
         "basePower": 16,
         "coinPower": -5,
         "coinCount": 3,
+        "sin": "Gluttony",
+        "damageType": "Blunt",
+        "offenseLevel": 40
+      },
+      {
+        "id": "lce-e-g-o-lantern-yi-sang-skill-4",
+        "name": "Yet, the degree to which that attunement and synchronization are achieved may resultantly allow the user to be devoured",
+        "basePower": 10,
+        "coinPower": 5,
+        "coinCount": 1,
         "sin": "Gluttony",
         "damageType": "Blunt",
         "offenseLevel": 40
@@ -2846,6 +3586,16 @@
         "sin": "Envy",
         "damageType": "Slash",
         "offenseLevel": 39
+      },
+      {
+        "id": "liu-assoc-south-section-3-yi-sang-skill-4",
+        "name": "Flame Counter",
+        "basePower": 5,
+        "coinPower": 3,
+        "coinCount": 2,
+        "sin": "Wrath",
+        "damageType": "Slash",
+        "offenseLevel": 35
       }
     ]
   },
@@ -2884,6 +3634,16 @@
         "sin": "Lust",
         "damageType": "Pierce",
         "offenseLevel": 37
+      },
+      {
+        "id": "liu-assoc-south-section-4-director-rodion-skill-4",
+        "name": "Counter",
+        "basePower": 9,
+        "coinPower": 7,
+        "coinCount": 1,
+        "sin": "Wrath",
+        "damageType": "Blunt",
+        "offenseLevel": 37
       }
     ]
   },
@@ -2920,6 +3680,16 @@
         "coinPower": 3,
         "coinCount": 4,
         "sin": "Envy",
+        "damageType": "Blunt",
+        "offenseLevel": 37
+      },
+      {
+        "id": "liu-assoc-south-section-4-ishmael-skill-4",
+        "name": "Counter",
+        "basePower": 9,
+        "coinPower": 7,
+        "coinCount": 1,
+        "sin": "Wrath",
         "damageType": "Blunt",
         "offenseLevel": 37
       }
@@ -2960,6 +3730,16 @@
         "sin": "Lust",
         "damageType": "Slash",
         "offenseLevel": 38
+      },
+      {
+        "id": "liu-assoc-south-section-4-ry-sh-skill-4",
+        "name": "Guard",
+        "basePower": 8,
+        "coinPower": 8,
+        "coinCount": 1,
+        "sin": "Wrath",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -2997,6 +3777,16 @@
         "coinCount": 2,
         "sin": "Wrath",
         "damageType": "Blunt",
+        "offenseLevel": 35
+      },
+      {
+        "id": "liu-assoc-south-section-5-hong-lu-skill-4",
+        "name": "Guard",
+        "basePower": 8,
+        "coinPower": 8,
+        "coinCount": 1,
+        "sin": "Gloom",
+        "damageType": "Guard",
         "offenseLevel": 35
       }
     ]
@@ -3036,6 +3826,16 @@
         "sin": "Sloth",
         "damageType": "Blunt",
         "offenseLevel": 40
+      },
+      {
+        "id": "liu-assoc-south-section-6-gregor-skill-4",
+        "name": "Guard",
+        "basePower": 8,
+        "coinPower": 5,
+        "coinCount": 1,
+        "sin": "Sloth",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -3074,6 +3874,16 @@
         "sin": "Wrath",
         "damageType": "Pierce",
         "offenseLevel": 36
+      },
+      {
+        "id": "liu-assoc-south-section-6-meursault-skill-4",
+        "name": "Guard",
+        "basePower": 8,
+        "coinPower": 8,
+        "coinCount": 1,
+        "sin": "Lust",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -3112,6 +3922,16 @@
         "sin": "Envy",
         "damageType": "Slash",
         "offenseLevel": 17
+      },
+      {
+        "id": "lobotomy-corp-remnant-faust-skill-4",
+        "name": "Evade",
+        "basePower": 3,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Envy",
+        "damageType": "Evade",
+        "offenseLevel": 35
       }
     ]
   },
@@ -3150,6 +3970,16 @@
         "sin": "Gloom",
         "damageType": "Pierce",
         "offenseLevel": 38
+      },
+      {
+        "id": "lobotomy-e-g-o-faint-aroma-solitude-ry-sh-skill-4",
+        "name": "A.A.T.",
+        "basePower": 4,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Gloom",
+        "damageType": "Evade",
+        "offenseLevel": 35
       }
     ]
   },
@@ -3188,6 +4018,16 @@
         "sin": "Wrath",
         "damageType": "Pierce",
         "offenseLevel": 40
+      },
+      {
+        "id": "lobotomy-e-g-o-hornet-alteration-meursault-skill-4",
+        "name": "Spore Germination",
+        "basePower": 4,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Wrath",
+        "damageType": "Evade",
+        "offenseLevel": 35
       }
     ]
   },
@@ -3226,6 +4066,16 @@
         "sin": "Envy",
         "damageType": "Blunt",
         "offenseLevel": 38
+      },
+      {
+        "id": "lobotomy-e-g-o-in-the-name-of-love-and-hate-don-quixote-skill-4",
+        "name": "Rapid Chant",
+        "basePower": 2,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Envy",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -3264,6 +4114,16 @@
         "sin": "Pride",
         "damageType": "Pierce",
         "offenseLevel": 40
+      },
+      {
+        "id": "lobotomy-e-g-o-lamp-gregor-skill-4",
+        "name": "The Wick of Burned Feathers",
+        "basePower": 3,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Gloom",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -3302,6 +4162,16 @@
         "sin": "Gloom",
         "damageType": "Pierce",
         "offenseLevel": 36
+      },
+      {
+        "id": "lobotomy-e-g-o-lantern-don-quixote-skill-4",
+        "name": "Chattering Teeth",
+        "basePower": 12,
+        "coinPower": 6,
+        "coinCount": 1,
+        "sin": "Gluttony",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -3340,6 +4210,16 @@
         "sin": "Pride",
         "damageType": "Pierce",
         "offenseLevel": 40
+      },
+      {
+        "id": "lobotomy-e-g-o-magic-bullet-outis-skill-4",
+        "name": "The Price of a Bullet",
+        "basePower": 10,
+        "coinPower": 4,
+        "coinCount": 1,
+        "sin": "Pride",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -3378,6 +4258,16 @@
         "sin": "Lust",
         "damageType": "Blunt",
         "offenseLevel": 38
+      },
+      {
+        "id": "lobotomy-e-g-o-red-eyes-penitence-ry-sh-skill-4",
+        "name": "Mealtime, Bedtime",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Lust",
+        "damageType": "Blunt",
+        "offenseLevel": 36
       }
     ]
   },
@@ -3415,6 +4305,16 @@
         "coinCount": 2,
         "sin": "Lust",
         "damageType": "Pierce",
+        "offenseLevel": 35
+      },
+      {
+        "id": "lobotomy-e-g-o-red-sheet-sinclair-skill-4",
+        "name": "Guard",
+        "basePower": 8,
+        "coinPower": 8,
+        "coinCount": 1,
+        "sin": "Gluttony",
+        "damageType": "Guard",
         "offenseLevel": 35
       }
     ]
@@ -3454,6 +4354,16 @@
         "sin": "Wrath",
         "damageType": "Blunt",
         "offenseLevel": 38
+      },
+      {
+        "id": "lobotomy-e-g-o-regret-faust-skill-4",
+        "name": "Gathering Spite",
+        "basePower": 9,
+        "coinPower": 6,
+        "coinCount": 1,
+        "sin": "Gloom",
+        "damageType": "Blunt",
+        "offenseLevel": 40
       }
     ]
   },
@@ -3492,6 +4402,16 @@
         "sin": "Gluttony",
         "damageType": "Blunt",
         "offenseLevel": 34
+      },
+      {
+        "id": "lobotomy-e-g-o-sloshing-ishmael-skill-4",
+        "name": "Guard",
+        "basePower": 15,
+        "coinPower": 5,
+        "coinCount": 1,
+        "sin": "Gloom",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -3530,6 +4450,16 @@
         "sin": "Sloth",
         "damageType": "Pierce",
         "offenseLevel": 40
+      },
+      {
+        "id": "lobotomy-e-g-o-solemn-lament-yi-sang-skill-4",
+        "name": "FromTheCoffinAButterflyTakesFlight",
+        "basePower": 10,
+        "coinPower": 4,
+        "coinCount": 1,
+        "sin": "Gloom",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -3568,6 +4498,16 @@
         "sin": "Sloth",
         "damageType": "Pierce",
         "offenseLevel": 38
+      },
+      {
+        "id": "lobotomy-e-g-o-sunshower-heathcliff-skill-4",
+        "name": "Warning",
+        "basePower": 10,
+        "coinPower": -5,
+        "coinCount": 2,
+        "sin": "Wrath",
+        "damageType": "Pierce",
+        "offenseLevel": 40
       }
     ]
   },
@@ -3606,6 +4546,16 @@
         "sin": "Pride",
         "damageType": "Pierce",
         "offenseLevel": 38
+      },
+      {
+        "id": "lobotomy-e-g-o-the-sword-sharpened-with-tears-rodion-skill-4",
+        "name": "The Knight\u0027s Faith",
+        "basePower": 3,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Gloom",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -3644,6 +4594,16 @@
         "sin": "Gloom",
         "damageType": "Blunt",
         "offenseLevel": 32
+      },
+      {
+        "id": "los-mariachis-jefe-sinclair-skill-4",
+        "name": "Evade",
+        "basePower": 5,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Gloom",
+        "damageType": "Evade",
+        "offenseLevel": 35
       }
     ]
   },
@@ -3682,6 +4642,16 @@
         "sin": "Gloom",
         "damageType": "Pierce",
         "offenseLevel": 40
+      },
+      {
+        "id": "molar-boatworks-fixer-ishmael-skill-4",
+        "name": "Nimble Steps",
+        "basePower": 10,
+        "coinPower": 4,
+        "coinCount": 1,
+        "sin": "Pride",
+        "damageType": "Evade",
+        "offenseLevel": 35
       }
     ]
   },
@@ -3720,6 +4690,16 @@
         "sin": "Gluttony",
         "damageType": "Pierce",
         "offenseLevel": 36
+      },
+      {
+        "id": "molar-boatworks-fixer-sinclair-skill-4",
+        "name": "Crab Bastards...!",
+        "basePower": 8,
+        "coinPower": 8,
+        "coinCount": 1,
+        "sin": "Gloom",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -3758,6 +4738,16 @@
         "sin": "Sloth",
         "damageType": "Blunt",
         "offenseLevel": 40
+      },
+      {
+        "id": "molar-office-fixer-outis-skill-4",
+        "name": "Hangover Cure",
+        "basePower": 12,
+        "coinPower": 5,
+        "coinCount": 1,
+        "sin": "Sloth",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -3796,6 +4786,16 @@
         "sin": "Wrath",
         "damageType": "Blunt",
         "offenseLevel": 40
+      },
+      {
+        "id": "molar-office-fixer-yi-sang-skill-4",
+        "name": "Guard",
+        "basePower": 10,
+        "coinPower": 5,
+        "coinCount": 1,
+        "sin": "Sloth",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -3834,6 +4834,16 @@
         "sin": "Gloom",
         "damageType": "Blunt",
         "offenseLevel": 37
+      },
+      {
+        "id": "multicrack-office-fixer-heathcliff-skill-4",
+        "name": "Charge",
+        "basePower": 12,
+        "coinPower": 6,
+        "coinCount": 1,
+        "sin": "Envy",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -3872,6 +4882,16 @@
         "sin": "Gloom",
         "damageType": "Blunt",
         "offenseLevel": 38
+      },
+      {
+        "id": "multicrack-office-rep-faust-skill-4",
+        "name": "Charge",
+        "basePower": 12,
+        "coinPower": 6,
+        "coinCount": 1,
+        "sin": "Envy",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -3920,6 +4940,16 @@
         "sin": "Pride",
         "damageType": "Pierce",
         "offenseLevel": 40
+      },
+      {
+        "id": "n-corp-e-g-o-contempt-awe-ry-sh-skill-5",
+        "name": "To Grasp",
+        "basePower": 10,
+        "coinPower": 5,
+        "coinCount": 1,
+        "sin": "Sloth",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -3958,6 +4988,16 @@
         "sin": "Pride",
         "damageType": "Pierce",
         "offenseLevel": 40
+      },
+      {
+        "id": "n-corp-e-g-o-fell-bullet-yi-sang-skill-4",
+        "name": "Front Line Support",
+        "basePower": 5,
+        "coinPower": 7,
+        "coinCount": 1,
+        "sin": "Pride",
+        "damageType": "Pierce",
+        "offenseLevel": 37
       }
     ]
   },
@@ -3996,6 +5036,16 @@
         "sin": "Pride",
         "damageType": "Pierce",
         "offenseLevel": 12
+      },
+      {
+        "id": "n-corp-gro-hammer-meursault-skill-4",
+        "name": "Foolishness...!",
+        "basePower": 15,
+        "coinPower": -5,
+        "coinCount": 1,
+        "sin": "Wrath",
+        "damageType": "Pierce",
+        "offenseLevel": 17
       }
     ]
   },
@@ -4033,6 +5083,16 @@
         "coinCount": 3,
         "sin": "Lust",
         "damageType": "Blunt",
+        "offenseLevel": 35
+      },
+      {
+        "id": "n-corp-kleinhammer-heathcliff-skill-4",
+        "name": "Guard",
+        "basePower": 8,
+        "coinPower": 8,
+        "coinCount": 1,
+        "sin": "Gloom",
+        "damageType": "Guard",
         "offenseLevel": 35
       }
     ]
@@ -4072,6 +5132,16 @@
         "sin": "Wrath",
         "damageType": "Blunt",
         "offenseLevel": 36
+      },
+      {
+        "id": "n-corp-mittelhammer-don-quixote-skill-4",
+        "name": "Guard",
+        "basePower": 10,
+        "coinPower": 5,
+        "coinCount": 1,
+        "sin": "Lust",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -4109,6 +5179,16 @@
         "coinCount": 4,
         "sin": "Wrath",
         "damageType": "Blunt",
+        "offenseLevel": 38
+      },
+      {
+        "id": "n-corp-mittelhammer-rodion-skill-4",
+        "name": "Counter",
+        "basePower": 7,
+        "coinPower": 6,
+        "coinCount": 1,
+        "sin": "Wrath",
+        "damageType": "Pierce",
         "offenseLevel": 38
       }
     ]
@@ -4148,6 +5228,16 @@
         "sin": "Pride",
         "damageType": "Pierce",
         "offenseLevel": 39
+      },
+      {
+        "id": "night-awls-capitano-gregor-skill-4",
+        "name": "Dire Straits",
+        "basePower": 3,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Lust",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -4186,6 +5276,16 @@
         "sin": "Envy",
         "damageType": "Pierce",
         "offenseLevel": 40
+      },
+      {
+        "id": "r-corp-4th-pack-rabbit-heathcliff-skill-4",
+        "name": "Evade",
+        "basePower": 4,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Wrath",
+        "damageType": "Evade",
+        "offenseLevel": 35
       }
     ]
   },
@@ -4224,6 +5324,16 @@
         "sin": "Wrath",
         "damageType": "Blunt",
         "offenseLevel": 39
+      },
+      {
+        "id": "r-corp-4th-pack-reindeer-hong-lu-skill-4",
+        "name": "Energy Condensation",
+        "basePower": 10,
+        "coinPower": 6,
+        "coinCount": 1,
+        "sin": "Envy",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -4262,6 +5372,16 @@
         "sin": "Wrath",
         "damageType": "Blunt",
         "offenseLevel": 36
+      },
+      {
+        "id": "r-corp-4th-pack-reindeer-ishmael-skill-4",
+        "name": "Evade",
+        "basePower": 4,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Gloom",
+        "damageType": "Evade",
+        "offenseLevel": 35
       }
     ]
   },
@@ -4300,6 +5420,16 @@
         "sin": "Wrath",
         "damageType": "Blunt",
         "offenseLevel": 38
+      },
+      {
+        "id": "r-corp-4th-pack-reindeer-rodion-skill-4",
+        "name": "Energy Condensation - \u0027Haha! Everybody\u0027s Sparkling and Glittering!\u0027",
+        "basePower": 10,
+        "coinPower": 5,
+        "coinCount": 1,
+        "sin": "Envy",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -4337,6 +5467,16 @@
         "coinCount": 3,
         "sin": "Lust",
         "damageType": "Slash",
+        "offenseLevel": 35
+      },
+      {
+        "id": "r-corp-4th-pack-rhino-meursault-skill-4",
+        "name": "Bioelectricity Induction",
+        "basePower": 15,
+        "coinPower": 5,
+        "coinCount": 1,
+        "sin": "Envy",
+        "damageType": "Guard",
         "offenseLevel": 35
       }
     ]
@@ -4376,6 +5516,16 @@
         "sin": "Lust",
         "damageType": "Slash",
         "offenseLevel": 38
+      },
+      {
+        "id": "r-b-chef-de-cuisine-ry-sh-skill-4",
+        "name": "F.I. in Sight",
+        "basePower": 4,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Lust",
+        "damageType": "Evade",
+        "offenseLevel": 35
       }
     ]
   },
@@ -4414,6 +5564,16 @@
         "sin": "Envy",
         "damageType": "Slash",
         "offenseLevel": 38
+      },
+      {
+        "id": "r-b-sous-chef-gregor-skill-4",
+        "name": "Guard",
+        "basePower": 8,
+        "coinPower": 8,
+        "coinCount": 1,
+        "sin": "Lust",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -4490,6 +5650,16 @@
         "sin": "Sloth",
         "damageType": "Blunt",
         "offenseLevel": 36
+      },
+      {
+        "id": "rosespanner-workshop-fixer-meursault-skill-4",
+        "name": "Guard",
+        "basePower": 8,
+        "coinPower": 8,
+        "coinCount": 1,
+        "sin": "Sloth",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -4528,6 +5698,16 @@
         "sin": "Envy",
         "damageType": "Blunt",
         "offenseLevel": 38
+      },
+      {
+        "id": "rosespanner-workshop-rep-rodion-skill-4",
+        "name": "Preheat",
+        "basePower": 10,
+        "coinPower": 6,
+        "coinCount": 1,
+        "sin": "Sloth",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -4566,6 +5746,16 @@
         "sin": "Pride",
         "damageType": "Slash",
         "offenseLevel": 39
+      },
+      {
+        "id": "s-corp-ch-unokkun-hong-lu-skill-4",
+        "name": "Throwing the Ohra Bond",
+        "basePower": 5,
+        "coinPower": 8,
+        "coinCount": 1,
+        "sin": "Pride",
+        "damageType": "Slash",
+        "offenseLevel": 37
       }
     ]
   },
@@ -4604,6 +5794,16 @@
         "sin": "Gluttony",
         "damageType": "Slash",
         "offenseLevel": 38
+      },
+      {
+        "id": "seven-assoc-south-section-4-faust-skill-4",
+        "name": "Let\u0027s Wrap It Up",
+        "basePower": 10,
+        "coinPower": 4,
+        "coinCount": 1,
+        "sin": "Lust",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -4642,6 +5842,16 @@
         "sin": "Gluttony",
         "damageType": "Slash",
         "offenseLevel": 36
+      },
+      {
+        "id": "seven-assoc-south-section-4-heathcliff-skill-4",
+        "name": "Guard",
+        "basePower": 8,
+        "coinPower": 8,
+        "coinCount": 1,
+        "sin": "Wrath",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -4680,6 +5890,16 @@
         "sin": "Lust",
         "damageType": "Blunt",
         "offenseLevel": 35
+      },
+      {
+        "id": "seven-assoc-south-section-6-director-outis-skill-4",
+        "name": "I\u0027ll Take the Lead",
+        "basePower": 13,
+        "coinPower": 7,
+        "coinCount": 1,
+        "sin": "Gluttony",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -4715,6 +5935,16 @@
         "basePower": 4,
         "coinPower": 5,
         "coinCount": 3,
+        "sin": "Gluttony",
+        "damageType": "Slash",
+        "offenseLevel": 40
+      },
+      {
+        "id": "seven-assoc-south-section-6-ry-sh-skill-4",
+        "name": "Counter",
+        "basePower": 8,
+        "coinPower": 4,
+        "coinCount": 1,
         "sin": "Gluttony",
         "damageType": "Slash",
         "offenseLevel": 40
@@ -4756,6 +5986,16 @@
         "sin": "Sloth",
         "damageType": "Blunt",
         "offenseLevel": 35
+      },
+      {
+        "id": "seven-assoc-south-section-6-yi-sang-skill-4",
+        "name": "Guard",
+        "basePower": 9,
+        "coinPower": 3,
+        "coinCount": 1,
+        "sin": "Gluttony",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -4794,6 +6034,16 @@
         "sin": "Lust",
         "damageType": "Slash",
         "offenseLevel": 38
+      },
+      {
+        "id": "shi-assoc-east-section-3-faust-skill-4",
+        "name": "Unfold Bowblade [\u0027\u0027\u0027\u5F13\u5200\u0027\u0027\u0027]",
+        "basePower": 14,
+        "coinPower": 4,
+        "coinCount": 1,
+        "sin": "Lust",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -4832,6 +6082,16 @@
         "sin": "Lust",
         "damageType": "Slash",
         "offenseLevel": 38
+      },
+      {
+        "id": "shi-assoc-south-section-5-director-don-quixote-skill-4",
+        "name": "Evade",
+        "basePower": 3,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Wrath",
+        "damageType": "Evade",
+        "offenseLevel": 35
       }
     ]
   },
@@ -4868,6 +6128,16 @@
         "coinPower": 6,
         "coinCount": 2,
         "sin": "Envy",
+        "damageType": "Slash",
+        "offenseLevel": 36
+      },
+      {
+        "id": "shi-assoc-south-section-5-heathcliff-skill-4",
+        "name": "Counter",
+        "basePower": 8,
+        "coinPower": 5,
+        "coinCount": 1,
+        "sin": "Wrath",
         "damageType": "Slash",
         "offenseLevel": 36
       }
@@ -4908,6 +6178,16 @@
         "sin": "Wrath",
         "damageType": "Slash",
         "offenseLevel": 36
+      },
+      {
+        "id": "shi-assoc-south-section-5-ishmael-skill-4",
+        "name": "Counter",
+        "basePower": 8,
+        "coinPower": 8,
+        "coinCount": 1,
+        "sin": "Envy",
+        "damageType": "Slash",
+        "offenseLevel": 36
       }
     ]
   },
@@ -4946,6 +6226,16 @@
         "sin": "Sloth",
         "damageType": "Blunt",
         "offenseLevel": 36
+      },
+      {
+        "id": "t-corp-class-2-collection-staff-rodion-skill-4",
+        "name": "Borrow Time",
+        "basePower": 15,
+        "coinPower": 4,
+        "coinCount": 1,
+        "sin": "Sloth",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -4983,6 +6273,16 @@
         "coinCount": 4,
         "sin": "Sloth",
         "damageType": "Blunt",
+        "offenseLevel": 35
+      },
+      {
+        "id": "t-corp-class-3-collection-staff-don-quixote-skill-4",
+        "name": "I Shall Summon the Time",
+        "basePower": 15,
+        "coinPower": 5,
+        "coinCount": 1,
+        "sin": "Sloth",
+        "damageType": "Guard",
         "offenseLevel": 35
       }
     ]
@@ -5022,6 +6322,16 @@
         "sin": "Lust",
         "damageType": "Blunt",
         "offenseLevel": 40
+      },
+      {
+        "id": "t-corp-class-3-vdcu-staff-outis-skill-4",
+        "name": "Borrowed Time - Microcavity",
+        "basePower": 3,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Sloth",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -5060,6 +6370,16 @@
         "sin": "Wrath",
         "damageType": "Slash",
         "offenseLevel": 40
+      },
+      {
+        "id": "the-barber-of-la-manchaland-outis-skill-4",
+        "name": "Quite Discourteous!",
+        "basePower": 7,
+        "coinPower": 6,
+        "coinCount": 1,
+        "sin": "Gluttony",
+        "damageType": "Slash",
+        "offenseLevel": 35
       }
     ]
   },
@@ -5098,6 +6418,16 @@
         "sin": "Gloom",
         "damageType": "Slash",
         "offenseLevel": 39
+      },
+      {
+        "id": "the-house-of-spiders-the-index-nursefather-yi-sang-skill-4",
+        "name": "By Unpredictable Whim",
+        "basePower": 4,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Gloom",
+        "damageType": "Evade",
+        "offenseLevel": 35
       }
     ]
   },
@@ -5136,6 +6466,16 @@
         "sin": "Envy",
         "damageType": "Blunt",
         "offenseLevel": 38
+      },
+      {
+        "id": "the-house-of-spiders-the-middle-apprentice-ishmael-skill-4",
+        "name": "I\u0027ll Get You Back for This, Man",
+        "basePower": 4,
+        "coinPower": 5,
+        "coinCount": 2,
+        "sin": "Envy",
+        "damageType": "Blunt",
+        "offenseLevel": 39
       }
     ]
   },
@@ -5174,6 +6514,16 @@
         "sin": "Envy",
         "damageType": "Blunt",
         "offenseLevel": 39
+      },
+      {
+        "id": "the-house-of-spiders-the-middle-nursefather-outis-skill-4",
+        "name": "Rule Violation",
+        "basePower": 4,
+        "coinPower": 6,
+        "coinCount": 2,
+        "sin": "Envy",
+        "damageType": "Blunt",
+        "offenseLevel": 38
       }
     ]
   },
@@ -5212,6 +6562,16 @@
         "sin": "Wrath",
         "damageType": "Slash",
         "offenseLevel": 40
+      },
+      {
+        "id": "the-house-of-spiders-the-pinky-apprentice-sinclair-skill-4",
+        "name": "Defend [\u003Cb\u003E\u5B88\u003C/b\u003E]",
+        "basePower": 3,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Pride",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -5250,6 +6610,16 @@
         "sin": "Lust",
         "damageType": "Slash",
         "offenseLevel": 38
+      },
+      {
+        "id": "the-house-of-spiders-the-ring-apprentice-faust-skill-4",
+        "name": "Exhibition Arrangements",
+        "basePower": 4,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Lust",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -5288,6 +6658,16 @@
         "sin": "Lust",
         "damageType": "Slash",
         "offenseLevel": 39
+      },
+      {
+        "id": "the-house-of-spiders-the-ring-nursefather-hong-lu-skill-4",
+        "name": "Curating the Exhibition",
+        "basePower": 4,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Lust",
+        "damageType": "Evade",
+        "offenseLevel": 35
       }
     ]
   },
@@ -5326,6 +6706,16 @@
         "sin": "Wrath",
         "damageType": "Slash",
         "offenseLevel": 39
+      },
+      {
+        "id": "the-house-of-spiders-the-thumb-apprentice-heathcliff-skill-4",
+        "name": "Measuring Blade Reach",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Wrath",
+        "damageType": "Slash",
+        "offenseLevel": 36
       }
     ]
   },
@@ -5364,6 +6754,16 @@
         "sin": "Wrath",
         "damageType": "Slash",
         "offenseLevel": 39
+      },
+      {
+        "id": "the-house-of-spiders-the-thumb-nursefather-rodion-skill-4",
+        "name": "Fuck Off!",
+        "basePower": 3,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Pride",
+        "damageType": "Slash",
+        "offenseLevel": 37
       }
     ]
   },
@@ -5402,6 +6802,16 @@
         "sin": "Gloom",
         "damageType": "Slash",
         "offenseLevel": 38
+      },
+      {
+        "id": "the-index-proselyte-paper-slip-faust-skill-4",
+        "name": "Prescript-granted, Prescript-woven Fabric",
+        "basePower": 3,
+        "coinPower": 3,
+        "coinCount": 3,
+        "sin": "Gloom",
+        "damageType": "Slash",
+        "offenseLevel": 37
       }
     ]
   },
@@ -5440,6 +6850,16 @@
         "sin": "Gloom",
         "damageType": "Blunt",
         "offenseLevel": 39
+      },
+      {
+        "id": "the-index-proxy-effloresced-e-g-o-procuration-don-quixote-skill-4",
+        "name": "Prescript-granted, Prescript-woven Fabric",
+        "basePower": 3,
+        "coinPower": 3,
+        "coinCount": 3,
+        "sin": "Gloom",
+        "damageType": "Blunt",
+        "offenseLevel": 35
       }
     ]
   },
@@ -5478,6 +6898,16 @@
         "sin": "Pride",
         "damageType": "Slash",
         "offenseLevel": 38
+      },
+      {
+        "id": "the-lord-of-hongyuan-hong-lu-skill-4",
+        "name": "Heishou Keenclaw [\u0027\u0027\u0027\u9ED1\u7378\u5229\u722A\u0027\u0027\u0027]",
+        "basePower": 6,
+        "coinPower": 7,
+        "coinCount": 1,
+        "sin": "Gluttony",
+        "damageType": "Slash",
+        "offenseLevel": 35
       }
     ]
   },
@@ -5516,6 +6946,16 @@
         "sin": "Lust",
         "damageType": "Pierce",
         "offenseLevel": 40
+      },
+      {
+        "id": "the-manager-of-la-manchaland-don-quixote-skill-4",
+        "name": "Laughters Shall Subside",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Lust",
+        "damageType": "Pierce",
+        "offenseLevel": 38
       }
     ]
   },
@@ -5554,6 +6994,16 @@
         "sin": "Envy",
         "damageType": "Blunt",
         "offenseLevel": 40
+      },
+      {
+        "id": "the-middle-big-brother-heathcliff-skill-4",
+        "name": "Payback",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Envy",
+        "damageType": "Blunt",
+        "offenseLevel": 38
       }
     ]
   },
@@ -5590,6 +7040,16 @@
         "coinPower": 3,
         "coinCount": 3,
         "sin": "Wrath",
+        "damageType": "Blunt",
+        "offenseLevel": 38
+      },
+      {
+        "id": "the-middle-little-brother-meursault-skill-4",
+        "name": "Multifold Retribution",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Envy",
         "damageType": "Blunt",
         "offenseLevel": 38
       }
@@ -5630,6 +7090,16 @@
         "sin": "Envy",
         "damageType": "Blunt",
         "offenseLevel": 39
+      },
+      {
+        "id": "the-middle-little-brother-sinclair-skill-4",
+        "name": "Warmup in the East",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Envy",
+        "damageType": "Blunt",
+        "offenseLevel": 40
       }
     ]
   },
@@ -5668,6 +7138,16 @@
         "sin": "Pride",
         "damageType": "Blunt",
         "offenseLevel": 38
+      },
+      {
+        "id": "the-middle-little-sister-don-quixote-skill-4",
+        "name": "Multifold Retribution",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Envy",
+        "damageType": "Blunt",
+        "offenseLevel": 40
       }
     ]
   },
@@ -5706,6 +7186,16 @@
         "sin": "Pride",
         "damageType": "Blunt",
         "offenseLevel": 39
+      },
+      {
+        "id": "the-one-who-grips-faust-skill-4",
+        "name": "Such Filth",
+        "basePower": 4,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Lust",
+        "damageType": "Evade",
+        "offenseLevel": 35
       }
     ]
   },
@@ -5744,6 +7234,16 @@
         "sin": "Wrath",
         "damageType": "Blunt",
         "offenseLevel": 40
+      },
+      {
+        "id": "the-one-who-shall-grip-sinclair-skill-4",
+        "name": "Enough\u2026",
+        "basePower": 17,
+        "coinPower": -7,
+        "coinCount": 1,
+        "sin": "Pride",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -5782,6 +7282,16 @@
         "sin": "Wrath",
         "damageType": "Pierce",
         "offenseLevel": 38
+      },
+      {
+        "id": "the-pequod-captain-ishmael-skill-4",
+        "name": "Do Not Fear",
+        "basePower": 10,
+        "coinPower": 4,
+        "coinCount": 1,
+        "sin": "Pride",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -5820,6 +7330,16 @@
         "sin": "Gluttony",
         "damageType": "Pierce",
         "offenseLevel": 37
+      },
+      {
+        "id": "the-pequod-first-mate-yi-sang-skill-4",
+        "name": "Evade",
+        "basePower": 3,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Pride",
+        "damageType": "Evade",
+        "offenseLevel": 35
       }
     ]
   },
@@ -5858,6 +7378,16 @@
         "sin": "Envy",
         "damageType": "Pierce",
         "offenseLevel": 38
+      },
+      {
+        "id": "the-pequod-harpooneer-heathcliff-skill-4",
+        "name": "Payback",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Wrath",
+        "damageType": "Pierce",
+        "offenseLevel": 40
       }
     ]
   },
@@ -5896,6 +7426,16 @@
         "sin": "Lust",
         "damageType": "Blunt",
         "offenseLevel": 38
+      },
+      {
+        "id": "the-priest-of-la-manchaland-gregor-skill-4",
+        "name": "Faded Patience",
+        "basePower": 15,
+        "coinPower": 5,
+        "coinCount": 1,
+        "sin": "Lust",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -5934,6 +7474,16 @@
         "sin": "Lust",
         "damageType": "Slash",
         "offenseLevel": 39
+      },
+      {
+        "id": "the-prince-of-la-manchaland-meursault-skill-4",
+        "name": "Coagulation",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Lust",
+        "damageType": "Slash",
+        "offenseLevel": 35
       }
     ]
   },
@@ -5972,6 +7522,16 @@
         "sin": "Lust",
         "damageType": "Pierce",
         "offenseLevel": 38
+      },
+      {
+        "id": "the-princess-of-la-manchaland-rodion-skill-4",
+        "name": "Don Quixote Hardblood Arts 15: Parasol",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Lust",
+        "damageType": "Pierce",
+        "offenseLevel": 37
       }
     ]
   },
@@ -6010,6 +7570,16 @@
         "sin": "Lust",
         "damageType": "Blunt",
         "offenseLevel": 39
+      },
+      {
+        "id": "the-ring-fauvist-docent-rodion-skill-4",
+        "name": "Trimming the Medium",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Lust",
+        "damageType": "Blunt",
+        "offenseLevel": 37
       }
     ]
   },
@@ -6048,6 +7618,16 @@
         "sin": "Lust",
         "damageType": "Blunt",
         "offenseLevel": 39
+      },
+      {
+        "id": "the-ring-fauvist-student-meursault-skill-4",
+        "name": "Coloring Preparations",
+        "basePower": 4,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Lust",
+        "damageType": "Blunt",
+        "offenseLevel": 37
       }
     ]
   },
@@ -6086,6 +7666,16 @@
         "sin": "Gluttony",
         "damageType": "Pierce",
         "offenseLevel": 37
+      },
+      {
+        "id": "the-ring-pointillist-student-outis-skill-4",
+        "name": "Guard",
+        "basePower": 7,
+        "coinPower": 6,
+        "coinCount": 1,
+        "sin": "Lust",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -6124,6 +7714,16 @@
         "sin": "Sloth",
         "damageType": "Pierce",
         "offenseLevel": 38
+      },
+      {
+        "id": "the-ring-pointillist-student-yi-sang-skill-4",
+        "name": "Beat the Brush",
+        "basePower": 10,
+        "coinPower": 4,
+        "coinCount": 1,
+        "sin": "Lust",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -6162,6 +7762,16 @@
         "sin": "Wrath",
         "damageType": "Blunt",
         "offenseLevel": 40
+      },
+      {
+        "id": "the-thumb-east-capo-iiii-meursault-skill-4",
+        "name": "I\u0027m Burning Up.",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Sloth",
+        "damageType": "Slash",
+        "offenseLevel": 38
       }
     ]
   },
@@ -6200,6 +7810,16 @@
         "sin": "Wrath",
         "damageType": "Slash",
         "offenseLevel": 40
+      },
+      {
+        "id": "the-thumb-east-soldato-ii-sinclair-skill-4",
+        "name": "Ferrous Guard",
+        "basePower": 9,
+        "coinPower": 6,
+        "coinCount": 1,
+        "sin": "Pride",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -6238,6 +7858,16 @@
         "sin": "Gluttony",
         "damageType": "Slash",
         "offenseLevel": 17
+      },
+      {
+        "id": "tingtang-gang-gangleader-hong-lu-skill-4",
+        "name": "Evade",
+        "basePower": 2,
+        "coinPower": 14,
+        "coinCount": 1,
+        "sin": "Gluttony",
+        "damageType": "Evade",
+        "offenseLevel": 35
       }
     ]
   },
@@ -6276,6 +7906,16 @@
         "sin": "Gloom",
         "damageType": "Pierce",
         "offenseLevel": 40
+      },
+      {
+        "id": "twinhook-pirates-first-mate-gregor-skill-4",
+        "name": "Take a Breather",
+        "basePower": 4,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Gloom",
+        "damageType": "Evade",
+        "offenseLevel": 35
       }
     ]
   },
@@ -6314,6 +7954,16 @@
         "sin": "Wrath",
         "damageType": "Blunt",
         "offenseLevel": 34
+      },
+      {
+        "id": "w-corp-l2-cleanup-agent-faust-skill-4",
+        "name": "Guard",
+        "basePower": 10,
+        "coinPower": 2,
+        "coinCount": 1,
+        "sin": "Envy",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -6352,6 +8002,16 @@
         "sin": "Gluttony",
         "damageType": "Slash",
         "offenseLevel": 34
+      },
+      {
+        "id": "w-corp-l2-cleanup-agent-hong-lu-skill-4",
+        "name": "Guard",
+        "basePower": 12,
+        "coinPower": 6,
+        "coinCount": 1,
+        "sin": "Pride",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -6390,6 +8050,16 @@
         "sin": "Pride",
         "damageType": "Slash",
         "offenseLevel": 11
+      },
+      {
+        "id": "w-corp-l2-cleanup-agent-meursault-skill-4",
+        "name": "Guard",
+        "basePower": 12,
+        "coinPower": 5,
+        "coinCount": 1,
+        "sin": "Envy",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -6428,6 +8098,16 @@
         "sin": "Envy",
         "damageType": "Slash",
         "offenseLevel": 38
+      },
+      {
+        "id": "w-corp-l3-cleanup-agent-don-quixote-skill-4",
+        "name": "Evade",
+        "basePower": 4,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Gloom",
+        "damageType": "Evade",
+        "offenseLevel": 35
       }
     ]
   },
@@ -6466,6 +8146,16 @@
         "sin": "Envy",
         "damageType": "Slash",
         "offenseLevel": 40
+      },
+      {
+        "id": "w-corp-l3-cleanup-agent-ry-sh-skill-4",
+        "name": "Charged Evade",
+        "basePower": 4,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Lust",
+        "damageType": "Evade",
+        "offenseLevel": 35
       }
     ]
   },
@@ -6504,6 +8194,16 @@
         "sin": "Gloom",
         "damageType": "Pierce",
         "offenseLevel": 40
+      },
+      {
+        "id": "w-corp-l3-cleanup-agent-yi-sang-skill-4",
+        "name": "Hollow Dimension",
+        "basePower": 4,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Gloom",
+        "damageType": "Evade",
+        "offenseLevel": 35
       }
     ]
   },
@@ -6541,6 +8241,16 @@
         "coinCount": 4,
         "sin": "Gloom",
         "damageType": "Slash",
+        "offenseLevel": 35
+      },
+      {
+        "id": "w-corp-l3-cleanup-captain-outis-skill-4",
+        "name": "Deploy Plasma",
+        "basePower": 10,
+        "coinPower": 6,
+        "coinCount": 1,
+        "sin": "Pride",
+        "damageType": "Guard",
         "offenseLevel": 35
       }
     ]
@@ -6580,6 +8290,16 @@
         "sin": "Envy",
         "damageType": "Blunt",
         "offenseLevel": 40
+      },
+      {
+        "id": "w-corp-l4-cleanup-agent-cca-heathcliff-skill-4",
+        "name": "CCA Overcharge",
+        "basePower": 3,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Envy",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -6618,6 +8338,16 @@
         "sin": "Gloom",
         "damageType": "Blunt",
         "offenseLevel": 40
+      },
+      {
+        "id": "wild-hunt-heathcliff-skill-4",
+        "name": "O Dullahan\u2026!",
+        "basePower": 5,
+        "coinPower": 4,
+        "coinCount": 2,
+        "sin": "Lust",
+        "damageType": "Slash",
+        "offenseLevel": 38
       }
     ]
   },
@@ -6656,6 +8386,16 @@
         "sin": "Wrath",
         "damageType": "Slash",
         "offenseLevel": 39
+      },
+      {
+        "id": "wuthering-heights-butler-faust-skill-4",
+        "name": "Hunting Plans",
+        "basePower": 7,
+        "coinPower": 6,
+        "coinCount": 1,
+        "sin": "Gloom",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -6694,6 +8434,16 @@
         "sin": "Lust",
         "damageType": "Blunt",
         "offenseLevel": 39
+      },
+      {
+        "id": "wuthering-heights-chief-butler-outis-skill-4",
+        "name": "Insolent Fool\u2026!",
+        "basePower": 4,
+        "coinPower": 10,
+        "coinCount": 1,
+        "sin": "Gloom",
+        "damageType": "Evade",
+        "offenseLevel": 35
       }
     ]
   },
@@ -6732,6 +8482,16 @@
         "sin": "Lust",
         "damageType": "Slash",
         "offenseLevel": 34
+      },
+      {
+        "id": "zwei-assoc-south-section-4-faust-skill-4",
+        "name": "Guard",
+        "basePower": 12,
+        "coinPower": 6,
+        "coinCount": 1,
+        "sin": "Gloom",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -6769,6 +8529,16 @@
         "coinCount": 3,
         "sin": "Gloom",
         "damageType": "Slash",
+        "offenseLevel": 35
+      },
+      {
+        "id": "zwei-assoc-south-section-4-gregor-skill-4",
+        "name": "The Best Defense",
+        "basePower": 15,
+        "coinPower": 5,
+        "coinCount": 1,
+        "sin": "Sloth",
+        "damageType": "Guard",
         "offenseLevel": 35
       }
     ]
@@ -6808,6 +8578,16 @@
         "sin": "Gloom",
         "damageType": "Blunt",
         "offenseLevel": 33
+      },
+      {
+        "id": "zwei-assoc-south-section-5-rodion-skill-4",
+        "name": "Guard",
+        "basePower": 15,
+        "coinPower": 5,
+        "coinCount": 1,
+        "sin": "Wrath",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -6846,6 +8626,16 @@
         "sin": "Sloth",
         "damageType": "Blunt",
         "offenseLevel": 33
+      },
+      {
+        "id": "zwei-assoc-south-section-6-sinclair-skill-4",
+        "name": "Guard",
+        "basePower": 12,
+        "coinPower": 6,
+        "coinCount": 1,
+        "sin": "Gloom",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -6884,6 +8674,16 @@
         "sin": "Gluttony",
         "damageType": "Blunt",
         "offenseLevel": 37
+      },
+      {
+        "id": "zwei-assoc-west-section-3-ishmael-skill-4",
+        "name": "Your Shield",
+        "basePower": 3,
+        "coinPower": 12,
+        "coinCount": 1,
+        "sin": "Pride",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -6922,6 +8722,16 @@
         "sin": "Sloth",
         "damageType": "Blunt",
         "offenseLevel": 37
+      },
+      {
+        "id": "zwei-assoc-west-section-3-sinclair-skill-4",
+        "name": "Zwei Knight\u0027s Greatsword Form - Guard",
+        "basePower": 2,
+        "coinPower": 9,
+        "coinCount": 1,
+        "sin": "Sloth",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   },
@@ -6960,6 +8770,16 @@
         "sin": "Pride",
         "damageType": "Pierce",
         "offenseLevel": 37
+      },
+      {
+        "id": "ufi-assoc-south-section-3-heathcliff-skill-4",
+        "name": "Do Not Obstruct",
+        "basePower": 10,
+        "coinPower": 4,
+        "coinCount": 1,
+        "sin": "Pride",
+        "damageType": "Guard",
+        "offenseLevel": 35
       }
     ]
   }

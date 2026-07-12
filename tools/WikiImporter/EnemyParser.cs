@@ -108,7 +108,11 @@ public static class EnemyParser
         }
         if (!Enum.TryParse<SinType>(template.Value("sin"), true, out var sin))
         {
-            return null;
+            if (damageType is not (DamageType.Guard or DamageType.Evade))
+            {
+                return null;
+            }
+            sin = SinType.Wrath;
         }
         var basePower = ParseInt(template.Value("spower"));
         var coinPower = ParseSignedIntOrNull(template.Value("cpower"));

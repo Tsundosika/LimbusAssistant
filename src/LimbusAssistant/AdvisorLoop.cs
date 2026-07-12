@@ -201,6 +201,7 @@ public sealed class AdvisorLoop : IDisposable
                     }
                 }
             }
+            RefreshStickyMatchups();
             _lastPlanning = _stickyPlanning;
             _lastLiveClash = null;
             _lastFrame = frame;
@@ -224,6 +225,7 @@ public sealed class AdvisorLoop : IDisposable
                 _observedIdentities.Add(observedIdentity);
             }
         }
+        RefreshStickyMatchups();
         _lastPlanning = fresh?.Skill is not null ? fresh : _stickyPlanning ?? fresh;
         _lastLiveClash = null;
         _lastFrame = frame;
@@ -486,6 +488,23 @@ public sealed class AdvisorLoop : IDisposable
                 best.Result.ExpectedDamageTaken));
         }
         return answers.Count == 0 ? null : answers.OrderByDescending(answer => answer.WinProbability).ToList();
+    }
+
+    void RefreshStickyMatchups()
+    {
+        if (_stickyPlanning is not { Skill: not null, IsEnemySkill: false, Matchups: null } sticky)
+        {
+            return;
+        }
+        if (EffectiveEnemy() is null)
+        {
+            return;
+        }
+        var (enemyName, matchups) = BuildMatchups(sticky.Skill, sticky.IdentityName, sticky.Sanity);
+        if (matchups is not null)
+        {
+            _stickyPlanning = sticky with { EnemyName = enemyName, Matchups = matchups };
+        }
     }
 
     IReadOnlyList<string> RosterNames()

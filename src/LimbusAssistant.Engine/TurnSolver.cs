@@ -126,9 +126,11 @@ public sealed class TurnSolver
             skill.OffenseLevel,
             threat.Enemy.DefenseLevel,
             threat.ClashCount);
-        var dealt = DamageCalculator.FinalDamage(
-            ExpectedAttackPower.OnClashWin(allySkill, outcome.WinStates),
-            dealtContext);
+        var dealt = skill.DamageType is DamageType.Guard or DamageType.Evade
+            ? 0
+            : DamageCalculator.FinalDamage(
+                ExpectedAttackPower.OnClashWin(allySkill, outcome.WinStates),
+                dealtContext);
         var takenContext = new DamageContext(
             1.0,
             1.0,
@@ -136,9 +138,11 @@ public sealed class TurnSolver
             threat.Skill.OffenseLevel,
             unit.Identity.DefenseLevel,
             threat.ClashCount);
-        var taken = DamageCalculator.FinalDamage(
-            ExpectedAttackPower.OnClashWin(enemySkill, outcome.LoseStates),
-            takenContext);
+        var taken = threat.Skill.DamageType is DamageType.Guard or DamageType.Evade
+            ? 0
+            : DamageCalculator.FinalDamage(
+                ExpectedAttackPower.OnClashWin(enemySkill, outcome.LoseStates),
+                takenContext);
         return new TurnAssignment(
             unit,
             skill,
@@ -164,7 +168,9 @@ public sealed class TurnSolver
             skill.OffenseLevel,
             enemy.DefenseLevel,
             clashCount);
-        var dealt = DamageCalculator.FinalDamage(ExpectedAttackPower.Unopposed(allySkill), context);
+        var dealt = skill.DamageType is DamageType.Guard or DamageType.Evade
+            ? 0
+            : DamageCalculator.FinalDamage(ExpectedAttackPower.Unopposed(allySkill), context);
         return new TurnAssignment(unit, skill, null, 1.0, dealt, 0, dealt);
     }
 

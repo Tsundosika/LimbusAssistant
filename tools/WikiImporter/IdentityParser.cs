@@ -23,9 +23,9 @@ public static class IdentityParser
             : $"{prefix} {sinner}";
         var defense = BaselineLevel + ParseSignedInt(page.Value("defmod"));
         var skills = new List<SkillData>();
-        for (var i = 1; i <= 5; i++)
+        var skillSources = Enumerable.Range(1, 5).Select(i => page.Value($"skill{i}")).Append(page.Value("defense"));
+        foreach (var value in skillSources)
         {
-            var value = page.Value($"skill{i}");
             if (value.Length == 0)
             {
                 continue;
