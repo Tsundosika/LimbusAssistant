@@ -41,8 +41,11 @@ public partial class MainWindow : Window
         PopulateWindowList();
     }
 
+    AdvisorSnapshot? _lastSnapshot;
+
     public void UpdateSnapshot(AdvisorSnapshot snapshot)
     {
+        _lastSnapshot = snapshot;
         (StatusHeadline.Text, StatusHeadline.Foreground, StatusDetail.Text) = snapshot.Status switch
         {
             CaptureStatus.GameNotFound => (
@@ -56,9 +59,28 @@ public partial class MainWindow : Window
             _ => (
                 "Connected ✓",
                 (Brush)FindResource("GoodBrush"),
-                $"Watching the game and reading clashes. Vision confidence {snapshot.Confidence:P0}. Press Ctrl+F8 in battle to see the advisor."),
+                $"Watching the game. Vision confidence {snapshot.Confidence:P0}. Press Ctrl+F8 in battle to see the advisor."),
         };
-        ConfidenceText.Text = $"vision confidence {snapshot.Confidence:P0} · updated {snapshot.Timestamp:HH:mm:ss}";
+        if (!IsVisible || !ReferenceEquals(Tabs.SelectedItem, VisionTab))
+        {
+            return;
+        }
+        RenderVision(snapshot);
+    }
+
+    void OnTabChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (ReferenceEquals(Tabs.SelectedItem, VisionTab) && _lastSnapshot is not null)
+        {
+            RenderVision(_lastSnapshot);
+        }
+    }
+
+    void RenderVision(AdvisorSnapshot snapshot)
+    {
+        ConfidenceText.Text =
+            $"tick {snapshot.Metrics.AverageTickMilliseconds:F1} ms avg · {snapshot.Metrics.OcrCallsLastTick} OCR calls · " +
+            $"gate {(snapshot.ClashGateOpen ? "open" : "closed")} · {snapshot.Timestamp:HH:mm:ss}";
         ReadingsText.Text = FormatReadings(snapshot);
         if (snapshot.Frame is { } frame)
         {
@@ -240,6 +262,15 @@ public partial class MainWindow : Window
             builder.AppendLine($"  source: {(clash.FromDataset ? "dataset" : "screen numbers")} · confidence {clash.Confidence:P0}");
             builder.AppendLine();
         }
+        if (snapshot.Planning is { } planning)
+        {
+            builder.AppendLine($"planning: \"{planning.RawSkillName}\" ({planning.Confidence:P0})");
+            builder.AppendLine(planning.Skill is { } skill
+                ? $"  matched {skill.Name} ({planning.IdentityName}) base {skill.BasePower} +{skill.CoinPower} x{skill.CoinCount}"
+                : "  no dataset match");
+            builder.AppendLine(planning.Sanity is { } sanity ? $"  sanity {sanity}" : "  sanity unknown");
+            builder.AppendLine();
+        }
         if (snapshot.Reading.FrameWidth > 0)
         {
             var content = snapshot.Reading.ContentRect;
@@ -248,6 +279,10 @@ public partial class MainWindow : Window
                 builder.AppendLine($"letterbox detected: content {content.Width}x{content.Height} at ({content.X},{content.Y})");
                 builder.AppendLine();
             }
+        }
+        foreach (var (name, reading) in snapshot.Reading.Texts.OrderBy(pair => pair.Key))
+        {
+            builder.AppendLine($"{name,-24} \"{reading.Text}\"  ({reading.Confidence:P0})");
         }
         foreach (var (name, reading) in snapshot.Reading.Numbers.OrderBy(pair => pair.Key))
         {

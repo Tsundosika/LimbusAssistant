@@ -9,47 +9,53 @@
         ShowInTaskbar="False"
         ShowActivated="False"
         ResizeMode="NoResize">
-    <Grid>
-        <Border x:Name="OverlayBorder"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Margin="24"
-                Background="#D9101018"
-                BorderBrush="#66D9A441"
+    <Canvas x:Name="OverlayCanvas">
+        <Rectangle x:Name="ReadOutline"
+                   StrokeThickness="2"
+                   RadiusX="4"
+                   RadiusY="4"
+                   Visibility="Collapsed"/>
+        <Border x:Name="VerdictPanel"
+                Background="#E6101018"
+                BorderBrush="#88D9A441"
                 BorderThickness="1"
                 CornerRadius="10"
-                Padding="14"
-                MinWidth="250">
+                Padding="14,10"
+                MinWidth="250"
+                MaxWidth="340"
+                Visibility="Collapsed">
             <StackPanel>
-                <TextBlock Text="LIMBUS ASSISTANT"
-                           Foreground="#FFD9A441"
+                <TextBlock x:Name="HeadlineText"
+                           FontSize="20"
                            FontWeight="Bold"
-                           FontSize="12"/>
-                <TextBlock x:Name="StatusText"
-                           Foreground="#FF9AA0B4"
-                           FontSize="11"
-                           Margin="0,2,0,8"/>
-                <TextBlock x:Name="WinRateText"
-                           Foreground="White"
-                           FontSize="28"
-                           FontWeight="Bold"
-                           Text="…"/>
-                <TextBlock x:Name="GameStyleText"
-                           Foreground="#FF9AA0B4"
-                           FontSize="11"/>
-                <TextBlock x:Name="VerdictText"
-                           Foreground="#FFB8C0D8"
+                           Foreground="White"/>
+                <TextBlock x:Name="KitText"
                            FontSize="14"
-                           FontWeight="Bold"/>
-                <TextBlock x:Name="DamageText"
+                           Foreground="#FFE8ECF8"
+                           Margin="0,4,0,0"
+                           TextWrapping="Wrap"/>
+                <TextBlock x:Name="SanityText"
+                           FontSize="12"
                            Foreground="#FFB8C0D8"
-                           FontSize="13"/>
-                <TextBlock x:Name="SourceText"
-                           Foreground="#FF707890"
-                           FontSize="10"
+                           Margin="0,4,0,0"/>
+                <TextBlock x:Name="ActionText"
+                           FontSize="12"
+                           Foreground="#FF9AA0B4"
                            Margin="0,6,0,0"
                            TextWrapping="Wrap"/>
             </StackPanel>
         </Border>
-    </Grid>
+        <Border x:Name="IdleChip"
+                Background="#B3101018"
+                BorderBrush="#44D9A441"
+                BorderThickness="1"
+                CornerRadius="12"
+                Padding="10,4"
+                Visibility="Collapsed">
+            <TextBlock x:Name="IdleChipText"
+                       FontSize="11"
+                       Foreground="#FF9AA0B4"
+                       Text="watching for your next move"/>
+        </Border>
+    </Canvas>
 </Window>

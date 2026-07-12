@@ -1,7 +1,9 @@
 using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Interop;
 using System.Windows.Media;
+using Tsundosika.LimbusAssistant.Vision;
 
 namespace Tsundosika.LimbusAssistant;
 
@@ -12,6 +14,10 @@ public partial class OverlayWindow : Window
     const int WsExLayered = 0x80000;
     const int WsExNoActivate = 0x08000000;
     const int WsExToolWindow = 0x80;
+
+    static readonly SolidColorBrush GoodBrush = Frozen(0x7C, 0xE0, 0x7C);
+    static readonly SolidColorBrush WarnBrush = Frozen(0xF2, 0xC9, 0x4C);
+    static readonly SolidColorBrush BadBrush = Frozen(0xF2, 0x6D, 0x6D);
 
     AdvisorSnapshot? _lastSnapshot;
 
@@ -32,11 +38,10 @@ public partial class OverlayWindow : Window
     public void UpdateSnapshot(AdvisorSnapshot snapshot)
     {
         _lastSnapshot = snapshot;
-        if (!IsVisible)
+        if (IsVisible)
         {
-            return;
+            Render(snapshot);
         }
-        Render(snapshot);
     }
 
     void OnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -50,40 +55,104 @@ public partial class OverlayWindow : Window
     void Render(AdvisorSnapshot snapshot)
     {
         PositionOverGame(snapshot);
-        StatusText.Text = snapshot.Status switch
+        if (snapshot.Status != CaptureStatus.Ok)
         {
-            CaptureStatus.GameNotFound => "Limbus Company window not found",
-            CaptureStatus.WaitingForFrame => "waiting for frames…",
-            _ => $"reading · confidence {snapshot.Confidence:P0}",
-        };
-        if (snapshot.LiveClash is { } clash)
+            ShowIdleChip(snapshot.Status == CaptureStatus.GameNotFound
+                ? "Limbus Company window not found"
+                : "waiting for the game picture");
+            return;
+        }
+        if (!snapshot.ClashGateOpen || snapshot.Planning is null)
         {
-            WinRateText.Text = $"{clash.WinProbability:P0} win chance";
-            var (verdict, color) = clash.WinProbability switch
-            {
-                >= 0.65 => ("FAVORED: take this clash", Color.FromRgb(0x7C, 0xE0, 0x7C)),
-                >= 0.45 => ("EVEN: could go either way", Color.FromRgb(0xF2, 0xC9, 0x4C)),
-                _ => ("RISKY: consider another skill", Color.FromRgb(0xF2, 0x6D, 0x6D)),
-            };
-            var brush = new SolidColorBrush(color);
-            WinRateText.Foreground = brush;
-            GameStyleText.Text = $"game shows about {clash.FirstExchangeWinProbability:P0} (first exchange)";
-            VerdictText.Foreground = brush;
-            VerdictText.Text = verdict;
-            DamageText.Text = $"expected damage if you win: ~{clash.ExpectedAttackPowerOnWin:F0}";
-            SourceText.Text = clash.FromDataset
-                ? "using full skill data"
-                : "estimate from screen numbers";
+            ShowIdleChip("watching for your next move");
+            return;
+        }
+        RenderPlanning(snapshot, snapshot.Planning);
+    }
+
+    void RenderPlanning(AdvisorSnapshot snapshot, PlanningHint planning)
+    {
+        IdleChip.Visibility = Visibility.Collapsed;
+        VerdictPanel.Visibility = Visibility.Visible;
+        if (planning.Skill is { } skill)
+        {
+            HeadlineText.Text = skill.Name;
+            HeadlineText.Foreground = GoodBrush;
+            var maxRoll = skill.BasePower + skill.CoinPower * skill.CoinCount;
+            KitText.Text =
+                $"base {skill.BasePower}, {(skill.CoinPower >= 0 ? "+" : "")}{skill.CoinPower} per coin, " +
+                $"{skill.CoinCount} coin{(skill.CoinCount == 1 ? "" : "s")}, max roll {maxRoll}";
+            SanityText.Text = planning.Sanity is { } sanity
+                ? $"sanity {sanity:+0;-0;0} means {50 + Math.Clamp(sanity, -45, 45)}% heads per coin"
+                : "sanity not read, assume 50% heads";
+            ActionText.Text = "Exact clash odds vs any enemy skill: Turn Advisor (Ctrl+F9).";
         }
         else
         {
-            WinRateText.Text = "…";
-            WinRateText.Foreground = Brushes.White;
-            GameStyleText.Text = "";
-            VerdictText.Text = "";
-            DamageText.Text = "hover a clash to see your odds";
-            SourceText.Text = "";
+            HeadlineText.Text = planning.RawSkillName;
+            HeadlineText.Foreground = WarnBrush;
+            KitText.Text = "skill not found in the dataset";
+            SanityText.Text = "";
+            ActionText.Text = "Add this identity to Data/identities.json to get full coin math.";
         }
+        PlacePanel(snapshot);
+        PlaceOutline(snapshot, planning.Confidence);
+    }
+
+    void PlacePanel(AdvisorSnapshot snapshot)
+    {
+        VerdictPanel.Measure(new Size(340, double.PositiveInfinity));
+        var desired = VerdictPanel.DesiredSize;
+        if (!TryMapRegion(snapshot, RegionNames.DragSkillName, out var ribbon))
+        {
+            Canvas.SetLeft(VerdictPanel, Math.Max(8, Width - desired.Width - 24));
+            Canvas.SetTop(VerdictPanel, 24);
+            return;
+        }
+        var left = Math.Clamp(ribbon.Right + 16, 8, Math.Max(8, Width - desired.Width - 8));
+        var top = Math.Clamp(ribbon.Top - 4, 8, Math.Max(8, Height - desired.Height - 8));
+        Canvas.SetLeft(VerdictPanel, left);
+        Canvas.SetTop(VerdictPanel, top);
+    }
+
+    void PlaceOutline(AdvisorSnapshot snapshot, double confidence)
+    {
+        if (!TryMapRegion(snapshot, RegionNames.DragSkillName, out var ribbon))
+        {
+            ReadOutline.Visibility = Visibility.Collapsed;
+            return;
+        }
+        ReadOutline.Visibility = Visibility.Visible;
+        ReadOutline.Stroke = confidence >= 0.8 ? GoodBrush : confidence >= 0.5 ? WarnBrush : BadBrush;
+        ReadOutline.Width = ribbon.Width + 8;
+        ReadOutline.Height = ribbon.Height + 8;
+        Canvas.SetLeft(ReadOutline, ribbon.Left - 4);
+        Canvas.SetTop(ReadOutline, ribbon.Top - 4);
+    }
+
+    bool TryMapRegion(AdvisorSnapshot snapshot, string regionName, out Rect mapped)
+    {
+        mapped = default;
+        if (snapshot.Reading.FrameWidth <= 0
+            || !snapshot.Reading.Regions.TryGetValue(regionName, out var region))
+        {
+            return false;
+        }
+        var scaleX = Width / snapshot.Reading.FrameWidth;
+        var scaleY = Height / snapshot.Reading.FrameHeight;
+        mapped = new Rect(region.X * scaleX, region.Y * scaleY, region.Width * scaleX, region.Height * scaleY);
+        return true;
+    }
+
+    void ShowIdleChip(string text)
+    {
+        VerdictPanel.Visibility = Visibility.Collapsed;
+        ReadOutline.Visibility = Visibility.Collapsed;
+        IdleChip.Visibility = Visibility.Visible;
+        IdleChipText.Text = text;
+        IdleChip.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+        Canvas.SetLeft(IdleChip, Math.Max(8, Width - IdleChip.DesiredSize.Width - 16));
+        Canvas.SetTop(IdleChip, 12);
     }
 
     void PositionOverGame(AdvisorSnapshot snapshot)
@@ -103,19 +172,13 @@ public partial class OverlayWindow : Window
         Top = topLeft.Y;
         Width = Math.Max(1, size.X);
         Height = Math.Max(1, size.Y);
+    }
 
-        if (snapshot.LiveClash is not null &&
-            snapshot.Reading.Regions.TryGetValue(Vision.RegionNames.AllySkillIcon, out var allyIcon) &&
-            allyIcon.Width > 0)
-        {
-            var x = transform.Transform(new Point(allyIcon.X, 0)).X;
-            var y = transform.Transform(new Point(0, allyIcon.Y)).Y;
-            OverlayBorder.Margin = new Thickness(Math.Max(0, x - 125 + allyIcon.Width / 2), Math.Max(0, y - 180), 0, 0);
-        }
-        else
-        {
-            OverlayBorder.Margin = new Thickness(Math.Max(0, size.X - 280), 24, 0, 0);
-        }
+    static SolidColorBrush Frozen(byte r, byte g, byte b)
+    {
+        var brush = new SolidColorBrush(Color.FromRgb(r, g, b));
+        brush.Freeze();
+        return brush;
     }
 
     [DllImport("user32.dll")]

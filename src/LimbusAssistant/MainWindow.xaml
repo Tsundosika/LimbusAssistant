@@ -7,7 +7,7 @@
         Background="{StaticResource BackgroundBrush}"
         Foreground="{StaticResource TextBrush}">
     <Grid Margin="10">
-        <TabControl>
+        <TabControl x:Name="Tabs" SelectionChanged="OnTabChanged">
             <TabItem Header="Assistant">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel Margin="18" MaxWidth="680" HorizontalAlignment="Left">
@@ -259,7 +259,7 @@
                 </Grid>
             </TabItem>
 
-            <TabItem Header="Vision">
+            <TabItem x:Name="VisionTab" Header="Vision">
                 <Grid Margin="12">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="3*"/>

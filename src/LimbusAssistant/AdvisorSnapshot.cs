@@ -7,8 +7,11 @@ public sealed record AdvisorSnapshot(
     WindowBounds? GameBounds,
     VisionReading Reading,
     LiveClashEstimate? LiveClash,
+    PlanningHint? Planning,
+    bool ClashGateOpen,
     double Confidence,
     CaptureFrame? Frame,
+    TickMetrics Metrics,
     DateTimeOffset Timestamp)
 {
     public static AdvisorSnapshot NotFound() => new(
@@ -16,7 +19,10 @@ public sealed record AdvisorSnapshot(
         null,
         VisionReading.Empty,
         null,
+        null,
+        false,
         0,
         null,
+        TickMetrics.Empty,
         DateTimeOffset.Now);
 }

@@ -24,7 +24,8 @@ public partial class App : Application
         var data = GameData.Load(Path.Combine(AppContext.BaseDirectory, "Data"));
         var calibration = CalibrationStore.Load();
         _templates = TemplateLibrary.LoadFrom(Path.Combine(AppContext.BaseDirectory, "Assets", "Templates"));
-        var pipeline = new VisionPipeline(new WindowsNumberReader(), _templates, calibration);
+        var reader = new WindowsNumberReader();
+        var pipeline = new VisionPipeline(reader, _templates, calibration);
 
         _overlay = new OverlayWindow();
         _main = new MainWindow(data, calibration);
@@ -33,7 +34,7 @@ public partial class App : Application
         MainWindow = _main;
         _main.Show();
 
-        _loop = new AdvisorLoop(_settings, data, pipeline);
+        _loop = new AdvisorLoop(_settings, data, pipeline, reader);
         _loop.SnapshotPublished += snapshot => Dispatcher.BeginInvoke(() =>
         {
             _overlay?.UpdateSnapshot(snapshot);

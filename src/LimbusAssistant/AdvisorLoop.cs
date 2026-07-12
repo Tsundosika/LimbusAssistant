@@ -6,45 +6,57 @@ namespace Tsundosika.LimbusAssistant;
 
 public sealed class AdvisorLoop : IDisposable
 {
-    const string SkillTemplatePrefix = "skill.";
+    const int MetricsWindow = 32;
+    const int LocateIntervalMilliseconds = 1000;
+    const int HeartbeatMilliseconds = 250;
 
     readonly AppSettings _settings;
     readonly VisionPipeline _pipeline;
-    readonly ClashCalculator _calculator = new();
-    readonly Dictionary<string, SkillData> _skillsById;
-    readonly CancellationTokenSource _cancellation = new();
+    readonly INumberReader _reader;
     readonly int _targetFrameIntervalMs;
+    readonly IReadOnlyList<(string Normalized, SkillData Skill, string Identity)> _skillIndex;
+    readonly CancellationTokenSource _cancellation = new();
+    readonly double[] _tickDurations = new double[MetricsWindow];
+    int _tickCount;
     IFrameSource? _source;
     GameWindow? _window;
     volatile string? _targetTitle;
+    long _lastLocateTimestamp;
+    ulong _lastFrameHash;
+    AdvisorSnapshot? _lastPublished;
+    long _lastPublishTimestamp;
     VisionReading _lastReading = VisionReading.Empty;
+    PlanningHint? _lastPlanning;
     LiveClashEstimate? _lastLiveClash;
     CaptureFrame? _lastFrame;
 
     public event Action<AdvisorSnapshot>? SnapshotPublished;
 
-    public AdvisorLoop(AppSettings settings, GameData data, VisionPipeline pipeline)
+    public AdvisorLoop(AppSettings settings, GameData data, VisionPipeline pipeline, INumberReader reader)
     {
         _settings = settings;
         _pipeline = pipeline;
-        _targetFrameIntervalMs = Math.Clamp(settings.CaptureIntervalMilliseconds, 1, 16);
+        _reader = reader;
+        _targetFrameIntervalMs = Math.Clamp(settings.CaptureIntervalMilliseconds, 33, 1000);
         _targetTitle = string.IsNullOrWhiteSpace(settings.WindowTitle) ? null : settings.WindowTitle;
-        _skillsById = data.Identities.SelectMany(identity => identity.Skills)
-            .Concat(data.Enemies.SelectMany(enemy => enemy.Skills))
-            .GroupBy(skill => skill.Id)
-            .ToDictionary(group => group.Key, group => group.First());
+        _skillIndex = data.Identities
+            .SelectMany(identity => identity.Skills.Select(skill => (Normalize(skill.Name), skill, identity.Name)))
+            .ToList();
     }
 
     public void Start() => Task.Run(() => RunAsync(_cancellation.Token));
 
-    public void SetTargetWindow(string? title) =>
+    public void SetTargetWindow(string? title)
+    {
         _targetTitle = string.IsNullOrWhiteSpace(title) ? null : title;
+        _window = null;
+    }
 
     async Task RunAsync(CancellationToken token)
     {
         while (!token.IsCancellationRequested)
         {
-            var startedAt = Stopwatch.GetTimestamp();
+            var started = Stopwatch.GetTimestamp();
             try
             {
                 await TickAsync();
@@ -53,12 +65,12 @@ public sealed class AdvisorLoop : IDisposable
             {
                 ReleaseSource();
             }
+            var elapsed = Stopwatch.GetElapsedTime(started).TotalMilliseconds;
+            RecordTick(elapsed);
+            var delay = Math.Max(0, _targetFrameIntervalMs - (int)elapsed);
             try
             {
-                var elapsedMs = (int)Math.Round(
-                    (Stopwatch.GetTimestamp() - startedAt) * 1000.0 / Stopwatch.Frequency);
-                var delayMs = Math.Max(0, _targetFrameIntervalMs - elapsedMs);
-                await Task.Delay(delayMs, token);
+                await Task.Delay(delay, token);
             }
             catch (TaskCanceledException)
             {
@@ -68,13 +80,12 @@ public sealed class AdvisorLoop : IDisposable
 
     async Task TickAsync()
     {
-        var target = _targetTitle;
-        var window = target is null ? GameWindowLocator.FindAuto() : GameWindowLocator.FindByTitle(target);
+        var window = ResolveWindow();
         if (window is null)
         {
             ReleaseSource();
             _window = null;
-            Publish(AdvisorSnapshot.NotFound());
+            Publish(AdvisorSnapshot.NotFound() with { Metrics = CurrentMetrics(0) });
             return;
         }
         if (_source is null || _window is null || _window.Handle != window.Handle)
@@ -83,97 +94,204 @@ public sealed class AdvisorLoop : IDisposable
             _source = FrameSourceFactory.Create(window.Handle);
         }
         _window = window;
-        var frame = _source.TryCapture();
-        if (frame is null)
+        var raw = _source.TryCapture();
+        if (raw is null)
         {
-            Publish(new AdvisorSnapshot(
-                CaptureStatus.WaitingForFrame,
-                window.ClientBounds,
-                _lastReading,
-                _lastLiveClash,
-                _lastReading.OverallConfidence,
-                _lastFrame,
-                DateTimeOffset.Now));
+            Publish(BuildSnapshot(CaptureStatus.WaitingForFrame, window, false, CurrentMetrics(0)));
             return;
         }
-        _lastReading = await _pipeline.ReadAsync(frame);
-        _lastLiveClash = EstimateLiveClash(_lastReading);
+        var frame = FrameCropper.CropToClient(raw, window.Handle);
+        var hash = FrameHash.SampleFrame(frame);
+        if (hash == _lastFrameHash && _lastPublished is not null)
+        {
+            Publish(BuildSnapshot(CaptureStatus.Ok, window, _lastPublished.ClashGateOpen, CurrentMetrics(0)));
+            return;
+        }
+        _lastFrameHash = hash;
+        var content = LetterboxDetector.DetectContent(frame);
+        if (!ClashGate.IsClashLikely(frame, content))
+        {
+            _lastPlanning = null;
+            _lastLiveClash = null;
+            _lastFrame = frame;
+            _lastReading = VisionReading.Empty;
+            Publish(BuildSnapshot(CaptureStatus.Ok, window, false, CurrentMetrics(_reader.ConsumeOcrCallCount())));
+            return;
+        }
+        _lastReading = await _pipeline.ReadAsync(frame, content);
+        _lastPlanning = BuildPlanningHint(_lastReading);
+        _lastLiveClash = null;
         _lastFrame = frame;
-        Publish(new AdvisorSnapshot(
-            CaptureStatus.Ok,
-            window.ClientBounds,
-            _lastReading,
-            _lastLiveClash,
-            _lastReading.OverallConfidence,
-            _lastFrame,
-            DateTimeOffset.Now));
+        Publish(BuildSnapshot(CaptureStatus.Ok, window, true, CurrentMetrics(_reader.ConsumeOcrCallCount())));
     }
 
-    LiveClashEstimate? EstimateLiveClash(VisionReading reading)
+    GameWindow? ResolveWindow()
     {
-        var sanity = reading.Number(RegionNames.AllySanity).Value ?? 0;
-        var ally = BuildSkill(
-            reading,
-            RegionNames.AllyClashPower,
-            RegionNames.AllyClashCoins,
-            RegionNames.AllySkillIcon,
-            sanity);
-        var enemy = BuildSkill(
-            reading,
-            RegionNames.EnemyClashPower,
-            RegionNames.EnemyClashCoins,
-            RegionNames.EnemySkillIcon,
-            0);
-        if (ally is null || enemy is null)
+        var now = Environment.TickCount64;
+        if (_window is not null)
         {
-            return null;
+            var refreshed = GameWindowLocator.FromHandle(_window.Handle);
+            if (refreshed is not null)
+            {
+                return refreshed;
+            }
         }
-        var outcome = _calculator.Calculate(ally.Value.Skill, enemy.Value.Skill);
-        var attackPower = ExpectedAttackPower.OnClashWin(ally.Value.Skill, outcome.WinStates);
-        return new LiveClashEstimate(
-            outcome.EffectiveWinProbability,
-            ClashCalculator.FirstExchangeWinProbability(ally.Value.Skill, enemy.Value.Skill),
-            attackPower,
-            ally.Value.FromDataset && enemy.Value.FromDataset,
-            Math.Min(ally.Value.Confidence, enemy.Value.Confidence));
+        if (_window is null || now - _lastLocateTimestamp >= LocateIntervalMilliseconds)
+        {
+            _lastLocateTimestamp = now;
+            var target = _targetTitle;
+            return target is null ? GameWindowLocator.FindAuto() : GameWindowLocator.FindByTitle(target);
+        }
+        return null;
     }
 
-    (ClashSkill Skill, bool FromDataset, double Confidence)? BuildSkill(
-        VisionReading reading,
-        string powerRegion,
-        string coinsRegion,
-        string iconRegion,
-        int sanity)
+    AdvisorSnapshot BuildSnapshot(CaptureStatus status, GameWindow window, bool gateOpen, TickMetrics metrics) => new(
+        status,
+        window.ClientBounds,
+        _lastReading,
+        _lastLiveClash,
+        _lastPlanning,
+        gateOpen,
+        _lastReading.OverallConfidence,
+        _lastFrame,
+        metrics,
+        DateTimeOffset.Now);
+
+    PlanningHint? BuildPlanningHint(VisionReading reading)
     {
-        var icon = reading.Icon(iconRegion);
-        if (icon.Name is not null
-            && icon.Name.StartsWith(SkillTemplatePrefix, StringComparison.Ordinal)
-            && _skillsById.TryGetValue(icon.Name[SkillTemplatePrefix.Length..], out var skill))
-        {
-            var coins = reading.Number(coinsRegion).Value ?? skill.CoinCount;
-            return (new ClashSkill(skill.BasePower, skill.CoinPower, coins, sanity), true, icon.Confidence);
-        }
-        var power = reading.Number(powerRegion);
-        var coinsReading = reading.Number(coinsRegion);
-        if (power.Value is null || coinsReading.Value is null)
+        var name = reading.Text(RegionNames.DragSkillName);
+        if (name.Confidence < 0.5 || name.Text.Length < 3)
         {
             return null;
         }
-        var confidence = Math.Min(power.Confidence, coinsReading.Confidence);
-        var minimumConfidence = Math.Min(_settings.MinimumConfidence, 0.35);
-        if (confidence < minimumConfidence)
-        {
-            return null;
-        }
-        return (new ClashSkill(power.Value.Value, 0, coinsReading.Value.Value, sanity), false, confidence);
+        var sanity = ReadBestSanity(reading);
+        var (skill, identity) = MatchSkill(name.Text);
+        return new PlanningHint(name.Text, skill, identity, sanity, name.Confidence);
     }
 
-    void Publish(AdvisorSnapshot snapshot) => SnapshotPublished?.Invoke(snapshot);
+    int? ReadBestSanity(VisionReading reading)
+    {
+        var best = default(int?);
+        var bestConfidence = 0.0;
+        foreach (var region in new[] { RegionNames.SanitySlot1, RegionNames.SanitySlot2, RegionNames.SanitySlot3 })
+        {
+            var value = reading.Number(region);
+            if (value.Value is >= -45 and <= 45 && value.Confidence > bestConfidence)
+            {
+                best = value.Value;
+                bestConfidence = value.Confidence;
+            }
+        }
+        return best;
+    }
+
+    (SkillData? Skill, string? Identity) MatchSkill(string rawName)
+    {
+        var normalized = Normalize(rawName);
+        if (normalized.Length < 3)
+        {
+            return (null, null);
+        }
+        SkillData? bestSkill = null;
+        string? bestIdentity = null;
+        var bestDistance = int.MaxValue;
+        foreach (var (candidate, skill, identity) in _skillIndex)
+        {
+            var distance = EditDistance(normalized, candidate, Math.Max(2, normalized.Length / 4));
+            if (distance < bestDistance)
+            {
+                bestDistance = distance;
+                bestSkill = skill;
+                bestIdentity = identity;
+            }
+        }
+        var limit = Math.Max(2, normalized.Length / 4);
+        return bestDistance <= limit ? (bestSkill, bestIdentity) : (null, null);
+    }
+
+    static string Normalize(string text) =>
+        new(text.ToLowerInvariant().Where(char.IsAsciiLetter).ToArray());
+
+    static int EditDistance(string a, string b, int cap)
+    {
+        if (Math.Abs(a.Length - b.Length) > cap)
+        {
+            return cap + 1;
+        }
+        var previous = new int[b.Length + 1];
+        var current = new int[b.Length + 1];
+        for (var j = 0; j <= b.Length; j++)
+        {
+            previous[j] = j;
+        }
+        for (var i = 1; i <= a.Length; i++)
+        {
+            current[0] = i;
+            var rowMin = current[0];
+            for (var j = 1; j <= b.Length; j++)
+            {
+                var substitution = previous[j - 1] + (a[i - 1] == b[j - 1] ? 0 : 1);
+                current[j] = Math.Min(Math.Min(previous[j] + 1, current[j - 1] + 1), substitution);
+                rowMin = Math.Min(rowMin, current[j]);
+            }
+            if (rowMin > cap)
+            {
+                return cap + 1;
+            }
+            (previous, current) = (current, previous);
+        }
+        return previous[b.Length];
+    }
+
+    void RecordTick(double milliseconds)
+    {
+        _tickDurations[_tickCount % MetricsWindow] = milliseconds;
+        _tickCount++;
+    }
+
+    TickMetrics CurrentMetrics(int ocrCalls)
+    {
+        var samples = Math.Min(_tickCount, MetricsWindow);
+        var average = samples == 0 ? 0 : _tickDurations.Take(samples).Average();
+        var last = samples == 0 ? 0 : _tickDurations[(_tickCount - 1 + MetricsWindow) % MetricsWindow];
+        return new TickMetrics(average, last, ocrCalls);
+    }
+
+    void Publish(AdvisorSnapshot snapshot)
+    {
+        var now = Environment.TickCount64;
+        if (!ShouldPublish(snapshot, now))
+        {
+            return;
+        }
+        _lastPublished = snapshot;
+        _lastPublishTimestamp = now;
+        SnapshotPublished?.Invoke(snapshot);
+    }
+
+    bool ShouldPublish(AdvisorSnapshot snapshot, long now)
+    {
+        if (_lastPublished is null)
+        {
+            return true;
+        }
+        if (snapshot.Status != _lastPublished.Status
+            || snapshot.ClashGateOpen != _lastPublished.ClashGateOpen
+            || !Equals(snapshot.GameBounds, _lastPublished.GameBounds)
+            || !Equals(snapshot.LiveClash, _lastPublished.LiveClash)
+            || snapshot.Planning?.Skill?.Id != _lastPublished.Planning?.Skill?.Id
+            || snapshot.Planning?.Sanity != _lastPublished.Planning?.Sanity)
+        {
+            return true;
+        }
+        return now - _lastPublishTimestamp >= HeartbeatMilliseconds;
+    }
 
     void ReleaseSource()
     {
         _source?.Dispose();
         _source = null;
+        _lastFrameHash = 0;
     }
 
     public void Dispose()
