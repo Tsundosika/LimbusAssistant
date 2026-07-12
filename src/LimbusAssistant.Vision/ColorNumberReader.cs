@@ -10,7 +10,7 @@ public static class ColorNumberReader
         Cv2.CvtColor(bgrRegion, hsv, ColorConversionCodes.BGR2HSV);
 
         using var whiteMask = new Mat();
-        Cv2.InRange(hsv, new Scalar(0, 0, 180), new Scalar(180, 60, 255), whiteMask);
+        Cv2.InRange(hsv, new Scalar(0, 0, 170), new Scalar(180, 110, 255), whiteMask);
 
         using var yellowMask = new Mat();
         Cv2.InRange(hsv, new Scalar(15, 80, 160), new Scalar(40, 255, 255), yellowMask);

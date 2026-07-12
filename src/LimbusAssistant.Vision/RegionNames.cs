@@ -3,6 +3,7 @@ namespace Tsundosika.LimbusAssistant.Vision;
 public static class RegionNames
 {
     public const string DragSkillName = "drag.skill.name";
+    public const string TargetUnitName = "target.unit.name";
     public const string DragSkillRangeMin = "drag.skill.range.min";
     public const string DragSkillRangeMax = "drag.skill.range.max";
     public const string SanitySlot1 = "hud.sanity.1";

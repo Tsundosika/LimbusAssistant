@@ -170,6 +170,20 @@ public sealed class ProbeSession(ProbeOptions options)
                 readableNumbers++;
             }
         }
+        if (!options.NoOcr)
+        {
+            report.AppendLine();
+            var circles = DockScanner.FindSanityCircles(mat, content);
+            report.AppendLine($"dock sanity circles found: {circles.Count}");
+            foreach (var circle in circles)
+            {
+                var reading = await _reader.ReadAsync(mat, circle);
+                report.AppendLine(
+                    $"   circle {circle.X},{circle.Y} {circle.Width}x{circle.Height}" +
+                    $"  value {reading.Value?.ToString() ?? "?"}  conf {reading.Confidence:F2}");
+            }
+        }
+
         var passed = !options.NoOcr && numberRegions > 0 && readableNumbers == numberRegions;
         report.AppendLine();
         report.AppendLine($"{(passed ? "PASS" : "FAIL")}: {readableNumbers}/{numberRegions} numbers at conf>={PassConfidence:F1}");

@@ -57,6 +57,10 @@ public partial class OverlayWindow : Window
         PositionOverGame(snapshot);
         if (snapshot.Status != CaptureStatus.Ok)
         {
+            if (snapshot.Status == CaptureStatus.WaitingForFrame && VerdictPanel.Visibility == Visibility.Visible)
+            {
+                return;
+            }
             ShowIdleChip(snapshot.Status == CaptureStatus.GameNotFound
                 ? "Limbus Company window not found"
                 : "waiting for the game picture");

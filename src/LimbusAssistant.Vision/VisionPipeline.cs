@@ -16,6 +16,20 @@ public sealed class VisionPipeline(INumberReader numberReader, TemplateLibrary t
     public Task<VisionReading> ReadAsync(CaptureFrame frame) =>
         ReadAsync(frame, LetterboxDetector.DetectContent(frame));
 
+    public async Task<IReadOnlyList<(PixelRect Rect, NumberReading Reading)>> ReadDockSanityAsync(
+        CaptureFrame frame,
+        PixelRect content)
+    {
+        using var mat = FrameMat.ToMat(frame);
+        var results = new List<(PixelRect, NumberReading)>();
+        foreach (var circle in DockScanner.FindSanityCircles(mat, content))
+        {
+            var reading = await numberReader.ReadAsync(mat, circle);
+            results.Add((circle, reading));
+        }
+        return results;
+    }
+
     public async Task<VisionReading> ReadAsync(CaptureFrame frame, PixelRect content)
     {
         var numbers = new Dictionary<string, NumberReading>();

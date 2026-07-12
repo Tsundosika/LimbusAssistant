@@ -67,9 +67,32 @@ public sealed class WindowsNumberReader : INumberReader
         }
         using var roi = frameBgra[new Rect(clamped.X, clamped.Y, clamped.Width, clamped.Height)];
         using var scaledGray = BuildScaledGray(roi);
+        var plain = await RecognizeTextAsync(scaledGray);
+        if (plain.Confidence >= 0.6)
+        {
+            return plain;
+        }
+        using var whiteText = new Mat();
+        Cv2.Threshold(scaledGray, whiteText, 170, 255, ThresholdTypes.Binary);
+        Cv2.BitwiseNot(whiteText, whiteText);
+        var border = Math.Max(8, whiteText.Width / 20);
+        Cv2.CopyMakeBorder(whiteText, whiteText, border, border, border, border, BorderTypes.Constant, new Scalar(255));
+        var isolated = await RecognizeTextAsync(whiteText);
+        var best = isolated.Confidence > plain.Confidence ? isolated : plain;
+        if (best.Confidence >= 0.4 && best.Text.Length > 0)
+        {
+            return best;
+        }
+        using var enhanced = BuildEnhancedGrayscale(scaledGray);
+        var clahe = await RecognizeTextAsync(enhanced);
+        return clahe.Confidence > best.Confidence ? clahe : best;
+    }
+
+    async Task<TextReading> RecognizeTextAsync(Mat gray)
+    {
         Interlocked.Increment(ref _ocrCalls);
         using var bgra = new Mat();
-        Cv2.CvtColor(scaledGray, bgra, ColorConversionCodes.GRAY2BGRA);
+        Cv2.CvtColor(gray, bgra, ColorConversionCodes.GRAY2BGRA);
         var pixels = new byte[bgra.Width * bgra.Height * 4];
         Marshal.Copy(bgra.Data, pixels, 0, pixels.Length);
         using var bitmap = SoftwareBitmap.CreateCopyFromBuffer(
@@ -78,7 +101,7 @@ public sealed class WindowsNumberReader : INumberReader
             bgra.Width,
             bgra.Height,
             BitmapAlphaMode.Ignore);
-        var result = await _engine.RecognizeAsync(bitmap);
+        var result = await _engine!.RecognizeAsync(bitmap);
         var text = result.Text.Trim();
         var letters = text.Count(char.IsLetter);
         var confidence = text.Length == 0 ? 0 : Math.Min(0.95, 0.4 + 0.55 * letters / Math.Max(1, text.Length));

@@ -19,7 +19,17 @@ public sealed class AdvisorLoop : IDisposable
     readonly GameData _data;
     readonly int _targetFrameIntervalMs;
     readonly IReadOnlyList<(string Normalized, SkillData Skill, string Identity)> _skillIndex;
+    const int CaptureGraceMilliseconds = 2000;
+    const int AutoEnemyGraceMilliseconds = 15000;
+
+    const int DockScanIntervalMilliseconds = 1000;
+
     volatile EnemyData? _liveEnemy;
+    EnemyData? _autoEnemy;
+    long _autoEnemyTimestamp;
+    long _lastCaptureTimestamp;
+    long _lastDockScanTimestamp;
+    IReadOnlyList<int> _cachedSanities = [];
     PlanningHint? _stickyPlanning;
     long _stickyPlanningTimestamp;
     readonly CancellationTokenSource _cancellation = new();
@@ -107,9 +117,15 @@ public sealed class AdvisorLoop : IDisposable
         var raw = _source.TryCapture();
         if (raw is null)
         {
+            if (Environment.TickCount64 - _lastCaptureTimestamp < CaptureGraceMilliseconds && _lastPublished is not null)
+            {
+                Publish(_lastPublished with { GameBounds = window.ClientBounds, Timestamp = DateTimeOffset.Now });
+                return;
+            }
             Publish(BuildSnapshot(CaptureStatus.WaitingForFrame, window, false, CurrentMetrics(0)));
             return;
         }
+        _lastCaptureTimestamp = Environment.TickCount64;
         var frame = FrameCropper.CropToClient(raw, window.Handle);
         var hash = FrameHash.SampleFrame(frame);
         if (hash == _lastFrameHash && _lastPublished is not null)
@@ -122,6 +138,19 @@ public sealed class AdvisorLoop : IDisposable
         var now = Environment.TickCount64;
         if (!ClashGate.IsClashLikely(frame, content))
         {
+            if (now - _lastDockScanTimestamp >= DockScanIntervalMilliseconds)
+            {
+                _lastDockScanTimestamp = now;
+                var dock = await _pipeline.ReadDockSanityAsync(frame, content);
+                var values = dock
+                    .Where(slot => slot.Reading.Value is >= -45 and <= 45 && slot.Reading.Confidence >= 0.4)
+                    .Select(slot => slot.Reading.Value!.Value)
+                    .ToList();
+                if (values.Count > 0)
+                {
+                    _cachedSanities = values;
+                }
+            }
             var withinGrace = _stickyPlanning is not null && now - _stickyPlanningTimestamp < HintGraceMilliseconds;
             _lastPlanning = withinGrace ? _stickyPlanning : null;
             if (!withinGrace)
@@ -182,20 +211,82 @@ public sealed class AdvisorLoop : IDisposable
 
     PlanningHint? BuildPlanningHint(VisionReading reading)
     {
+        UpdateAutoEnemy(reading);
         var name = reading.Text(RegionNames.DragSkillName);
         if (name.Confidence < 0.45 || name.Text.Length < 3)
         {
             return null;
         }
-        var sanity = ReadBestSanity(reading);
+        var sanity = CachedSanity();
         var (skill, identity) = MatchSkill(name.Text);
         var (enemyName, matchups) = BuildMatchups(skill, identity, sanity);
         return new PlanningHint(name.Text, skill, identity, sanity, name.Confidence, enemyName, matchups);
     }
 
+    int? CachedSanity()
+    {
+        if (_cachedSanities.Count == 0)
+        {
+            return null;
+        }
+        var sorted = _cachedSanities.OrderBy(value => value).ToList();
+        return sorted[sorted.Count / 2];
+    }
+
+    void UpdateAutoEnemy(VisionReading reading)
+    {
+        var target = reading.Text(RegionNames.TargetUnitName);
+        if (target.Confidence < 0.45 || target.Text.Length < 4)
+        {
+            return;
+        }
+        var normalized = Normalize(target.Text);
+        if (normalized.Length < 4)
+        {
+            return;
+        }
+        EnemyData? bestEnemy = null;
+        var bestDistance = int.MaxValue;
+        foreach (var enemy in _data.Enemies)
+        {
+            var candidate = Normalize(enemy.Name);
+            if (candidate.Length < 4)
+            {
+                continue;
+            }
+            var cap = Math.Max(2, candidate.Length / 4);
+            var distance = normalized.Contains(candidate, StringComparison.Ordinal)
+                ? 0
+                : EditDistance(normalized, candidate, cap);
+            if (distance < bestDistance)
+            {
+                bestDistance = distance;
+                bestEnemy = enemy;
+            }
+            if (distance == 0)
+            {
+                break;
+            }
+        }
+        if (bestEnemy is not null && bestDistance <= Math.Max(2, Normalize(bestEnemy.Name).Length / 4))
+        {
+            _autoEnemy = bestEnemy;
+            _autoEnemyTimestamp = Environment.TickCount64;
+        }
+    }
+
+    EnemyData? EffectiveEnemy()
+    {
+        if (_autoEnemy is not null && Environment.TickCount64 - _autoEnemyTimestamp < AutoEnemyGraceMilliseconds)
+        {
+            return _autoEnemy;
+        }
+        return _liveEnemy;
+    }
+
     (string? EnemyName, IReadOnlyList<MatchupOdds>? Matchups) BuildMatchups(SkillData? skill, string? identityName, int? sanity)
     {
-        var enemy = _liveEnemy;
+        var enemy = EffectiveEnemy();
         if (skill is null || enemy is null || enemy.Skills.Count == 0)
         {
             return (enemy?.Name, null);
@@ -231,22 +322,6 @@ public sealed class AdvisorLoop : IDisposable
         frame.Height,
         content,
         DateTimeOffset.Now);
-
-    int? ReadBestSanity(VisionReading reading)
-    {
-        var best = default(int?);
-        var bestConfidence = 0.0;
-        foreach (var region in new[] { RegionNames.SanitySlot1, RegionNames.SanitySlot2, RegionNames.SanitySlot3 })
-        {
-            var value = reading.Number(region);
-            if (value.Value is >= -45 and <= 45 && value.Confidence > bestConfidence)
-            {
-                best = value.Value;
-                bestConfidence = value.Confidence;
-            }
-        }
-        return best;
-    }
 
     (SkillData? Skill, string? Identity) MatchSkill(string rawName)
     {
