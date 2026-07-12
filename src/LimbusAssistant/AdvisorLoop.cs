@@ -386,6 +386,9 @@ public sealed class AdvisorLoop : IDisposable
         SkillData? bestSkill = null;
         EnemyData? bestOwner = null;
         var bestDistance = int.MaxValue;
+        var bestSubsequence = 0.0;
+        SkillData? bestSubsequenceSkill = null;
+        EnemyData? bestSubsequenceOwner = null;
         var cap = Math.Max(2, normalized.Length / 3);
         foreach (var (skill, owner) in candidates)
         {
@@ -409,10 +412,23 @@ public sealed class AdvisorLoop : IDisposable
             {
                 break;
             }
+            var subsequence = SubsequenceScore(normalized, candidate);
+            if (subsequence > bestSubsequence)
+            {
+                bestSubsequence = subsequence;
+                bestSubsequenceSkill = skill;
+                bestSubsequenceOwner = owner;
+            }
         }
-        return bestSkill is not null && bestOwner is not null && bestDistance <= cap
-            ? (bestSkill, bestOwner)
-            : null;
+        if (bestSkill is not null && bestOwner is not null && bestDistance <= cap)
+        {
+            return (bestSkill, bestOwner);
+        }
+        if (bestSubsequenceSkill is not null && bestSubsequenceOwner is not null && bestSubsequence >= 0.62)
+        {
+            return (bestSubsequenceSkill, bestSubsequenceOwner);
+        }
+        return null;
     }
 
     async Task<(int? Sanity, string? Source)> ResolveSanityAsync(CaptureFrame frame, PixelRect content, string? identityName)
@@ -633,6 +649,9 @@ public sealed class AdvisorLoop : IDisposable
         SkillData? bestSkill = null;
         string? bestIdentity = null;
         var bestDistance = int.MaxValue;
+        var bestSubsequence = 0.0;
+        SkillData? bestSubsequenceSkill = null;
+        string? bestSubsequenceIdentity = null;
         foreach (var (candidate, skill, identity) in _skillIndex)
         {
             var distance = candidate.Length >= 5
@@ -650,8 +669,49 @@ public sealed class AdvisorLoop : IDisposable
             {
                 break;
             }
+            var subsequence = SubsequenceScore(normalized, candidate);
+            if (subsequence > bestSubsequence)
+            {
+                bestSubsequence = subsequence;
+                bestSubsequenceSkill = skill;
+                bestSubsequenceIdentity = identity;
+            }
         }
-        return bestDistance <= limit ? (bestSkill, bestIdentity) : (null, null);
+        if (bestDistance <= limit)
+        {
+            return (bestSkill, bestIdentity);
+        }
+        if (bestSubsequence >= 0.62)
+        {
+            return (bestSubsequenceSkill, bestSubsequenceIdentity);
+        }
+        return (null, null);
+    }
+
+    static double SubsequenceScore(string read, string candidate)
+    {
+        if (candidate.Length < 4)
+        {
+            return 0;
+        }
+        var matched = 0;
+        var index = 0;
+        foreach (var character in read)
+        {
+            var found = candidate.IndexOf(character, index);
+            if (found >= 0)
+            {
+                matched++;
+                index = found + 1;
+            }
+        }
+        if (matched < Math.Max(4, candidate.Length / 2))
+        {
+            return 0;
+        }
+        var coverage = matched / (double)candidate.Length;
+        var precision = matched / (double)Math.Max(1, read.Length);
+        return Math.Min(coverage, 1.0) * 0.7 + Math.Min(precision, 1.0) * 0.3;
     }
 
     static string Normalize(string text) =>
