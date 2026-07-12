@@ -68,15 +68,10 @@ public sealed class WindowsNumberReader : INumberReader
         using var roi = frameBgra[new Rect(clamped.X, clamped.Y, clamped.Width, clamped.Height)];
 
         using var whiteIsolated = BuildWhiteTextOnAnyBackground(roi);
-        var best = await RecognizeTextAsync(whiteIsolated);
-        if (IsGoodText(best))
-        {
-            return best;
-        }
-
+        var isolated = await RecognizeTextAsync(whiteIsolated);
         using var scaledGray = BuildScaledGray(roi);
         var plain = await RecognizeTextAsync(scaledGray);
-        best = Better(best, plain);
+        var best = Better(isolated, plain);
         if (IsGoodText(best))
         {
             return best;
