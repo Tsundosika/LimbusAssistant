@@ -279,6 +279,17 @@ public sealed class AdvisorLoop : IDisposable
             return null;
         }
         var (skill, identity) = MatchSkillWithCandidates(name.Text, reading);
+        var enemySideText = reading.Text(RegionNames.EnemySkillName);
+        if (skill is null && enemySideText.Text.Length >= 3 && !BannerWords.IsNonSkillBanner(enemySideText.Text))
+        {
+            var (rightSkill, rightIdentity) = MatchSkill(enemySideText.Text);
+            if (rightSkill is not null)
+            {
+                skill = rightSkill;
+                identity = rightIdentity;
+                enemySideText = name;
+            }
+        }
         if (skill is null && MatchEnemySkill(name.Text) is { } hoveredEnemySkill)
         {
             var owner = EffectiveEnemy();
@@ -303,7 +314,7 @@ public sealed class AdvisorLoop : IDisposable
         {
             (sanity, source) = await ResolveSanityAsync(frame, content, identity);
         }
-        var exact = MatchExactEnemySkill(reading);
+        var exact = MatchExactEnemySkill(enemySideText);
         if (skill is not null && identity is not null && exact is { } exactMatch)
         {
             var identityData = _data.Identities.FirstOrDefault(candidate => candidate.Name == identity);
@@ -359,10 +370,9 @@ public sealed class AdvisorLoop : IDisposable
         return (null, null);
     }
 
-    (SkillData Skill, EnemyData Owner)? MatchExactEnemySkill(VisionReading reading)
+    (SkillData Skill, EnemyData Owner)? MatchExactEnemySkill(TextReading text)
     {
-        var text = reading.Text(RegionNames.EnemySkillName);
-        if (text.Confidence < 0.45 || text.Text.Length < 3)
+        if (text.Confidence < 0.45 || text.Text.Length < 3 || BannerWords.IsNonSkillBanner(text.Text))
         {
             return null;
         }
@@ -448,7 +458,8 @@ public sealed class AdvisorLoop : IDisposable
         {
             return liveMatch.Skill;
         }
-        if (MatchWithin(normalized, _enemySkillIndex.Select(entry => (entry.Skill, entry.Owner))) is { } globalMatch)
+        if (MatchWithin(normalized, _enemySkillIndex.Select(entry => (entry.Skill, entry.Owner))) is { } globalMatch
+            && EditDistance(normalized, Normalize(globalMatch.Skill.Name), 1) <= 1)
         {
             _autoEnemy = globalMatch.Owner;
             _autoEnemyTimestamp = Environment.TickCount64;
