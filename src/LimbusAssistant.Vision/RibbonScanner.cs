@@ -4,7 +4,7 @@ namespace Tsundosika.LimbusAssistant.Vision;
 
 public static class RibbonScanner
 {
-    public static readonly NormalizedRect SearchArea = new(0.10, 0.02, 0.85, 0.31);
+    public static readonly NormalizedRect SearchArea = new(0.10, 0.02, 0.85, 0.55);
 
     public static PixelRect? FindSkillRibbon(Mat frameBgra, PixelRect content) =>
         FindSkillRibbons(frameBgra, content).FirstOrDefault() is { Width: > 0 } first ? first : null;

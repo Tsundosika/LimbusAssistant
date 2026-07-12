@@ -404,30 +404,23 @@ public sealed class AdvisorLoop : IDisposable
 
     SkillData? MatchEnemySkill(string rawName)
     {
-        var enemy = EffectiveEnemy();
-        if (enemy is null)
-        {
-            return null;
-        }
         var normalized = Normalize(rawName);
         if (normalized.Length < 3)
         {
             return null;
         }
-        SkillData? best = null;
-        var bestDistance = int.MaxValue;
-        foreach (var skill in enemy.Skills)
+        var live = EffectiveEnemy();
+        if (live is not null && MatchWithin(normalized, live.Skills.Select(skill => (skill, live))) is { } liveMatch)
         {
-            var candidate = Normalize(skill.Name);
-            var cap = Math.Max(2, normalized.Length / 4);
-            var distance = EditDistance(normalized, candidate, cap);
-            if (distance < bestDistance)
-            {
-                bestDistance = distance;
-                best = skill;
-            }
+            return liveMatch.Skill;
         }
-        return best is not null && bestDistance <= Math.Max(2, normalized.Length / 4) ? best : null;
+        if (MatchWithin(normalized, _enemySkillIndex.Select(entry => (entry.Skill, entry.Owner))) is { } globalMatch)
+        {
+            _autoEnemy = globalMatch.Owner;
+            _autoEnemyTimestamp = Environment.TickCount64;
+            return globalMatch.Skill;
+        }
+        return null;
     }
 
     IReadOnlyList<MatchupOdds>? BestAnswers(EnemyData? enemy, SkillData enemySkill)

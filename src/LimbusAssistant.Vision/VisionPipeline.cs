@@ -129,9 +129,15 @@ public sealed class VisionPipeline(INumberReader numberReader, TemplateLibrary t
         {
             var text = await numberReader.ReadTextAsync(mat, candidate);
             var letters = text.Text.Count(char.IsLetter);
-            readings.Add((candidate, text, letters * Math.Max(0.1, text.Confidence)));
+            var score = IsTooltipHeader(text.Text) ? -1 : letters * Math.Max(0.1, text.Confidence);
+            readings.Add((candidate, text, score));
         }
-        var pair = FindRibbonPair(readings);
+        var usable = readings.Where(reading => reading.Score >= 0).ToList();
+        if (usable.Count == 0)
+        {
+            usable = readings;
+        }
+        var pair = FindRibbonPair(usable);
         if (pair is { } found)
         {
             texts[RegionNames.DragSkillName] = found.Left.Text;
@@ -141,7 +147,7 @@ public sealed class VisionPipeline(INumberReader numberReader, TemplateLibrary t
         }
         else
         {
-            var best = readings.MaxBy(reading => reading.Score);
+            var best = usable.MaxBy(reading => reading.Score);
             texts[RegionNames.DragSkillName] = best.Text;
             regions[RegionNames.DragSkillName] = best.Rect;
         }
@@ -152,6 +158,14 @@ public sealed class VisionPipeline(INumberReader numberReader, TemplateLibrary t
             regions[$"ribbon.{index}"] = reading.Rect;
             index++;
         }
+    }
+
+    static bool IsTooltipHeader(string text)
+    {
+        var normalized = new string(text.ToLowerInvariant().Where(char.IsAsciiLetter).ToArray());
+        return normalized is "keywords" or "keyword"
+            || normalized.StartsWith("skilleffect", StringComparison.Ordinal)
+            || normalized.EndsWith("rds", StringComparison.Ordinal) && normalized.Length <= 5;
     }
 
     static ((PixelRect Rect, TextReading Text, double Score) Left, (PixelRect Rect, TextReading Text, double Score) Right)?
