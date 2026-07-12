@@ -12,20 +12,22 @@ public sealed record ProbeOptions(
 {
     public string? InputFile { get; init; }
 
+    public bool Verify { get; init; }
+
     public static ProbeOptions? Parse(string[] args)
     {
-        if (args.Length == 0 || args[0] is not ("shot" or "watch" or "file"))
+        if (args.Length == 0 || args[0] is not ("shot" or "watch" or "file" or "verify"))
         {
             return null;
         }
-        if (args[0] == "file")
+        if (args[0] is "file" or "verify")
         {
             if (args.Length < 2 || !File.Exists(args[1]))
             {
                 return null;
             }
             var fileOptions = ParseCommon(args, 2, false);
-            return fileOptions is null ? null : fileOptions with { InputFile = args[1] };
+            return fileOptions is null ? null : fileOptions with { InputFile = args[1], Verify = args[0] == "verify" };
         }
         var watch = args[0] == "watch";
         return ParseCommon(args, 1, watch);

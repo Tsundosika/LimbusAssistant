@@ -12,6 +12,12 @@ public sealed class ProbeSession(ProbeOptions options)
 
     public async Task<int> RunAsync()
     {
+        if (options.InputFile is not null && options.Verify)
+        {
+            return await new PipelineVerifier(_reader).RunAsync(
+                options.InputFile,
+                Path.Combine("src", "LimbusAssistant", "Data"));
+        }
         if (options.InputFile is not null)
         {
             return await RunFileAsync(options.InputFile);
