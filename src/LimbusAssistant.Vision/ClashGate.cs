@@ -27,7 +27,9 @@ public static class ClashGate
                 var ribbonGold = red > 170 && green > 120 && blue < 100 && red > blue + 90;
                 var ribbonRed = red > 160 && green < 90 && blue < 90;
                 var ribbonViolet = red > 110 && blue > 150 && green < 100;
-                if (ribbonBlue || ribbonGold || ribbonRed || ribbonViolet)
+                var ribbonGreen = green > 130 && green > red + 50 && green > blue + 50;
+                var ribbonTeal = green > 120 && blue > 120 && red < 90;
+                if (ribbonBlue || ribbonGold || ribbonRed || ribbonViolet || ribbonGreen || ribbonTeal)
                 {
                     matching++;
                 }

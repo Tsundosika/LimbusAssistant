@@ -60,10 +60,11 @@ public static class RibbonScanner
 
     static readonly (Scalar Low, Scalar High)[] ColorBands =
     [
-        (new Scalar(100, 130, 110), new Scalar(130, 255, 255)),
-        (new Scalar(15, 120, 150), new Scalar(38, 255, 255)),
+        (new Scalar(85, 110, 100), new Scalar(130, 255, 255)),
+        (new Scalar(10, 110, 130), new Scalar(38, 255, 255)),
+        (new Scalar(40, 100, 100), new Scalar(85, 255, 255)),
         (new Scalar(0, 110, 110), new Scalar(10, 255, 255)),
         (new Scalar(168, 110, 110), new Scalar(180, 255, 255)),
-        (new Scalar(130, 90, 100), new Scalar(160, 255, 255)),
+        (new Scalar(130, 90, 100), new Scalar(168, 255, 255)),
     ];
 }
