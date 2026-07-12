@@ -32,8 +32,13 @@ public sealed class AdvisorLoop : IDisposable
     long _lastCaptureTimestamp;
     long _lastDockScanTimestamp;
     IReadOnlyList<int> _cachedSanities = [];
+    const int RibbonEvidenceMilliseconds = 2500;
+    const int HideStreak = 3;
+    const int ClearStreak = 10;
+
     PlanningHint? _stickyPlanning;
     long _stickyPlanningTimestamp;
+    long _lastRibbonEvidenceTimestamp;
     int _nonPlanningStreak;
     readonly CancellationTokenSource _cancellation = new();
     readonly double[] _tickDurations = new double[MetricsWindow];
@@ -144,7 +149,8 @@ public sealed class AdvisorLoop : IDisposable
         _lastFrameHash = hash;
         var content = LetterboxDetector.DetectContent(frame);
         var now = Environment.TickCount64;
-        if (PlanningIndicator.IsPlanningVisible(frame, content))
+        var ribbonEvidence = now - _lastRibbonEvidenceTimestamp < RibbonEvidenceMilliseconds;
+        if (PlanningIndicator.IsPlanningVisible(frame, content) || ribbonEvidence)
         {
             _nonPlanningStreak = 0;
         }
@@ -152,9 +158,12 @@ public sealed class AdvisorLoop : IDisposable
         {
             _nonPlanningStreak++;
         }
-        if (_nonPlanningStreak >= 3)
+        if (_nonPlanningStreak >= HideStreak)
         {
-            _stickyPlanning = null;
+            if (_nonPlanningStreak >= ClearStreak)
+            {
+                _stickyPlanning = null;
+            }
             _lastPlanning = null;
             _lastLiveClash = null;
             _lastFrame = frame;
@@ -185,6 +194,10 @@ public sealed class AdvisorLoop : IDisposable
             return;
         }
         _lastReading = await _pipeline.ReadAsync(frame, content);
+        if (_lastReading.Text(RegionNames.DragSkillName).Text.Count(char.IsLetter) >= 3)
+        {
+            _lastRibbonEvidenceTimestamp = now;
+        }
         var fresh = await BuildPlanningHintAsync(frame, content, _lastReading);
         if (fresh?.Skill is not null)
         {
