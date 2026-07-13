@@ -32,7 +32,6 @@ public sealed class AdvisorLoop : IDisposable
     long _autoEnemyTimestamp;
     long _lastCaptureTimestamp;
     long _lastDockScanTimestamp;
-    IReadOnlyList<int> _cachedSanities = [];
     const int RibbonEvidenceMilliseconds = 2500;
     const int HideStreak = 3;
     const int ClearStreak = 10;
@@ -217,10 +216,6 @@ public sealed class AdvisorLoop : IDisposable
                 .Where(slot => slot.Reading.Value is >= -45 and <= 45 && slot.Reading.Confidence >= 0.4)
                 .OrderBy(slot => slot.Rect.X)
                 .ToList();
-            if (usable.Count > 0)
-            {
-                _cachedSanities = usable.Select(slot => slot.Reading.Value!.Value).ToList();
-            }
             var team = _team;
             if (team is { Count: > 0 } && usable.Count > 0)
             {
@@ -462,6 +457,11 @@ public sealed class AdvisorLoop : IDisposable
 
     async Task<(int? Sanity, string? Source)> ResolveSanityAsync(CaptureFrame frame, PixelRect content, string? identityName)
     {
+        var field = await _pipeline.ReadDraggerSanityAsync(frame, content);
+        if (field?.Reading.Value is >= -45 and <= 45 && field.Value.Reading.Confidence >= 0.4)
+        {
+            return (field.Value.Reading.Value, "field");
+        }
         if (identityName is not null && _dockSanities.TryGetValue(identityName, out var dockSanity))
         {
             return (dockSanity, "dock slot");
@@ -471,16 +471,6 @@ public sealed class AdvisorLoop : IDisposable
             && team.FirstOrDefault(member => member.Name == identityName) is { Name: not null } manual)
         {
             return (manual.Sanity, "team");
-        }
-        var field = await _pipeline.ReadDraggerSanityAsync(frame, content);
-        if (field?.Reading.Value is >= -45 and <= 45 && field.Value.Reading.Confidence >= 0.4)
-        {
-            return (field.Value.Reading.Value, "field");
-        }
-        var cached = CachedSanity();
-        if (cached is not null)
-        {
-            return (cached, "dock");
         }
         return (0, "default");
     }
@@ -496,6 +486,11 @@ public sealed class AdvisorLoop : IDisposable
         if (live is not null && MatchWithin(normalized, live.Skills.Select(skill => (skill, live))) is { } liveMatch)
         {
             return liveMatch.Skill;
+        }
+        var (identitySkill, _) = MatchSkill(rawName);
+        if (identitySkill is not null)
+        {
+            return null;
         }
         if (MatchWithin(normalized, _enemySkillIndex.Select(entry => (entry.Skill, entry.Owner))) is { } globalMatch
             && EditDistance(normalized, Normalize(globalMatch.Skill.Name), 1) <= 1)
@@ -576,17 +571,7 @@ public sealed class AdvisorLoop : IDisposable
         {
             return manual.Sanity;
         }
-        return CachedSanity() ?? 0;
-    }
-
-    int? CachedSanity()
-    {
-        if (_cachedSanities.Count == 0)
-        {
-            return null;
-        }
-        var sorted = _cachedSanities.OrderBy(value => value).ToList();
-        return sorted[sorted.Count / 2];
+        return 0;
     }
 
     void UpdateAutoEnemy(VisionReading reading)

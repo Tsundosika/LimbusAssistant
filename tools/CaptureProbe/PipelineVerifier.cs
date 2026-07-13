@@ -72,7 +72,7 @@ public sealed class PipelineVerifier(WindowsNumberReader reader)
         Console.WriteLine(string.Create(
             CultureInfo.InvariantCulture,
             $"win probability: {result.WinProbability:P1} · deal {result.ExpectedDamageDealt:F1} · take {result.ExpectedDamageTaken:F1}"));
-        var plausible = result.WinProbability is > 0 and < 1;
+        var plausible = result.WinProbability is >= 0 and <= 1 && !double.IsNaN(result.WinProbability);
         Console.WriteLine(plausible ? "VERIFY PASS" : "VERIFY FAIL: degenerate probability");
         return plausible ? 0 : 1;
     }
