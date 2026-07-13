@@ -1,4 +1,5 @@
 using System.Globalization;
+using System.Text.RegularExpressions;
 using Tsundosika.LimbusAssistant.Engine;
 
 namespace Tsundosika.LimbusAssistant.WikiImporter;
@@ -6,6 +7,11 @@ namespace Tsundosika.LimbusAssistant.WikiImporter;
 public static class EnemyParser
 {
     const int BaselineLevel = 35;
+
+    static readonly DamageType[] PhysicalTypes = [DamageType.Slash, DamageType.Pierce, DamageType.Blunt];
+    static readonly Regex HtmlTag = new("<[^>]+>", RegexOptions.Compiled);
+    static readonly Regex WikiLink = new(@"\[\[(?:[^\]|]*\|)?([^\]]*)\]\]", RegexOptions.Compiled);
+    static readonly Regex TrailingBracket = new(@"\s*\[[^\]]*\]\s*$", RegexOptions.Compiled);
 
     static readonly string[] HumanTemplates = ["ENPage", "ENInfo", "EnemiesInfo"];
     static readonly string[] AbnormalityTemplates = ["ABPage", "ABInfo", "AbnormalitiesInfo"];
@@ -46,8 +52,8 @@ public static class EnemyParser
         {
             return null;
         }
-        var name = FirstNonEmpty(block.Value("name"), PageBaseName(pageTitle));
-        var defense = BaselineLevel + ParseSignedInt(block.Value("defmod"));
+        var name = CleanName(FirstNonEmpty(block.Value("name"), PageBaseName(pageTitle)));
+        var defense = ClampDefense(BaselineLevel + ParseSignedInt(block.Value("defmod")));
         var stagger = ParseInt(block.Value("stagger1")) ?? 0;
         return new EnemyData("", name, defense, stagger, ParseResistances(block), skills);
     }
@@ -59,19 +65,20 @@ public static class EnemyParser
         {
             return null;
         }
-        var name = FirstNonEmpty(block.Value("name"), PageBaseName(pageTitle));
-        var mainPart = Enumerable.Range(1, 8)
+        var name = CleanName(FirstNonEmpty(block.Value("name"), PageBaseName(pageTitle)));
+        var parts = Enumerable.Range(1, 8)
             .Select(i => block.Value($"abnoparts{i}"))
             .Where(value => value.Length > 0)
             .SelectMany(value => PartsTemplates.SelectMany(template => WikitextTemplate.ExtractAll(value, template)))
-            .FirstOrDefault();
+            .ToList();
+        var mainPart = parts.FirstOrDefault(part => HasResistanceData(part)) ?? parts.FirstOrDefault();
         var defense = BaselineLevel;
         var stagger = 0;
         var resistances = EmptyResistances;
         if (mainPart is not null)
         {
-            defense = ParseInt(mainPart.Value("defense"))
-                ?? BaselineLevel + ParseSignedInt(mainPart.Value("defmod"));
+            defense = ClampDefense(ParseInt(mainPart.Value("defense"))
+                ?? BaselineLevel + ParseSignedInt(mainPart.Value("defmod")));
             stagger = ParseInt(mainPart.Value("stagger1")) ?? 0;
             resistances = ParseResistances(mainPart);
         }
@@ -123,7 +130,7 @@ public static class EnemyParser
         var coins = ParseInt(template.Value("coin")) ?? 1;
         var offense = (ParseInt(template.Value("baseatk")) ?? BaselineLevel)
             + ParseSignedInt(template.Value("atkmod"));
-        var name = FirstNonEmpty(template.Value("name"), "Unnamed Skill");
+        var name = CleanName(FirstNonEmpty(template.Value("name"), "Unnamed Skill"));
         return new SkillData("", name, basePower.Value, coinPower.Value, coins, sin, damageType, offense);
     }
 
@@ -134,7 +141,7 @@ public static class EnemyParser
     static ResistanceSet ParseResistances(WikitextTemplate block)
     {
         var physical = new Dictionary<DamageType, double>();
-        foreach (var damageType in Enum.GetValues<DamageType>())
+        foreach (var damageType in PhysicalTypes)
         {
             var value = ParseDouble(block.Value(damageType.ToString().ToLowerInvariant()));
             if (value is not null)
@@ -152,6 +159,21 @@ public static class EnemyParser
             }
         }
         return new ResistanceSet(physical, sins);
+    }
+
+    static bool HasResistanceData(WikitextTemplate part) =>
+        PhysicalTypes.Any(type => ParseDouble(part.Value(type.ToString().ToLowerInvariant())) is not null)
+        || Enum.GetValues<SinType>().Any(sin => ParseDouble(part.Value(sin.ToString().ToLowerInvariant())) is not null);
+
+    public static int ClampDefense(int defense) => defense > 0 ? defense : BaselineLevel;
+
+    public static string CleanName(string raw)
+    {
+        var text = HtmlTag.Replace(raw, "");
+        text = WikiLink.Replace(text, "$1");
+        text = text.Replace("'''", "").Replace("''", "");
+        text = TrailingBracket.Replace(text, "");
+        return text.Trim();
     }
 
     static string PageBaseName(string pageTitle) => pageTitle.Split('/')[0];
