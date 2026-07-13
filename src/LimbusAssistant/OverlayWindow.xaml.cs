@@ -175,6 +175,35 @@ public partial class OverlayWindow : Window
         }
         PlacePanel();
         PlaceOutline(snapshot, planning.Confidence);
+        ApplyCoachHint(snapshot, planning);
+    }
+
+    void ApplyCoachHint(AdvisorSnapshot snapshot, PlanningHint planning)
+    {
+        if (planning.IsEnemySkill
+            || snapshot.BestMoves is not { } report
+            || planning.IdentityName is null
+            || planning.Skill is null)
+        {
+            return;
+        }
+        var move = report.Moves.FirstOrDefault(candidate => candidate.IdentityName == planning.IdentityName);
+        if (move is null)
+        {
+            return;
+        }
+        if (move.SkillName == planning.Skill.Name)
+        {
+            ActionText.Text = "This is the coach's pick for this sinner. Go for it.";
+            if (ReadOutline.Visibility == Visibility.Visible)
+            {
+                ReadOutline.Stroke = GoodBrush;
+            }
+        }
+        else
+        {
+            ActionText.Text = $"Coach suggests Skill {move.SkillNumber} ({move.SkillName}) for {move.Sinner} instead.";
+        }
     }
 
     void PlacePanel()

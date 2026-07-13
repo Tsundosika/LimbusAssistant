@@ -30,8 +30,10 @@ touches the game.
 - 🎓 **Best moves coach (great for new players)**: set your team once, and the
   overlay tells you in plain language exactly what to do this turn: "1. Don
   Quixote: Skill 2 into the enemy's attack, 88% win". Every sinner gets a
-  numbered, color-coded instruction, and it warns you about enemy hits you
-  cannot block.
+  numbered, color-coded instruction, it works whether you face one boss or
+  several enemies at once, and it warns you about enemy hits you cannot block.
+  While you drag a skill it also confirms whether you picked the one the coach
+  recommends.
 - 🎯 **True clash win rate**: full coin-by-coin probability, modelling continued
   clashes after a lost coin (ported from vetted community calculators)
 - ⚔️ **Expected damage**: weighted by sin/physical resistances, stagger state,
