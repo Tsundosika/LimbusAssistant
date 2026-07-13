@@ -56,6 +56,20 @@ public class RecommenderTests
     }
 
     [Fact]
+    public void ScoreIsUnconditionalExpectedDamageNotDoubleWeighted()
+    {
+        var recommender = new Recommender();
+        var enemy = Enemy(Neutral);
+        var threat = new EnemyThreat(enemy, enemy.Skills[0]);
+        var ally = new ClashCandidate("Sinner", Skill("even", 5, 3, 1), 0, 0);
+        var suggestion = recommender.Evaluate(ally, threat);
+        Assert.InRange(suggestion.WinProbability, 0.01, 0.99);
+        Assert.True(suggestion.ExpectedDamage > 0);
+        Assert.Equal(suggestion.ExpectedDamage, suggestion.Score, 6);
+        Assert.NotEqual(suggestion.WinProbability * suggestion.ExpectedDamage, suggestion.Score, 6);
+    }
+
+    [Fact]
     public void ScoresDescend()
     {
         var recommender = new Recommender();

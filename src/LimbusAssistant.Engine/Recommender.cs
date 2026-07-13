@@ -38,8 +38,7 @@ public sealed class Recommender
             threat.Enemy.DefenseLevel,
             threat.ClashCount);
         var expectedDamage = DamageCalculator.FinalDamage(rawPower, context);
-        var score = outcome.EffectiveWinProbability * expectedDamage;
-        return new ClashSuggestion(ally, threat, outcome.EffectiveWinProbability, expectedDamage, score);
+        return new ClashSuggestion(ally, threat, outcome.EffectiveWinProbability, expectedDamage, expectedDamage);
     }
 
     static ClashSkill ToClashSkill(SkillData skill, int sanity) =>

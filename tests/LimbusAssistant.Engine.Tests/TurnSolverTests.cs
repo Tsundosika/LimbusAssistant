@@ -85,6 +85,17 @@ public class TurnSolverTests
     }
 
     [Fact]
+    public void SkilllessUnitDoesNotThrow()
+    {
+        var solver = new TurnSolver();
+        var empty = new TurnUnit(Identity("empty"), 0);
+        var withSkill = new TurnUnit(Identity("a", Skill("a1", 4, 7, 1)), 0);
+        var enemy = Enemy(Skill("e1", 4, 3, 1), Skill("e2", 5, 3, 2));
+        var plan = solver.Solve([empty, withSkill], enemy);
+        Assert.Equal(2, plan.Assignments.Count);
+    }
+
+    [Fact]
     public void ClashAssignmentPicksBestSkillOfUnit()
     {
         var solver = new TurnSolver();
