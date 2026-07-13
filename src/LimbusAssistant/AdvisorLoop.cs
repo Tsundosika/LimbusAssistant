@@ -31,6 +31,9 @@ public sealed class AdvisorLoop : IDisposable
     readonly List<string> _observedIdentities = [];
     EnemyData? _autoEnemy;
     long _autoEnemyTimestamp;
+    readonly Dictionary<string, (EnemyData Enemy, long Timestamp)> _autoEnemies = new();
+    const int EnemyMemoryMilliseconds = 12000;
+    const int MaxTrackedEnemies = 5;
     long _lastCaptureTimestamp;
     long _lastDockScanTimestamp;
     const int RibbonEvidenceMilliseconds = 2500;
@@ -287,6 +290,7 @@ public sealed class AdvisorLoop : IDisposable
             {
                 _stickyPlanning = null;
                 _autoEnemy = null;
+                _autoEnemies.Clear();
                 _sanity.Clear();
                 SeedTeamSanity();
             }
@@ -435,8 +439,7 @@ public sealed class AdvisorLoop : IDisposable
                     result.WinProbability,
                     result.ExpectedDamageDealt,
                     result.ExpectedDamageTaken);
-                _autoEnemy = exactMatch.Owner;
-                _autoEnemyTimestamp = Environment.TickCount64;
+                RegisterEnemy(exactMatch.Owner, Environment.TickCount64);
                 var (_, others) = BuildMatchups(skill, identity, sanity);
                 return new PlanningHint(
                     name.Text,
@@ -572,8 +575,7 @@ public sealed class AdvisorLoop : IDisposable
         if (MatchWithin(normalized, _enemySkillIndex.Select(entry => (entry.Skill, entry.Owner))) is { } globalMatch
             && EditDistance(normalized, Normalize(globalMatch.Skill.Name), 1) <= 1)
         {
-            _autoEnemy = globalMatch.Owner;
-            _autoEnemyTimestamp = Environment.TickCount64;
+            RegisterEnemy(globalMatch.Owner, Environment.TickCount64);
             return globalMatch.Skill;
         }
         return null;
@@ -681,9 +683,9 @@ public sealed class AdvisorLoop : IDisposable
 
     void UpdateBestMoves()
     {
-        var enemy = EffectiveEnemy();
+        var enemies = EffectiveEnemies();
         var roster = RosterNames();
-        if (enemy is null || roster.Count == 0)
+        if (enemies.Count == 0 || roster.Count == 0)
         {
             _bestMoves = null;
             _bestMovesSignature = null;
@@ -704,13 +706,14 @@ public sealed class AdvisorLoop : IDisposable
             _bestMovesSignature = null;
             return;
         }
-        var signature = $"{enemy.Name}|{string.Join(",", units.Select(unit => $"{unit.Identity.Name}:{unit.Sanity}"))}";
+        var signature = $"{string.Join("+", enemies.Select(enemy => enemy.Id))}|" +
+            string.Join(",", units.Select(unit => $"{unit.Identity.Name}:{unit.Sanity}"));
         if (signature == _bestMovesSignature && _bestMoves is not null)
         {
             return;
         }
         _bestMovesSignature = signature;
-        _bestMoves = BestMoveAdvisor.Advise(_solver, units, new[] { enemy });
+        _bestMoves = BestMoveAdvisor.Advise(_solver, units, enemies);
     }
 
     void UpdateAutoEnemy(VisionReading reading)
@@ -755,17 +758,44 @@ public sealed class AdvisorLoop : IDisposable
         }
         if (bestEnemy is not null && bestDistance <= Math.Max(2, Normalize(bestEnemy.Name).Length / 4))
         {
+            var now = Environment.TickCount64;
             if (_autoEnemy is not null && Normalize(_autoEnemy.Name) == Normalize(bestEnemy.Name))
             {
-                _autoEnemyTimestamp = Environment.TickCount64;
+                RegisterEnemy(_autoEnemy, now);
                 return;
             }
-            _autoEnemy = bestEnemy;
-            _autoEnemyTimestamp = Environment.TickCount64;
+            RegisterEnemy(bestEnemy, now);
         }
     }
 
     EnemyData? EffectiveEnemy() => _autoEnemy ?? _liveEnemy;
+
+    void RegisterEnemy(EnemyData enemy, long now)
+    {
+        _autoEnemy = enemy;
+        _autoEnemyTimestamp = now;
+        _autoEnemies[enemy.Id] = (enemy, now);
+        if (_autoEnemies.Count > MaxTrackedEnemies)
+        {
+            var oldest = _autoEnemies.OrderBy(pair => pair.Value.Timestamp).First().Key;
+            _autoEnemies.Remove(oldest);
+        }
+    }
+
+    IReadOnlyList<EnemyData> EffectiveEnemies()
+    {
+        var now = Environment.TickCount64;
+        var recent = _autoEnemies
+            .Where(pair => now - pair.Value.Timestamp <= EnemyMemoryMilliseconds)
+            .OrderByDescending(pair => pair.Value.Timestamp)
+            .Select(pair => pair.Value.Enemy)
+            .ToList();
+        if (recent.Count > 0)
+        {
+            return recent;
+        }
+        return _liveEnemy is { } live ? [live] : [];
+    }
 
     (string? EnemyName, IReadOnlyList<MatchupOdds>? Matchups) BuildMatchups(SkillData? skill, string? identityName, int? sanity)
     {
