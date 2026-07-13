@@ -183,6 +183,12 @@ public sealed class TurnSolver
         return new TurnAssignment(unit, skill, null, 1.0, dealt, 0, dealt);
     }
 
+    public double UnblockedThreatDamage(SkillData enemySkill, EnemyData enemy, IReadOnlyList<TurnUnit> units, int clashCount = 0)
+    {
+        var defenseLevel = units.Count == 0 ? 0 : (int)Math.Round(units.Average(unit => unit.Identity.DefenseLevel));
+        return UnopposedThreatDamage(new EnemyThreat(enemy, enemySkill, ClashCount: clashCount), defenseLevel);
+    }
+
     double UnopposedThreatDamage(EnemyThreat threat, int defenseLevel)
     {
         var enemySkill = new ClashSkill(threat.Skill.BasePower, threat.Skill.CoinPower, threat.Skill.CoinCount, threat.Sanity);

@@ -39,6 +39,21 @@ dotnet run --project src/LimbusAssistant
 The game must be running for capture to work. The overlay defaults to hidden;
 toggle it with the configured hotkey.
 
+## Releasing
+
+Releases are cut automatically by `.github/workflows/release.yml` on every push
+to `master`. To publish a new version:
+
+1. Bump `<Version>` in `Directory.Build.props` (semver, e.g. 0.3.0 to 0.4.0).
+2. Merge to `master`. The workflow builds, runs the tests, publishes a
+   self-contained win-x64 build, and creates a GitHub release tagged
+   `v{version}` with that zip.
+
+The version bump is what triggers the release: the workflow skips publishing when
+a `v{version}` tag already exists, so nothing ships until the number changes.
+Pull requests are validated separately by `.github/workflows/ci.yml`, which
+builds and tests the whole solution.
+
 ## Writing style
 
 - **No em dashes or en dashes.** Never use the characters — or – in UI strings,

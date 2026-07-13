@@ -231,31 +231,36 @@ public partial class MainWindow : Window
             return;
         }
         var units = _team.Select(entry => new TurnUnit(entry.Identity, entry.Sanity)).ToList();
-        var plan = _solver.Solve(units, enemies);
+        var report = BestMoveAdvisor.Advise(_solver, units, enemies);
         PlanHeadline.Text = enemies.Count == 1
-            ? $"Plan vs {enemies[0].Name}"
-            : $"Plan vs {enemies.Count} enemies";
-        PlanSummary.Text = $"Total expected value {plan.TotalExpectedValue:F1} " +
-            $"(damage you deal minus damage you take, with unblocked enemy skills counted against you)";
-        PlanList.ItemsSource = plan.Assignments.Select(Describe).ToList();
+            ? $"Best moves vs {enemies[0].Name}"
+            : $"Best moves vs {enemies.Count} enemies";
+        var summary = $"Total expected value {report.TotalExpectedValue:F1} (damage you deal minus damage you take).";
+        if (report.Unblocked.Count > 0)
+        {
+            var worst = report.Unblocked[0];
+            summary += $"  Heads up: {report.Unblocked.Count} enemy skill(s) will not be blocked, " +
+                $"the worst is {worst.SkillName} (~{worst.ExpectedDamage:F0} damage). Guard or brace for it.";
+        }
+        PlanSummary.Text = summary;
+        PlanList.ItemsSource = report.Moves.Select((move, index) => Describe(index + 1, move)).ToList();
     }
 
-    static string Describe(TurnAssignment assignment)
+    static string Describe(int index, BestMoveAdvice move)
     {
-        var sinner = assignment.Unit.Identity.Sinner;
-        if (assignment.IsUnopposed)
+        if (move.IsUnopposed)
         {
-            return $"⚔  {sinner}: {assignment.Skill.Name} unopposed\n" +
-                $"   deals ~{assignment.ExpectedDamageDealt:F1} damage";
+            return $"⚔  {index}. {move.Sinner}: use Skill {move.SkillNumber} ({move.SkillName})\n" +
+                $"    free hit, deals ~{move.ExpectedDamageDealt:F1} (no enemy attack to block)";
         }
-        var icon = assignment.WinProbability switch
+        var icon = move.WinProbability switch
         {
             >= 0.65 => "🟢",
             >= 0.45 => "🟡",
             _ => "🔴",
         };
-        return $"{icon}  {sinner}: {assignment.Skill.Name}  vs  {assignment.Threat!.Skill.Name} ({assignment.Threat!.Enemy.Name})\n" +
-            $"   win {assignment.WinProbability:P0} · deal ~{assignment.ExpectedDamageDealt:F1} · take ~{assignment.ExpectedDamageTaken:F1}";
+        return $"{icon}  {index}. {move.Sinner}: use Skill {move.SkillNumber} ({move.SkillName})\n" +
+            $"    into {move.TargetSkillName} ({move.TargetEnemyName}): win {move.WinProbability:P0} · deal ~{move.ExpectedDamageDealt:F1} · take ~{move.ExpectedDamageTaken:F1}";
     }
 
     bool TryReadInt(TextBox box, int min, int max, out int value)

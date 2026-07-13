@@ -31,6 +31,9 @@ public sealed class AdvisorLoop : IDisposable
     readonly List<string> _observedIdentities = [];
     EnemyData? _autoEnemy;
     long _autoEnemyTimestamp;
+    readonly Dictionary<string, (EnemyData Enemy, long Timestamp)> _autoEnemies = new();
+    const int EnemyMemoryMilliseconds = 12000;
+    const int MaxTrackedEnemies = 5;
     long _lastCaptureTimestamp;
     long _lastDockScanTimestamp;
     const int RibbonEvidenceMilliseconds = 2500;
@@ -55,6 +58,8 @@ public sealed class AdvisorLoop : IDisposable
     PlanningHint? _lastPlanning;
     LiveClashEstimate? _lastLiveClash;
     CaptureFrame? _lastFrame;
+    BestMoveReport? _bestMoves;
+    string? _bestMovesSignature;
 
     public event Action<AdvisorSnapshot>? SnapshotPublished;
 
@@ -285,10 +290,13 @@ public sealed class AdvisorLoop : IDisposable
             {
                 _stickyPlanning = null;
                 _autoEnemy = null;
+                _autoEnemies.Clear();
                 _sanity.Clear();
                 SeedTeamSanity();
             }
             _lastPlanning = null;
+            _bestMoves = null;
+            _bestMovesSignature = null;
             _lastLiveClash = null;
             _lastFrame = frame;
             _lastReading = EmptyReadingFor(frame, content);
@@ -308,6 +316,7 @@ public sealed class AdvisorLoop : IDisposable
         if (!ClashGate.IsClashLikely(frame, content))
         {
             RefreshStickyMatchups();
+            UpdateBestMoves();
             _lastPlanning = _stickyPlanning;
             _lastLiveClash = null;
             _lastFrame = frame;
@@ -332,6 +341,7 @@ public sealed class AdvisorLoop : IDisposable
             }
         }
         RefreshStickyMatchups();
+        UpdateBestMoves();
         _lastPlanning = fresh?.Skill is not null ? fresh : _stickyPlanning ?? fresh;
         _lastLiveClash = null;
         _lastFrame = frame;
@@ -374,7 +384,8 @@ public sealed class AdvisorLoop : IDisposable
         _lastReading.OverallConfidence,
         _lastFrame,
         metrics,
-        DateTimeOffset.Now);
+        DateTimeOffset.Now,
+        _bestMoves);
 
     async Task<PlanningHint?> BuildPlanningHintAsync(CaptureFrame frame, PixelRect content, VisionReading reading)
     {
@@ -428,8 +439,7 @@ public sealed class AdvisorLoop : IDisposable
                     result.WinProbability,
                     result.ExpectedDamageDealt,
                     result.ExpectedDamageTaken);
-                _autoEnemy = exactMatch.Owner;
-                _autoEnemyTimestamp = Environment.TickCount64;
+                RegisterEnemy(exactMatch.Owner, Environment.TickCount64);
                 var (_, others) = BuildMatchups(skill, identity, sanity);
                 return new PlanningHint(
                     name.Text,
@@ -565,8 +575,7 @@ public sealed class AdvisorLoop : IDisposable
         if (MatchWithin(normalized, _enemySkillIndex.Select(entry => (entry.Skill, entry.Owner))) is { } globalMatch
             && EditDistance(normalized, Normalize(globalMatch.Skill.Name), 1) <= 1)
         {
-            _autoEnemy = globalMatch.Owner;
-            _autoEnemyTimestamp = Environment.TickCount64;
+            RegisterEnemy(globalMatch.Owner, Environment.TickCount64);
             return globalMatch.Skill;
         }
         return null;
@@ -672,6 +681,41 @@ public sealed class AdvisorLoop : IDisposable
 
     int RosterSanity(string identityName) => _sanity.Resolve(identityName)?.Value ?? 0;
 
+    void UpdateBestMoves()
+    {
+        var enemies = EffectiveEnemies();
+        var roster = RosterNames();
+        if (enemies.Count == 0 || roster.Count == 0)
+        {
+            _bestMoves = null;
+            _bestMovesSignature = null;
+            return;
+        }
+        var units = new List<TurnUnit>();
+        foreach (var name in roster)
+        {
+            var identity = _data.Identities.FirstOrDefault(candidate => candidate.Name == name);
+            if (identity is not null)
+            {
+                units.Add(new TurnUnit(identity, RosterSanity(name)));
+            }
+        }
+        if (units.Count == 0)
+        {
+            _bestMoves = null;
+            _bestMovesSignature = null;
+            return;
+        }
+        var signature = $"{string.Join("+", enemies.Select(enemy => enemy.Id))}|" +
+            string.Join(",", units.Select(unit => $"{unit.Identity.Name}:{unit.Sanity}"));
+        if (signature == _bestMovesSignature && _bestMoves is not null)
+        {
+            return;
+        }
+        _bestMovesSignature = signature;
+        _bestMoves = BestMoveAdvisor.Advise(_solver, units, enemies);
+    }
+
     void UpdateAutoEnemy(VisionReading reading)
     {
         TryLockEnemyFromName(reading.Text(RegionNames.TargetEnemyName));
@@ -714,17 +758,44 @@ public sealed class AdvisorLoop : IDisposable
         }
         if (bestEnemy is not null && bestDistance <= Math.Max(2, Normalize(bestEnemy.Name).Length / 4))
         {
+            var now = Environment.TickCount64;
             if (_autoEnemy is not null && Normalize(_autoEnemy.Name) == Normalize(bestEnemy.Name))
             {
-                _autoEnemyTimestamp = Environment.TickCount64;
+                RegisterEnemy(_autoEnemy, now);
                 return;
             }
-            _autoEnemy = bestEnemy;
-            _autoEnemyTimestamp = Environment.TickCount64;
+            RegisterEnemy(bestEnemy, now);
         }
     }
 
     EnemyData? EffectiveEnemy() => _autoEnemy ?? _liveEnemy;
+
+    void RegisterEnemy(EnemyData enemy, long now)
+    {
+        _autoEnemy = enemy;
+        _autoEnemyTimestamp = now;
+        _autoEnemies[enemy.Id] = (enemy, now);
+        if (_autoEnemies.Count > MaxTrackedEnemies)
+        {
+            var oldest = _autoEnemies.OrderBy(pair => pair.Value.Timestamp).First().Key;
+            _autoEnemies.Remove(oldest);
+        }
+    }
+
+    IReadOnlyList<EnemyData> EffectiveEnemies()
+    {
+        var now = Environment.TickCount64;
+        var recent = _autoEnemies
+            .Where(pair => now - pair.Value.Timestamp <= EnemyMemoryMilliseconds)
+            .OrderByDescending(pair => pair.Value.Timestamp)
+            .Select(pair => pair.Value.Enemy)
+            .ToList();
+        if (recent.Count > 0)
+        {
+            return recent;
+        }
+        return _liveEnemy is { } live ? [live] : [];
+    }
 
     (string? EnemyName, IReadOnlyList<MatchupOdds>? Matchups) BuildMatchups(SkillData? skill, string? identityName, int? sanity)
     {
@@ -873,7 +944,8 @@ public sealed class AdvisorLoop : IDisposable
             || snapshot.Planning?.Sanity != _lastPublished.Planning?.Sanity
             || snapshot.Planning?.SanitySource != _lastPublished.Planning?.SanitySource
             || snapshot.Planning?.EnemyName != _lastPublished.Planning?.EnemyName
-            || (snapshot.Planning?.Matchups?.Count ?? -1) != (_lastPublished.Planning?.Matchups?.Count ?? -1))
+            || (snapshot.Planning?.Matchups?.Count ?? -1) != (_lastPublished.Planning?.Matchups?.Count ?? -1)
+            || !ReferenceEquals(snapshot.BestMoves, _lastPublished.BestMoves))
         {
             return true;
         }
