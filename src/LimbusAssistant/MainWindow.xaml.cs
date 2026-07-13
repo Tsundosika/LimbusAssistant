@@ -219,7 +219,8 @@ public partial class MainWindow : Window
 
     void OnPlanTurnClick(object sender, RoutedEventArgs e)
     {
-        if (EnemyList.SelectedItem is not EnemyData enemy)
+        var enemies = EnemyList.SelectedItems.OfType<EnemyData>().ToList();
+        if (enemies.Count == 0)
         {
             PlanHeadline.Text = "Pick an enemy first";
             return;
@@ -230,8 +231,10 @@ public partial class MainWindow : Window
             return;
         }
         var units = _team.Select(entry => new TurnUnit(entry.Identity, entry.Sanity)).ToList();
-        var plan = _solver.Solve(units, enemy);
-        PlanHeadline.Text = $"Plan vs {enemy.Name}";
+        var plan = _solver.Solve(units, enemies);
+        PlanHeadline.Text = enemies.Count == 1
+            ? $"Plan vs {enemies[0].Name}"
+            : $"Plan vs {enemies.Count} enemies";
         PlanSummary.Text = $"Total expected value {plan.TotalExpectedValue:F1} " +
             $"(damage you deal minus damage you take, with unblocked enemy skills counted against you)";
         PlanList.ItemsSource = plan.Assignments.Select(Describe).ToList();
@@ -251,7 +254,7 @@ public partial class MainWindow : Window
             >= 0.45 => "🟡",
             _ => "🔴",
         };
-        return $"{icon}  {sinner}: {assignment.Skill.Name}  vs  {assignment.Threat!.Skill.Name}\n" +
+        return $"{icon}  {sinner}: {assignment.Skill.Name}  vs  {assignment.Threat!.Skill.Name} ({assignment.Threat!.Enemy.Name})\n" +
             $"   win {assignment.WinProbability:P0} · deal ~{assignment.ExpectedDamageDealt:F1} · take ~{assignment.ExpectedDamageTaken:F1}";
     }
 
