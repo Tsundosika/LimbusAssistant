@@ -14,6 +14,12 @@ var options = new JsonSerializerOptions
     Converters = { new JsonStringEnumConverter() },
 };
 
+if (mode is "clean")
+{
+    CleanData(dataDirectory, options);
+    return;
+}
+
 using var client = new WikiClient();
 
 if (mode is "all" or "enemies")
@@ -123,6 +129,56 @@ static (string Name, string Id) UniqueNameAndId(
         id += "-x";
     }
     return (name, id);
+}
+
+static void CleanData(string dataDirectory, JsonSerializerOptions writeOptions)
+{
+    var readOptions = new JsonSerializerOptions
+    {
+        PropertyNameCaseInsensitive = true,
+        Converters = { new JsonStringEnumConverter() },
+    };
+    var enemiesPath = Path.Combine(dataDirectory, "enemies.json");
+    var enemies = JsonSerializer.Deserialize<List<EnemyData>>(File.ReadAllText(enemiesPath), readOptions) ?? [];
+    var cleanedEnemies = enemies.Select(CleanEnemy).ToList();
+    File.WriteAllText(enemiesPath, JsonSerializer.Serialize(cleanedEnemies, writeOptions));
+
+    var identitiesPath = Path.Combine(dataDirectory, "identities.json");
+    var identities = JsonSerializer.Deserialize<List<IdentityData>>(File.ReadAllText(identitiesPath), readOptions) ?? [];
+    var cleanedIdentities = identities.Select(CleanIdentity).ToList();
+    File.WriteAllText(identitiesPath, JsonSerializer.Serialize(cleanedIdentities, writeOptions));
+
+    Console.WriteLine($"Cleaned {cleanedEnemies.Count} enemies and {cleanedIdentities.Count} identities.");
+}
+
+static EnemyData CleanEnemy(EnemyData enemy) => enemy with
+{
+    Name = EnemyParser.CleanName(enemy.Name),
+    DefenseLevel = EnemyParser.ClampDefense(enemy.DefenseLevel),
+    Resistances = CleanResistances(enemy.Resistances),
+    Skills = enemy.Skills.Select(CleanSkill).ToList(),
+};
+
+static IdentityData CleanIdentity(IdentityData identity) => identity with
+{
+    Name = EnemyParser.CleanName(identity.Name),
+    Skills = identity.Skills.Select(CleanSkill).ToList(),
+};
+
+static SkillData CleanSkill(SkillData skill) => skill with { Name = EnemyParser.CleanName(skill.Name) };
+
+static ResistanceSet CleanResistances(ResistanceSet resistances)
+{
+    var physical = new Dictionary<DamageType, double>();
+    foreach (var type in new[] { DamageType.Slash, DamageType.Pierce, DamageType.Blunt })
+    {
+        if (resistances.Physical.TryGetValue(type, out var value))
+        {
+            physical[type] = value;
+        }
+    }
+    var sins = resistances.Sin.ToDictionary(pair => pair.Key, pair => pair.Value);
+    return new ResistanceSet(physical, sins);
 }
 
 static string Slugify(string name)

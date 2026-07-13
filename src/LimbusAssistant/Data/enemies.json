@@ -399,7 +399,7 @@
     "skills": [
       {
         "id": "-skill-1",
-        "name": "Swerve [\u0027\u0027\u0027\u56DE\u0027\u0027\u0027]",
+        "name": "Swerve",
         "basePower": 4,
         "coinPower": 6,
         "coinCount": 1,
@@ -409,7 +409,7 @@
       },
       {
         "id": "-skill-2",
-        "name": "Defend [\u0027\u0027\u0027\u5B88\u0027\u0027\u0027]",
+        "name": "Defend",
         "basePower": 4,
         "coinPower": 6,
         "coinCount": 1,
@@ -419,7 +419,7 @@
       },
       {
         "id": "-skill-3",
-        "name": "Reflect [\u0027\u0027\u0027\u53CD\u0027\u0027\u0027]",
+        "name": "Reflect",
         "basePower": 5,
         "coinPower": 6,
         "coinCount": 1,
@@ -429,7 +429,7 @@
       },
       {
         "id": "-skill-4",
-        "name": "Unnamed Cut [\u0027\u0027\u0027\u7121\u540D\u9583\u0027\u0027\u0027]",
+        "name": "Unnamed Cut",
         "basePower": 7,
         "coinPower": 5,
         "coinCount": 1,
@@ -439,7 +439,7 @@
       },
       {
         "id": "-skill-5",
-        "name": "Chainslash [\u0027\u0027\u0027\u9023\u9396\u65AC\u0027\u0027\u0027]",
+        "name": "Chainslash",
         "basePower": 6,
         "coinPower": 6,
         "coinCount": 1,
@@ -449,7 +449,7 @@
       },
       {
         "id": "-skill-6",
-        "name": "Fallstar Slayer [\u0027\u0027\u0027\u843D\u661F\u4E00\u6BBA\u0027\u0027\u0027]",
+        "name": "Fallstar Slayer",
         "basePower": 8,
         "coinPower": 9,
         "coinCount": 1,
@@ -459,7 +459,7 @@
       },
       {
         "id": "-skill-7",
-        "name": "Retreat Form [\u0027\u0027\u0027\u6536\u52E2\u0027\u0027\u0027]",
+        "name": "Retreat Form",
         "basePower": 5,
         "coinPower": 5,
         "coinCount": 1,
@@ -469,7 +469,7 @@
       },
       {
         "id": "-skill-8",
-        "name": "Twinstrike [\u0027\u0027\u0027\u4E8C\u64CA\u0027\u0027\u0027]",
+        "name": "Twinstrike",
         "basePower": 4,
         "coinPower": 4,
         "coinCount": 2,
@@ -479,7 +479,7 @@
       },
       {
         "id": "-skill-9",
-        "name": "Triplestrike [\u0027\u0027\u0027\u4E09\u64CA\u0027\u0027\u0027]",
+        "name": "Triplestrike",
         "basePower": 4,
         "coinPower": 3,
         "coinCount": 3,
@@ -593,7 +593,7 @@
       },
       {
         "id": "2-skill-9",
-        "name": "Procuration: Annihilation - Mang of Immanent Yearning [\u0027\u0027\u0027\u672C\u671B\u0027\u0027\u0027]",
+        "name": "Procuration: Annihilation - Mang of Immanent Yearning",
         "basePower": 3,
         "coinPower": 3,
         "coinCount": 5,
@@ -1035,7 +1035,7 @@
   {
     "id": "aggressive-yurodivy-3",
     "name": "Aggressive Yurodivy (3)",
-    "defenseLevel": 0,
+    "defenseLevel": 35,
     "staggerThreshold": 70,
     "resistances": {
       "physical": {
@@ -5546,7 +5546,7 @@
   },
   {
     "id": "bongbong-orange",
-    "name": "BongBong [Orange]",
+    "name": "BongBong",
     "defenseLevel": 37,
     "staggerThreshold": 60,
     "resistances": {
@@ -6537,7 +6537,7 @@
   },
   {
     "id": "bunbun-juicy-squeezer-orange",
-    "name": "BunBun [Juicy Squeezer - Orange]",
+    "name": "BunBun",
     "defenseLevel": 37,
     "staggerThreshold": 70,
     "resistances": {
@@ -11066,7 +11066,7 @@
   {
     "id": "district-20-yurodiviye-captain-2",
     "name": "District 20 Yurodiviye Captain (2)",
-    "defenseLevel": 0,
+    "defenseLevel": 35,
     "staggerThreshold": 75,
     "resistances": {
       "physical": {
@@ -15757,7 +15757,7 @@
   {
     "id": "erlking-heathcliff",
     "name": "Erlking Heathcliff",
-    "defenseLevel": 0,
+    "defenseLevel": 35,
     "staggerThreshold": 85,
     "resistances": {
       "physical": {
@@ -18307,7 +18307,7 @@
   {
     "id": "fairy-wine",
     "name": "Fairy Wine",
-    "defenseLevel": 0,
+    "defenseLevel": 35,
     "staggerThreshold": 0,
     "resistances": {
       "physical": {
@@ -27518,7 +27518,7 @@
     "skills": [
       {
         "id": "jia-mu-skill-1",
-        "name": "Completed Heixian Bolus - Wei [\u0027\u0027\u0027\u672A\u0027\u0027\u0027]",
+        "name": "Completed Heixian Bolus - Wei",
         "basePower": 3,
         "coinPower": 4,
         "coinCount": 2,
@@ -27528,7 +27528,7 @@
       },
       {
         "id": "jia-mu-skill-2",
-        "name": "Completed Heixian Bolus - Yin [\u0027\u0027\u0027\u5BC5\u0027\u0027\u0027]",
+        "name": "Completed Heixian Bolus - Yin",
         "basePower": 6,
         "coinPower": 7,
         "coinCount": 1,
@@ -27538,7 +27538,7 @@
       },
       {
         "id": "jia-mu-skill-3",
-        "name": "Completed Heixian Bolus - Si [\u0027\u0027\u0027\u5DF3\u0027\u0027\u0027]",
+        "name": "Completed Heixian Bolus - Si",
         "basePower": 5,
         "coinPower": 4,
         "coinCount": 2,
@@ -27548,7 +27548,7 @@
       },
       {
         "id": "jia-mu-skill-4",
-        "name": "Completed Heixian Bolus - You [\u0027\u0027\u0027\u9149\u0027\u0027\u0027]",
+        "name": "Completed Heixian Bolus - You",
         "basePower": 3,
         "coinPower": 3,
         "coinCount": 3,
@@ -27558,7 +27558,7 @@
       },
       {
         "id": "jia-mu-skill-5",
-        "name": "Completed Heixian Bolus - Hun [\u0027\u0027\u0027\u6DF7\u0027\u0027\u0027]",
+        "name": "Completed Heixian Bolus - Hun",
         "basePower": 2,
         "coinPower": 4,
         "coinCount": 3,
@@ -27568,7 +27568,7 @@
       },
       {
         "id": "jia-mu-skill-6",
-        "name": "Completed Heixian Bolus - You [\u0027\u0027\u0027\u9149\u0027\u0027\u0027] - Defense",
+        "name": "Completed Heixian Bolus - You [\u9149] - Defense",
         "basePower": 3,
         "coinPower": 9,
         "coinCount": 1,
@@ -27602,7 +27602,7 @@
     "skills": [
       {
         "id": "jia-mu-2-skill-1",
-        "name": "Completed Heixian Bolus - Wei [\u0027\u0027\u0027\u672A\u0027\u0027\u0027]",
+        "name": "Completed Heixian Bolus - Wei",
         "basePower": 3,
         "coinPower": 4,
         "coinCount": 2,
@@ -27612,7 +27612,7 @@
       },
       {
         "id": "jia-mu-2-skill-2",
-        "name": "Completed Heixian Bolus - Yin [\u0027\u0027\u0027\u5BC5\u0027\u0027\u0027]",
+        "name": "Completed Heixian Bolus - Yin",
         "basePower": 6,
         "coinPower": 7,
         "coinCount": 1,
@@ -27622,7 +27622,7 @@
       },
       {
         "id": "jia-mu-2-skill-3",
-        "name": "Completed Heixian Bolus - Si [\u0027\u0027\u0027\u5DF3\u0027\u0027\u0027]",
+        "name": "Completed Heixian Bolus - Si",
         "basePower": 5,
         "coinPower": 4,
         "coinCount": 2,
@@ -27632,7 +27632,7 @@
       },
       {
         "id": "jia-mu-2-skill-4",
-        "name": "Completed Heixian Bolus - You [\u0027\u0027\u0027\u9149\u0027\u0027\u0027]",
+        "name": "Completed Heixian Bolus - You",
         "basePower": 3,
         "coinPower": 3,
         "coinCount": 3,
@@ -27642,7 +27642,7 @@
       },
       {
         "id": "jia-mu-2-skill-5",
-        "name": "Completed Heixian Bolus - Hun [\u0027\u0027\u0027\u6DF7\u0027\u0027\u0027]",
+        "name": "Completed Heixian Bolus - Hun",
         "basePower": 2,
         "coinPower": 4,
         "coinCount": 3,
@@ -27652,7 +27652,7 @@
       },
       {
         "id": "jia-mu-2-skill-6",
-        "name": "Completed Heixian Bolus - You [\u0027\u0027\u0027\u9149\u0027\u0027\u0027] - Defense",
+        "name": "Completed Heixian Bolus - You [\u9149] - Defense",
         "basePower": 3,
         "coinPower": 9,
         "coinCount": 1,
@@ -27686,7 +27686,7 @@
     "skills": [
       {
         "id": "jia-qiu-skill-1",
-        "name": "Question (\u0027\u0027\u0027\u554F\u0027\u0027\u0027)",
+        "name": "Question (\u554F)",
         "basePower": 4,
         "coinPower": 7,
         "coinCount": 1,
@@ -27696,7 +27696,7 @@
       },
       {
         "id": "jia-qiu-skill-2",
-        "name": "Answer (\u0027\u0027\u0027\u7B54\u0027\u0027\u0027)",
+        "name": "Answer (\u7B54)",
         "basePower": 3,
         "coinPower": 8,
         "coinCount": 1,
@@ -27706,7 +27706,7 @@
       },
       {
         "id": "jia-qiu-skill-3",
-        "name": "Act Not With Impropriety (\u0027\u0027\u0027\u975E\u79AE\u52FF\u52D5\u0027\u0027\u0027)",
+        "name": "Act Not With Impropriety (\u975E\u79AE\u52FF\u52D5)",
         "basePower": 5,
         "coinPower": 4,
         "coinCount": 2,
@@ -27800,7 +27800,7 @@
       },
       {
         "id": "jia-qiu-2-skill-2",
-        "name": "Act Not With Impropriety (\u0027\u0027\u0027\u975E\u79AE\u52FF\u52D5\u0027\u0027\u0027)",
+        "name": "Act Not With Impropriety (\u975E\u79AE\u52FF\u52D5)",
         "basePower": 4,
         "coinPower": 4,
         "coinCount": 2,
@@ -27820,7 +27820,7 @@
       },
       {
         "id": "jia-qiu-2-skill-4",
-        "name": "Thunderstrike - Ripple (\u0027\u0027\u0027\u6CE2\u0027\u0027\u0027)",
+        "name": "Thunderstrike - Ripple (\u6CE2)",
         "basePower": 7,
         "coinPower": 13,
         "coinCount": 1,
@@ -27870,7 +27870,7 @@
       },
       {
         "id": "jia-qiu-2-skill-9",
-        "name": "Tiangang Star - Form (\u0027\u0027\u0027\u683C\u0027\u0027\u0027)",
+        "name": "Tiangang Star - Form (\u683C)",
         "basePower": 5,
         "coinPower": 8,
         "coinCount": 4,
@@ -27914,7 +27914,7 @@
     "skills": [
       {
         "id": "jia-qiu-3-skill-1",
-        "name": "Question (\u0027\u0027\u0027\u554F\u0027\u0027\u0027)",
+        "name": "Question (\u554F)",
         "basePower": 4,
         "coinPower": 7,
         "coinCount": 1,
@@ -27924,7 +27924,7 @@
       },
       {
         "id": "jia-qiu-3-skill-2",
-        "name": "Answer (\u0027\u0027\u0027\u7B54\u0027\u0027\u0027)",
+        "name": "Answer (\u7B54)",
         "basePower": 3,
         "coinPower": 8,
         "coinCount": 1,
@@ -27934,7 +27934,7 @@
       },
       {
         "id": "jia-qiu-3-skill-3",
-        "name": "Act Not With Impropriety (\u0027\u0027\u0027\u975E\u79AE\u52FF\u52D5\u0027\u0027\u0027)",
+        "name": "Act Not With Impropriety (\u975E\u79AE\u52FF\u52D5)",
         "basePower": 5,
         "coinPower": 4,
         "coinCount": 2,
@@ -28028,7 +28028,7 @@
       },
       {
         "id": "jia-qiu-4-skill-2",
-        "name": "Act Not With Impropriety (\u0027\u0027\u0027\u975E\u79AE\u52FF\u52D5\u0027\u0027\u0027)",
+        "name": "Act Not With Impropriety (\u975E\u79AE\u52FF\u52D5)",
         "basePower": 4,
         "coinPower": 4,
         "coinCount": 2,
@@ -28048,7 +28048,7 @@
       },
       {
         "id": "jia-qiu-4-skill-4",
-        "name": "Thunderstrike - Ripple (\u0027\u0027\u0027\u6CE2\u0027\u0027\u0027)",
+        "name": "Thunderstrike - Ripple (\u6CE2)",
         "basePower": 7,
         "coinPower": 13,
         "coinCount": 1,
@@ -28098,7 +28098,7 @@
       },
       {
         "id": "jia-qiu-4-skill-9",
-        "name": "Tiangang Star - Form (\u0027\u0027\u0027\u683C\u0027\u0027\u0027)",
+        "name": "Tiangang Star - Form (\u683C)",
         "basePower": 5,
         "coinPower": 8,
         "coinCount": 4,
@@ -31783,7 +31783,7 @@
       },
       {
         "id": "lei-heng-skill-3",
-        "name": "Double Slash - Blast [\u0027\u0027\u0027\u7206\u0027\u0027\u0027]",
+        "name": "Double Slash - Blast",
         "basePower": 4,
         "coinPower": 3,
         "coinCount": 2,
@@ -31793,7 +31793,7 @@
       },
       {
         "id": "lei-heng-skill-4",
-        "name": "Triple Slash - Blast [\u0027\u0027\u0027\u7206\u0027\u0027\u0027]",
+        "name": "Triple Slash - Blast",
         "basePower": 3,
         "coinPower": 3,
         "coinCount": 3,
@@ -31803,7 +31803,7 @@
       },
       {
         "id": "lei-heng-skill-5",
-        "name": "Blasting Shatterslash [\u0027\u0027\u0027\u7206\u788E\u65AC\u0027\u0027\u0027]",
+        "name": "Blasting Shatterslash",
         "basePower": 4,
         "coinPower": 3,
         "coinCount": 3,
@@ -31813,7 +31813,7 @@
       },
       {
         "id": "lei-heng-skill-6",
-        "name": "Tanglecleaver [\u0027\u0027\u0027\u5FEB\u5200\u4E82\u9EBB\u0027\u0027\u0027]",
+        "name": "Tanglecleaver",
         "basePower": 8,
         "coinPower": 12,
         "coinCount": 1,
@@ -31823,7 +31823,7 @@
       },
       {
         "id": "lei-heng-skill-7",
-        "name": "Savage Tigerslayer\u0027s Perfected Flurry of Blades [\u0027\u0027\u0027\u8D85\u7D55\u731B\u864E\u6BBA\u64CA\u4E82\u65AC\u0027\u0027\u0027]",
+        "name": "Savage Tigerslayer\u0027s Perfected Flurry of Blades",
         "basePower": 3,
         "coinPower": 3,
         "coinCount": 6,
@@ -31887,7 +31887,7 @@
       },
       {
         "id": "lei-heng-2-skill-3",
-        "name": "Double Slash - Blast [\u0027\u0027\u0027\u7206\u0027\u0027\u0027]",
+        "name": "Double Slash - Blast",
         "basePower": 4,
         "coinPower": 3,
         "coinCount": 2,
@@ -31897,7 +31897,7 @@
       },
       {
         "id": "lei-heng-2-skill-4",
-        "name": "Triple Slash - Blast [\u0027\u0027\u0027\u7206\u0027\u0027\u0027]",
+        "name": "Triple Slash - Blast",
         "basePower": 3,
         "coinPower": 3,
         "coinCount": 3,
@@ -31907,7 +31907,7 @@
       },
       {
         "id": "lei-heng-2-skill-5",
-        "name": "Blasting Shatterslash [\u0027\u0027\u0027\u7206\u788E\u65AC\u0027\u0027\u0027]",
+        "name": "Blasting Shatterslash",
         "basePower": 4,
         "coinPower": 3,
         "coinCount": 3,
@@ -31917,7 +31917,7 @@
       },
       {
         "id": "lei-heng-2-skill-6",
-        "name": "Tanglecleaver [\u0027\u0027\u0027\u5FEB\u5200\u4E82\u9EBB\u0027\u0027\u0027]",
+        "name": "Tanglecleaver",
         "basePower": 8,
         "coinPower": 12,
         "coinCount": 1,
@@ -31927,7 +31927,7 @@
       },
       {
         "id": "lei-heng-2-skill-7",
-        "name": "Savage Tigerslayer\u0027s Perfected Flurry of Blades [\u0027\u0027\u0027\u8D85\u7D55\u731B\u864E\u6BBA\u64CA\u4E82\u65AC\u0027\u0027\u0027]",
+        "name": "Savage Tigerslayer\u0027s Perfected Flurry of Blades",
         "basePower": 3,
         "coinPower": 3,
         "coinCount": 6,
@@ -34569,7 +34569,7 @@
   },
   {
     "id": "muddled-heishou-of-the-corpse-palanquin",
-    "name": "Muddled Heishou of the Corpse Palanquin [\u6DF7\u89BA\u8F40\u8F2C\u9ED1\u7378]",
+    "name": "Muddled Heishou of the Corpse Palanquin",
     "defenseLevel": 39,
     "staggerThreshold": 0,
     "resistances": {
@@ -34591,7 +34591,7 @@
     "skills": [
       {
         "id": "muddled-heishou-of-the-corpse-palanquin-skill-1",
-        "name": "Precious Jade\u0027s Cradle [\u0027\u0027\u0027\u5BF6\u7389\u6416\u7C43\u0027\u0027\u0027]",
+        "name": "Precious Jade\u0027s Cradle",
         "basePower": 5,
         "coinPower": 8,
         "coinCount": 1,
@@ -34601,7 +34601,7 @@
       },
       {
         "id": "muddled-heishou-of-the-corpse-palanquin-skill-2",
-        "name": "Supernatural, Strength, Chaos, and Spirits - Yin Si You [\u0027\u0027\u0027\u5BC5\u5DF3\u9149\u0027\u0027\u0027]",
+        "name": "Supernatural, Strength, Chaos, and Spirits - Yin Si You",
         "basePower": 4,
         "coinPower": 4,
         "coinCount": 2,
@@ -34735,7 +34735,7 @@
     "skills": [
       {
         "id": "muddled-heishou-of-the-corpse-palanquin-2-skill-1",
-        "name": "Precious Jade\u0027s Cradle [\u0027\u0027\u0027\u5BF6\u7389\u6416\u7C43\u0027\u0027\u0027]",
+        "name": "Precious Jade\u0027s Cradle",
         "basePower": 5,
         "coinPower": 8,
         "coinCount": 1,
@@ -34745,7 +34745,7 @@
       },
       {
         "id": "muddled-heishou-of-the-corpse-palanquin-2-skill-2",
-        "name": "Supernatural, Strength, Chaos, and Spirits - Yin Si You [\u0027\u0027\u0027\u5BC5\u5DF3\u9149\u0027\u0027\u0027]",
+        "name": "Supernatural, Strength, Chaos, and Spirits - Yin Si You",
         "basePower": 4,
         "coinPower": 4,
         "coinCount": 2,
@@ -36106,7 +36106,7 @@
     "skills": [
       {
         "id": "night-drifter-of-the-drunken-palm-3-skill-1",
-        "name": "Frontal Swirl (\u0027\u0027\u0027\u524D\u65CB\u65AC\u0027\u0027\u0027)",
+        "name": "Frontal Swirl (\u524D\u65CB\u65AC)",
         "basePower": 4,
         "coinPower": 3,
         "coinCount": 2,
@@ -36116,7 +36116,7 @@
       },
       {
         "id": "night-drifter-of-the-drunken-palm-3-skill-2",
-        "name": "Way of the Open-throat Chugging (\u0027\u0027\u0027\u54BD\u9053\u9152\u0027\u0027\u0027)",
+        "name": "Way of the Open-throat Chugging (\u54BD\u9053\u9152)",
         "basePower": 4,
         "coinPower": 4,
         "coinCount": 2,
@@ -36126,7 +36126,7 @@
       },
       {
         "id": "night-drifter-of-the-drunken-palm-3-skill-3",
-        "name": "Waterfall (\u0027\u0027\u0027\u843D\u9152\u0027\u0027\u0027)",
+        "name": "Waterfall (\u843D\u9152)",
         "basePower": 3,
         "coinPower": 3,
         "coinCount": 3,
@@ -36136,7 +36136,7 @@
       },
       {
         "id": "night-drifter-of-the-drunken-palm-3-skill-4",
-        "name": "Drunklaim (\u0027\u0027\u0027\u53D6\u0027\u0027\u0027)",
+        "name": "Drunklaim (\u53D6)",
         "basePower": 4,
         "coinPower": 3,
         "coinCount": 3,
@@ -36146,7 +36146,7 @@
       },
       {
         "id": "night-drifter-of-the-drunken-palm-3-skill-5",
-        "name": "True Decapitation Deathblow (\u0027\u0027\u0027\u771E\u93AD\u7D42\u65AC\u0027\u0027\u0027)",
+        "name": "True Decapitation Deathblow (\u771E\u93AD\u7D42\u65AC)",
         "basePower": 6,
         "coinPower": 8,
         "coinCount": 1,
@@ -36156,7 +36156,7 @@
       },
       {
         "id": "night-drifter-of-the-drunken-palm-3-skill-6",
-        "name": "Intoxicated Leaning (\u0027\u0027\u0027\u9189\u9760\u0027\u0027\u0027)",
+        "name": "Intoxicated Leaning (\u9189\u9760)",
         "basePower": 7,
         "coinPower": 13,
         "coinCount": 1,
@@ -36166,7 +36166,7 @@
       },
       {
         "id": "night-drifter-of-the-drunken-palm-3-skill-7",
-        "name": "Drunken Returning Strike (\u0027\u0027\u0027\u9189\u56DE\u653B\u0027\u0027\u0027)",
+        "name": "Drunken Returning Strike (\u9189\u56DE\u653B)",
         "basePower": 4,
         "coinPower": 4,
         "coinCount": 2,
@@ -36176,7 +36176,7 @@
       },
       {
         "id": "night-drifter-of-the-drunken-palm-3-skill-8",
-        "name": "Ultimate True Decapitation Deathblow (\u0027\u0027\u0027\u771E-\u771E\u93AD\u7D42\u65AC\u0027\u0027\u0027)",
+        "name": "Ultimate True Decapitation Deathblow (\u771E-\u771E\u93AD\u7D42\u65AC)",
         "basePower": 10,
         "coinPower": 10,
         "coinCount": 1,
@@ -36186,7 +36186,7 @@
       },
       {
         "id": "night-drifter-of-the-drunken-palm-3-skill-9",
-        "name": "Drunken Decapitation Bladefall (\u0027\u0027\u0027\u843D\u9189\u65AC\u0027\u0027\u0027)",
+        "name": "Drunken Decapitation Bladefall (\u843D\u9189\u65AC)",
         "basePower": 8,
         "coinPower": 8,
         "coinCount": 1,
@@ -36196,7 +36196,7 @@
       },
       {
         "id": "night-drifter-of-the-drunken-palm-3-skill-10",
-        "name": "Drunken Shadowwalking (\u0027\u0027\u0027\u9189\u5F71\u6B65\u0027\u0027\u0027)",
+        "name": "Drunken Shadowwalking (\u9189\u5F71\u6B65)",
         "basePower": 5,
         "coinPower": 7,
         "coinCount": 1,
@@ -39066,7 +39066,7 @@
   {
     "id": "pointillist-researcher-of-the-ring",
     "name": "Pointillist Researcher of the Ring?",
-    "defenseLevel": 0,
+    "defenseLevel": 35,
     "staggerThreshold": 60,
     "resistances": {
       "physical": {
@@ -40571,7 +40571,7 @@
   {
     "id": "quick-witted-yurodivy-3",
     "name": "Quick-witted Yurodivy (3)",
-    "defenseLevel": 0,
+    "defenseLevel": 35,
     "staggerThreshold": 65,
     "resistances": {
       "physical": {
@@ -45134,7 +45134,7 @@
   },
   {
     "id": "refracted-hongyu-the-crimson-jade",
-    "name": "Refracted Hongyu, the Crimson Jade [\u7D05\u7389]",
+    "name": "Refracted Hongyu, the Crimson Jade",
     "defenseLevel": 45,
     "staggerThreshold": 90,
     "resistances": {
@@ -45156,7 +45156,7 @@
     "skills": [
       {
         "id": "refracted-hongyu-the-crimson-jade-skill-1",
-        "name": "Impale the Self, Impurity to Purge [\u003Cb\u003E\u81EA\u7A7F\u6EC5\u6C5A\u003C/b\u003E]",
+        "name": "Impale the Self, Impurity to Purge",
         "basePower": 12,
         "coinPower": -2,
         "coinCount": 4,
@@ -47146,7 +47146,7 @@
     "skills": [
       {
         "id": "refracted-yinglong-skill-1",
-        "name": "Wrath of the Inverted Scale [\u003Cb\u003E\u9006\u9C57\u4E4B\u798D\u003C/b\u003E]",
+        "name": "Wrath of the Inverted Scale",
         "basePower": 2,
         "coinPower": 1,
         "coinCount": 2,
@@ -47156,7 +47156,7 @@
       },
       {
         "id": "refracted-yinglong-skill-2",
-        "name": "Levinflash [\u003Cb\u003E\u9583\u96F7\u003C/b\u003E]",
+        "name": "Levinflash",
         "basePower": 3,
         "coinPower": 4,
         "coinCount": 2,
@@ -47166,7 +47166,7 @@
       },
       {
         "id": "refracted-yinglong-skill-3",
-        "name": "Roar of the Dragon [\u003Cb\u003E\u9F8D\u8072\u003C/b\u003E]",
+        "name": "Roar of the Dragon",
         "basePower": 4,
         "coinPower": 4,
         "coinCount": 2,
@@ -47176,7 +47176,7 @@
       },
       {
         "id": "refracted-yinglong-skill-4",
-        "name": "The Descending Pin [\u003Cb\u003E\u843D\u91DD\u003C/b\u003E]",
+        "name": "The Descending Pin",
         "basePower": 4,
         "coinPower": 8,
         "coinCount": 1,
@@ -47186,7 +47186,7 @@
       },
       {
         "id": "refracted-yinglong-skill-5",
-        "name": "Draconic Vortex [\u003Cb\u003E\u9F8D\u5377\u003C/b\u003E]",
+        "name": "Draconic Vortex",
         "basePower": 3,
         "coinPower": 3,
         "coinCount": 3,
@@ -47196,7 +47196,7 @@
       },
       {
         "id": "refracted-yinglong-skill-6",
-        "name": "Gathering Rain [\u003Cb\u003E\u7A4D\u96E8\u003C/b\u003E]",
+        "name": "Gathering Rain",
         "basePower": 4,
         "coinPower": 3,
         "coinCount": 3,
@@ -47206,7 +47206,7 @@
       },
       {
         "id": "refracted-yinglong-skill-7",
-        "name": "Levinfall [\u003Cb\u003E\u843D\u96F7\u003C/b\u003E]",
+        "name": "Levinfall",
         "basePower": 18,
         "coinPower": 7,
         "coinCount": 1,
@@ -47240,7 +47240,7 @@
     "skills": [
       {
         "id": "refracted-yinglong-2-skill-1",
-        "name": "The Dragon\u0027s Wedge [\u003Cb\u003E\u9F8D\u4E4B\u6AFC\u003C/b\u003E]",
+        "name": "The Dragon\u0027s Wedge",
         "basePower": 10,
         "coinPower": 8,
         "coinCount": 1,
@@ -47250,7 +47250,7 @@
       },
       {
         "id": "refracted-yinglong-2-skill-2",
-        "name": "Wrath of the Inverted Scale [\u003Cb\u003E\u9006\u9C57\u4E4B\u798D\u003C/b\u003E]",
+        "name": "Wrath of the Inverted Scale",
         "basePower": 5,
         "coinPower": 4,
         "coinCount": 2,
@@ -47260,7 +47260,7 @@
       },
       {
         "id": "refracted-yinglong-2-skill-3",
-        "name": "Levinflash [\u003Cb\u003E\u9583\u96F7\u003C/b\u003E]",
+        "name": "Levinflash",
         "basePower": 4,
         "coinPower": 4,
         "coinCount": 2,
@@ -47270,7 +47270,7 @@
       },
       {
         "id": "refracted-yinglong-2-skill-4",
-        "name": "Roar of the Dragon [\u003Cb\u003E\u9F8D\u8072\u003C/b\u003E]",
+        "name": "Roar of the Dragon",
         "basePower": 5,
         "coinPower": 4,
         "coinCount": 2,
@@ -47280,7 +47280,7 @@
       },
       {
         "id": "refracted-yinglong-2-skill-5",
-        "name": "The Descending Pin [\u003Cb\u003E\u843D\u91DD\u003C/b\u003E]",
+        "name": "The Descending Pin",
         "basePower": 6,
         "coinPower": 4,
         "coinCount": 2,
@@ -47290,7 +47290,7 @@
       },
       {
         "id": "refracted-yinglong-2-skill-6",
-        "name": "Draconic Vortex [\u003Cb\u003E\u9F8D\u5377\u003C/b\u003E]",
+        "name": "Draconic Vortex",
         "basePower": 5,
         "coinPower": 3,
         "coinCount": 3,
@@ -47300,7 +47300,7 @@
       },
       {
         "id": "refracted-yinglong-2-skill-7",
-        "name": "Gathering Rain [\u003Cb\u003E\u7A4D\u96E8\u003C/b\u003E]",
+        "name": "Gathering Rain",
         "basePower": 5,
         "coinPower": 3,
         "coinCount": 3,
@@ -47310,7 +47310,7 @@
       },
       {
         "id": "refracted-yinglong-2-skill-8",
-        "name": "Levinfall [\u003Cb\u003E\u843D\u96F7\u003C/b\u003E]",
+        "name": "Levinfall",
         "basePower": 18,
         "coinPower": 7,
         "coinCount": 1,
@@ -47320,7 +47320,7 @@
       },
       {
         "id": "refracted-yinglong-2-skill-9",
-        "name": "Tides Born of Dragon\u0027s Tears [\u003Cb\u003E\u9F8D\u6DDA\u6210\u6FE4\u003C/b\u003E]",
+        "name": "Tides Born of Dragon\u0027s Tears",
         "basePower": 10,
         "coinPower": 2,
         "coinCount": 5,
@@ -58334,7 +58334,7 @@
       },
       {
         "id": "the-index-apprentice-sora-skill-9",
-        "name": "Procuration: Annihilation - Mang of Immanent Yearning [\u0027\u0027\u0027\u672C\u671B\u0027\u0027\u0027]",
+        "name": "Procuration: Annihilation - Mang of Immanent Yearning",
         "basePower": 3,
         "coinPower": 3,
         "coinCount": 5,
@@ -58408,7 +58408,7 @@
       },
       {
         "id": "the-index-apprentice-sora-2-skill-5",
-        "name": "Procuration: Annihilation - Mang of Immanent Yearning [\u0027\u0027\u0027\u672C\u671B\u0027\u0027\u0027]",
+        "name": "Procuration: Annihilation - Mang of Immanent Yearning",
         "basePower": 3,
         "coinPower": 3,
         "coinCount": 5,
@@ -58676,7 +58676,7 @@
       },
       {
         "id": "the-index-nursefather-rien-2-skill-11",
-        "name": "Furioso [Crescendo]",
+        "name": "Furioso",
         "basePower": 5,
         "coinPower": 1,
         "coinCount": 2,
@@ -58686,7 +58686,7 @@
       },
       {
         "id": "the-index-nursefather-rien-2-skill-12",
-        "name": "Furioso [Lacrimosa-Crescendo]",
+        "name": "Furioso",
         "basePower": 5,
         "coinPower": 1,
         "coinCount": 2,
@@ -58934,7 +58934,7 @@
       },
       {
         "id": "the-index-nursefather-rien-4-skill-10",
-        "name": "Furioso [Crescendo]",
+        "name": "Furioso",
         "basePower": 5,
         "coinPower": 1,
         "coinCount": 2,
@@ -58944,7 +58944,7 @@
       },
       {
         "id": "the-index-nursefather-rien-4-skill-11",
-        "name": "Furioso [Lacrimosa-Crescendo]",
+        "name": "Furioso",
         "basePower": 5,
         "coinPower": 1,
         "coinCount": 2,
@@ -60008,7 +60008,7 @@
       },
       {
         "id": "the-middle-nursefather-matthias-2-skill-12",
-        "name": "Gut Stab [L\u00E6vateinn]",
+        "name": "Gut Stab",
         "basePower": 15,
         "coinPower": 1,
         "coinCount": 5,
@@ -60186,7 +60186,7 @@
     "skills": [
       {
         "id": "the-pinky-apprentice-ren-skill-1",
-        "name": "Swerve [\u0027\u0027\u0027\u56DE\u0027\u0027\u0027]",
+        "name": "Swerve",
         "basePower": 4,
         "coinPower": 6,
         "coinCount": 1,
@@ -60196,7 +60196,7 @@
       },
       {
         "id": "the-pinky-apprentice-ren-skill-2",
-        "name": "Defend [\u0027\u0027\u0027\u5B88\u0027\u0027\u0027]",
+        "name": "Defend",
         "basePower": 4,
         "coinPower": 6,
         "coinCount": 1,
@@ -60206,7 +60206,7 @@
       },
       {
         "id": "the-pinky-apprentice-ren-skill-3",
-        "name": "Reflect [\u0027\u0027\u0027\u53CD\u0027\u0027\u0027]",
+        "name": "Reflect",
         "basePower": 5,
         "coinPower": 6,
         "coinCount": 1,
@@ -60216,7 +60216,7 @@
       },
       {
         "id": "the-pinky-apprentice-ren-skill-4",
-        "name": "Unnamed Cut [\u0027\u0027\u0027\u7121\u540D\u9583\u0027\u0027\u0027]",
+        "name": "Unnamed Cut",
         "basePower": 7,
         "coinPower": 5,
         "coinCount": 1,
@@ -60226,7 +60226,7 @@
       },
       {
         "id": "the-pinky-apprentice-ren-skill-5",
-        "name": "Chainslash [\u0027\u0027\u0027\u9023\u9396\u65AC\u0027\u0027\u0027]",
+        "name": "Chainslash",
         "basePower": 6,
         "coinPower": 6,
         "coinCount": 1,
@@ -60236,7 +60236,7 @@
       },
       {
         "id": "the-pinky-apprentice-ren-skill-6",
-        "name": "Fallstar Slayer [\u0027\u0027\u0027\u843D\u661F\u4E00\u6BBA\u0027\u0027\u0027]",
+        "name": "Fallstar Slayer",
         "basePower": 8,
         "coinPower": 9,
         "coinCount": 1,
@@ -60246,7 +60246,7 @@
       },
       {
         "id": "the-pinky-apprentice-ren-skill-7",
-        "name": "Retreat Form [\u0027\u0027\u0027\u6536\u52E2\u0027\u0027\u0027]",
+        "name": "Retreat Form",
         "basePower": 5,
         "coinPower": 5,
         "coinCount": 1,
@@ -60256,7 +60256,7 @@
       },
       {
         "id": "the-pinky-apprentice-ren-skill-8",
-        "name": "Twinstrike [\u0027\u0027\u0027\u4E8C\u64CA\u0027\u0027\u0027]",
+        "name": "Twinstrike",
         "basePower": 4,
         "coinPower": 4,
         "coinCount": 2,
@@ -60266,7 +60266,7 @@
       },
       {
         "id": "the-pinky-apprentice-ren-skill-9",
-        "name": "Triplestrike [\u0027\u0027\u0027\u4E09\u64CA\u0027\u0027\u0027]",
+        "name": "Triplestrike",
         "basePower": 4,
         "coinPower": 3,
         "coinCount": 3,
@@ -60300,7 +60300,7 @@
     "skills": [
       {
         "id": "the-pinky-apprentice-ren-2-skill-1",
-        "name": "Defend [\u0027\u0027\u0027\u5B88\u0027\u0027\u0027]",
+        "name": "Defend",
         "basePower": 4,
         "coinPower": 10,
         "coinCount": 1,
@@ -60310,7 +60310,7 @@
       },
       {
         "id": "the-pinky-apprentice-ren-2-skill-2",
-        "name": "Reflect [\u0027\u0027\u0027\u53CD\u0027\u0027\u0027]",
+        "name": "Reflect",
         "basePower": 8,
         "coinPower": 12,
         "coinCount": 1,
@@ -60320,7 +60320,7 @@
       },
       {
         "id": "the-pinky-apprentice-ren-2-skill-3",
-        "name": "Unnamed Cut [\u0027\u0027\u0027\u7121\u540D\u9583\u0027\u0027\u0027]",
+        "name": "Unnamed Cut",
         "basePower": 11,
         "coinPower": 7,
         "coinCount": 1,
@@ -60330,7 +60330,7 @@
       },
       {
         "id": "the-pinky-apprentice-ren-2-skill-4",
-        "name": "Chainslash [\u0027\u0027\u0027\u9023\u9396\u65AC\u0027\u0027\u0027]",
+        "name": "Chainslash",
         "basePower": 10,
         "coinPower": 8,
         "coinCount": 1,
@@ -60340,7 +60340,7 @@
       },
       {
         "id": "the-pinky-apprentice-ren-2-skill-5",
-        "name": "Twinstrike [\u0027\u0027\u0027\u4E8C\u64CA\u0027\u0027\u0027]",
+        "name": "Twinstrike",
         "basePower": 4,
         "coinPower": 6,
         "coinCount": 2,
@@ -60350,7 +60350,7 @@
       },
       {
         "id": "the-pinky-apprentice-ren-2-skill-6",
-        "name": "Triplestrike [\u0027\u0027\u0027\u4E09\u64CA\u0027\u0027\u0027]",
+        "name": "Triplestrike",
         "basePower": 4,
         "coinPower": 4,
         "coinCount": 3,
@@ -60360,7 +60360,7 @@
       },
       {
         "id": "the-pinky-apprentice-ren-2-skill-7",
-        "name": "Fallstar Slayer [\u0027\u0027\u0027\u843D\u661F\u4E00\u6BBA\u0027\u0027\u0027]",
+        "name": "Fallstar Slayer",
         "basePower": 14,
         "coinPower": 9,
         "coinCount": 1,
@@ -60370,7 +60370,7 @@
       },
       {
         "id": "the-pinky-apprentice-ren-2-skill-8",
-        "name": "Rend Space - Azureslash [\u0027\u0027\u0027\u7A7A\u9593\u65AC - \u9751\u0027\u0027\u0027]",
+        "name": "Rend Space - Azureslash",
         "basePower": 10,
         "coinPower": 3,
         "coinCount": 5,
@@ -60404,7 +60404,7 @@
     "skills": [
       {
         "id": "the-pinky-nursefather-skill-1",
-        "name": "Twinslash [\u0027\u0027\u0027\u4E8C\u9023\u0027\u0027\u0027]",
+        "name": "Twinslash",
         "basePower": 7,
         "coinPower": 3,
         "coinCount": 2,
@@ -60414,7 +60414,7 @@
       },
       {
         "id": "the-pinky-nursefather-skill-2",
-        "name": "Tripleslash [\u0027\u0027\u0027\u4E09\u9023\u0027\u0027\u0027]",
+        "name": "Tripleslash",
         "basePower": 7,
         "coinPower": 2,
         "coinCount": 3,
@@ -60424,7 +60424,7 @@
       },
       {
         "id": "the-pinky-nursefather-skill-3",
-        "name": "Swift Glimmer [\u0027\u0027\u0027\u5FEB\u9583\u0027\u0027\u0027]",
+        "name": "Swift Glimmer",
         "basePower": 10,
         "coinPower": 6,
         "coinCount": 1,
@@ -60434,7 +60434,7 @@
       },
       {
         "id": "the-pinky-nursefather-skill-4",
-        "name": "Formless Cut [\u0027\u0027\u0027\u7121\u5F62\u65AC\u0027\u0027\u0027]",
+        "name": "Formless Cut",
         "basePower": 12,
         "coinPower": 1,
         "coinCount": 1,
@@ -60444,7 +60444,7 @@
       },
       {
         "id": "the-pinky-nursefather-skill-5",
-        "name": "Phantom Step [\u0027\u0027\u0027\u6B98\u50CF\u6B65\u0027\u0027\u0027]",
+        "name": "Phantom Step",
         "basePower": 4,
         "coinPower": 3,
         "coinCount": 1,
@@ -60454,7 +60454,7 @@
       },
       {
         "id": "the-pinky-nursefather-skill-6",
-        "name": "Deathedge [\u0027\u0027\u0027\u7D76\u547D\u0027\u0027\u0027]",
+        "name": "Deathedge",
         "basePower": 9,
         "coinPower": 5,
         "coinCount": 2,
@@ -60464,7 +60464,7 @@
       },
       {
         "id": "the-pinky-nursefather-skill-7",
-        "name": "Uttermost Rend Space - String Severance [\u0027\u0027\u0027\u7A7A\u9593\u65AC-\u7D76\u7E01\u0027\u0027\u0027]",
+        "name": "Uttermost Rend Space - String Severance",
         "basePower": 14,
         "coinPower": 10,
         "coinCount": 1,
@@ -60484,7 +60484,7 @@
       },
       {
         "id": "the-pinky-nursefather-skill-9",
-        "name": "Twinslash - Echoshear [\u0027\u0027\u0027\u4E8C\u9023-\u6B98\u0027\u0027\u0027]",
+        "name": "Twinslash - Echoshear",
         "basePower": 8,
         "coinPower": 7,
         "coinCount": 1,
@@ -60494,7 +60494,7 @@
       },
       {
         "id": "the-pinky-nursefather-skill-10",
-        "name": "Inevitable Termination [\u0027\u0027\u0027\u5FC5\u7136\u6BBA\u0027\u0027\u0027]",
+        "name": "Inevitable Termination",
         "basePower": 14,
         "coinPower": 10,
         "coinCount": 1,
@@ -60504,7 +60504,7 @@
       },
       {
         "id": "the-pinky-nursefather-skill-11",
-        "name": "Resentment [\u0027\u0027\u0027\u6012\u671B\u0027\u0027\u0027]",
+        "name": "Resentment",
         "basePower": 10,
         "coinPower": 4,
         "coinCount": 1,
@@ -60514,7 +60514,7 @@
       },
       {
         "id": "the-pinky-nursefather-skill-12",
-        "name": "Futility [\u0027\u0027\u0027\u975E\u671B\u0027\u0027\u0027]",
+        "name": "Futility",
         "basePower": 10,
         "coinPower": 4,
         "coinCount": 1,
@@ -60548,7 +60548,7 @@
     "skills": [
       {
         "id": "the-pinky-nursefather-shiomi-yoru-skill-1",
-        "name": "Twinslash [\u0027\u0027\u0027\u4E8C\u9023\u0027\u0027\u0027]",
+        "name": "Twinslash",
         "basePower": 7,
         "coinPower": 3,
         "coinCount": 2,
@@ -60558,7 +60558,7 @@
       },
       {
         "id": "the-pinky-nursefather-shiomi-yoru-skill-2",
-        "name": "Tripleslash [\u0027\u0027\u0027\u4E09\u9023\u0027\u0027\u0027]",
+        "name": "Tripleslash",
         "basePower": 7,
         "coinPower": 2,
         "coinCount": 3,
@@ -60568,7 +60568,7 @@
       },
       {
         "id": "the-pinky-nursefather-shiomi-yoru-skill-3",
-        "name": "Swift Glimmer [\u0027\u0027\u0027\u5FEB\u9583\u0027\u0027\u0027]",
+        "name": "Swift Glimmer",
         "basePower": 10,
         "coinPower": 6,
         "coinCount": 1,
@@ -60578,7 +60578,7 @@
       },
       {
         "id": "the-pinky-nursefather-shiomi-yoru-skill-4",
-        "name": "Formless Cut [\u0027\u0027\u0027\u7121\u5F62\u65AC\u0027\u0027\u0027]",
+        "name": "Formless Cut",
         "basePower": 12,
         "coinPower": 1,
         "coinCount": 1,
@@ -60588,7 +60588,7 @@
       },
       {
         "id": "the-pinky-nursefather-shiomi-yoru-skill-5",
-        "name": "Rend Space [\u0027\u0027\u0027\u7A7A\u9593\u65AC\u0027\u0027\u0027]",
+        "name": "Rend Space",
         "basePower": 15,
         "coinPower": 4,
         "coinCount": 1,
@@ -60598,7 +60598,7 @@
       },
       {
         "id": "the-pinky-nursefather-shiomi-yoru-skill-6",
-        "name": "Phantom Step [\u0027\u0027\u0027\u6B98\u50CF\u6B65\u0027\u0027\u0027]",
+        "name": "Phantom Step",
         "basePower": 4,
         "coinPower": 3,
         "coinCount": 1,
@@ -60618,7 +60618,7 @@
       },
       {
         "id": "the-pinky-nursefather-shiomi-yoru-skill-8",
-        "name": "Deathedge [\u0027\u0027\u0027\u7D76\u547D\u0027\u0027\u0027]",
+        "name": "Deathedge",
         "basePower": 9,
         "coinPower": 5,
         "coinCount": 2,
@@ -60628,7 +60628,7 @@
       },
       {
         "id": "the-pinky-nursefather-shiomi-yoru-skill-9",
-        "name": "Rend Space - String Connection [\u0027\u0027\u0027\u7A7A\u9593\u65AC-\u7DE3\u0027\u0027\u0027]",
+        "name": "Rend Space - String Connection",
         "basePower": 20,
         "coinPower": 6,
         "coinCount": 1,
@@ -60662,7 +60662,7 @@
     "skills": [
       {
         "id": "the-pinky-nursefather-shiomi-yoru-2-skill-1",
-        "name": "Twinslash [\u0027\u0027\u0027\u4E8C\u9023\u0027\u0027\u0027]",
+        "name": "Twinslash",
         "basePower": 7,
         "coinPower": 3,
         "coinCount": 2,
@@ -60672,7 +60672,7 @@
       },
       {
         "id": "the-pinky-nursefather-shiomi-yoru-2-skill-2",
-        "name": "Tripleslash [\u0027\u0027\u0027\u4E09\u9023\u0027\u0027\u0027]",
+        "name": "Tripleslash",
         "basePower": 7,
         "coinPower": 2,
         "coinCount": 3,
@@ -60682,7 +60682,7 @@
       },
       {
         "id": "the-pinky-nursefather-shiomi-yoru-2-skill-3",
-        "name": "Swift Glimmer [\u0027\u0027\u0027\u5FEB\u9583\u0027\u0027\u0027]",
+        "name": "Swift Glimmer",
         "basePower": 10,
         "coinPower": 6,
         "coinCount": 1,
@@ -60692,7 +60692,7 @@
       },
       {
         "id": "the-pinky-nursefather-shiomi-yoru-2-skill-4",
-        "name": "Formless Cut [\u0027\u0027\u0027\u7121\u5F62\u65AC\u0027\u0027\u0027]",
+        "name": "Formless Cut",
         "basePower": 12,
         "coinPower": 1,
         "coinCount": 1,
@@ -60702,7 +60702,7 @@
       },
       {
         "id": "the-pinky-nursefather-shiomi-yoru-2-skill-5",
-        "name": "Phantom Step [\u0027\u0027\u0027\u6B98\u50CF\u6B65\u0027\u0027\u0027]",
+        "name": "Phantom Step",
         "basePower": 4,
         "coinPower": 3,
         "coinCount": 1,
@@ -60722,7 +60722,7 @@
       },
       {
         "id": "the-pinky-nursefather-shiomi-yoru-2-skill-7",
-        "name": "Deathedge [\u0027\u0027\u0027\u7D76\u547D\u0027\u0027\u0027]",
+        "name": "Deathedge",
         "basePower": 9,
         "coinPower": 5,
         "coinCount": 2,
@@ -60732,7 +60732,7 @@
       },
       {
         "id": "the-pinky-nursefather-shiomi-yoru-2-skill-8",
-        "name": "Uttermost Rend Space - String Severance [\u0027\u0027\u0027\u7A7A\u9593\u65AC - \u7D55\u7DE3\u0027\u0027\u0027]",
+        "name": "Uttermost Rend Space - String Severance",
         "basePower": 14,
         "coinPower": 10,
         "coinCount": 1,
@@ -60752,7 +60752,7 @@
       },
       {
         "id": "the-pinky-nursefather-shiomi-yoru-2-skill-10",
-        "name": "You Have Failed to Stop the Future - Scartrail Slash [\u0027\u0027\u0027\u6B98\u75D5\u65AC\u0027\u0027\u0027]",
+        "name": "You Have Failed to Stop the Future - Scartrail Slash",
         "basePower": 9,
         "coinPower": 7,
         "coinCount": 1,
@@ -61410,7 +61410,7 @@
       },
       {
         "id": "the-refracted-index-nursefather-rien-2-skill-10",
-        "name": "Furioso [Crescendo]",
+        "name": "Furioso",
         "basePower": 5,
         "coinPower": 1,
         "coinCount": 2,
@@ -61420,7 +61420,7 @@
       },
       {
         "id": "the-refracted-index-nursefather-rien-2-skill-11",
-        "name": "Furioso [Lacrimosa-Crescendo]",
+        "name": "Furioso",
         "basePower": 5,
         "coinPower": 1,
         "coinCount": 2,
@@ -61538,7 +61538,7 @@
     "skills": [
       {
         "id": "the-refracted-pinky-nursefather-shiomi-yoru-skill-1",
-        "name": "Twinslash [\u0027\u0027\u0027\u4E8C\u9023\u0027\u0027\u0027]",
+        "name": "Twinslash",
         "basePower": 7,
         "coinPower": 3,
         "coinCount": 2,
@@ -61548,7 +61548,7 @@
       },
       {
         "id": "the-refracted-pinky-nursefather-shiomi-yoru-skill-2",
-        "name": "Tripleslash [\u0027\u0027\u0027\u4E09\u9023\u0027\u0027\u0027]",
+        "name": "Tripleslash",
         "basePower": 7,
         "coinPower": 2,
         "coinCount": 3,
@@ -61558,7 +61558,7 @@
       },
       {
         "id": "the-refracted-pinky-nursefather-shiomi-yoru-skill-3",
-        "name": "Swift Glimmer [\u0027\u0027\u0027\u5FEB\u9583\u0027\u0027\u0027]",
+        "name": "Swift Glimmer",
         "basePower": 10,
         "coinPower": 6,
         "coinCount": 1,
@@ -61568,7 +61568,7 @@
       },
       {
         "id": "the-refracted-pinky-nursefather-shiomi-yoru-skill-4",
-        "name": "Formless Cut [\u0027\u0027\u0027\u7121\u5F62\u65AC\u0027\u0027\u0027]",
+        "name": "Formless Cut",
         "basePower": 12,
         "coinPower": 1,
         "coinCount": 1,
@@ -61578,7 +61578,7 @@
       },
       {
         "id": "the-refracted-pinky-nursefather-shiomi-yoru-skill-5",
-        "name": "Phantom Step [\u0027\u0027\u0027\u6B98\u50CF\u6B65\u0027\u0027\u0027]",
+        "name": "Phantom Step",
         "basePower": 4,
         "coinPower": 3,
         "coinCount": 1,
@@ -61598,7 +61598,7 @@
       },
       {
         "id": "the-refracted-pinky-nursefather-shiomi-yoru-skill-7",
-        "name": "Uttermost Rend Space - String Severance [\u0027\u0027\u0027\u7A7A\u9593\u65AC - \u7D55\u7DE3\u0027\u0027\u0027]",
+        "name": "Uttermost Rend Space - String Severance",
         "basePower": 14,
         "coinPower": 10,
         "coinCount": 1,
@@ -61618,7 +61618,7 @@
       },
       {
         "id": "the-refracted-pinky-nursefather-shiomi-yoru-skill-9",
-        "name": "You Have Failed to Stop the Future - Scartrail Slash [\u0027\u0027\u0027\u6B98\u75D5\u65AC\u0027\u0027\u0027]",
+        "name": "You Have Failed to Stop the Future - Scartrail Slash",
         "basePower": 9,
         "coinPower": 7,
         "coinCount": 1,
@@ -61628,7 +61628,7 @@
       },
       {
         "id": "the-refracted-pinky-nursefather-shiomi-yoru-skill-10",
-        "name": "Deathedge [\u0027\u0027\u0027\u7D76\u547D\u0027\u0027\u0027]",
+        "name": "Deathedge",
         "basePower": 9,
         "coinPower": 5,
         "coinCount": 2,
@@ -68020,7 +68020,7 @@
       },
       {
         "id": "zilu-3-skill-6",
-        "name": "Incomplete Seal Release: \u003CTianjiu Star\u0027s Blade\u003E",
+        "name": "Incomplete Seal Release:",
         "basePower": 4,
         "coinPower": 6,
         "coinCount": 3,

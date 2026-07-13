@@ -74,7 +74,7 @@ public sealed class DigitTemplateReader : IDisposable
         var reading = ReadBoxes(mask, strict);
         if (reading.Value is not null)
         {
-            return reading;
+            return ApplySign(reading, all, height, strict);
         }
         var loose = all
             .Where(rect => rect.Height >= height / 4 && rect.Height <= height && rect.Width >= 3)
@@ -88,7 +88,29 @@ public sealed class DigitTemplateReader : IDisposable
             .Where(rect => rect.Height >= tallest * 0.72)
             .OrderBy(rect => rect.X)
             .ToList();
-        return ReadBoxes(mask, loose);
+        return ApplySign(ReadBoxes(mask, loose), all, height, loose);
+    }
+
+    static NumberReading ApplySign(NumberReading reading, List<Rect> all, int height, List<Rect> digitBoxes)
+    {
+        if (reading.Value is not { } magnitude || digitBoxes.Count == 0)
+        {
+            return reading;
+        }
+        var leftEdge = digitBoxes.Min(box => box.X);
+        var midY = height / 2.0;
+        var band = height / 3.0;
+        foreach (var rect in all)
+        {
+            var isBar = rect.Width >= 4 && rect.Height <= height / 3 && rect.Width >= rect.Height * 2;
+            var isLeft = rect.X + rect.Width <= leftEdge + 2;
+            var centered = Math.Abs(rect.Y + rect.Height / 2.0 - midY) <= band;
+            if (isBar && isLeft && centered)
+            {
+                return reading with { Value = -magnitude, RawText = $"template:-{magnitude}" };
+            }
+        }
+        return reading;
     }
 
     NumberReading ReadBoxes(Mat mask, List<Rect> boxes)

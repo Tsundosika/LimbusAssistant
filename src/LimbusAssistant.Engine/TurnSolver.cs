@@ -4,16 +4,21 @@ public sealed class TurnSolver
 {
     const int MaxThreats = 12;
 
+    static readonly SkillData NoSkill = new("", "", 0, 0, 0, SinType.Wrath, DamageType.Guard, 0);
+
     readonly ClashCalculator _calculator = new();
 
-    public TurnPlan Solve(IReadOnlyList<TurnUnit> units, EnemyData enemy, int clashCount = 0)
+    public TurnPlan Solve(IReadOnlyList<TurnUnit> units, EnemyData enemy, int clashCount = 0) =>
+        Solve(units, new[] { enemy }, clashCount);
+
+    public TurnPlan Solve(IReadOnlyList<TurnUnit> units, IReadOnlyList<EnemyData> enemies, int clashCount = 0)
     {
-        if (units.Count == 0)
+        if (units.Count == 0 || enemies.Count == 0)
         {
             return new TurnPlan([], 0);
         }
-        var threats = enemy.Skills
-            .Select(skill => new EnemyThreat(enemy, skill, ClashCount: clashCount))
+        var threats = enemies
+            .SelectMany(enemy => enemy.Skills.Select(skill => new EnemyThreat(enemy, skill, ClashCount: clashCount)))
             .Take(MaxThreats)
             .ToList();
         var averageDefense = (int)Math.Round(units.Average(unit => unit.Identity.DefenseLevel));
@@ -29,7 +34,7 @@ public sealed class TurnSolver
             {
                 clashOptions[u, t] = BestClash(units[u], threats[t]);
             }
-            unopposedOptions[u] = BestUnopposed(units[u], enemy, clashCount);
+            unopposedOptions[u] = BestUnopposed(units[u], enemies, clashCount);
         }
 
         var maskCount = 1 << threats.Count;
@@ -110,9 +115,11 @@ public sealed class TurnSolver
     }
 
     TurnAssignment BestClash(TurnUnit unit, EnemyThreat threat) =>
-        unit.Identity.Skills
-            .Select(skill => EvaluateClash(unit, skill, threat))
-            .MaxBy(assignment => assignment.ExpectedValue)!;
+        unit.Identity.Skills.Count == 0
+            ? new TurnAssignment(unit, NoSkill, threat, 0, 0, 0, 0)
+            : unit.Identity.Skills
+                .Select(skill => EvaluateClash(unit, skill, threat))
+                .MaxBy(assignment => assignment.ExpectedValue)!;
 
     public TurnAssignment EvaluateClash(TurnUnit unit, SkillData skill, EnemyThreat threat)
     {
@@ -153,10 +160,12 @@ public sealed class TurnSolver
             dealt - taken);
     }
 
-    TurnAssignment BestUnopposed(TurnUnit unit, EnemyData enemy, int clashCount) =>
-        unit.Identity.Skills
-            .Select(skill => EvaluateUnopposed(unit, skill, enemy, clashCount))
-            .MaxBy(assignment => assignment.ExpectedValue)!;
+    TurnAssignment BestUnopposed(TurnUnit unit, IReadOnlyList<EnemyData> enemies, int clashCount) =>
+        unit.Identity.Skills.Count == 0 || enemies.Count == 0
+            ? new TurnAssignment(unit, NoSkill, null, 1.0, 0, 0, 0)
+            : unit.Identity.Skills
+                .SelectMany(skill => enemies.Select(enemy => EvaluateUnopposed(unit, skill, enemy, clashCount)))
+                .MaxBy(assignment => assignment.ExpectedValue)!;
 
     public TurnAssignment EvaluateUnopposed(TurnUnit unit, SkillData skill, EnemyData enemy, int clashCount = 0)
     {

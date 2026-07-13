@@ -9,7 +9,6 @@ namespace Tsundosika.LimbusAssistant.Vision;
 public sealed class WindowsNumberReader : INumberReader
 {
     const int UpscaleFactor = 4;
-    const double EarlyExitConfidence = 0.8;
 
     readonly OcrEngine? _engine = OcrEngine.TryCreateFromUserProfileLanguages();
     int _ocrCalls;
@@ -29,29 +28,43 @@ public sealed class WindowsNumberReader : INumberReader
         }
         using var roi = frameBgra[new Rect(clamped.X, clamped.Y, clamped.Width, clamped.Height)];
         using var bgr = ToBgr(roi);
-
-        using var colorBinary = ColorNumberReader.BuildHighContrastBinary(bgr, UpscaleFactor);
-        var best = await RecognizeAsync(colorBinary);
-        if (best.Value is not null && best.Confidence >= EarlyExitConfidence)
-        {
-            return best;
-        }
-
         using var scaledGray = BuildScaledGray(roi);
+        using var colorBinary = ColorNumberReader.BuildHighContrastBinary(bgr, UpscaleFactor);
         using var otsu = BuildOtsuBinary(scaledGray);
-        var otsuReading = await RecognizeAsync(otsu);
-        if (otsuReading.Confidence > best.Confidence)
-        {
-            best = otsuReading;
-        }
-        if (best.Value is not null && best.Confidence >= EarlyExitConfidence)
-        {
-            return best;
-        }
-
         using var enhanced = BuildEnhancedGrayscale(scaledGray);
-        var enhancedReading = await RecognizeAsync(enhanced);
-        return enhancedReading.Confidence > best.Confidence ? enhancedReading : best;
+
+        var readings = new[]
+        {
+            await RecognizeAsync(colorBinary),
+            await RecognizeAsync(otsu),
+            await RecognizeAsync(enhanced),
+        };
+        return Vote(readings);
+    }
+
+    static NumberReading Vote(IReadOnlyList<NumberReading> readings)
+    {
+        var valued = readings.Where(reading => reading.Value is not null).ToList();
+        if (valued.Count == 0)
+        {
+            return NumberReading.Unknown;
+        }
+        var byValue = valued
+            .GroupBy(reading => reading.Value!.Value)
+            .OrderByDescending(group => group.Count())
+            .ThenByDescending(group => group.Max(reading => reading.Confidence))
+            .ToList();
+        var winner = byValue[0];
+        var representative = winner.MaxBy(reading => reading.Confidence)!;
+        if (winner.Count() >= 2)
+        {
+            return representative with { Confidence = Math.Min(0.98, representative.Confidence + 0.1 * (winner.Count() - 1)) };
+        }
+        if (byValue.Count >= 2)
+        {
+            return representative with { Confidence = representative.Confidence * 0.5 };
+        }
+        return representative;
     }
 
     public async Task<TextReading> ReadTextAsync(Mat frameBgra, PixelRect region)
@@ -277,7 +290,7 @@ public sealed class WindowsNumberReader : INumberReader
             bgra.Height,
             BitmapAlphaMode.Ignore);
         var result = await _engine!.RecognizeAsync(bitmap);
-        return Interpret(result.Text);
+        return NumberInterpreter.Parse(result.Text);
     }
 
     static Mat ToBgr(Mat roi)
@@ -357,25 +370,6 @@ public sealed class WindowsNumberReader : INumberReader
     {
         var border = Math.Max(4, image.Width / 20);
         Cv2.CopyMakeBorder(image, image, border, border, border, border, BorderTypes.Constant, new Scalar(0));
-    }
-
-    static NumberReading Interpret(string rawText)
-    {
-        var cleaned = rawText.Replace("O", "0").Replace("o", "0")
-            .Replace("l", "1").Replace("I", "1")
-            .Replace("S", "5").Replace("s", "5")
-            .Replace("B", "8").Replace("b", "6")
-            .Replace(".", "").Replace(",", "").Replace("'", "").Replace("\"", "")
-            .Replace("`", "").Replace("~", "").Replace(":", "").Replace(";", "")
-            .Replace("_", "").Replace("|", "");
-        var filtered = new string(cleaned.Where(c => char.IsAsciiDigit(c) || c == '-').ToArray());
-        if (filtered.Length == 0 || !int.TryParse(filtered, out var value))
-        {
-            return new NumberReading(null, 0, rawText);
-        }
-        var meaningful = cleaned.Count(c => !char.IsWhiteSpace(c));
-        var confidence = meaningful == 0 ? 0 : 0.95 * filtered.Length / meaningful;
-        return new NumberReading(value, confidence, rawText);
     }
 
     static PixelRect ClampRegion(PixelRect region, int frameWidth, int frameHeight)

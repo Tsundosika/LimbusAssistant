@@ -2,6 +2,8 @@ namespace Tsundosika.LimbusAssistant.Engine;
 
 public sealed class ClashCalculator
 {
+    const int MaxCacheEntries = 20000;
+
     readonly Dictionary<(ClashSkill Left, ClashSkill Right), (List<ClashEndState> Left, List<ClashEndState> Right)> _cache = new();
 
     public ClashOutcome Calculate(ClashSkill ally, ClashSkill enemy)
@@ -62,6 +64,10 @@ public sealed class ClashCalculator
         if (_cache.TryGetValue((left, right), out var cached))
         {
             return cached;
+        }
+        if (_cache.Count > MaxCacheEntries)
+        {
+            _cache.Clear();
         }
 
         var (leftWin, draw, rightWin) = SingleExchange(left, right);

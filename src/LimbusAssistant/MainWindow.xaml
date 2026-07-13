@@ -209,6 +209,7 @@
                         <ListBox x:Name="EnemyList"
                                  Height="220"
                                  DisplayMemberPath="Name"
+                                 SelectionMode="Extended"
                                  VirtualizingPanel.IsVirtualizing="True"
                                  VirtualizingPanel.VirtualizationMode="Recycling"
                                  VirtualizingPanel.ScrollUnit="Pixel"
@@ -218,7 +219,7 @@
                                    FontSize="11"
                                    Margin="0,4,0,0"
                                    TextWrapping="Wrap"
-                                   Text="The overlay uses the selected enemy for live win odds while you drag skills in game."/>
+                                   Text="Ctrl or Shift click to plan against several enemies at once. The overlay uses the first selected enemy for live win odds while you drag skills in game."/>
                         <Button Content="Plan the turn"
                                 Style="{StaticResource AccentButton}"
                                 HorizontalAlignment="Left"

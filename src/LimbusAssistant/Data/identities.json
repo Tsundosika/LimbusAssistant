@@ -295,7 +295,7 @@
     "skills": [
       {
         "id": "blade-of-the-house-of-spiders-ry-sh-skill-1",
-        "name": "Tripleslash [\u003Cb\u003E\u4E09\u9023\u003C/b\u003E]",
+        "name": "Tripleslash",
         "basePower": 3,
         "coinPower": 3,
         "coinCount": 3,
@@ -305,7 +305,7 @@
       },
       {
         "id": "blade-of-the-house-of-spiders-ry-sh-skill-2",
-        "name": "Tripleslash - Echoshear [\u003Cb\u003E\u4E09\u9023\u003C/b\u003E - \u003Cb\u003E\u6B98\u003C/b\u003E]",
+        "name": "Tripleslash - Echoshear",
         "basePower": 4,
         "coinPower": 4,
         "coinCount": 3,
@@ -315,7 +315,7 @@
       },
       {
         "id": "blade-of-the-house-of-spiders-ry-sh-skill-3",
-        "name": "Rend Space [\u003Cb\u003E\u7A7A\u9593\u65AC\u003C/b\u003E]",
+        "name": "Rend Space",
         "basePower": 10,
         "coinPower": 12,
         "coinCount": 1,
@@ -325,7 +325,7 @@
       },
       {
         "id": "blade-of-the-house-of-spiders-ry-sh-skill-4",
-        "name": "Phantom Step [\u003Cb\u003E\u6B98\u50CF\u6B65\u003C/b\u003E]",
+        "name": "Phantom Step",
         "basePower": 4,
         "coinPower": 10,
         "coinCount": 1,
@@ -1169,7 +1169,7 @@
       },
       {
         "id": "drifting-blade-of-hongyuan-ry-sh-skill-2",
-        "name": "Engraved in Flesh and Bone [\u0027\u0027\u0027\u9298\u808C\u93E4\u9AA8\u0027\u0027\u0027]",
+        "name": "Engraved in Flesh and Bone",
         "basePower": 4,
         "coinPower": 4,
         "coinCount": 3,
@@ -1179,7 +1179,7 @@
       },
       {
         "id": "drifting-blade-of-hongyuan-ry-sh-skill-3",
-        "name": "Aiding Strike [\u0027\u0027\u0027\u52A0\u65A5\u6211\u63F4\u0027\u0027\u0027]",
+        "name": "Aiding Strike",
         "basePower": 4,
         "coinPower": 3,
         "coinCount": 4,
@@ -1995,7 +1995,7 @@
       },
       {
         "id": "heishou-pack-wei-branch-don-quixote-skill-3",
-        "name": "Crushing Horns [\u0027\u0027\u0027\u7834\u788E\u89D2\u0027\u0027\u0027]",
+        "name": "Crushing Horns",
         "basePower": 4,
         "coinPower": 3,
         "coinCount": 4,
@@ -2033,7 +2033,7 @@
       },
       {
         "id": "heishou-pack-wu-branch-adept-yi-sang-skill-2",
-        "name": "Crescent Blade Strike [\u0027\u0027\u0027\u6708\u5200\u64CA\u0027\u0027\u0027]",
+        "name": "Crescent Blade Strike",
         "basePower": 4,
         "coinPower": 5,
         "coinCount": 2,
@@ -2091,7 +2091,7 @@
       },
       {
         "id": "heishou-pack-you-branch-adept-heathcliff-skill-3",
-        "name": "Bloodflame Massacre [\u0027\u0027\u0027\u8840\u708E\u4E82\u821E\u0027\u0027\u0027]",
+        "name": "Bloodflame Massacre",
         "basePower": 4,
         "coinPower": 3,
         "coinCount": 4,
@@ -2139,7 +2139,7 @@
       },
       {
         "id": "heishou-pack-you-branch-sinclair-skill-3",
-        "name": "Bloodflame Massacre [\u0027\u0027\u0027\u8840\u708E\u4E82\u821E\u0027\u0027\u0027]",
+        "name": "Bloodflame Massacre",
         "basePower": 4,
         "coinPower": 3,
         "coinCount": 4,
@@ -2149,7 +2149,7 @@
       },
       {
         "id": "heishou-pack-you-branch-sinclair-skill-4",
-        "name": "Rooster\u0027s Deathstrike [\u0027\u0027\u0027\u9DC4\u7AAE\u5247\u6BBA\u0027\u0027\u0027]",
+        "name": "Rooster\u0027s Deathstrike",
         "basePower": 5,
         "coinPower": 4,
         "coinCount": 2,
@@ -2215,7 +2215,7 @@
     "skills": [
       {
         "id": "jeong-s-office-rep-ishmael-skill-1",
-        "name": "Tsuru-giri [\u0027\u0027\u0027\u9DB4\u65AC\u308A\u0027\u0027\u0027]",
+        "name": "Tsuru-giri",
         "basePower": 4,
         "coinPower": 4,
         "coinCount": 2,
@@ -2235,7 +2235,7 @@
       },
       {
         "id": "jeong-s-office-rep-ishmael-skill-3",
-        "name": "Sakura-sen [\u0027\u0027\u0027\u685C\u9583\u0027\u0027\u0027]",
+        "name": "Sakura-sen",
         "basePower": 5,
         "coinPower": 4,
         "coinCount": 3,
@@ -3521,7 +3521,7 @@
       },
       {
         "id": "lce-e-g-o-lantern-yi-sang-skill-2",
-        "name": "when juxtaposed with E.G.O gear from L Corp., \u003Cbr\u003E depending on the degree of attunement to the Abnormality,",
+        "name": "when juxtaposed with E.G.O gear from L Corp.,  depending on the degree of attunement to the Abnormality,",
         "basePower": 8,
         "coinPower": 6,
         "coinCount": 1,
@@ -6027,7 +6027,7 @@
       },
       {
         "id": "shi-assoc-east-section-3-faust-skill-3",
-        "name": "Glimmering Bow [\u0027\u0027\u0027\u5F13\u9583\u0027\u0027\u0027]",
+        "name": "Glimmering Bow",
         "basePower": 4,
         "coinPower": 3,
         "coinCount": 4,
@@ -6037,7 +6037,7 @@
       },
       {
         "id": "shi-assoc-east-section-3-faust-skill-4",
-        "name": "Unfold Bowblade [\u0027\u0027\u0027\u5F13\u5200\u0027\u0027\u0027]",
+        "name": "Unfold Bowblade",
         "basePower": 14,
         "coinPower": 4,
         "coinCount": 1,
@@ -6535,7 +6535,7 @@
     "skills": [
       {
         "id": "the-house-of-spiders-the-pinky-apprentice-sinclair-skill-1",
-        "name": "Chainstrike [\u003Cb\u003E\u9023\u64CA\u003C/b\u003E]",
+        "name": "Chainstrike",
         "basePower": 3,
         "coinPower": 4,
         "coinCount": 2,
@@ -6545,7 +6545,7 @@
       },
       {
         "id": "the-house-of-spiders-the-pinky-apprentice-sinclair-skill-2",
-        "name": "Nameless Slash [\u003Cb\u003E\u7121\u540D\u65AC\u003C/b\u003E]",
+        "name": "Nameless Slash",
         "basePower": 6,
         "coinPower": 5,
         "coinCount": 2,
@@ -6555,7 +6555,7 @@
       },
       {
         "id": "the-house-of-spiders-the-pinky-apprentice-sinclair-skill-3",
-        "name": "Fallstar Slayer [\u003Cb\u003E\u843D\u661F\u4E00\u6BBA\u003C/b\u003E]",
+        "name": "Fallstar Slayer",
         "basePower": 8,
         "coinPower": 14,
         "coinCount": 1,
@@ -6565,7 +6565,7 @@
       },
       {
         "id": "the-house-of-spiders-the-pinky-apprentice-sinclair-skill-4",
-        "name": "Defend [\u003Cb\u003E\u5B88\u003C/b\u003E]",
+        "name": "Defend",
         "basePower": 3,
         "coinPower": 10,
         "coinCount": 1,
@@ -6881,7 +6881,7 @@
       },
       {
         "id": "the-lord-of-hongyuan-hong-lu-skill-2",
-        "name": "Tarnished Blood\u0027s Absolute Cleaver of Ambitions [\u0027\u0027\u0027\u6C5A\u8840\u7D55\u5FD7\u7ADF\u6210\u0027\u0027\u0027]",
+        "name": "Tarnished Blood\u0027s Absolute Cleaver of Ambitions",
         "basePower": 3,
         "coinPower": 3,
         "coinCount": 4,
@@ -6901,7 +6901,7 @@
       },
       {
         "id": "the-lord-of-hongyuan-hong-lu-skill-4",
-        "name": "Heishou Keenclaw [\u0027\u0027\u0027\u9ED1\u7378\u5229\u722A\u0027\u0027\u0027]",
+        "name": "Heishou Keenclaw",
         "basePower": 6,
         "coinPower": 7,
         "coinCount": 1,
@@ -7735,7 +7735,7 @@
     "skills": [
       {
         "id": "the-thumb-east-capo-iiii-meursault-skill-1",
-        "name": "Double Slash - Blast [\u0027\u0027\u0027\u7206\u0027\u0027\u0027]",
+        "name": "Double Slash - Blast",
         "basePower": 4,
         "coinPower": 4,
         "coinCount": 2,
@@ -7745,7 +7745,7 @@
       },
       {
         "id": "the-thumb-east-capo-iiii-meursault-skill-2",
-        "name": "Triple Slash - Blast [\u0027\u0027\u0027\u7206\u0027\u0027\u0027]",
+        "name": "Triple Slash - Blast",
         "basePower": 4,
         "coinPower": 4,
         "coinCount": 3,
@@ -7755,7 +7755,7 @@
       },
       {
         "id": "the-thumb-east-capo-iiii-meursault-skill-3",
-        "name": "Tanglecleaver [\u0027\u0027\u0027\u5FEB\u5200\u4E82\u9EBB\u0027\u0027\u0027]",
+        "name": "Tanglecleaver",
         "basePower": 5,
         "coinPower": 4,
         "coinCount": 3,
