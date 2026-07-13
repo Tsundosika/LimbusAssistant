@@ -71,7 +71,36 @@ public sealed class VisionPipeline(
         {
             return null;
         }
-        return (nearest.Circle, await ReadCircleAsync(mat, nearest.Circle));
+        var reading = await ReadCircleAsync(mat, nearest.Circle);
+        if (reading.Value is not null)
+        {
+            return (nearest.Circle, reading);
+        }
+        var allySide = circles
+            .Where(circle => circle.Y > content.Y + content.Height * 0.25
+                && circle.Y < content.Y + content.Height * 0.62
+                && circle.X < content.X + content.Width * 0.62)
+            .OrderBy(circle => circle.X)
+            .ToList();
+        var rank = allySide.IndexOf(nearest.Circle);
+        if (rank < 0)
+        {
+            return (nearest.Circle, reading);
+        }
+        var dockReadings = new List<int>();
+        foreach (var dockCircle in DockScanner.FindSanityCircles(mat, content))
+        {
+            var dockReading = await ReadCircleAsync(mat, dockCircle);
+            if (dockReading.Value is >= -45 and <= 45)
+            {
+                dockReadings.Add(dockReading.Value.Value);
+            }
+        }
+        if (allySide.Count == dockReadings.Count && rank < dockReadings.Count)
+        {
+            return (nearest.Circle, new NumberReading(dockReadings[rank], 0.7, $"dockrank:{dockReadings[rank]}"));
+        }
+        return (nearest.Circle, reading);
     }
 
     static double Distance(PixelRect circle, double x, double y)

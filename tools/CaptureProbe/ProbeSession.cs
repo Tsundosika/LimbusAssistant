@@ -224,10 +224,11 @@ public sealed class ProbeSession(ProbeOptions options)
                 report.AppendLine($"field sanity circles: {fieldCircles.Count}");
                 foreach (var circle in fieldCircles)
                 {
-                    var fieldReading = await _reader.ReadAsync(mat, circle);
+                    var templated = _digits.IsEmpty ? NumberReading.Unknown : _digits.ReadCircle(mat, circle);
+                    var fieldReading = templated.Value is not null ? templated : await _reader.ReadAsync(mat, circle);
                     report.AppendLine(
                         $"   field circle {circle.X},{circle.Y} {circle.Width}x{circle.Height}" +
-                        $"  value {fieldReading.Value?.ToString() ?? "?"}  conf {fieldReading.Confidence:F2}");
+                        $"  value {fieldReading.Value?.ToString() ?? "?"}  conf {fieldReading.Confidence:F2}  ({fieldReading.RawText})");
                 }
             }
             else

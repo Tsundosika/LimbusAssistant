@@ -56,16 +56,43 @@ public sealed class DigitTemplateReader : IDisposable
         using var view = frameBgra[new Rect(x, y, width, height)];
         using var bgr = new Mat();
         Cv2.CvtColor(view, bgr, ColorConversionCodes.BGRA2BGR);
+        if (height < 52)
+        {
+            Cv2.Resize(bgr, bgr, new Size(width * 2, height * 2), interpolation: InterpolationFlags.Cubic);
+            height *= 2;
+        }
         using var hsv = new Mat();
         Cv2.CvtColor(bgr, hsv, ColorConversionCodes.BGR2HSV);
         using var mask = new Mat();
         Cv2.InRange(hsv, new Scalar(0, 0, 175), new Scalar(180, 110, 255), mask);
         Cv2.FindContours(mask, out var contours, out _, RetrievalModes.External, ContourApproximationModes.ApproxSimple);
-        var boxes = contours
-            .Select(Cv2.BoundingRect)
+        var all = contours.Select(Cv2.BoundingRect).ToList();
+        var strict = all
             .Where(rect => rect.Height >= height / 3 && rect.Height <= height && rect.Width >= 3)
             .OrderBy(rect => rect.X)
             .ToList();
+        var reading = ReadBoxes(mask, strict);
+        if (reading.Value is not null)
+        {
+            return reading;
+        }
+        var loose = all
+            .Where(rect => rect.Height >= height / 4 && rect.Height <= height && rect.Width >= 3)
+            .ToList();
+        if (loose.Count == 0)
+        {
+            return NumberReading.Unknown;
+        }
+        var tallest = loose.Max(rect => rect.Height);
+        loose = loose
+            .Where(rect => rect.Height >= tallest * 0.72)
+            .OrderBy(rect => rect.X)
+            .ToList();
+        return ReadBoxes(mask, loose);
+    }
+
+    NumberReading ReadBoxes(Mat mask, List<Rect> boxes)
+    {
         if (boxes.Count is < 1 or > 3)
         {
             return NumberReading.Unknown;

@@ -62,7 +62,7 @@ public partial class App : Application
         _hotkeys = new HotkeyManager();
         RegisterToggle(_settings!.ToggleOverlayHotkey, ToggleOverlay);
         RegisterToggle(_settings.ToggleDebugHotkey, ToggleMain);
-        RegisterToggle(_settings.DebugDumpHotkey, () => _loop?.DumpDebugSnapshot());
+        RegisterToggle(_settings.DebugDumpHotkey, () => Task.Run(() => _loop?.DumpDebugSnapshot()));
     }
 
     void RegisterToggle(string hotkeyText, Action action)

@@ -366,6 +366,10 @@ public sealed class AdvisorLoop : IDisposable
         else
         {
             (sanity, source) = await ResolveSanityAsync(frame, content, identity);
+            if (source == "field" && identity is not null && sanity is { } learned)
+            {
+                _dockSanities[identity] = learned;
+            }
         }
         var exact = MatchExactEnemySkill(enemySideText);
         if (skill is not null && identity is not null && exact is { } exactMatch)
