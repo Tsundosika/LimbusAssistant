@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
 using System.Windows.Media;
+using Tsundosika.LimbusAssistant.Engine;
 using Tsundosika.LimbusAssistant.Vision;
 
 namespace Tsundosika.LimbusAssistant;
@@ -71,6 +72,7 @@ public partial class OverlayWindow : Window
             HideAll();
             return;
         }
+        RenderMoves(snapshot.BestMoves);
         if (snapshot.Planning is { } planning && (planning.Skill is not null || planning.RawSkillName.Length >= 3))
         {
             RenderPlanning(snapshot, planning);
@@ -252,17 +254,82 @@ public partial class OverlayWindow : Window
         return true;
     }
 
+    void RenderMoves(BestMoveReport? report)
+    {
+        MovesStack.Children.Clear();
+        if (report is null || report.Moves.Count == 0)
+        {
+            MovesPanel.Visibility = Visibility.Collapsed;
+            return;
+        }
+        MovesPanel.Visibility = Visibility.Visible;
+        var index = 1;
+        foreach (var move in report.Moves)
+        {
+            MovesStack.Children.Add(MoveLine(index, move));
+            index++;
+        }
+        if (report.Unblocked.Count > 0)
+        {
+            var worst = report.Unblocked[0];
+            MovesFooter.Visibility = Visibility.Visible;
+            MovesFooter.Text = report.Unblocked.Count == 1
+                ? $"Cannot block {Truncate(worst.SkillName, 18)} (~{worst.ExpectedDamage:F0} dmg). Guard or brace."
+                : $"{report.Unblocked.Count} enemy hits unblocked. Worst {Truncate(worst.SkillName, 18)} (~{worst.ExpectedDamage:F0}).";
+        }
+        else
+        {
+            MovesFooter.Visibility = Visibility.Collapsed;
+        }
+        PlaceMovesPanel();
+    }
+
+    TextBlock MoveLine(int index, BestMoveAdvice move)
+    {
+        string text;
+        SolidColorBrush color;
+        if (move.IsUnopposed)
+        {
+            text = $"🟢 {index}. {move.Sinner}: Skill {move.SkillNumber} → free hit, deal ~{move.ExpectedDamageDealt:F0}";
+            color = GoodBrush;
+        }
+        else
+        {
+            var icon = move.WinProbability switch { >= 0.65 => "🟢", >= 0.45 => "🟡", _ => "🔴" };
+            color = move.WinProbability switch { >= 0.65 => GoodBrush, >= 0.45 => WarnBrush, _ => BadBrush };
+            text = $"{icon} {index}. {move.Sinner}: Skill {move.SkillNumber} → {Truncate(move.TargetSkillName ?? "", 16)}  {move.WinProbability:P0}, deal ~{move.ExpectedDamageDealt:F0}";
+        }
+        return new TextBlock
+        {
+            Text = text,
+            Foreground = color,
+            FontSize = 13,
+            Margin = new Thickness(0, 3, 0, 0),
+            TextWrapping = TextWrapping.Wrap,
+        };
+    }
+
+    void PlaceMovesPanel()
+    {
+        MovesPanel.Measure(new Size(380, double.PositiveInfinity));
+        var desired = MovesPanel.DesiredSize;
+        Canvas.SetLeft(MovesPanel, 24);
+        Canvas.SetTop(MovesPanel, Math.Clamp(Height * 0.28, 8, Math.Max(8, Height - desired.Height - 8)));
+    }
+
     void HideAll()
     {
         VerdictPanel.Visibility = Visibility.Collapsed;
         ReadOutline.Visibility = Visibility.Collapsed;
         IdleChip.Visibility = Visibility.Collapsed;
+        MovesPanel.Visibility = Visibility.Collapsed;
     }
 
     void ShowIdleChip(string text)
     {
         VerdictPanel.Visibility = Visibility.Collapsed;
         ReadOutline.Visibility = Visibility.Collapsed;
+        MovesPanel.Visibility = Visibility.Collapsed;
         IdleChip.Visibility = Visibility.Visible;
         IdleChipText.Text = text;
         IdleChip.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));

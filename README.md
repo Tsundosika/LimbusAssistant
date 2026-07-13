@@ -27,6 +27,11 @@ touches the game.
 
 ## Features
 
+- 🎓 **Best moves coach (great for new players)**: set your team once, and the
+  overlay tells you in plain language exactly what to do this turn: "1. Don
+  Quixote: Skill 2 into the enemy's attack, 88% win". Every sinner gets a
+  numbered, color-coded instruction, and it warns you about enemy hits you
+  cannot block.
 - 🎯 **True clash win rate**: full coin-by-coin probability, modelling continued
   clashes after a lost coin (ported from vetted community calculators)
 - ⚔️ **Expected damage**: weighted by sin/physical resistances, stagger state,
@@ -58,6 +63,12 @@ touches the game.
    from the dropdown.)
 5. Press `Ctrl+F8` in a fight and the advisor appears over the game. Green =
    favored, yellow = even, red = risky. That's it.
+
+**New to Limbus?** Open the assistant window (`Ctrl+F9`), go to the **Turn
+Advisor** tab, and add the sinners on your team. Now the in-game overlay shows a
+**Best moves this turn** panel that names, for each sinner, the exact skill to
+use and which enemy attack to clash, ranked and color-coded. Just follow the
+list from top to bottom.
 
 If the boxes in the *Vision (advanced)* tab don't line up with the clash UI,
 adjust `%AppData%\LimbusAssistant\calibration.json` (values are fractions of

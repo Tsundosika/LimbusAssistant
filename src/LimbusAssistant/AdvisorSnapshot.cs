@@ -1,3 +1,4 @@
+using Tsundosika.LimbusAssistant.Engine;
 using Tsundosika.LimbusAssistant.Vision;
 
 namespace Tsundosika.LimbusAssistant;
@@ -13,7 +14,8 @@ public sealed record AdvisorSnapshot(
     double Confidence,
     CaptureFrame? Frame,
     TickMetrics Metrics,
-    DateTimeOffset Timestamp)
+    DateTimeOffset Timestamp,
+    BestMoveReport? BestMoves = null)
 {
     public static AdvisorSnapshot NotFound() => new(
         CaptureStatus.GameNotFound,

@@ -55,6 +55,8 @@ public sealed class AdvisorLoop : IDisposable
     PlanningHint? _lastPlanning;
     LiveClashEstimate? _lastLiveClash;
     CaptureFrame? _lastFrame;
+    BestMoveReport? _bestMoves;
+    string? _bestMovesSignature;
 
     public event Action<AdvisorSnapshot>? SnapshotPublished;
 
@@ -289,6 +291,8 @@ public sealed class AdvisorLoop : IDisposable
                 SeedTeamSanity();
             }
             _lastPlanning = null;
+            _bestMoves = null;
+            _bestMovesSignature = null;
             _lastLiveClash = null;
             _lastFrame = frame;
             _lastReading = EmptyReadingFor(frame, content);
@@ -308,6 +312,7 @@ public sealed class AdvisorLoop : IDisposable
         if (!ClashGate.IsClashLikely(frame, content))
         {
             RefreshStickyMatchups();
+            UpdateBestMoves();
             _lastPlanning = _stickyPlanning;
             _lastLiveClash = null;
             _lastFrame = frame;
@@ -332,6 +337,7 @@ public sealed class AdvisorLoop : IDisposable
             }
         }
         RefreshStickyMatchups();
+        UpdateBestMoves();
         _lastPlanning = fresh?.Skill is not null ? fresh : _stickyPlanning ?? fresh;
         _lastLiveClash = null;
         _lastFrame = frame;
@@ -374,7 +380,8 @@ public sealed class AdvisorLoop : IDisposable
         _lastReading.OverallConfidence,
         _lastFrame,
         metrics,
-        DateTimeOffset.Now);
+        DateTimeOffset.Now,
+        _bestMoves);
 
     async Task<PlanningHint?> BuildPlanningHintAsync(CaptureFrame frame, PixelRect content, VisionReading reading)
     {
@@ -672,6 +679,40 @@ public sealed class AdvisorLoop : IDisposable
 
     int RosterSanity(string identityName) => _sanity.Resolve(identityName)?.Value ?? 0;
 
+    void UpdateBestMoves()
+    {
+        var enemy = EffectiveEnemy();
+        var roster = RosterNames();
+        if (enemy is null || roster.Count == 0)
+        {
+            _bestMoves = null;
+            _bestMovesSignature = null;
+            return;
+        }
+        var units = new List<TurnUnit>();
+        foreach (var name in roster)
+        {
+            var identity = _data.Identities.FirstOrDefault(candidate => candidate.Name == name);
+            if (identity is not null)
+            {
+                units.Add(new TurnUnit(identity, RosterSanity(name)));
+            }
+        }
+        if (units.Count == 0)
+        {
+            _bestMoves = null;
+            _bestMovesSignature = null;
+            return;
+        }
+        var signature = $"{enemy.Name}|{string.Join(",", units.Select(unit => $"{unit.Identity.Name}:{unit.Sanity}"))}";
+        if (signature == _bestMovesSignature && _bestMoves is not null)
+        {
+            return;
+        }
+        _bestMovesSignature = signature;
+        _bestMoves = BestMoveAdvisor.Advise(_solver, units, new[] { enemy });
+    }
+
     void UpdateAutoEnemy(VisionReading reading)
     {
         TryLockEnemyFromName(reading.Text(RegionNames.TargetEnemyName));
@@ -873,7 +914,8 @@ public sealed class AdvisorLoop : IDisposable
             || snapshot.Planning?.Sanity != _lastPublished.Planning?.Sanity
             || snapshot.Planning?.SanitySource != _lastPublished.Planning?.SanitySource
             || snapshot.Planning?.EnemyName != _lastPublished.Planning?.EnemyName
-            || (snapshot.Planning?.Matchups?.Count ?? -1) != (_lastPublished.Planning?.Matchups?.Count ?? -1))
+            || (snapshot.Planning?.Matchups?.Count ?? -1) != (_lastPublished.Planning?.Matchups?.Count ?? -1)
+            || !ReferenceEquals(snapshot.BestMoves, _lastPublished.BestMoves))
         {
             return true;
         }

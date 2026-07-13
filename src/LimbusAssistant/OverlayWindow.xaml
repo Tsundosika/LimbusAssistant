@@ -51,6 +51,30 @@
                            TextWrapping="Wrap"/>
             </StackPanel>
         </Border>
+        <Border x:Name="MovesPanel"
+                Background="#F0101018"
+                BorderBrush="#AA7CE07C"
+                BorderThickness="1"
+                CornerRadius="10"
+                Padding="14,10"
+                MinWidth="280"
+                MaxWidth="380"
+                Visibility="Collapsed">
+            <StackPanel>
+                <TextBlock x:Name="MovesHeadline"
+                           FontSize="16"
+                           FontWeight="Bold"
+                           Foreground="#FF7CE07C"
+                           Text="Best moves this turn"/>
+                <StackPanel x:Name="MovesStack" Margin="0,6,0,0"/>
+                <TextBlock x:Name="MovesFooter"
+                           FontSize="12"
+                           Foreground="#FFF2C94C"
+                           Margin="0,6,0,0"
+                           TextWrapping="Wrap"
+                           Visibility="Collapsed"/>
+            </StackPanel>
+        </Border>
         <Border x:Name="IdleChip"
                 Background="#B3101018"
                 BorderBrush="#44D9A441"
