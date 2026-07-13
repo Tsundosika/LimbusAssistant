@@ -209,33 +209,33 @@ public sealed class AdvisorLoop : IDisposable
             Publish(BuildSnapshot(CaptureStatus.Ok, window, false, false, CurrentMetrics(_reader.ConsumeOcrCallCount())));
             return;
         }
-        if (!ClashGate.IsClashLikely(frame, content))
+        if (now - _lastDockScanTimestamp >= DockScanIntervalMilliseconds)
         {
-            if (now - _lastDockScanTimestamp >= DockScanIntervalMilliseconds)
+            _lastDockScanTimestamp = now;
+            var dock = await _pipeline.ReadDockSanityAsync(frame, content);
+            var usable = dock
+                .Where(slot => slot.Reading.Value is >= -45 and <= 45 && slot.Reading.Confidence >= 0.4)
+                .OrderBy(slot => slot.Rect.X)
+                .ToList();
+            if (usable.Count > 0)
             {
-                _lastDockScanTimestamp = now;
-                var dock = await _pipeline.ReadDockSanityAsync(frame, content);
-                var usable = dock
-                    .Where(slot => slot.Reading.Value is >= -45 and <= 45 && slot.Reading.Confidence >= 0.4)
-                    .OrderBy(slot => slot.Rect.X)
-                    .ToList();
-                if (usable.Count > 0)
+                _cachedSanities = usable.Select(slot => slot.Reading.Value!.Value).ToList();
+            }
+            var team = _team;
+            if (team is { Count: > 0 } && usable.Count > 0)
+            {
+                var band = DockScanner.DockBand.ToPixelsWithin(content);
+                foreach (var slot in usable)
                 {
-                    _cachedSanities = usable.Select(slot => slot.Reading.Value!.Value).ToList();
-                }
-                var team = _team;
-                if (team is { Count: > 0 } && usable.Count > 0)
-                {
-                    var band = DockScanner.DockBand.ToPixelsWithin(content);
-                    foreach (var slot in usable)
-                    {
-                        var center = slot.Rect.X + slot.Rect.Width / 2.0;
-                        var index = (int)((center - band.X) * team.Count / Math.Max(1, band.Width));
-                        index = Math.Clamp(index, 0, team.Count - 1);
-                        _dockSanities[team[index].Name] = slot.Reading.Value!.Value;
-                    }
+                    var center = slot.Rect.X + slot.Rect.Width / 2.0;
+                    var index = (int)((center - band.X) * team.Count / Math.Max(1, band.Width));
+                    index = Math.Clamp(index, 0, team.Count - 1);
+                    _dockSanities[team[index].Name] = slot.Reading.Value!.Value;
                 }
             }
+        }
+        if (!ClashGate.IsClashLikely(frame, content))
+        {
             RefreshStickyMatchups();
             _lastPlanning = _stickyPlanning;
             _lastLiveClash = null;
@@ -478,7 +478,11 @@ public sealed class AdvisorLoop : IDisposable
             return (field.Value.Reading.Value, "field");
         }
         var cached = CachedSanity();
-        return (cached, cached is null ? null : "dock");
+        if (cached is not null)
+        {
+            return (cached, "dock");
+        }
+        return (0, "default");
     }
 
     SkillData? MatchEnemySkill(string rawName)

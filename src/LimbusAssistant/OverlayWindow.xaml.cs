@@ -142,9 +142,11 @@ public partial class OverlayWindow : Window
                     {
                         "field" => $"sanity {sanity:+0;-0;0} read next to your sinner, {50 + Math.Clamp(sanity, -45, 45)}% heads",
                         "team" => $"{planning.IdentityName}: sanity {sanity:+0;-0;0} from your team, {50 + Math.Clamp(sanity, -45, 45)}% heads",
-                        _ => $"sanity ~{sanity:+0;-0;0} (dock guess), {50 + Math.Clamp(sanity, -45, 45)}% heads. Set exact SP in Turn Advisor.",
+                        "dock slot" => $"sanity {sanity:+0;-0;0} from the dock, {50 + Math.Clamp(sanity, -45, 45)}% heads",
+                        "default" => "sanity 0 (no colored SP circles yet), 50% heads",
+                        _ => $"sanity ~{sanity:+0;-0;0} (dock guess), {50 + Math.Clamp(sanity, -45, 45)}% heads",
                     }
-                    : "sanity unknown, assuming 50% heads. Add your team in Turn Advisor.";
+                    : "sanity unknown, assuming 50% heads";
                 if (planning.Matchups is { Count: > 0 } matchups)
                 {
                     MatchupsText.Visibility = Visibility.Visible;
