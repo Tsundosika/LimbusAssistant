@@ -15,7 +15,18 @@ public static class LetterboxDetector
         {
             return new PixelRect(0, 0, frame.Width, frame.Height);
         }
-        return new PixelRect(left, top, right - left + 1, bottom - top + 1);
+        var content = new PixelRect(left, top, right - left + 1, bottom - top + 1);
+        return IsPlausible(content, frame) ? content : new PixelRect(0, 0, frame.Width, frame.Height);
+    }
+
+    static bool IsPlausible(PixelRect content, CaptureFrame frame)
+    {
+        if (content.Width < frame.Width / 2 && content.Height < frame.Height / 2)
+        {
+            return false;
+        }
+        var aspect = content.Height == 0 ? 0 : content.Width / (double)content.Height;
+        return aspect is >= 1.0 and <= 3.0;
     }
 
     static int FindEdge(CaptureFrame frame, int start, int end, int step, Func<CaptureFrame, int, bool> hasContent)

@@ -16,6 +16,12 @@ public static class RibbonScanner
         {
             return [];
         }
+        var scale = content.Width / 1920.0;
+        var minWidth = 110 * scale;
+        var maxWidth = 380 * scale;
+        var minHeight = 22 * scale;
+        var maxHeight = 110 * scale;
+        var pad = Math.Max(2, (int)Math.Round(6 * scale));
         using var view = frameBgra[new Rect(area.X, area.Y, area.Width, area.Height)];
         using var bgr = new Mat();
         Cv2.CvtColor(view, bgr, ColorConversionCodes.BGRA2BGR);
@@ -23,7 +29,9 @@ public static class RibbonScanner
         Cv2.CvtColor(bgr, hsv, ColorConversionCodes.BGR2HSV);
         using var whiteMask = new Mat();
         Cv2.InRange(hsv, new Scalar(0, 0, 170), new Scalar(180, 95, 255), whiteMask);
-        using var kernel = Cv2.GetStructuringElement(MorphShapes.Rect, new Size(9, 5));
+        using var kernel = Cv2.GetStructuringElement(
+            MorphShapes.Rect,
+            new Size(Math.Max(3, (int)Math.Round(9 * scale)), Math.Max(3, (int)Math.Round(5 * scale))));
         var candidates = new List<Rect>();
         foreach (var (low, high) in ColorBands)
         {
@@ -35,7 +43,7 @@ public static class RibbonScanner
             {
                 var rect = Cv2.BoundingRect(contour);
                 var aspect = rect.Height == 0 ? 0 : rect.Width / (double)rect.Height;
-                if (rect.Width < 110 || rect.Width > 380 || rect.Height < 22 || rect.Height > 110 || aspect < 1.6)
+                if (rect.Width < minWidth || rect.Width > maxWidth || rect.Height < minHeight || rect.Height > maxHeight || aspect < 1.6)
                 {
                     continue;
                 }
@@ -51,10 +59,10 @@ public static class RibbonScanner
             .OrderByDescending(rect => rect.Y)
             .Take(5)
             .Select(found => new PixelRect(
-                Math.Max(0, area.X + found.X - 6),
-                Math.Max(0, area.Y + found.Y - 6),
-                found.Width + 12,
-                found.Height + 12))
+                Math.Max(0, area.X + found.X - pad),
+                Math.Max(0, area.Y + found.Y - pad),
+                found.Width + pad * 2,
+                found.Height + pad * 2))
             .ToList();
     }
 

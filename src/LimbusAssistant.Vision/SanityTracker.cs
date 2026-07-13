@@ -3,6 +3,7 @@ namespace Tsundosika.LimbusAssistant.Vision;
 public sealed class SanityTracker
 {
     public const long StaleMilliseconds = 10000;
+    public const long MaxResolveAgeMilliseconds = 90000;
 
     readonly object _gate = new();
     readonly Dictionary<string, SanityEntry> _entries = new(StringComparer.OrdinalIgnoreCase);
@@ -25,7 +26,16 @@ public sealed class SanityTracker
     {
         lock (_gate)
         {
-            return _entries.TryGetValue(key, out var entry) ? entry : null;
+            if (!_entries.TryGetValue(key, out var entry))
+            {
+                return null;
+            }
+            if (entry.Source != SanitySource.ManualTeam
+                && Environment.TickCount64 - entry.Timestamp > MaxResolveAgeMilliseconds)
+            {
+                return null;
+            }
+            return entry;
         }
     }
 
