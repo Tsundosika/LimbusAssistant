@@ -180,7 +180,7 @@ public sealed class VisionPipeline(
     static ((PixelRect Rect, TextReading Text, double Score) Left, (PixelRect Rect, TextReading Text, double Score) Right)?
         FindRibbonPair(List<(PixelRect Rect, TextReading Text, double Score)> readings)
     {
-        var lettered = readings.Where(reading => reading.Text.Text.Count(char.IsLetter) >= 4).ToList();
+        var lettered = readings.Where(reading => reading.Text.Text.Count(char.IsLetter) >= 3).ToList();
         for (var i = 0; i < lettered.Count; i++)
         {
             for (var j = i + 1; j < lettered.Count; j++)

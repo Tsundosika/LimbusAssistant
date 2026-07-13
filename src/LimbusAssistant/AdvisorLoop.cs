@@ -117,6 +117,29 @@ public sealed class AdvisorLoop : IDisposable
         }
         var sticky = _stickyPlanning;
         report.AppendLine($"lock {sticky?.Skill?.Name ?? "none"}");
+        report.AppendLine($"team {(_team is { Count: > 0 } team ? string.Join(", ", team.Select(member => $"{member.Name}={member.Sanity}")) : "empty")}");
+        report.AppendLine($"dock sanities {(_dockSanities.Count > 0 ? string.Join(", ", _dockSanities.Select(pair => $"{pair.Key}={pair.Value}")) : "empty")}");
+        try
+        {
+            var content = LetterboxDetector.DetectContent(frame);
+            using var mat = FrameMat.ToMat(frame);
+            var highlight = HighlightScanner.FindHighlightedUnit(mat, content);
+            report.AppendLine(highlight is { } h
+                ? $"highlight {h.X},{h.Y} {h.Width}x{h.Height}"
+                : "highlight none");
+            var circles = DockScanner.FindSanityCircles(mat, content, DockScanner.FieldBand);
+            report.AppendLine($"field circles {circles.Count}: {string.Join(" ", circles.Select(circle => $"{circle.X},{circle.Y}"))}");
+            var dragger = _pipeline.ReadDraggerSanityAsync(frame, content).GetAwaiter().GetResult();
+            report.AppendLine(dragger is { } d
+                ? $"dragger sanity {d.Reading.Value?.ToString() ?? "?"} conf {d.Reading.Confidence:F2} at {d.Rect.X},{d.Rect.Y}"
+                : "dragger sanity none");
+            var dock = _pipeline.ReadDockSanityAsync(frame, content).GetAwaiter().GetResult();
+            report.AppendLine($"dock circles {dock.Count}: {string.Join(" ", dock.Select(slot => $"{slot.Reading.Value?.ToString() ?? "?"}@{slot.Rect.X}"))}");
+        }
+        catch (Exception exception)
+        {
+            report.AppendLine($"diagnostics failed: {exception.Message}");
+        }
         File.WriteAllText(Path.Combine(directory, "state.txt"), report.ToString());
         return directory;
     }
@@ -576,7 +599,12 @@ public sealed class AdvisorLoop : IDisposable
 
     void UpdateAutoEnemy(VisionReading reading)
     {
-        var target = reading.Text(RegionNames.TargetUnitName);
+        TryLockEnemyFromName(reading.Text(RegionNames.TargetEnemyName));
+        TryLockEnemyFromName(reading.Text(RegionNames.TargetUnitName));
+    }
+
+    void TryLockEnemyFromName(TextReading target)
+    {
         if (target.Confidence < 0.45 || target.Text.Length < 4)
         {
             return;
