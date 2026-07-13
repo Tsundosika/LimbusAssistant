@@ -13,4 +13,5 @@ public sealed record PlanningHint(
     bool IsEnemySkill = false,
     string? SanitySource = null,
     MatchupOdds? ExactClash = null,
-    string? ExactEnemySkillName = null);
+    string? ExactEnemySkillName = null,
+    int? SanityAgeSeconds = null);

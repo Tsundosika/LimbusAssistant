@@ -120,7 +120,7 @@ public partial class OverlayWindow : Window
                     $"{skill.Name} vs {planning.ExactEnemySkillName}" +
                     $" · deal ~{exact.ExpectedDamageDealt:F0} · take ~{exact.ExpectedDamageTaken:F0}";
                 SanityText.Text = planning.Sanity is { } exactSanity
-                    ? $"sanity {exactSanity:+0;-0;0}, {50 + Math.Clamp(exactSanity, -45, 45)}% heads ({planning.SanitySource ?? "assumed"})"
+                    ? $"sanity {exactSanity:+0;-0;0}, {50 + Math.Clamp(exactSanity, -45, 45)}% heads ({planning.SanitySource ?? "assumed"}){StaleSuffix(planning)}"
                     : "sanity unknown, assuming 50% heads";
                 if (planning.Matchups is { Count: > 0 } rest)
                 {
@@ -140,11 +140,11 @@ public partial class OverlayWindow : Window
                 SanityText.Text = planning.Sanity is { } sanity
                     ? planning.SanitySource switch
                     {
-                        "field" => $"sanity {sanity:+0;-0;0} read next to your sinner, {50 + Math.Clamp(sanity, -45, 45)}% heads",
-                        "team" => $"{planning.IdentityName}: sanity {sanity:+0;-0;0} from your team, {50 + Math.Clamp(sanity, -45, 45)}% heads",
-                        "dock slot" => $"sanity {sanity:+0;-0;0} from the dock, {50 + Math.Clamp(sanity, -45, 45)}% heads",
-                        "default" => "sanity 0 (no colored SP circles yet), 50% heads",
-                        _ => $"sanity ~{sanity:+0;-0;0} (dock guess), {50 + Math.Clamp(sanity, -45, 45)}% heads",
+                        "field" => $"sanity {sanity:+0;-0;0} read next to your sinner, {50 + Math.Clamp(sanity, -45, 45)}% heads{StaleSuffix(planning)}",
+                        "team" => $"{planning.IdentityName}: sanity {sanity:+0;-0;0} from your team, {50 + Math.Clamp(sanity, -45, 45)}% heads{StaleSuffix(planning)}",
+                        "dock slot" => $"sanity {sanity:+0;-0;0} from the dock, {50 + Math.Clamp(sanity, -45, 45)}% heads{StaleSuffix(planning)}",
+                        "dock rank" => $"sanity {sanity:+0;-0;0} via dock order (circle hidden by glow), {50 + Math.Clamp(sanity, -45, 45)}% heads{StaleSuffix(planning)}",
+                        _ => $"sanity ~{sanity:+0;-0;0}, {50 + Math.Clamp(sanity, -45, 45)}% heads{StaleSuffix(planning)}",
                     }
                     : "sanity unknown, assuming 50% heads";
                 if (planning.Matchups is { Count: > 0 } matchups)
@@ -211,6 +211,9 @@ public partial class OverlayWindow : Window
         Canvas.SetLeft(ReadOutline, ribbon.Left - 4);
         Canvas.SetTop(ReadOutline, ribbon.Top - 4);
     }
+
+    static string StaleSuffix(PlanningHint planning) =>
+        planning.SanityAgeSeconds is { } age and >= 10 ? $", read {age}s ago" : "";
 
     static string FormatMatchups(string? header, IReadOnlyList<MatchupOdds> matchups)
     {

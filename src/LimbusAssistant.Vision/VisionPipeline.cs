@@ -33,6 +33,19 @@ public sealed class VisionPipeline(
         return results;
     }
 
+    public async Task<IReadOnlyList<(PixelRect Rect, NumberReading Reading)>> ReadFieldSanityAsync(
+        CaptureFrame frame,
+        PixelRect content)
+    {
+        using var mat = FrameMat.ToMat(frame);
+        var results = new List<(PixelRect, NumberReading)>();
+        foreach (var circle in DockScanner.FindSanityCircles(mat, content, DockScanner.FieldBand))
+        {
+            results.Add((circle, await ReadCircleAsync(mat, circle)));
+        }
+        return results;
+    }
+
     async Task<NumberReading> ReadCircleAsync(Mat mat, PixelRect circle)
     {
         if (digitTemplates is { IsEmpty: false })

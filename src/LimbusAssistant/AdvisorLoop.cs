@@ -26,7 +26,7 @@ public sealed class AdvisorLoop : IDisposable
 
     volatile EnemyData? _liveEnemy;
     volatile IReadOnlyList<(string Name, int Sanity)>? _team;
-    readonly Dictionary<string, int> _dockSanities = new();
+    readonly SanityTracker _sanity = new();
     readonly List<string> _observedIdentities = [];
     EnemyData? _autoEnemy;
     long _autoEnemyTimestamp;
@@ -83,7 +83,24 @@ public sealed class AdvisorLoop : IDisposable
 
     public void SetLiveEnemy(EnemyData? enemy) => _liveEnemy = enemy;
 
-    public void SetTeam(IReadOnlyList<(string Name, int Sanity)> members) => _team = members;
+    public void SetTeam(IReadOnlyList<(string Name, int Sanity)> members)
+    {
+        _team = members;
+        SeedTeamSanity();
+    }
+
+    void SeedTeamSanity()
+    {
+        if (_team is not { Count: > 0 } team)
+        {
+            return;
+        }
+        var now = Environment.TickCount64;
+        foreach (var member in team)
+        {
+            _sanity.Report(member.Name, member.Sanity, SanitySource.ManualTeam, now);
+        }
+    }
 
     public string? DumpDebugSnapshot()
     {
@@ -118,7 +135,11 @@ public sealed class AdvisorLoop : IDisposable
         var sticky = _stickyPlanning;
         report.AppendLine($"lock {sticky?.Skill?.Name ?? "none"}");
         report.AppendLine($"team {(_team is { Count: > 0 } team ? string.Join(", ", team.Select(member => $"{member.Name}={member.Sanity}")) : "empty")}");
-        report.AppendLine($"dock sanities {(_dockSanities.Count > 0 ? string.Join(", ", _dockSanities.Select(pair => $"{pair.Key}={pair.Value}")) : "empty")}");
+        var trackerEntries = _sanity.Snapshot();
+        var trackerNow = Environment.TickCount64;
+        report.AppendLine(trackerEntries.Count > 0
+            ? $"sanity tracker: {string.Join(", ", trackerEntries.Select(pair => $"{pair.Key}={pair.Entry.Value} ({SanityTracker.Label(pair.Entry.Source)}, {(trackerNow - pair.Entry.Timestamp) / 1000}s)"))}"
+            : "sanity tracker: empty");
         try
         {
             var content = LetterboxDetector.DetectContent(frame);
@@ -219,10 +240,12 @@ public sealed class AdvisorLoop : IDisposable
         }
         if (_nonPlanningStreak >= HideStreak)
         {
-            if (_nonPlanningStreak >= ClearStreak)
+            if (_nonPlanningStreak == ClearStreak)
             {
                 _stickyPlanning = null;
                 _autoEnemy = null;
+                _sanity.Clear();
+                SeedTeamSanity();
             }
             _lastPlanning = null;
             _lastLiveClash = null;
@@ -234,23 +257,12 @@ public sealed class AdvisorLoop : IDisposable
         if (now - _lastDockScanTimestamp >= DockScanIntervalMilliseconds)
         {
             _lastDockScanTimestamp = now;
-            var dock = await _pipeline.ReadDockSanityAsync(frame, content);
-            var usable = dock
-                .Where(slot => slot.Reading.Value is >= -45 and <= 45 && slot.Reading.Confidence >= 0.4)
-                .OrderBy(slot => slot.Rect.X)
-                .ToList();
-            var team = _team;
-            if (team is { Count: > 0 } && usable.Count > 0)
-            {
-                var band = DockScanner.DockBand.ToPixelsWithin(content);
-                foreach (var slot in usable)
-                {
-                    var center = slot.Rect.X + slot.Rect.Width / 2.0;
-                    var index = (int)((center - band.X) * team.Count / Math.Max(1, band.Width));
-                    index = Math.Clamp(index, 0, team.Count - 1);
-                    _dockSanities[team[index].Name] = slot.Reading.Value!.Value;
-                }
-            }
+            var teamNames = _team is { Count: > 0 } team
+                ? team.Select(member => member.Name).ToList()
+                : null;
+            await SanityFrameIngest.IngestDockAsync(_sanity, _pipeline, frame, content, teamNames, now);
+            await SanityFrameIngest.IngestFieldAsync(_sanity, _pipeline, frame, content, now);
+            await SanityFrameIngest.IngestActingAsync(_sanity, _pipeline, frame, content, _stickyPlanning?.IdentityName, now);
         }
         if (!ClashGate.IsClashLikely(frame, content))
         {
@@ -356,21 +368,12 @@ public sealed class AdvisorLoop : IDisposable
                 BestAnswers(owner, hoveredEnemySkill),
                 true);
         }
-        int? sanity;
-        string? source;
-        if (_stickyPlanning is { } sticky && sticky.Skill?.Id == skill?.Id && sticky.Sanity is not null)
-        {
-            sanity = sticky.Sanity;
-            source = sticky.SanitySource;
-        }
-        else
-        {
-            (sanity, source) = await ResolveSanityAsync(frame, content, identity);
-            if (source == "field" && identity is not null && sanity is { } learned)
-            {
-                _dockSanities[identity] = learned;
-            }
-        }
+        var now = Environment.TickCount64;
+        await SanityFrameIngest.IngestActingAsync(_sanity, _pipeline, frame, content, identity, now);
+        var entry = identity is null ? null : _sanity.Resolve(identity);
+        var sanity = entry?.Value;
+        var source = entry is null ? null : SanityTracker.Label(entry.Source);
+        var sanityAge = entry is null ? (int?)null : (int)((now - entry.Timestamp) / 1000);
         var exact = MatchExactEnemySkill(enemySideText);
         if (skill is not null && identity is not null && exact is { } exactMatch)
         {
@@ -398,11 +401,22 @@ public sealed class AdvisorLoop : IDisposable
                     false,
                     source,
                     exactOdds,
-                    exactMatch.Skill.Name);
+                    exactMatch.Skill.Name,
+                    sanityAge);
             }
         }
         var (enemyName, matchups) = BuildMatchups(skill, identity, sanity);
-        return new PlanningHint(name.Text, skill, identity, sanity, name.Confidence, enemyName, matchups, false, source);
+        return new PlanningHint(
+            name.Text,
+            skill,
+            identity,
+            sanity,
+            name.Confidence,
+            enemyName,
+            matchups,
+            false,
+            source,
+            SanityAgeSeconds: sanityAge);
     }
 
     (SkillData? Skill, string? Identity) MatchSkillWithCandidates(string primaryText, VisionReading reading)
@@ -482,26 +496,6 @@ public sealed class AdvisorLoop : IDisposable
             : null;
     }
 
-    async Task<(int? Sanity, string? Source)> ResolveSanityAsync(CaptureFrame frame, PixelRect content, string? identityName)
-    {
-        var field = await _pipeline.ReadDraggerSanityAsync(frame, content);
-        if (field?.Reading.Value is >= -45 and <= 45 && field.Value.Reading.Confidence >= 0.4)
-        {
-            return (field.Value.Reading.Value, "field");
-        }
-        if (identityName is not null && _dockSanities.TryGetValue(identityName, out var dockSanity))
-        {
-            return (dockSanity, "dock slot");
-        }
-        if (identityName is not null
-            && _team is { } team
-            && team.FirstOrDefault(member => member.Name == identityName) is { Name: not null } manual)
-        {
-            return (manual.Sanity, "team");
-        }
-        return (0, "default");
-    }
-
     SkillData? MatchEnemySkill(string rawName)
     {
         var normalized = Normalize(rawName);
@@ -564,19 +558,58 @@ public sealed class AdvisorLoop : IDisposable
 
     void RefreshStickyMatchups()
     {
-        if (_stickyPlanning is not { Skill: not null, IsEnemySkill: false, Matchups: null } sticky)
+        if (_stickyPlanning is not { Skill: not null, IsEnemySkill: false } sticky)
         {
             return;
         }
-        if (EffectiveEnemy() is null)
+        var now = Environment.TickCount64;
+        var entry = sticky.IdentityName is null ? null : _sanity.Resolve(sticky.IdentityName);
+        var liveSanity = entry?.Value;
+        var age = entry is null ? sticky.SanityAgeSeconds : (int)((now - entry.Timestamp) / 1000);
+        var sanityChanged = liveSanity is not null && liveSanity != sticky.Sanity;
+        var matchupsMissing = sticky.Matchups is null && EffectiveEnemy() is not null;
+        if (!sanityChanged && !matchupsMissing)
         {
+            if (age != sticky.SanityAgeSeconds)
+            {
+                _stickyPlanning = sticky with { SanityAgeSeconds = age };
+            }
             return;
         }
-        var (enemyName, matchups) = BuildMatchups(sticky.Skill, sticky.IdentityName, sticky.Sanity);
-        if (matchups is not null)
+        var sanity = liveSanity ?? sticky.Sanity;
+        var source = entry is null ? sticky.SanitySource : SanityTracker.Label(entry.Source);
+        var (enemyName, matchups) = BuildMatchups(sticky.Skill, sticky.IdentityName, sanity);
+        _stickyPlanning = sticky with
         {
-            _stickyPlanning = sticky with { EnemyName = enemyName, Matchups = matchups };
+            Sanity = sanity,
+            SanitySource = source,
+            SanityAgeSeconds = age,
+            EnemyName = enemyName ?? sticky.EnemyName,
+            Matchups = matchups ?? sticky.Matchups,
+            ExactClash = RecomputeExactClash(sticky, sanity),
+        };
+    }
+
+    MatchupOdds? RecomputeExactClash(PlanningHint sticky, int? sanity)
+    {
+        if (sticky.ExactClash is null || sticky.ExactEnemySkillName is null || sticky.Skill is null)
+        {
+            return sticky.ExactClash;
         }
+        var identity = _data.Identities.FirstOrDefault(candidate => candidate.Name == sticky.IdentityName);
+        var enemy = EffectiveEnemy();
+        var enemySkill = enemy?.Skills.FirstOrDefault(skill => skill.Name == sticky.ExactEnemySkillName);
+        if (identity is null || enemy is null || enemySkill is null)
+        {
+            return sticky.ExactClash;
+        }
+        var unit = new TurnUnit(identity, sanity ?? 0);
+        var result = _solver.EvaluateClash(unit, sticky.Skill, new EnemyThreat(enemy, enemySkill));
+        return new MatchupOdds(
+            enemySkill.Name,
+            result.WinProbability,
+            result.ExpectedDamageDealt,
+            result.ExpectedDamageTaken);
     }
 
     IReadOnlyList<string> RosterNames()
@@ -588,18 +621,7 @@ public sealed class AdvisorLoop : IDisposable
         return _observedIdentities;
     }
 
-    int RosterSanity(string identityName)
-    {
-        if (_dockSanities.TryGetValue(identityName, out var dockSanity))
-        {
-            return dockSanity;
-        }
-        if (_team is { } team && team.FirstOrDefault(member => member.Name == identityName) is { Name: not null } manual)
-        {
-            return manual.Sanity;
-        }
-        return 0;
-    }
+    int RosterSanity(string identityName) => _sanity.Resolve(identityName)?.Value ?? 0;
 
     void UpdateAutoEnemy(VisionReading reading)
     {
@@ -795,6 +817,7 @@ public sealed class AdvisorLoop : IDisposable
             || snapshot.Planning?.Skill?.Id != _lastPublished.Planning?.Skill?.Id
             || snapshot.Planning?.RawSkillName != _lastPublished.Planning?.RawSkillName
             || snapshot.Planning?.Sanity != _lastPublished.Planning?.Sanity
+            || snapshot.Planning?.SanitySource != _lastPublished.Planning?.SanitySource
             || snapshot.Planning?.EnemyName != _lastPublished.Planning?.EnemyName
             || (snapshot.Planning?.Matchups?.Count ?? -1) != (_lastPublished.Planning?.Matchups?.Count ?? -1))
         {

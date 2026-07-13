@@ -16,13 +16,15 @@ public sealed record ProbeOptions(
 
     public bool Glyphs { get; init; }
 
+    public bool Sanity { get; init; }
+
     public static ProbeOptions? Parse(string[] args)
     {
-        if (args.Length == 0 || args[0] is not ("shot" or "watch" or "file" or "verify" or "glyphs"))
+        if (args.Length == 0 || args[0] is not ("shot" or "watch" or "file" or "verify" or "glyphs" or "sanity"))
         {
             return null;
         }
-        if (args[0] is "file" or "verify" or "glyphs")
+        if (args[0] is "file" or "verify" or "glyphs" or "sanity")
         {
             if (args.Length < 2 || !File.Exists(args[1]))
             {
@@ -31,7 +33,13 @@ public sealed record ProbeOptions(
             var fileOptions = ParseCommon(args, 2, false);
             return fileOptions is null
                 ? null
-                : fileOptions with { InputFile = args[1], Verify = args[0] == "verify", Glyphs = args[0] == "glyphs" };
+                : fileOptions with
+                {
+                    InputFile = args[1],
+                    Verify = args[0] == "verify",
+                    Glyphs = args[0] == "glyphs",
+                    Sanity = args[0] == "sanity",
+                };
         }
         var watch = args[0] == "watch";
         return ParseCommon(args, 1, watch);
@@ -82,5 +90,5 @@ public sealed record ProbeOptions(
     }
 
     public static string Usage =>
-        "usage: CaptureProbe shot|watch|file <png> [--seconds N] [--interval MS] [--window TITLE] [--out DIR] [--profile PATH] [--no-ocr] [--stages]";
+        "usage: CaptureProbe shot|watch|file|verify|glyphs|sanity <png> [--seconds N] [--interval MS] [--window TITLE] [--out DIR] [--profile PATH] [--no-ocr] [--stages]";
 }

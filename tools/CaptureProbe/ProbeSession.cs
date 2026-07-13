@@ -38,6 +38,12 @@ public sealed class ProbeSession(ProbeOptions options)
                 options.InputFile,
                 Path.Combine("src", "LimbusAssistant", "Data"));
         }
+        if (options.InputFile is not null && options.Sanity)
+        {
+            return await new SanityProbe(_reader, _digits).RunAsync(
+                options.InputFile,
+                Path.Combine("src", "LimbusAssistant", "Data"));
+        }
         if (options.InputFile is not null)
         {
             return await RunFileAsync(options.InputFile);
