@@ -20,6 +20,7 @@ public sealed class AdvisorLoop : IDisposable
     readonly int _targetFrameIntervalMs;
     readonly IReadOnlyList<(string Normalized, SkillData Skill, string Identity)> _skillIndex;
     readonly IReadOnlyList<(string Normalized, SkillData Skill, EnemyData Owner)> _enemySkillIndex;
+    readonly IReadOnlyDictionary<string, IReadOnlyList<EnemyData>> _enemiesByName;
     const int CaptureGraceMilliseconds = 2000;
 
     const int DockScanIntervalMilliseconds = 1000;
@@ -71,6 +72,46 @@ public sealed class AdvisorLoop : IDisposable
         _enemySkillIndex = data.Enemies
             .SelectMany(enemy => enemy.Skills.Select(skill => (Normalize(skill.Name), skill, enemy)))
             .ToList();
+        _enemiesByName = data.Enemies
+            .GroupBy(enemy => Normalize(enemy.Name))
+            .Where(group => group.Key.Length >= 3)
+            .ToDictionary(group => group.Key, group => (IReadOnlyList<EnemyData>)group.ToList());
+    }
+
+    IReadOnlyList<EnemyData> SiblingsOf(EnemyData enemy)
+    {
+        var key = Normalize(enemy.Name);
+        return key.Length >= 3 && _enemiesByName.TryGetValue(key, out var group) ? group : [enemy];
+    }
+
+    (SkillData Skill, EnemyData Owner)? MatchGlobalEnemySkillStrict(string normalized)
+    {
+        if (normalized.Length < 5)
+        {
+            return null;
+        }
+        SkillData? bestSkill = null;
+        EnemyData? bestOwner = null;
+        var bestDistance = 3;
+        foreach (var (candidate, skill, owner) in _enemySkillIndex)
+        {
+            if (candidate.Length < 5 || Math.Abs(candidate.Length - normalized.Length) > 2)
+            {
+                continue;
+            }
+            var distance = EditDistance(normalized, candidate, 2);
+            if (distance < bestDistance)
+            {
+                bestDistance = distance;
+                bestSkill = skill;
+                bestOwner = owner;
+                if (distance == 0)
+                {
+                    break;
+                }
+            }
+        }
+        return bestSkill is not null && bestOwner is not null ? (bestSkill, bestOwner) : null;
     }
 
     public void Start() => Task.Run(() => RunAsync(_cancellation.Token));
@@ -453,11 +494,15 @@ public sealed class AdvisorLoop : IDisposable
             return null;
         }
         var live = EffectiveEnemy();
-        if (live is not null && MatchWithin(normalized, live.Skills.Select(skill => (skill, live))) is { } liveMatch)
+        if (live is not null)
         {
-            return liveMatch;
+            var siblings = SiblingsOf(live).SelectMany(sibling => sibling.Skills.Select(skill => (skill, sibling)));
+            if (MatchWithin(normalized, siblings) is { } liveMatch)
+            {
+                return liveMatch;
+            }
         }
-        return MatchWithin(normalized, _enemySkillIndex.Select(entry => (entry.Skill, entry.Owner)));
+        return MatchGlobalEnemySkillStrict(normalized);
     }
 
     static (SkillData Skill, EnemyData Owner)? MatchWithin(
@@ -504,9 +549,13 @@ public sealed class AdvisorLoop : IDisposable
             return null;
         }
         var live = EffectiveEnemy();
-        if (live is not null && MatchWithin(normalized, live.Skills.Select(skill => (skill, live))) is { } liveMatch)
+        if (live is not null)
         {
-            return liveMatch.Skill;
+            var siblings = SiblingsOf(live).SelectMany(sibling => sibling.Skills.Select(skill => (skill, sibling)));
+            if (MatchWithin(normalized, siblings) is { } liveMatch)
+            {
+                return liveMatch.Skill;
+            }
         }
         var (identitySkill, _) = MatchSkill(rawName);
         if (identitySkill is not null)
@@ -665,6 +714,11 @@ public sealed class AdvisorLoop : IDisposable
         }
         if (bestEnemy is not null && bestDistance <= Math.Max(2, Normalize(bestEnemy.Name).Length / 4))
         {
+            if (_autoEnemy is not null && Normalize(_autoEnemy.Name) == Normalize(bestEnemy.Name))
+            {
+                _autoEnemyTimestamp = Environment.TickCount64;
+                return;
+            }
             _autoEnemy = bestEnemy;
             _autoEnemyTimestamp = Environment.TickCount64;
         }
