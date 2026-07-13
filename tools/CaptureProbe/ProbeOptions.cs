@@ -14,20 +14,24 @@ public sealed record ProbeOptions(
 
     public bool Verify { get; init; }
 
+    public bool Glyphs { get; init; }
+
     public static ProbeOptions? Parse(string[] args)
     {
-        if (args.Length == 0 || args[0] is not ("shot" or "watch" or "file" or "verify"))
+        if (args.Length == 0 || args[0] is not ("shot" or "watch" or "file" or "verify" or "glyphs"))
         {
             return null;
         }
-        if (args[0] is "file" or "verify")
+        if (args[0] is "file" or "verify" or "glyphs")
         {
             if (args.Length < 2 || !File.Exists(args[1]))
             {
                 return null;
             }
             var fileOptions = ParseCommon(args, 2, false);
-            return fileOptions is null ? null : fileOptions with { InputFile = args[1], Verify = args[0] == "verify" };
+            return fileOptions is null
+                ? null
+                : fileOptions with { InputFile = args[1], Verify = args[0] == "verify", Glyphs = args[0] == "glyphs" };
         }
         var watch = args[0] == "watch";
         return ParseCommon(args, 1, watch);

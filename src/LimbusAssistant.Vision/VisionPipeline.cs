@@ -2,7 +2,11 @@ using OpenCvSharp;
 
 namespace Tsundosika.LimbusAssistant.Vision;
 
-public sealed class VisionPipeline(INumberReader numberReader, TemplateLibrary templates, CalibrationProfile profile)
+public sealed class VisionPipeline(
+    INumberReader numberReader,
+    TemplateLibrary templates,
+    CalibrationProfile profile,
+    DigitTemplateReader? digitTemplates = null)
 {
     const int FullSweepInterval = 15;
     const double UsableConfidence = 0.60;
@@ -24,10 +28,22 @@ public sealed class VisionPipeline(INumberReader numberReader, TemplateLibrary t
         var results = new List<(PixelRect, NumberReading)>();
         foreach (var circle in DockScanner.FindSanityCircles(mat, content))
         {
-            var reading = await numberReader.ReadAsync(mat, circle);
-            results.Add((circle, reading));
+            results.Add((circle, await ReadCircleAsync(mat, circle)));
         }
         return results;
+    }
+
+    async Task<NumberReading> ReadCircleAsync(Mat mat, PixelRect circle)
+    {
+        if (digitTemplates is { IsEmpty: false })
+        {
+            var templated = digitTemplates.ReadCircle(mat, circle);
+            if (templated.Value is not null)
+            {
+                return templated;
+            }
+        }
+        return await numberReader.ReadAsync(mat, circle);
     }
 
     public async Task<(PixelRect Rect, NumberReading Reading)?> ReadDraggerSanityAsync(
@@ -55,8 +71,7 @@ public sealed class VisionPipeline(INumberReader numberReader, TemplateLibrary t
         {
             return null;
         }
-        var reading = await numberReader.ReadAsync(mat, nearest.Circle);
-        return (nearest.Circle, reading);
+        return (nearest.Circle, await ReadCircleAsync(mat, nearest.Circle));
     }
 
     static double Distance(PixelRect circle, double x, double y)

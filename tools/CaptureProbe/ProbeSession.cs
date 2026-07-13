@@ -9,9 +9,29 @@ public sealed class ProbeSession(ProbeOptions options)
     const double PassConfidence = 0.8;
 
     readonly WindowsNumberReader _reader = new();
+    readonly DigitTemplateReader _digits = DigitTemplateReader.LoadFrom(
+        Path.Combine("src", "LimbusAssistant", "Assets", "DigitTemplates"));
 
     public async Task<int> RunAsync()
     {
+        if (options.InputFile is not null && options.Glyphs)
+        {
+            using var glyphBgr = Cv2.ImRead(options.InputFile, ImreadModes.Color);
+            if (glyphBgr.Empty())
+            {
+                Console.WriteLine($"could not read image: {options.InputFile}");
+                return 1;
+            }
+            using var glyphBgra = new Mat();
+            Cv2.CvtColor(glyphBgr, glyphBgra, ColorConversionCodes.BGR2BGRA);
+            var glyphPixels = new byte[glyphBgra.Width * glyphBgra.Height * 4];
+            System.Runtime.InteropServices.Marshal.Copy(glyphBgra.Data, glyphPixels, 0, glyphPixels.Length);
+            var glyphFrame = new CaptureFrame(glyphPixels, glyphBgra.Width, glyphBgra.Height);
+            var glyphContent = LetterboxDetector.DetectContent(glyphFrame);
+            var count = GlyphHarvester.Harvest(glyphBgra, glyphContent, options.OutputDirectory);
+            Console.WriteLine($"saved {count} glyph candidates to {options.OutputDirectory}");
+            return 0;
+        }
         if (options.InputFile is not null && options.Verify)
         {
             return await new PipelineVerifier(_reader).RunAsync(
@@ -218,10 +238,11 @@ public sealed class ProbeSession(ProbeOptions options)
             report.AppendLine($"dock sanity circles found: {circles.Count}");
             foreach (var circle in circles)
             {
-                var reading = await _reader.ReadAsync(mat, circle);
+                var templated = _digits.IsEmpty ? NumberReading.Unknown : _digits.ReadCircle(mat, circle);
+                var reading = templated.Value is not null ? templated : await _reader.ReadAsync(mat, circle);
                 report.AppendLine(
                     $"   circle {circle.X},{circle.Y} {circle.Width}x{circle.Height}" +
-                    $"  value {reading.Value?.ToString() ?? "?"}  conf {reading.Confidence:F2}");
+                    $"  value {reading.Value?.ToString() ?? "?"}  conf {reading.Confidence:F2}  ({reading.RawText})");
             }
         }
 

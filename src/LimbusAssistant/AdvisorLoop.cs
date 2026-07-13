@@ -215,26 +215,24 @@ public sealed class AdvisorLoop : IDisposable
             {
                 _lastDockScanTimestamp = now;
                 var dock = await _pipeline.ReadDockSanityAsync(frame, content);
-                var slots = dock
+                var usable = dock
+                    .Where(slot => slot.Reading.Value is >= -45 and <= 45 && slot.Reading.Confidence >= 0.4)
                     .OrderBy(slot => slot.Rect.X)
-                    .Select(slot => slot.Reading.Value is >= -45 and <= 45 && slot.Reading.Confidence >= 0.4
-                        ? slot.Reading.Value
-                        : null)
                     .ToList();
-                var values = slots.Where(value => value is not null).Select(value => value!.Value).ToList();
-                if (values.Count > 0)
+                if (usable.Count > 0)
                 {
-                    _cachedSanities = values;
+                    _cachedSanities = usable.Select(slot => slot.Reading.Value!.Value).ToList();
                 }
                 var team = _team;
-                if (team is { Count: > 0 })
+                if (team is { Count: > 0 } && usable.Count > 0)
                 {
-                    for (var i = 0; i < Math.Min(team.Count, slots.Count); i++)
+                    var band = DockScanner.DockBand.ToPixelsWithin(content);
+                    foreach (var slot in usable)
                     {
-                        if (slots[i] is { } slotValue)
-                        {
-                            _dockSanities[team[i].Name] = slotValue;
-                        }
+                        var center = slot.Rect.X + slot.Rect.Width / 2.0;
+                        var index = (int)((center - band.X) * team.Count / Math.Max(1, band.Width));
+                        index = Math.Clamp(index, 0, team.Count - 1);
+                        _dockSanities[team[index].Name] = slot.Reading.Value!.Value;
                     }
                 }
             }

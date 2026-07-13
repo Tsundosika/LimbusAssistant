@@ -6,7 +6,7 @@ public static class DockScanner
 {
     const int MaxSlots = 6;
 
-    public static readonly NormalizedRect DockBand = new(0.20, 0.90, 0.75, 0.10);
+    public static readonly NormalizedRect DockBand = new(0.15, 0.87, 0.80, 0.13);
 
     public static readonly NormalizedRect FieldBand = new(0.05, 0.20, 0.90, 0.60);
 
@@ -26,7 +26,7 @@ public static class DockScanner
         using var hsv = new Mat();
         Cv2.CvtColor(bgr, hsv, ColorConversionCodes.BGR2HSV);
         using var mask = new Mat();
-        Cv2.InRange(hsv, new Scalar(95, 110, 100), new Scalar(135, 255, 255), mask);
+        Cv2.InRange(hsv, new Scalar(90, 60, 90), new Scalar(140, 255, 255), mask);
         using var kernel = Cv2.GetStructuringElement(MorphShapes.Ellipse, new Size(5, 5));
         Cv2.MorphologyEx(mask, mask, MorphTypes.Close, kernel);
         Cv2.FindContours(mask, out var contours, out _, RetrievalModes.External, ContourApproximationModes.ApproxSimple);

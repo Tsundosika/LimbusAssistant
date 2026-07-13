@@ -25,7 +25,8 @@ public partial class App : Application
         var calibration = CalibrationStore.Load();
         _templates = TemplateLibrary.LoadFrom(Path.Combine(AppContext.BaseDirectory, "Assets", "Templates"));
         var reader = new WindowsNumberReader();
-        var pipeline = new VisionPipeline(reader, _templates, calibration);
+        var digitTemplates = DigitTemplateReader.LoadFrom(Path.Combine(AppContext.BaseDirectory, "Assets", "DigitTemplates"));
+        var pipeline = new VisionPipeline(reader, _templates, calibration, digitTemplates);
 
         _overlay = new OverlayWindow();
         _main = new MainWindow(data, calibration);
