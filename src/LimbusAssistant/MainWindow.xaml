@@ -24,6 +24,12 @@
                                            Margin="0,6,0,0"
                                            TextWrapping="Wrap"
                                            Text="Start Limbus Company, or pick its window below."/>
+                                <TextBlock x:Name="QuickStartText"
+                                           FontSize="13"
+                                           Foreground="{StaticResource TextBrush}"
+                                           Margin="0,10,0,0"
+                                           TextWrapping="Wrap"
+                                           Text="✗ Game found    ✗ Team saved    ✗ Overlay on (Ctrl+F8)"/>
                             </StackPanel>
                         </Border>
 
@@ -191,8 +197,9 @@
                                       IsEditable="True"
                                       IsTextSearchEnabled="True"
                                       FontSize="13"
-                                      Margin="0,0,6,0"/>
-                            <TextBox x:Name="TeamSanityBox" Grid.Column="1" Text="0" Margin="0,0,6,0" ToolTip="Sanity"/>
+                                      Margin="0,0,6,0"
+                                      KeyDown="OnTeamEntryKeyDown"/>
+                            <TextBox x:Name="TeamSanityBox" Grid.Column="1" Text="0" Margin="0,0,6,0" ToolTip="Sanity" KeyDown="OnTeamEntryKeyDown"/>
                             <Button Grid.Column="2" Content="Add" Click="OnAddTeamMemberClick"/>
                         </Grid>
                         <ListBox x:Name="TeamList" Height="130" Margin="0,0,0,6"/>
@@ -219,7 +226,7 @@
                                    FontSize="11"
                                    Margin="0,4,0,0"
                                    TextWrapping="Wrap"
-                                   Text="Ctrl or Shift click to plan against several enemies at once. The overlay uses the first selected enemy for live win odds while you drag skills in game."/>
+                                   Text="Optional: in a fight the assistant recognizes the enemy by itself. Pick enemies here only to plan outside a battle (Ctrl or Shift click selects several)."/>
                         <Button Content="Plan the turn"
                                 Style="{StaticResource AccentButton}"
                                 HorizontalAlignment="Left"

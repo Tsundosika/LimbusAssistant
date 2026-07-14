@@ -32,6 +32,7 @@ public partial class App : Application
         _main = new MainWindow(data, calibration)
         {
             PlainLanguage = _settings.PlainLanguage,
+            CoachLanguage = _settings.Language,
         };
         _main.OverlayToggleRequested += ToggleOverlay;
         _main.GameWindowSelected += OnGameWindowSelected;

@@ -27,13 +27,12 @@ touches the game.
 
 ## Features
 
-- 🎓 **Best moves coach (great for new players)**: set your team once, and the
-  overlay tells you in plain language exactly what to do this turn: "1. Don
-  Quixote: Skill 2 into the enemy's attack, 88% win". Every sinner gets a
-  numbered, color-coded instruction, it works whether you face one boss or
-  several enemies at once, and it warns you about enemy hits you cannot block.
-  While you drag a skill it also confirms whether you picked the one the coach
-  recommends.
+- 🎓 **Backseat coach (made for new players)**: one short instruction at a
+  time, in plain words: "NOW: Don Quixote: Skill 2 (red) → Bloody Bite ✅ easy
+  win". Do it, hear a tick, get the next one. No percentages, no jargon, no
+  wall of text (turn `ShowDetails` on if you want the numbers back). It warns
+  you when an enemy hit cannot be blocked and tells you whose portrait to press
+  for Defend. Also speaks German (`"Language": "de"`).
 - 🎯 **True clash win rate**: full coin-by-coin probability, modelling continued
   clashes after a lost coin (ported from vetted community calculators)
 - ⚔️ **Expected damage**: weighted by sin/physical resistances, stagger state,
@@ -66,14 +65,13 @@ touches the game.
 5. Press `Ctrl+F8` in a fight and the advisor appears over the game. Green =
    favored, yellow = even, red = risky. That's it.
 
-**New to Limbus?** Open the assistant window (`Ctrl+F9`), go to the **Turn
-Advisor** tab, and add the sinners on your team (saved automatically, you do it
-once). In battle the overlay becomes a backseat coach: a big **NOW:** line tells
-you one move at a time ("Drag Don Quixote's Skill 2, the red Wrath slash, onto
-Bloody Bite, easy win"), ticks it off by itself when you assign it, and moves to
-the next. It tells you why ("enemy is weak to blunt"), what to use if the skill
-was not dealt this turn, and who should Guard when an enemy hit cannot be
-blocked. Stuck? `Ctrl+F11` skips to the next move.
+**New to Limbus?** Do this once: press `Ctrl+F9`, open the **Turn Advisor**
+tab, add your sinners (Enter adds them; the team is remembered). From then on
+every fight works like this: the overlay shows one **NOW:** line, you do
+exactly that, it ticks off with a small sound, and the next line appears. When
+everything is assigned it says "Press To Battle". If a move does not tick off
+by itself, `Ctrl+F11` skips it. The Assistant tab shows a small checklist
+(game found, team saved, overlay on) so you always know what is missing.
 
 If the boxes in the *Vision (advanced)* tab don't line up with the clash UI,
 adjust `%AppData%\LimbusAssistant\calibration.json` (values are fractions of
@@ -106,7 +104,10 @@ Settings live in `%AppData%\LimbusAssistant\settings.json`:
 | `MinimumConfidence` | `0.5` | Below this, a reading shows `?` instead of a guess |
 | `Team` | *(empty)* | Your team, saved automatically from the Turn Advisor tab |
 | `PlainLanguage` | `true` | Verdicts in words ("easy win"); set `false` for raw percentages |
-| `SoundCues` | `true` | Chime on a new plan, tick when you grab the coach's pick |
+| `ShowDetails` | `false` | Show the why/fallback/number details under the NOW line |
+| `ShowChecklist` | `true` | Show the small move checklist under the NOW line |
+| `Language` | `en` | Coach language: `en` or `de` (German) |
+| `SoundCues` | `true` | Chime on a new plan, tick on the coach's pick, done sound |
 | `CoachFontScale` | `1.0` | Size of the coach panel (e.g. `1.3` for larger text) |
 | `CoachPanelPosition` | `left` | Coach panel spot: `left`, `right`, or `top` |
 
