@@ -20,11 +20,33 @@ public partial class OverlayWindow : Window
     static readonly SolidColorBrush WarnBrush = Frozen(0xF2, 0xC9, 0x4C);
     static readonly SolidColorBrush BadBrush = Frozen(0xF2, 0x6D, 0x6D);
 
-    AdvisorSnapshot? _lastSnapshot;
+    static readonly SolidColorBrush MutedBrush = Frozen(0x8A, 0x90, 0xA4);
 
-    public OverlayWindow()
+    AdvisorSnapshot? _lastSnapshot;
+    readonly AppSettings _settings;
+    readonly Action<AppSettings>? _saveSettings;
+    readonly SoundCues _sounds;
+    BestMoveReport? _lastMovesReport;
+    int _lastTurnNumber = -1;
+    long _turnFlashUntil;
+    string? _lastPickKey;
+    bool _introPersisted;
+
+    public OverlayWindow() : this(new AppSettings(), null)
+    {
+    }
+
+    public OverlayWindow(AppSettings settings, Action<AppSettings>? saveSettings)
     {
         InitializeComponent();
+        _settings = settings;
+        _saveSettings = saveSettings;
+        _sounds = new SoundCues(settings.SoundCues);
+        var scale = Math.Clamp(settings.CoachFontScale, 0.7, 2.0);
+        if (Math.Abs(scale - 1.0) > 0.01)
+        {
+            MovesPanel.LayoutTransform = new ScaleTransform(scale, scale);
+        }
         IsVisibleChanged += OnIsVisibleChanged;
     }
 
@@ -72,7 +94,7 @@ public partial class OverlayWindow : Window
             HideAll();
             return;
         }
-        RenderMoves(snapshot.BestMoves);
+        RenderMoves(snapshot);
         if (snapshot.Planning is { } planning && (planning.Skill is not null || planning.RawSkillName.Length >= 3))
         {
             RenderPlanning(snapshot, planning);
@@ -199,6 +221,12 @@ public partial class OverlayWindow : Window
             {
                 ReadOutline.Stroke = GoodBrush;
             }
+            var pickKey = $"{move.IdentityName}|{move.SkillName}";
+            if (pickKey != _lastPickKey)
+            {
+                _lastPickKey = pickKey;
+                _sounds.CorrectPick();
+            }
         }
         else
         {
@@ -283,67 +311,146 @@ public partial class OverlayWindow : Window
         return true;
     }
 
-    void RenderMoves(BestMoveReport? report)
+    void RenderMoves(AdvisorSnapshot snapshot)
     {
-        MovesStack.Children.Clear();
-        if (report is null || report.Moves.Count == 0)
+        var report = snapshot.BestMoves;
+        if (report is null || report.Moves.Count == 0 || !snapshot.PlanningLiveNow)
         {
             MovesPanel.Visibility = Visibility.Collapsed;
             return;
         }
         MovesPanel.Visibility = Visibility.Visible;
-        var index = 1;
-        foreach (var move in report.Moves)
+        var coach = snapshot.Coach ?? CoachProgressState.Empty;
+        var now = Environment.TickCount64;
+        if (coach.TurnNumber != _lastTurnNumber)
         {
-            MovesStack.Children.Add(MoveLine(index, move));
-            index++;
+            _lastTurnNumber = coach.TurnNumber;
+            _turnFlashUntil = now + 2500;
+            _sounds.NewPlan();
         }
-        if (report.Unblocked.Count > 0)
+        else if (!ReferenceEquals(report, _lastMovesReport))
         {
-            var worst = report.Unblocked[0];
-            MovesFooter.Visibility = Visibility.Visible;
-            MovesFooter.Text = report.Unblocked.Count == 1
-                ? $"Cannot block {Truncate(worst.SkillName, 18)} (~{worst.ExpectedDamage:F0} dmg). Guard or brace."
-                : $"{report.Unblocked.Count} enemy hits unblocked. Worst {Truncate(worst.SkillName, 18)} (~{worst.ExpectedDamage:F0}).";
+            _sounds.NewPlan();
         }
-        else
-        {
-            MovesFooter.Visibility = Visibility.Collapsed;
-        }
+        _lastMovesReport = report;
+        MovesHeadline.Text = now < _turnFlashUntil
+            ? "New turn, new plan"
+            : $"Best moves ({coach.DoneCount} of {Math.Max(coach.Total, report.Moves.Count)} done)";
+        RenderNowInstruction(report, coach);
+        RenderChecklist(report, coach);
+        RenderFooter(report);
+        RenderHint();
         PlaceMovesPanel();
     }
 
-    TextBlock MoveLine(int index, BestMoveAdvice move)
+    void RenderNowInstruction(BestMoveReport report, CoachProgressState coach)
     {
-        string text;
-        SolidColorBrush color;
-        if (move.IsUnopposed)
+        var currentIndex = coach.CurrentIndex >= 0 && coach.CurrentIndex < report.Moves.Count
+            ? coach.CurrentIndex
+            : coach.Total == 0 ? 0 : -1;
+        if (currentIndex < 0)
         {
-            text = $"🟢 {index}. {move.Sinner}: Skill {move.SkillNumber} → free hit, deal ~{move.ExpectedDamageDealt:F0}";
-            color = GoodBrush;
+            NowText.Text = "All moves assigned. Hit To Battle!";
+            NowText.Foreground = GoodBrush;
+            NowDetailText.Visibility = Visibility.Collapsed;
+            return;
         }
-        else
+        var move = report.Moves[currentIndex];
+        NowText.Text = $"NOW: {CoachText.Instruction(move, _settings.PlainLanguage)}";
+        NowText.Foreground = move.IsUnopposed || move.WinProbability >= 0.65
+            ? GoodBrush
+            : move.WinProbability >= 0.45 ? WarnBrush : BadBrush;
+        var details = new List<string>();
+        if (CoachText.Why(move) is { } why)
         {
-            var icon = move.WinProbability switch { >= 0.65 => "🟢", >= 0.45 => "🟡", _ => "🔴" };
-            color = move.WinProbability switch { >= 0.65 => GoodBrush, >= 0.45 => WarnBrush, _ => BadBrush };
-            text = $"{icon} {index}. {move.Sinner}: Skill {move.SkillNumber} → {Truncate(move.TargetSkillName ?? "", 16)}  {move.WinProbability:P0}, deal ~{move.ExpectedDamageDealt:F0}";
+            details.Add(why);
         }
-        return new TextBlock
+        if (CoachText.Fallback(move, _settings.PlainLanguage) is { } fallback)
         {
-            Text = text,
-            Foreground = color,
-            FontSize = 13,
-            Margin = new Thickness(0, 3, 0, 0),
-            TextWrapping = TextWrapping.Wrap,
-        };
+            details.Add(fallback);
+        }
+        NowDetailText.Text = string.Join("  ·  ", details);
+        NowDetailText.Visibility = details.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
+    }
+
+    void RenderChecklist(BestMoveReport report, CoachProgressState coach)
+    {
+        MovesStack.Children.Clear();
+        for (var i = 0; i < report.Moves.Count; i++)
+        {
+            var move = report.Moves[i];
+            var done = i < coach.Done.Count && coach.Done[i];
+            var isCurrent = i == coach.CurrentIndex;
+            var mark = done ? "✔" : isCurrent ? "▶" : "○";
+            var target = move.IsUnopposed ? "free hit" : $"vs {Truncate(move.TargetSkillName ?? "", 16)}";
+            var line = new TextBlock
+            {
+                Text = $"{mark} {i + 1}. {move.Sinner}: Skill {move.SkillNumber} {target}",
+                Foreground = done
+                    ? MutedBrush
+                    : move.IsUnopposed || move.WinProbability >= 0.65
+                        ? GoodBrush
+                        : move.WinProbability >= 0.45 ? WarnBrush : BadBrush,
+                FontSize = isCurrent ? 13 : 12,
+                FontWeight = isCurrent ? FontWeights.Bold : FontWeights.Normal,
+                Margin = new Thickness(0, 2, 0, 0),
+                TextWrapping = TextWrapping.Wrap,
+            };
+            MovesStack.Children.Add(line);
+        }
+    }
+
+    void RenderFooter(BestMoveReport report)
+    {
+        if (report.Unblocked.Count == 0)
+        {
+            MovesFooter.Visibility = Visibility.Collapsed;
+            return;
+        }
+        MovesFooter.Visibility = Visibility.Visible;
+        var worst = report.Unblocked[0];
+        var warning = CoachText.UnblockedWarning(worst, _settings.PlainLanguage);
+        MovesFooter.Text = report.Unblocked.Count > 1
+            ? $"{warning} ({report.Unblocked.Count - 1} more unblocked)"
+            : warning;
+    }
+
+    void RenderHint()
+    {
+        if (!_settings.ShownCoachIntro)
+        {
+            MovesHint.Visibility = Visibility.Visible;
+            MovesHint.Text = "Follow the NOW line, one move at a time. It ticks off by itself when you assign the move. " +
+                $"Stuck? {_settings.CoachAdvanceHotkey} skips to the next one.";
+            if (!_introPersisted && _saveSettings is not null)
+            {
+                _introPersisted = true;
+                _saveSettings(_settings with { ShownCoachIntro = true });
+            }
+            return;
+        }
+        MovesHint.Visibility = Visibility.Collapsed;
     }
 
     void PlaceMovesPanel()
     {
         MovesPanel.Measure(new Size(380, double.PositiveInfinity));
         var desired = MovesPanel.DesiredSize;
-        Canvas.SetLeft(MovesPanel, 24);
-        Canvas.SetTop(MovesPanel, Math.Clamp(Height * 0.28, 8, Math.Max(8, Height - desired.Height - 8)));
+        switch (_settings.CoachPanelPosition.ToLowerInvariant())
+        {
+            case "right":
+                Canvas.SetLeft(MovesPanel, Math.Max(8, Width - desired.Width - 20));
+                Canvas.SetTop(MovesPanel, 12);
+                break;
+            case "top":
+                Canvas.SetLeft(MovesPanel, Math.Max(8, (Width - desired.Width) / 2));
+                Canvas.SetTop(MovesPanel, 12);
+                break;
+            default:
+                Canvas.SetLeft(MovesPanel, 24);
+                Canvas.SetTop(MovesPanel, Math.Clamp(Height * 0.28, 8, Math.Max(8, Height - desired.Height - 8)));
+                break;
+        }
     }
 
     void HideAll()

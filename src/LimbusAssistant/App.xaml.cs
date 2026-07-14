@@ -28,8 +28,11 @@ public partial class App : Application
         var digitTemplates = DigitTemplateReader.LoadFrom(Path.Combine(AppContext.BaseDirectory, "Assets", "DigitTemplates"));
         var pipeline = new VisionPipeline(reader, _templates, calibration, digitTemplates);
 
-        _overlay = new OverlayWindow();
-        _main = new MainWindow(data, calibration);
+        _overlay = new OverlayWindow(_settings, SaveSettings);
+        _main = new MainWindow(data, calibration)
+        {
+            PlainLanguage = _settings.PlainLanguage,
+        };
         _main.OverlayToggleRequested += ToggleOverlay;
         _main.GameWindowSelected += OnGameWindowSelected;
         MainWindow = _main;
@@ -37,7 +40,15 @@ public partial class App : Application
 
         _loop = new AdvisorLoop(_settings, data, pipeline, reader);
         _main.LiveEnemySelected += enemy => _loop?.SetLiveEnemy(enemy);
-        _main.TeamChanged += members => _loop?.SetTeam(members);
+        _main.TeamChanged += members =>
+        {
+            _loop?.SetTeam(members);
+            SaveSettings((_settings ?? new AppSettings()) with
+            {
+                Team = members.Select(member => new TeamMemberSetting(member.Name, member.Sanity)).ToList(),
+            });
+        };
+        _main.SeedTeam(_settings.Team.Select(member => (member.Name, member.Sanity)));
         _loop.SetLiveEnemy(_main.SelectedEnemy);
         _loop.SetTeam(_main.TeamMembers);
         _loop.SnapshotPublished += snapshot => Dispatcher.BeginInvoke(() =>
@@ -53,7 +64,12 @@ public partial class App : Application
     void OnGameWindowSelected(string? title)
     {
         _loop?.SetTargetWindow(title);
-        _settings = (_settings ?? new AppSettings()) with { WindowTitle = title ?? "" };
+        SaveSettings((_settings ?? new AppSettings()) with { WindowTitle = title ?? "" });
+    }
+
+    void SaveSettings(AppSettings settings)
+    {
+        _settings = settings;
         _settings.Save();
     }
 
@@ -63,6 +79,7 @@ public partial class App : Application
         RegisterToggle(_settings!.ToggleOverlayHotkey, ToggleOverlay);
         RegisterToggle(_settings.ToggleDebugHotkey, ToggleMain);
         RegisterToggle(_settings.DebugDumpHotkey, () => Task.Run(() => _loop?.DumpDebugSnapshot()));
+        RegisterToggle(_settings.CoachAdvanceHotkey, () => _loop?.RequestCoachAdvance());
     }
 
     void RegisterToggle(string hotkeyText, Action action)

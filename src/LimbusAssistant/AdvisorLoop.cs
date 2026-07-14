@@ -60,6 +60,11 @@ public sealed class AdvisorLoop : IDisposable
     CaptureFrame? _lastFrame;
     BestMoveReport? _bestMoves;
     string? _bestMovesSignature;
+    readonly CoachProgress _coachProgress = new();
+    volatile bool _advanceRequested;
+    bool _leftPlanning;
+    bool _newTurnPending;
+    bool _planningLiveNow;
 
     public event Action<AdvisorSnapshot>? SnapshotPublished;
 
@@ -128,6 +133,8 @@ public sealed class AdvisorLoop : IDisposable
     }
 
     public void SetLiveEnemy(EnemyData? enemy) => _liveEnemy = enemy;
+
+    public void RequestCoachAdvance() => _advanceRequested = true;
 
     public void SetTeam(IReadOnlyList<(string Name, int Sanity)> members)
     {
@@ -276,7 +283,9 @@ public sealed class AdvisorLoop : IDisposable
         var content = LetterboxDetector.DetectContent(frame);
         var now = Environment.TickCount64;
         var ribbonEvidence = now - _lastRibbonEvidenceTimestamp < RibbonEvidenceMilliseconds;
-        if (PlanningIndicator.IsPlanningVisible(frame, content) || ribbonEvidence)
+        var planningVisibleRaw = PlanningIndicator.IsPlanningVisible(frame, content);
+        _planningLiveNow = planningVisibleRaw || ribbonEvidence;
+        if (_planningLiveNow)
         {
             _nonPlanningStreak = 0;
         }
@@ -286,6 +295,7 @@ public sealed class AdvisorLoop : IDisposable
         }
         if (_nonPlanningStreak >= HideStreak)
         {
+            _leftPlanning = true;
             if (_nonPlanningStreak == ClearStreak)
             {
                 _stickyPlanning = null;
@@ -302,6 +312,11 @@ public sealed class AdvisorLoop : IDisposable
             _lastReading = EmptyReadingFor(frame, content);
             Publish(BuildSnapshot(CaptureStatus.Ok, window, false, false, CurrentMetrics(_reader.ConsumeOcrCallCount())));
             return;
+        }
+        if (_leftPlanning)
+        {
+            _newTurnPending = true;
+            _leftPlanning = false;
         }
         if (now - _lastDockScanTimestamp >= DockScanIntervalMilliseconds)
         {
@@ -342,6 +357,10 @@ public sealed class AdvisorLoop : IDisposable
         }
         RefreshStickyMatchups();
         UpdateBestMoves();
+        if (fresh is { Skill: not null, IsEnemySkill: false })
+        {
+            _coachProgress.ObservePairing(fresh.IdentityName, fresh.Skill.Name, fresh.ExactEnemySkillName);
+        }
         _lastPlanning = fresh?.Skill is not null ? fresh : _stickyPlanning ?? fresh;
         _lastLiveClash = null;
         _lastFrame = frame;
@@ -385,7 +404,9 @@ public sealed class AdvisorLoop : IDisposable
         _lastFrame,
         metrics,
         DateTimeOffset.Now,
-        _bestMoves);
+        _bestMoves,
+        _coachProgress.State,
+        _planningLiveNow);
 
     async Task<PlanningHint?> BuildPlanningHintAsync(CaptureFrame frame, PixelRect content, VisionReading reading)
     {
@@ -708,12 +729,26 @@ public sealed class AdvisorLoop : IDisposable
         }
         var signature = $"{string.Join("+", enemies.Select(enemy => enemy.Id))}|" +
             string.Join(",", units.Select(unit => $"{unit.Identity.Name}:{unit.Sanity}"));
-        if (signature == _bestMovesSignature && _bestMoves is not null)
+        var changed = signature != _bestMovesSignature || _bestMoves is null;
+        if (changed)
         {
-            return;
+            _bestMovesSignature = signature;
+            _bestMoves = BestMoveAdvisor.Advise(_solver, units, enemies);
         }
-        _bestMovesSignature = signature;
-        _bestMoves = BestMoveAdvisor.Advise(_solver, units, enemies);
+        if (_newTurnPending)
+        {
+            _newTurnPending = false;
+            _coachProgress.NewTurn(_bestMoves!.Moves);
+        }
+        else if (changed)
+        {
+            _coachProgress.Rebase(_bestMoves!.Moves);
+        }
+        if (_advanceRequested)
+        {
+            _advanceRequested = false;
+            _coachProgress.AdvanceManually();
+        }
     }
 
     void UpdateAutoEnemy(VisionReading reading)
@@ -945,7 +980,9 @@ public sealed class AdvisorLoop : IDisposable
             || snapshot.Planning?.SanitySource != _lastPublished.Planning?.SanitySource
             || snapshot.Planning?.EnemyName != _lastPublished.Planning?.EnemyName
             || (snapshot.Planning?.Matchups?.Count ?? -1) != (_lastPublished.Planning?.Matchups?.Count ?? -1)
-            || !ReferenceEquals(snapshot.BestMoves, _lastPublished.BestMoves))
+            || !ReferenceEquals(snapshot.BestMoves, _lastPublished.BestMoves)
+            || !ReferenceEquals(snapshot.Coach, _lastPublished.Coach)
+            || snapshot.PlanningLiveNow != _lastPublished.PlanningLiveNow)
         {
             return true;
         }

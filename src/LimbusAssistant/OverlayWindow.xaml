@@ -66,10 +66,28 @@
                            FontWeight="Bold"
                            Foreground="#FF7CE07C"
                            Text="Best moves this turn"/>
-                <StackPanel x:Name="MovesStack" Margin="0,6,0,0"/>
+                <TextBlock x:Name="NowText"
+                           FontSize="15"
+                           FontWeight="Bold"
+                           Foreground="White"
+                           Margin="0,6,0,0"
+                           TextWrapping="Wrap"/>
+                <TextBlock x:Name="NowDetailText"
+                           FontSize="12"
+                           Foreground="#FFB8C0D8"
+                           Margin="0,2,0,0"
+                           TextWrapping="Wrap"
+                           Visibility="Collapsed"/>
+                <StackPanel x:Name="MovesStack" Margin="0,8,0,0"/>
                 <TextBlock x:Name="MovesFooter"
                            FontSize="12"
                            Foreground="#FFF2C94C"
+                           Margin="0,6,0,0"
+                           TextWrapping="Wrap"
+                           Visibility="Collapsed"/>
+                <TextBlock x:Name="MovesHint"
+                           FontSize="11"
+                           Foreground="#FF9AA0B4"
                            Margin="0,6,0,0"
                            TextWrapping="Wrap"
                            Visibility="Collapsed"/>

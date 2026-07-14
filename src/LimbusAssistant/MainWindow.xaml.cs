@@ -35,6 +35,20 @@ public partial class MainWindow : Window
     public IReadOnlyList<(string Name, int Sanity)> TeamMembers =>
         _team.Select(entry => (entry.Identity.Name, entry.Sanity)).ToList();
 
+    public bool PlainLanguage { get; set; } = true;
+
+    public void SeedTeam(IEnumerable<(string Name, int Sanity)> members)
+    {
+        foreach (var (name, sanity) in members)
+        {
+            var identity = _data.Identities.FirstOrDefault(candidate => candidate.Name == name);
+            if (identity is not null && _team.All(entry => entry.Identity.Name != name))
+            {
+                _team.Add(new TeamEntry(identity, sanity));
+            }
+        }
+    }
+
     public MainWindow(GameData data, CalibrationProfile profile)
     {
         InitializeComponent();
@@ -238,29 +252,34 @@ public partial class MainWindow : Window
         var summary = $"Total expected value {report.TotalExpectedValue:F1} (damage you deal minus damage you take).";
         if (report.Unblocked.Count > 0)
         {
-            var worst = report.Unblocked[0];
-            summary += $"  Heads up: {report.Unblocked.Count} enemy skill(s) will not be blocked, " +
-                $"the worst is {worst.SkillName} (~{worst.ExpectedDamage:F0} damage). Guard or brace for it.";
+            summary += "  Heads up: " + CoachText.UnblockedWarning(report.Unblocked[0], PlainLanguage);
         }
         PlanSummary.Text = summary;
         PlanList.ItemsSource = report.Moves.Select((move, index) => Describe(index + 1, move)).ToList();
     }
 
-    static string Describe(int index, BestMoveAdvice move)
+    string Describe(int index, BestMoveAdvice move)
     {
-        if (move.IsUnopposed)
-        {
-            return $"⚔  {index}. {move.Sinner}: use Skill {move.SkillNumber} ({move.SkillName})\n" +
-                $"    free hit, deals ~{move.ExpectedDamageDealt:F1} (no enemy attack to block)";
-        }
-        var icon = move.WinProbability switch
+        var icon = move.IsUnopposed ? "⚔" : move.WinProbability switch
         {
             >= 0.65 => "🟢",
             >= 0.45 => "🟡",
             _ => "🔴",
         };
-        return $"{icon}  {index}. {move.Sinner}: use Skill {move.SkillNumber} ({move.SkillName})\n" +
-            $"    into {move.TargetSkillName} ({move.TargetEnemyName}): win {move.WinProbability:P0} · deal ~{move.ExpectedDamageDealt:F1} · take ~{move.ExpectedDamageTaken:F1}";
+        var lines = new List<string> { $"{icon}  {index}. {CoachText.Instruction(move, PlainLanguage)}" };
+        if (CoachText.Why(move) is { } why)
+        {
+            lines.Add($"    {why}");
+        }
+        if (CoachText.Fallback(move, PlainLanguage) is { } fallback)
+        {
+            lines.Add($"    {fallback}");
+        }
+        if (!PlainLanguage && !move.IsUnopposed)
+        {
+            lines.Add($"    win {move.WinProbability:P0} · deal ~{move.ExpectedDamageDealt:F1} · take ~{move.ExpectedDamageTaken:F1}");
+        }
+        return string.Join("\n", lines);
     }
 
     bool TryReadInt(TextBox box, int min, int max, out int value)
