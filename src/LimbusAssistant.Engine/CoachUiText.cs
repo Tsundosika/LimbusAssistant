@@ -5,8 +5,8 @@ public static class CoachUiText
     public static string NowPrefix(string locale) => locale == "de" ? "JETZT: " : "NOW: ";
 
     public static string Headline(string locale, int done, int total) => locale == "de"
-        ? $"Beste Züge ({done} von {total} erledigt)"
-        : $"Best moves ({done} of {total} done)";
+        ? $"Idealer Zug ({done} von {total} erledigt)"
+        : $"Ideal turn ({done} of {total} done)";
 
     public static string NewTurn(string locale) => locale == "de"
         ? "Neue Runde, neuer Plan"

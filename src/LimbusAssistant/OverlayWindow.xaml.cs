@@ -212,6 +212,84 @@ public partial class OverlayWindow : Window
         PlacePanel();
         PlaceOutline(snapshot, planning.Confidence);
         ApplyCoachHint(snapshot, planning);
+        var badgeCarriesEverything = RenderBadge(snapshot, planning);
+        if (badgeCarriesEverything && !_settings.ShowDetails)
+        {
+            VerdictPanel.Visibility = Visibility.Collapsed;
+        }
+    }
+
+    bool RenderBadge(AdvisorSnapshot snapshot, PlanningHint planning)
+    {
+        if (!_settings.BigVerdict)
+        {
+            BadgePanel.Visibility = Visibility.Collapsed;
+            return false;
+        }
+        if (planning is { IsEnemySkill: true, Skill: not null })
+        {
+            var (icon, word) = ClashBadge.EnemyAttack(Locale);
+            var answer = planning.Matchups is { Count: > 0 } answers
+                ? ClashBadge.AnswerWith(answers[0].EnemySkillName, Locale)
+                : null;
+            ShowBadge(icon, word, BadBrush, answer);
+            return true;
+        }
+        if (planning.ExactClash is { } exact)
+        {
+            var (icon, word) = ClashBadge.Verdict(exact.WinProbability, Locale);
+            var brush = exact.WinProbability switch
+            {
+                >= 0.60 => GoodBrush,
+                >= 0.45 => WarnBrush,
+                _ => BadBrush,
+            };
+            var hint = BetterTargetLine(planning, exact) ?? PlanMatchLine(snapshot, planning);
+            ShowBadge(icon, word, brush, hint);
+            return true;
+        }
+        BadgePanel.Visibility = Visibility.Collapsed;
+        return false;
+    }
+
+    string? BetterTargetLine(PlanningHint planning, MatchupOdds exact)
+    {
+        if (planning.Matchups is not { Count: > 0 } matchups)
+        {
+            return null;
+        }
+        var best = matchups.FirstOrDefault(matchup => matchup.EnemySkillName != planning.ExactEnemySkillName);
+        if (best is null)
+        {
+            return null;
+        }
+        return ClashBadge.BetterTargetHint(exact.WinProbability, best.WinProbability, best.EnemySkillName, Locale);
+    }
+
+    string? PlanMatchLine(AdvisorSnapshot snapshot, PlanningHint planning)
+    {
+        if (snapshot.BestMoves is not { } report || planning.IdentityName is null || planning.Skill is null)
+        {
+            return null;
+        }
+        var matches = report.Moves.Any(move =>
+            move.IdentityName == planning.IdentityName
+            && move.SkillName == planning.Skill.Name
+            && move.TargetSkillName == planning.ExactEnemySkillName);
+        return matches ? ClashBadge.MatchesPlan(Locale) : null;
+    }
+
+    void ShowBadge(string icon, string word, SolidColorBrush brush, string? hint)
+    {
+        BadgePanel.Visibility = Visibility.Visible;
+        BadgePanel.BorderBrush = brush;
+        BadgeHeadline.Text = $"{icon} {word}";
+        BadgeHeadline.Foreground = brush;
+        BadgeHint.Text = hint ?? "";
+        BadgeHint.Visibility = hint is null ? Visibility.Collapsed : Visibility.Visible;
+        BadgePanel.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+        Canvas.SetLeft(BadgePanel, Math.Max(8, (Width - BadgePanel.DesiredSize.Width) / 2));
+        Canvas.SetTop(BadgePanel, Math.Max(8, Height * 0.10));
     }
 
     void ApplyCoachHint(AdvisorSnapshot snapshot, PlanningHint planning)
@@ -260,6 +338,7 @@ public partial class OverlayWindow : Window
     {
         IdleChip.Visibility = Visibility.Collapsed;
         ReadOutline.Visibility = Visibility.Collapsed;
+        BadgePanel.Visibility = Visibility.Collapsed;
         VerdictPanel.Visibility = Visibility.Visible;
         HeadlineText.Text = "watching";
         HeadlineText.Foreground = WarnBrush;
@@ -526,6 +605,7 @@ public partial class OverlayWindow : Window
         ReadOutline.Visibility = Visibility.Collapsed;
         IdleChip.Visibility = Visibility.Collapsed;
         MovesPanel.Visibility = Visibility.Collapsed;
+        BadgePanel.Visibility = Visibility.Collapsed;
     }
 
     void ShowIdleChip(string text)
@@ -533,6 +613,7 @@ public partial class OverlayWindow : Window
         VerdictPanel.Visibility = Visibility.Collapsed;
         ReadOutline.Visibility = Visibility.Collapsed;
         MovesPanel.Visibility = Visibility.Collapsed;
+        BadgePanel.Visibility = Visibility.Collapsed;
         IdleChip.Visibility = Visibility.Visible;
         IdleChipText.Text = text;
         IdleChip.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));

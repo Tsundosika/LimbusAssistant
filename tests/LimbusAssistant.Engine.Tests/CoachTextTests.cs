@@ -132,7 +132,7 @@ public class CoachTextTests
     [Fact]
     public void GermanUiTextCoversTheOverlay()
     {
-        Assert.Contains("Beste Züge", CoachUiText.Headline("de", 1, 4));
+        Assert.Contains("Idealer Zug", CoachUiText.Headline("de", 1, 4));
         Assert.Contains("Neue Runde", CoachUiText.NewTurn("de"));
         Assert.Contains("To Battle", CoachUiText.AllDone("de"));
         Assert.Contains("Team", CoachUiText.NoTeamHint("de"));
