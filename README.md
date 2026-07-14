@@ -27,12 +27,15 @@ touches the game.
 
 ## Features
 
-- 🎓 **Backseat coach (made for new players)**: one short instruction at a
-  time, in plain words: "NOW: Don Quixote: Skill 2 (red) → Bloody Bite ✅ easy
-  win". Do it, hear a tick, get the next one. No percentages, no jargon, no
-  wall of text (turn `ShowDetails` on if you want the numbers back). It warns
-  you when an enemy hit cannot be blocked and tells you whose portrait to press
-  for Defend. Also speaks German (`"Language": "de"`).
+- 🚦 **Traffic light (the noob mode)**: drag any skill onto any enemy attack
+  and a giant badge appears: ✅ TAKE IT, ⚠️ COIN FLIP, or ❌ FIND BETTER. If
+  another target is clearly better for that same card, one line tells you
+  where: "Better: put it on 'Claw Swipe' ✅". Zero setup, works from the first
+  fight. Hover an enemy attack and it names your best answer instead.
+- 🎓 **Backseat coach**: with your team set (once), an "Ideal turn" panel
+  suggests a full plan, one short line at a time, ticking itself off as you
+  assign moves. It warns when an enemy hit cannot be blocked and whose
+  portrait to press for Defend. Also speaks German (`"Language": "de"`).
 - 🎯 **True clash win rate**: full coin-by-coin probability, modelling continued
   clashes after a lost coin (ported from vetted community calculators)
 - ⚔️ **Expected damage**: weighted by sin/physical resistances, stagger state,
@@ -65,13 +68,17 @@ touches the game.
 5. Press `Ctrl+F8` in a fight and the advisor appears over the game. Green =
    favored, yellow = even, red = risky. That's it.
 
-**New to Limbus?** Do this once: press `Ctrl+F9`, open the **Turn Advisor**
-tab, add your sinners (Enter adds them; the team is remembered). From then on
-every fight works like this: the overlay shows one **NOW:** line, you do
-exactly that, it ticks off with a small sound, and the next line appears. When
-everything is assigned it says "Press To Battle". If a move does not tick off
-by itself, `Ctrl+F11` skips it. The Assistant tab shows a small checklist
-(game found, team saved, overlay on) so you always know what is missing.
+**New to Limbus?** You need zero setup: press `Ctrl+F8` in a fight, then just
+drag your skill cards over enemy attacks like you normally would. A big badge
+tells you instantly whether each pairing is ✅ good, ⚠️ a coin flip, or ❌ bad,
+and points you to a better target when there is one. Trust the green, avoid
+the red, that is the whole game.
+
+Want a full plan too? Press `Ctrl+F9`, open **Turn Advisor**, add your sinners
+once (Enter adds them; the team is remembered). The overlay then also shows an
+"Ideal turn" list that ticks itself off as you assign moves. If a suggested
+skill was not dealt this turn, just follow the badge instead, the plan is a
+guide, not a test.
 
 If the boxes in the *Vision (advanced)* tab don't line up with the clash UI,
 adjust `%AppData%\LimbusAssistant\calibration.json` (values are fractions of
@@ -104,6 +111,7 @@ Settings live in `%AppData%\LimbusAssistant\settings.json`:
 | `MinimumConfidence` | `0.5` | Below this, a reading shows `?` instead of a guess |
 | `Team` | *(empty)* | Your team, saved automatically from the Turn Advisor tab |
 | `PlainLanguage` | `true` | Verdicts in words ("easy win"); set `false` for raw percentages |
+| `BigVerdict` | `true` | The giant ✅/⚠️/❌ badge while you drag a clash |
 | `ShowDetails` | `false` | Show the why/fallback/number details under the NOW line |
 | `ShowChecklist` | `true` | Show the small move checklist under the NOW line |
 | `Language` | `en` | Coach language: `en` or `de` (German) |

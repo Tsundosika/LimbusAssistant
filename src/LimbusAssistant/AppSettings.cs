@@ -29,6 +29,8 @@ public sealed record AppSettings
 
     public bool PlainLanguage { get; init; } = true;
 
+    public bool BigVerdict { get; init; } = true;
+
     public bool ShowDetails { get; init; }
 
     public bool ShowChecklist { get; init; } = true;

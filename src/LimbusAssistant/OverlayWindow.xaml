@@ -15,6 +15,26 @@
                    RadiusX="4"
                    RadiusY="4"
                    Visibility="Collapsed"/>
+        <Border x:Name="BadgePanel"
+                Background="#F2101018"
+                BorderThickness="2"
+                CornerRadius="16"
+                Padding="26,12"
+                Visibility="Collapsed">
+            <StackPanel HorizontalAlignment="Center">
+                <TextBlock x:Name="BadgeHeadline"
+                           FontSize="34"
+                           FontWeight="Bold"
+                           HorizontalAlignment="Center"/>
+                <TextBlock x:Name="BadgeHint"
+                           FontSize="15"
+                           Foreground="#FFE8ECF8"
+                           Margin="0,4,0,0"
+                           HorizontalAlignment="Center"
+                           TextWrapping="Wrap"
+                           Visibility="Collapsed"/>
+            </StackPanel>
+        </Border>
         <Border x:Name="VerdictPanel"
                 Background="#E6101018"
                 BorderBrush="#88D9A441"
