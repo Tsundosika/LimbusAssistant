@@ -53,6 +53,54 @@ public class BestMoveAdvisorTests
     }
 
     [Fact]
+    public void OffersTheBestRemainingSkillAsFallback()
+    {
+        var solver = new TurnSolver();
+        var don = Identity("don", "Don Quixote", Skill("d1", 3, 3, 1), Skill("d2", 9, 9, 2), Skill("d3", 6, 6, 2));
+        var units = new List<TurnUnit> { new(don, 30) };
+        var enemy = Enemy("e", "Dummy", Skill("e1", 4, 3, 1));
+        var report = BestMoveAdvisor.Advise(solver, units, new[] { enemy });
+        var move = Assert.Single(report.Moves);
+        Assert.Equal(2, move.SkillNumber);
+        Assert.NotNull(move.Alternative);
+        Assert.Equal(3, move.Alternative!.SkillNumber);
+    }
+
+    [Fact]
+    public void CarriesTheSkillLookAndResistanceContext()
+    {
+        var solver = new TurnSolver();
+        var resistances = new ResistanceSet(
+            new Dictionary<DamageType, double> { [DamageType.Slash] = 2.0 },
+            new Dictionary<SinType, double>());
+        var enemy = new EnemyData("e", "Dummy", 30, 0, resistances, [Skill("e1", 4, 3, 1)]);
+        var units = new List<TurnUnit> { new(Identity("a", "A", Skill("a1", 8, 8, 2)), 0) };
+        var report = BestMoveAdvisor.Advise(solver, units, new[] { enemy });
+        var move = Assert.Single(report.Moves);
+        Assert.Equal(DamageType.Slash, move.DamageType);
+        Assert.Equal(2, move.CoinCount);
+        Assert.Equal(2.0, move.PhysicalMultiplier);
+    }
+
+    [Fact]
+    public void SuggestsAGuarderForUnblockedThreats()
+    {
+        var solver = new TurnSolver();
+        var guardSkill = new SkillData("g1", "Hunker Down", 6, 2, 1, SinType.Sloth, DamageType.Guard, 30);
+        var guarder = new IdentityData("b", "B", "Ryoshu", 30, [Skill("b1", 2, 2, 1), guardSkill]);
+        var units = new List<TurnUnit>
+        {
+            new(Identity("a", "A", Skill("a1", 8, 8, 2)), 30),
+            new(guarder, 0),
+        };
+        var enemy = Enemy("e", "Enemy", Skill("e1", 6, 5, 2), Skill("e2", 6, 5, 2), Skill("e3", 6, 5, 2));
+        var report = BestMoveAdvisor.Advise(solver, units, new[] { enemy });
+        Assert.NotEmpty(report.Unblocked);
+        Assert.Equal("Ryoshu", report.Unblocked[0].SuggestedGuarder);
+        Assert.Equal(2, report.Unblocked[0].GuardSkillNumber);
+    }
+
+    [Fact]
     public void DefensiveSkillsAreNotCountedAsThreats()
     {
         var solver = new TurnSolver();
