@@ -19,9 +19,23 @@ public sealed record AppSettings
 
     public string DebugDumpHotkey { get; init; } = "Ctrl+F10";
 
+    public string CoachAdvanceHotkey { get; init; } = "Ctrl+F11";
+
     public int CaptureIntervalMilliseconds { get; init; } = 50;
 
     public double MinimumConfidence { get; init; } = 0.5;
+
+    public IReadOnlyList<TeamMemberSetting> Team { get; init; } = [];
+
+    public bool PlainLanguage { get; init; } = true;
+
+    public bool SoundCues { get; init; } = true;
+
+    public double CoachFontScale { get; init; } = 1.0;
+
+    public string CoachPanelPosition { get; init; } = "left";
+
+    public bool ShownCoachIntro { get; init; }
 
     public static string DefaultPath => Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),

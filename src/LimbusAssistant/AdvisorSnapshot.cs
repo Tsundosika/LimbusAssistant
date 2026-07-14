@@ -15,7 +15,9 @@ public sealed record AdvisorSnapshot(
     CaptureFrame? Frame,
     TickMetrics Metrics,
     DateTimeOffset Timestamp,
-    BestMoveReport? BestMoves = null)
+    BestMoveReport? BestMoves = null,
+    CoachProgressState? Coach = null,
+    bool PlanningLiveNow = false)
 {
     public static AdvisorSnapshot NotFound() => new(
         CaptureStatus.GameNotFound,
