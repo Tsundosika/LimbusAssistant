@@ -12,6 +12,8 @@ public sealed class SoundCues(bool enabled)
 
     public void CorrectPick() => Play(SystemSounds.Beep);
 
+    public void AllDone() => Play(SystemSounds.Exclamation);
+
     void Play(SystemSound sound)
     {
         if (!enabled)

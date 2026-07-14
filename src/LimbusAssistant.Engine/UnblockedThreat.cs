@@ -5,5 +5,4 @@ public sealed record UnblockedThreat(
     string SkillName,
     double ExpectedDamage,
     string? SuggestedGuarder = null,
-    int GuardSkillNumber = 0,
     string? GuardSkillName = null);

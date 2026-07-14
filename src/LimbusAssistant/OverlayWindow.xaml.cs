@@ -31,6 +31,7 @@ public partial class OverlayWindow : Window
     long _turnFlashUntil;
     string? _lastPickKey;
     bool _introPersisted;
+    bool _wasComplete;
 
     public OverlayWindow() : this(new AppSettings(), null)
     {
@@ -132,13 +133,15 @@ public partial class OverlayWindow : Window
             }
             else if (planning.ExactClash is { } exact)
             {
-                var (verdict, brush) = exact.WinProbability switch
+                var brush = exact.WinProbability switch
                 {
-                    >= 0.65 => ("take it", GoodBrush),
-                    >= 0.45 => ("close call", WarnBrush),
-                    _ => ("risky", BadBrush),
+                    >= 0.65 => GoodBrush,
+                    >= 0.45 => WarnBrush,
+                    _ => BadBrush,
                 };
-                HeadlineText.Text = $"{exact.WinProbability:P0} win, {verdict}";
+                HeadlineText.Text = _settings.ShowDetails
+                    ? $"{exact.WinProbability:P0} win, {CoachText.Verdict(exact.WinProbability, Locale)}"
+                    : $"{CoachText.VerdictIcon(exact.WinProbability)} {CoachText.Verdict(exact.WinProbability, Locale)}";
                 HeadlineText.Foreground = brush;
                 KitText.Text =
                     $"{skill.Name} vs {planning.ExactEnemySkillName}" +
@@ -195,6 +198,17 @@ public partial class OverlayWindow : Window
             MatchupsText.Visibility = Visibility.Collapsed;
             ActionText.Text = "Refresh the dataset with the wiki importer to cover every identity.";
         }
+        if (!_settings.ShowDetails)
+        {
+            KitText.Visibility = Visibility.Collapsed;
+            SanityText.Visibility = Visibility.Collapsed;
+            MatchupsText.Visibility = Visibility.Collapsed;
+        }
+        else
+        {
+            KitText.Visibility = Visibility.Visible;
+            SanityText.Visibility = Visibility.Visible;
+        }
         PlacePanel();
         PlaceOutline(snapshot, planning.Confidence);
         ApplyCoachHint(snapshot, planning);
@@ -216,7 +230,7 @@ public partial class OverlayWindow : Window
         }
         if (move.SkillName == planning.Skill.Name)
         {
-            ActionText.Text = "This is the coach's pick for this sinner. Go for it.";
+            ActionText.Text = CoachUiText.CoachPick(Locale);
             if (ReadOutline.Visibility == Visibility.Visible)
             {
                 ReadOutline.Stroke = GoodBrush;
@@ -230,7 +244,7 @@ public partial class OverlayWindow : Window
         }
         else
         {
-            ActionText.Text = $"Coach suggests Skill {move.SkillNumber} ({move.SkillName}) for {move.Sinner} instead.";
+            ActionText.Text = CoachUiText.CoachInstead(Locale, move);
         }
     }
 
@@ -313,10 +327,15 @@ public partial class OverlayWindow : Window
 
     void RenderMoves(AdvisorSnapshot snapshot)
     {
-        var report = snapshot.BestMoves;
-        if (report is null || report.Moves.Count == 0 || !snapshot.PlanningLiveNow)
+        if (!snapshot.PlanningLiveNow)
         {
             MovesPanel.Visibility = Visibility.Collapsed;
+            return;
+        }
+        var report = snapshot.BestMoves;
+        if (report is null || report.Moves.Count == 0)
+        {
+            RenderIdleCoach(snapshot.CoachIdle);
             return;
         }
         MovesPanel.Visibility = Visibility.Visible;
@@ -326,48 +345,91 @@ public partial class OverlayWindow : Window
         {
             _lastTurnNumber = coach.TurnNumber;
             _turnFlashUntil = now + 2500;
+            _lastPickKey = null;
             _sounds.NewPlan();
         }
-        else if (!ReferenceEquals(report, _lastMovesReport))
+        else if (_lastMovesReport is not null && !CoachMoves.SameMoves(report.Moves, _lastMovesReport.Moves))
         {
             _sounds.NewPlan();
         }
         _lastMovesReport = report;
         MovesHeadline.Text = now < _turnFlashUntil
-            ? "New turn, new plan"
-            : $"Best moves ({coach.DoneCount} of {Math.Max(coach.Total, report.Moves.Count)} done)";
-        RenderNowInstruction(report, coach);
+            ? CoachUiText.NewTurn(Locale)
+            : CoachUiText.Headline(Locale, coach.DoneCount, Math.Max(coach.Total, report.Moves.Count));
+        RenderNowInstruction(snapshot, report, coach);
         RenderChecklist(report, coach);
         RenderFooter(report);
         RenderHint();
         PlaceMovesPanel();
     }
 
-    void RenderNowInstruction(BestMoveReport report, CoachProgressState coach)
+    string Locale => _settings.Language;
+
+    void RenderIdleCoach(CoachIdleReason? reason)
+    {
+        if (reason is null)
+        {
+            MovesPanel.Visibility = Visibility.Collapsed;
+            return;
+        }
+        MovesPanel.Visibility = Visibility.Visible;
+        MovesHeadline.Text = Locale == "de" ? "Coach" : "Coach";
+        NowText.Text = reason == CoachIdleReason.NoTeam
+            ? CoachUiText.NoTeamHint(Locale)
+            : CoachUiText.NoEnemyHint(Locale);
+        NowText.Foreground = WarnBrush;
+        NowDetailText.Visibility = Visibility.Collapsed;
+        MovesStack.Children.Clear();
+        MovesFooter.Visibility = Visibility.Collapsed;
+        MovesHint.Visibility = Visibility.Collapsed;
+        PlaceMovesPanel();
+    }
+
+    void RenderNowInstruction(AdvisorSnapshot snapshot, BestMoveReport report, CoachProgressState coach)
     {
         var currentIndex = coach.CurrentIndex >= 0 && coach.CurrentIndex < report.Moves.Count
             ? coach.CurrentIndex
             : coach.Total == 0 ? 0 : -1;
         if (currentIndex < 0)
         {
-            NowText.Text = "All moves assigned. Hit To Battle!";
+            NowText.Text = CoachUiText.AllDone(Locale);
             NowText.Foreground = GoodBrush;
             NowDetailText.Visibility = Visibility.Collapsed;
+            if (!_wasComplete)
+            {
+                _wasComplete = true;
+                _sounds.AllDone();
+            }
             return;
         }
+        _wasComplete = false;
         var move = report.Moves[currentIndex];
-        NowText.Text = $"NOW: {CoachText.Instruction(move, _settings.PlainLanguage)}";
+        var verdict = move.IsUnopposed
+            ? "✅"
+            : $"{CoachText.VerdictIcon(move.WinProbability)} {CoachText.Verdict(move.WinProbability, Locale)}";
+        NowText.Text = $"{CoachUiText.NowPrefix(Locale)}{CoachText.ShortInstruction(move, Locale)}  {verdict}";
         NowText.Foreground = move.IsUnopposed || move.WinProbability >= 0.65
             ? GoodBrush
             : move.WinProbability >= 0.45 ? WarnBrush : BadBrush;
         var details = new List<string>();
-        if (CoachText.Why(move) is { } why)
+        if (_settings.ShowDetails)
         {
-            details.Add(why);
-        }
-        if (CoachText.Fallback(move, _settings.PlainLanguage) is { } fallback)
-        {
-            details.Add(fallback);
+            if (CoachText.Why(move, Locale) is { } why)
+            {
+                details.Add(why);
+            }
+            if (CoachText.Fallback(move, _settings.PlainLanguage, Locale) is { } fallback)
+            {
+                details.Add(fallback);
+            }
+            if (report.SanityAssumed)
+            {
+                details.Add(CoachUiText.SanityAssumedNote(Locale));
+            }
+            if (snapshot.CoachUsingObservedTeam)
+            {
+                details.Add(CoachUiText.ObservedTeamNote(Locale));
+            }
         }
         NowDetailText.Text = string.Join("  ·  ", details);
         NowDetailText.Visibility = details.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
@@ -376,16 +438,22 @@ public partial class OverlayWindow : Window
     void RenderChecklist(BestMoveReport report, CoachProgressState coach)
     {
         MovesStack.Children.Clear();
+        if (!_settings.ShowChecklist)
+        {
+            return;
+        }
         for (var i = 0; i < report.Moves.Count; i++)
         {
             var move = report.Moves[i];
             var done = i < coach.Done.Count && coach.Done[i];
             var isCurrent = i == coach.CurrentIndex;
             var mark = done ? "✔" : isCurrent ? "▶" : "○";
-            var target = move.IsUnopposed ? "free hit" : $"vs {Truncate(move.TargetSkillName ?? "", 16)}";
+            var target = move.IsUnopposed
+                ? CoachUiText.FreeHit(Locale)
+                : Truncate(move.TargetSkillName ?? "", 18);
             var line = new TextBlock
             {
-                Text = $"{mark} {i + 1}. {move.Sinner}: Skill {move.SkillNumber} {target}",
+                Text = $"{mark} {move.Sinner}: Skill {move.SkillNumber} → {target}",
                 Foreground = done
                     ? MutedBrush
                     : move.IsUnopposed || move.WinProbability >= 0.65
@@ -409,9 +477,9 @@ public partial class OverlayWindow : Window
         }
         MovesFooter.Visibility = Visibility.Visible;
         var worst = report.Unblocked[0];
-        var warning = CoachText.UnblockedWarning(worst, _settings.PlainLanguage);
+        var warning = CoachText.UnblockedWarning(worst, _settings.PlainLanguage, Locale);
         MovesFooter.Text = report.Unblocked.Count > 1
-            ? $"{warning} ({report.Unblocked.Count - 1} more unblocked)"
+            ? $"{warning} {CoachUiText.MoreUnblocked(Locale, report.Unblocked.Count - 1)}"
             : warning;
     }
 
@@ -420,8 +488,7 @@ public partial class OverlayWindow : Window
         if (!_settings.ShownCoachIntro)
         {
             MovesHint.Visibility = Visibility.Visible;
-            MovesHint.Text = "Follow the NOW line, one move at a time. It ticks off by itself when you assign the move. " +
-                $"Stuck? {_settings.CoachAdvanceHotkey} skips to the next one.";
+            MovesHint.Text = CoachUiText.Intro(Locale, _settings.CoachAdvanceHotkey);
             if (!_introPersisted && _saveSettings is not null)
             {
                 _introPersisted = true;

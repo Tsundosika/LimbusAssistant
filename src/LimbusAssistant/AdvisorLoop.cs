@@ -65,6 +65,15 @@ public sealed class AdvisorLoop : IDisposable
     bool _leftPlanning;
     bool _newTurnPending;
     bool _planningLiveNow;
+    CoachIdleReason? _coachIdle;
+    bool _coachUsingObservedTeam;
+
+    void ClearBestMoves(CoachIdleReason reason)
+    {
+        _bestMoves = null;
+        _bestMovesSignature = null;
+        _coachIdle = reason;
+    }
 
     public event Action<AdvisorSnapshot>? SnapshotPublished;
 
@@ -406,7 +415,9 @@ public sealed class AdvisorLoop : IDisposable
         DateTimeOffset.Now,
         _bestMoves,
         _coachProgress.State,
-        _planningLiveNow);
+        _planningLiveNow,
+        _coachIdle,
+        _coachUsingObservedTeam);
 
     async Task<PlanningHint?> BuildPlanningHintAsync(CaptureFrame frame, PixelRect content, VisionReading reading)
     {
@@ -706,34 +717,41 @@ public sealed class AdvisorLoop : IDisposable
     {
         var enemies = EffectiveEnemies();
         var roster = RosterNames();
-        if (enemies.Count == 0 || roster.Count == 0)
+        _coachUsingObservedTeam = _team is not { Count: > 0 } && roster.Count > 0;
+        if (roster.Count == 0)
         {
-            _bestMoves = null;
-            _bestMovesSignature = null;
+            ClearBestMoves(CoachIdleReason.NoTeam);
+            return;
+        }
+        if (enemies.Count == 0)
+        {
+            ClearBestMoves(CoachIdleReason.NoEnemy);
             return;
         }
         var units = new List<TurnUnit>();
+        var sanityAssumed = false;
         foreach (var name in roster)
         {
             var identity = _data.Identities.FirstOrDefault(candidate => candidate.Name == name);
             if (identity is not null)
             {
                 units.Add(new TurnUnit(identity, RosterSanity(name)));
+                sanityAssumed |= _sanity.Resolve(name) is null;
             }
         }
         if (units.Count == 0)
         {
-            _bestMoves = null;
-            _bestMovesSignature = null;
+            ClearBestMoves(CoachIdleReason.NoTeam);
             return;
         }
+        _coachIdle = null;
         var signature = $"{string.Join("+", enemies.Select(enemy => enemy.Id))}|" +
             string.Join(",", units.Select(unit => $"{unit.Identity.Name}:{unit.Sanity}"));
         var changed = signature != _bestMovesSignature || _bestMoves is null;
         if (changed)
         {
             _bestMovesSignature = signature;
-            _bestMoves = BestMoveAdvisor.Advise(_solver, units, enemies);
+            _bestMoves = BestMoveAdvisor.Advise(_solver, units, enemies) with { SanityAssumed = sanityAssumed };
         }
         if (_newTurnPending)
         {
@@ -982,7 +1000,8 @@ public sealed class AdvisorLoop : IDisposable
             || (snapshot.Planning?.Matchups?.Count ?? -1) != (_lastPublished.Planning?.Matchups?.Count ?? -1)
             || !ReferenceEquals(snapshot.BestMoves, _lastPublished.BestMoves)
             || !ReferenceEquals(snapshot.Coach, _lastPublished.Coach)
-            || snapshot.PlanningLiveNow != _lastPublished.PlanningLiveNow)
+            || snapshot.PlanningLiveNow != _lastPublished.PlanningLiveNow
+            || snapshot.CoachIdle != _lastPublished.CoachIdle)
         {
             return true;
         }

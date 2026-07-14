@@ -97,7 +97,22 @@ public class BestMoveAdvisorTests
         var report = BestMoveAdvisor.Advise(solver, units, new[] { enemy });
         Assert.NotEmpty(report.Unblocked);
         Assert.Equal("Ryoshu", report.Unblocked[0].SuggestedGuarder);
-        Assert.Equal(2, report.Unblocked[0].GuardSkillNumber);
+        Assert.Equal("Hunker Down", report.Unblocked[0].GuardSkillName);
+    }
+
+    [Fact]
+    public void SkillNumbersCountAttackSkillsOnly()
+    {
+        var solver = new TurnSolver();
+        var guardSkill = new SkillData("g", "Block", 5, 2, 1, SinType.Sloth, DamageType.Guard, 30);
+        var identity = new IdentityData("a", "A", "Sinner", 30,
+            [Skill("a1", 2, 2, 1), guardSkill, Skill("a3", 9, 9, 2)]);
+        var units = new List<TurnUnit> { new(identity, 30) };
+        var enemy = Enemy("e", "Dummy", Skill("e1", 4, 3, 1));
+        var report = BestMoveAdvisor.Advise(solver, units, new[] { enemy });
+        var move = Assert.Single(report.Moves);
+        Assert.Equal("a3", move.SkillName);
+        Assert.Equal(2, move.SkillNumber);
     }
 
     [Fact]

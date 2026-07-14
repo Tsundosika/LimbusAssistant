@@ -26,7 +26,6 @@ public static class BestMoveAdvisor
                     skill.Name,
                     solver.UnblockedThreatDamage(skill, enemy, units, clashCount),
                     guard?.Sinner,
-                    guard?.SkillNumber ?? 0,
                     guard?.SkillName)))
             .OrderByDescending(threat => threat.ExpectedDamage)
             .ToList();
@@ -122,9 +121,9 @@ public static class BestMoveAdvisor
         return best;
     }
 
-    static (string Sinner, int SkillNumber, string SkillName)? FindGuarder(IReadOnlyList<TurnAssignment> assignments)
+    static (string Sinner, string SkillName)? FindGuarder(IReadOnlyList<TurnAssignment> assignments)
     {
-        (string, int, string)? guard = null;
+        (string, string)? guard = null;
         var lowestValue = double.MaxValue;
         foreach (var assignment in assignments)
         {
@@ -135,18 +134,23 @@ public static class BestMoveAdvisor
                 continue;
             }
             lowestValue = assignment.ExpectedValue;
-            guard = (assignment.Unit.Identity.Sinner, SkillNumber(skills, guardSkill), guardSkill.Name);
+            guard = (assignment.Unit.Identity.Sinner, guardSkill.Name);
         }
         return guard;
     }
 
     static int SkillNumber(IReadOnlyList<SkillData> skills, SkillData skill)
     {
-        for (var i = 0; i < skills.Count; i++)
+        var number = 0;
+        foreach (var candidate in skills)
         {
-            if (skills[i].Id == skill.Id)
+            if (IsAttack(candidate))
             {
-                return i + 1;
+                number++;
+            }
+            if (candidate.Id == skill.Id)
+            {
+                return IsAttack(candidate) ? number : 0;
             }
         }
         return 0;

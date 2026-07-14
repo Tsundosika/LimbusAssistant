@@ -73,12 +73,69 @@ public class CoachTextTests
     }
 
     [Fact]
-    public void UnblockedWarningNamesTheGuarder()
+    public void UnblockedWarningPointsAtThePortraitDefend()
     {
-        var threat = new UnblockedThreat("Boss", "Wailing Slam", 35, "Ryoshu", 3, "Chop");
+        var threat = new UnblockedThreat("Boss", "Wailing Slam", 35, "Ryoshu", "Chop");
         var text = CoachText.UnblockedWarning(threat, true);
         Assert.Contains("Wailing Slam", text);
         Assert.Contains("Ryoshu", text);
-        Assert.Contains("Skill 3", text);
+        Assert.Contains("portrait", text);
+        Assert.Contains("Defend", text);
+        Assert.DoesNotContain("Skill", text);
+    }
+
+    [Fact]
+    public void ShortInstructionIsOneGlanceableLine()
+    {
+        var text = CoachText.ShortInstruction(Move());
+        Assert.Equal("Don Quixote: Skill 2 (light blue) → \"Big Swing\"", text);
+    }
+
+    [Fact]
+    public void ShortInstructionForFreeHits()
+    {
+        var move = Move() with { IsUnopposed = true, TargetSkillName = null };
+        Assert.Equal("Don Quixote: Skill 2 (light blue) → free hit", CoachText.ShortInstruction(move));
+    }
+
+    [Theory]
+    [InlineData(0.8, "✅")]
+    [InlineData(0.5, "⚠️")]
+    [InlineData(0.3, "❌")]
+    public void VerdictIconMapsToThreeTiers(double probability, string expected)
+    {
+        Assert.Equal(expected, CoachText.VerdictIcon(probability));
+    }
+
+    [Fact]
+    public void GermanVerdictsAndInstructions()
+    {
+        Assert.Equal("klarer Sieg", CoachText.Verdict(0.8, "de"));
+        Assert.Equal("Münzwurf", CoachText.Verdict(0.5, "de"));
+        var text = CoachText.Instruction(Move(), true, "de");
+        Assert.Contains("Zieh", text);
+        Assert.Contains("hellblau", text);
+        Assert.Contains("klarer Sieg", text);
+    }
+
+    [Fact]
+    public void GermanWhyAndWarning()
+    {
+        var why = CoachText.Why(Move(sinMult: 1.5), "de");
+        Assert.NotNull(why);
+        Assert.Contains("schwach gegen Gloom", why);
+        var warning = CoachText.UnblockedWarning(new UnblockedThreat("Boss", "Slam", 30, "Ryoshu", "Chop"), true, "de");
+        Assert.Contains("Niemand blockt", warning);
+        Assert.Contains("Portrait", warning);
+    }
+
+    [Fact]
+    public void GermanUiTextCoversTheOverlay()
+    {
+        Assert.Contains("Beste Züge", CoachUiText.Headline("de", 1, 4));
+        Assert.Contains("Neue Runde", CoachUiText.NewTurn("de"));
+        Assert.Contains("To Battle", CoachUiText.AllDone("de"));
+        Assert.Contains("Team", CoachUiText.NoTeamHint("de"));
+        Assert.Contains("JETZT", CoachUiText.NowPrefix("de"));
     }
 }

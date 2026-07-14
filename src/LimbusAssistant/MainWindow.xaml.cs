@@ -37,6 +37,22 @@ public partial class MainWindow : Window
 
     public bool PlainLanguage { get; set; } = true;
 
+    public string CoachLanguage { get; set; } = "en";
+
+    bool _gameFound;
+    bool _overlayOn;
+
+    void RefreshQuickStart()
+    {
+        var team = _team.Count > 0;
+        QuickStartText.Text =
+            $"{Check(_gameFound)} Game found    " +
+            $"{Check(team)} Team saved{(team ? $" ({_team.Count})" : "")}    " +
+            $"{Check(_overlayOn)} Overlay on (Ctrl+F8)";
+    }
+
+    static string Check(bool done) => done ? "✓" : "✗";
+
     public void SeedTeam(IEnumerable<(string Name, int Sanity)> members)
     {
         foreach (var (name, sanity) in members)
@@ -60,9 +76,14 @@ public partial class MainWindow : Window
             IdentityCombo.SelectedIndex = 0;
         }
         TeamList.ItemsSource = _team;
-        _team.CollectionChanged += (_, _) => TeamChanged?.Invoke(TeamMembers);
+        _team.CollectionChanged += (_, _) =>
+        {
+            TeamChanged?.Invoke(TeamMembers);
+            RefreshQuickStart();
+        };
         RefreshEnemyList("");
         PopulateWindowList();
+        RefreshQuickStart();
     }
 
     AdvisorSnapshot? _lastSnapshot;
@@ -85,6 +106,12 @@ public partial class MainWindow : Window
                 (Brush)FindResource("GoodBrush"),
                 $"Watching the game. Vision confidence {snapshot.Confidence:P0}. Press Ctrl+F8 in battle to see the advisor."),
         };
+        var gameFound = snapshot.Status is not CaptureStatus.GameNotFound;
+        if (gameFound != _gameFound)
+        {
+            _gameFound = gameFound;
+            RefreshQuickStart();
+        }
         if (!IsVisible || !ReferenceEquals(Tabs.SelectedItem, VisionTab))
         {
             return;
@@ -112,10 +139,14 @@ public partial class MainWindow : Window
         }
     }
 
-    public void SetOverlayVisible(bool visible) =>
+    public void SetOverlayVisible(bool visible)
+    {
         OverlayButton.Content = visible
             ? "Hide overlay  (Ctrl+F8)"
             : "Show overlay in game  (Ctrl+F8)";
+        _overlayOn = visible;
+        RefreshQuickStart();
+    }
 
     void PopulateWindowList()
     {
@@ -197,11 +228,22 @@ public partial class MainWindow : Window
         {
             return;
         }
-        if (!TryReadInt(TeamSanityBox, ClashSkill.MinSanity, ClashSkill.MaxSanity, out var sanity))
+        var sanity = 0;
+        if (TeamSanityBox.Text.Trim().Length > 0
+            && !TryReadInt(TeamSanityBox, ClashSkill.MinSanity, ClashSkill.MaxSanity, out sanity))
         {
             return;
         }
         _team.Add(new TeamEntry(identity, sanity));
+    }
+
+    void OnTeamEntryKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+    {
+        if (e.Key == System.Windows.Input.Key.Enter)
+        {
+            OnAddTeamMemberClick(sender, new RoutedEventArgs());
+            e.Handled = true;
+        }
     }
 
     void OnRemoveTeamMemberClick(object sender, RoutedEventArgs e)
@@ -249,10 +291,12 @@ public partial class MainWindow : Window
         PlanHeadline.Text = enemies.Count == 1
             ? $"Best moves vs {enemies[0].Name}"
             : $"Best moves vs {enemies.Count} enemies";
-        var summary = $"Total expected value {report.TotalExpectedValue:F1} (damage you deal minus damage you take).";
+        var summary = report.TotalExpectedValue >= 0
+            ? $"This plan comes out about {report.TotalExpectedValue:F0} damage ahead (what you deal minus what you take)."
+            : $"Rough turn: expect to take about {-report.TotalExpectedValue:F0} more damage than you deal.";
         if (report.Unblocked.Count > 0)
         {
-            summary += "  Heads up: " + CoachText.UnblockedWarning(report.Unblocked[0], PlainLanguage);
+            summary += "  Heads up: " + CoachText.UnblockedWarning(report.Unblocked[0], PlainLanguage, CoachLanguage);
         }
         PlanSummary.Text = summary;
         PlanList.ItemsSource = report.Moves.Select((move, index) => Describe(index + 1, move)).ToList();
@@ -266,12 +310,12 @@ public partial class MainWindow : Window
             >= 0.45 => "🟡",
             _ => "🔴",
         };
-        var lines = new List<string> { $"{icon}  {index}. {CoachText.Instruction(move, PlainLanguage)}" };
-        if (CoachText.Why(move) is { } why)
+        var lines = new List<string> { $"{icon}  {index}. {CoachText.Instruction(move, PlainLanguage, CoachLanguage)}" };
+        if (CoachText.Why(move, CoachLanguage) is { } why)
         {
             lines.Add($"    {why}");
         }
-        if (CoachText.Fallback(move, PlainLanguage) is { } fallback)
+        if (CoachText.Fallback(move, PlainLanguage, CoachLanguage) is { } fallback)
         {
             lines.Add($"    {fallback}");
         }
