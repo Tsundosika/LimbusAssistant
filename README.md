@@ -67,10 +67,13 @@ touches the game.
    favored, yellow = even, red = risky. That's it.
 
 **New to Limbus?** Open the assistant window (`Ctrl+F9`), go to the **Turn
-Advisor** tab, and add the sinners on your team. Now the in-game overlay shows a
-**Best moves this turn** panel that names, for each sinner, the exact skill to
-use and which enemy attack to clash, ranked and color-coded. Just follow the
-list from top to bottom.
+Advisor** tab, and add the sinners on your team (saved automatically, you do it
+once). In battle the overlay becomes a backseat coach: a big **NOW:** line tells
+you one move at a time ("Drag Don Quixote's Skill 2, the red Wrath slash, onto
+Bloody Bite, easy win"), ticks it off by itself when you assign it, and moves to
+the next. It tells you why ("enemy is weak to blunt"), what to use if the skill
+was not dealt this turn, and who should Guard when an enemy hit cannot be
+blocked. Stuck? `Ctrl+F11` skips to the next move.
 
 If the boxes in the *Vision (advanced)* tab don't line up with the clash UI,
 adjust `%AppData%\LimbusAssistant\calibration.json` (values are fractions of
@@ -89,6 +92,7 @@ dotnet run --project src/LimbusAssistant
 | --- | --- |
 | `Ctrl+F8` | Show / hide the advisor overlay |
 | `Ctrl+F9` | Show / hide the assistant window |
+| `Ctrl+F11` | Coach: mark the current move done and show the next one |
 
 Settings live in `%AppData%\LimbusAssistant\settings.json`:
 
@@ -97,8 +101,14 @@ Settings live in `%AppData%\LimbusAssistant\settings.json`:
 | `WindowTitle` | *(empty = auto)* | Window to capture; empty auto-detects LimbusCompany or GeForce NOW |
 | `ToggleOverlayHotkey` | `Ctrl+F8` | Overlay toggle hotkey |
 | `ToggleDebugHotkey` | `Ctrl+F9` | Debug panel toggle hotkey |
+| `CoachAdvanceHotkey` | `Ctrl+F11` | Coach skip-to-next-move hotkey |
 | `CaptureIntervalMilliseconds` | `250` | How often the screen is re-read |
 | `MinimumConfidence` | `0.5` | Below this, a reading shows `?` instead of a guess |
+| `Team` | *(empty)* | Your team, saved automatically from the Turn Advisor tab |
+| `PlainLanguage` | `true` | Verdicts in words ("easy win"); set `false` for raw percentages |
+| `SoundCues` | `true` | Chime on a new plan, tick when you grab the coach's pick |
+| `CoachFontScale` | `1.0` | Size of the coach panel (e.g. `1.3` for larger text) |
+| `CoachPanelPosition` | `left` | Coach panel spot: `left`, `right`, or `top` |
 
 ## How it assists you while you play
 
